@@ -222,6 +222,7 @@ footer {
     background: linear-gradient(to bottom right, #56B4D9, white); /* Standard syntax */
     color: #1D4380;
     margin-top: 10px;
+    text-align: center;
 }
 
 @keyframes moveFromBottom {
@@ -587,7 +588,7 @@ footer {
         position: relative;
         display: inline-block;
         vertical-align: top;
-        width: 245.8px;
+        width: 239.5px;
         min-height: 260px;
         border-right: solid 1px #BFBFBF;
         border-bottom: solid 1px #BFBFBF;

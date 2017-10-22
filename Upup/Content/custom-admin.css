@@ -1,0 +1,9 @@
+﻿.skin-blue-light .sidebar-menu > li > a {
+    font-weight: normal;
+}
+.btn.upload {
+    margin-top: 10px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: #333333;
+}
