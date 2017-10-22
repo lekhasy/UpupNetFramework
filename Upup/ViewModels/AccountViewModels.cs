@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Upup.Globalization;
 
 namespace Upup.Models
 {
@@ -64,21 +65,28 @@ namespace Upup.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        // user info
+        public string FullName { get; set; }
+        public string OrgName { get; set; }
+        public string DepartmentName { get; set; }
+        public string Website { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Address4 { get; set; }
+        public string PostalCode { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Fax { get; set; }
+        // questions
+        public int IndustryId { get; set; }
+        public int ServiceId { get; set; }
+        public int NumberOfDesigner { get; set; }
+        public int NumberOfEmployee { get; set; }
+        public int KnowById { get; set; }
     }
 
     public class ResetPasswordViewModel

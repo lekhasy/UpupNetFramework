@@ -22,7 +22,7 @@ namespace Upup.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +34,9 @@ namespace Upup.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +120,7 @@ namespace Upup.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -151,12 +151,32 @@ namespace Upup.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    Address1 = model.Address1,
+                    Address2 = model.Address2,
+                    Address3 = model.Address3,
+                    Address4 = model.Address4,
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DepartmentName = model.DepartmentName,
+                    Fax = model.Fax,
+                    IndustryId = model.IndustryId,
+                    KnowByid = model.KnowById,
+                    NumberOfDesigner = model.NumberOfDesigner,
+                    NumberOfEmployee = model.NumberOfEmployee,
+                    OrgName = model.OrgName,
+                    PhoneNumber = model.PhoneNumber,
+                    PostalCode = model.PostalCode,
+                    ServiceId = model.ServiceId,
+                    Webiste = model.Website
+
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -421,6 +441,23 @@ namespace Upup.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        [AllowAnonymous]
+        public ActionResult CheckEmailAvailable(string email)
+        {
+            using (ApplicationDbContext dbContext = new ApplicationDbContext())
+            {
+                var match = dbContext.Users.FirstOrDefault(u => u.Email == email);
+                if (match == null)
+                {
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                }
+            }
         }
 
         #region Helpers

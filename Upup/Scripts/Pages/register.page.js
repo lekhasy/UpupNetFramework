@@ -10,10 +10,6 @@ $(function () {
             // The key name on the left side is the name attribute
             // of an input field. Validation rules are defined
             // on the right side
-            UserName: {
-                required: true,
-                minlength: 4
-            },
             Password: {
                 required: true,
                 minlength: 8
@@ -47,10 +43,6 @@ $(function () {
         },
         // Specify validation error messages
         messages: {
-            UserName: {
-                required: $uuLang.getText("required_field"),
-                minlength: $uuLang.getText("username_min_length_validation")
-            },
             Password: {
                 required: $uuLang.getText("required_field"),
                 minlength: $uuLang.getText("password_min_length_validation")
@@ -74,28 +66,16 @@ $(function () {
         },
         submitHandler: function (form) {
             // check for user name and email are available
-            $uuHttpHelper.get("account", "CheckUserNameAvailable", { userName: $("[name='UserName']").val() },
-                function (userAvailable) {
-                    if (userAvailable) {
-                        console.log(userAvailable);
-                        $uuHttpHelper.get("account", "CheckEmailAvailable", { email: $("[name='Email']").val() }, function (emailAvailable) {
-                            console.log(emailAvailable);
-                            if (emailAvailable) {
-                                form.submit();
-                            }
-                            else {
-                                $("#registerFailModal").find('.modal-title').text($uuLang.getText("register_fail"));
-                                $("#registerFailModal").find('.registerFailTextContent').text($uuLang.getText("register_fail_email_existed"));
-                                $('[data-target="#registerFailModal"]').click();
-                            }
-                        });
-                    }
-                    else {
-                        $("#registerFailModal").find('.modal-title').text($uuLang.getText("register_fail"));
-                        $("#registerFailModal").find('.registerFailTextContent').text($uuLang.getText("register_fail_username_existed"));
-                        $('[data-target="#registerFailModal"]').click();
-                    }
-                });
+            $uuHttpHelper.get("account", "CheckEmailAvailable", { email: $("[name='Email']").val() }, function (emailAvailable) {
+                if (emailAvailable) {
+                    form.submit();
+                }
+                else {
+                    $("#registerFailModal").find('.modal-title').text($uuLang.getText("register_fail"));
+                    $("#registerFailModal").find('.registerFailTextContent').text($uuLang.getText("register_fail_email_existed"));
+                    $('[data-target="#registerFailModal"]').click();
+                }
+            });
         }
     });
 });
