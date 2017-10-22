@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">*@
+    <div id="header">
+        <div class="container">
+            <div class="top-header row">
+                <div class="col-md-3">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/Content/Images/logo.jpg" alt="Logo" />
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="text-center">Chuyên cung cấp chi tiết, thiết bị cơ khí</h3>
+                    <h3 class="text-center">Không giới hạn số lượng mua hàng</h3>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-right">
+                        <button class="btn btn-danger">Tạo tài khoản</button>
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-primary">Đăng nhập</button>
+                    </div>
+                </div>
+            </div>
+            @*<div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    </ul>
+                </div>*@
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search-wrapper">
+                        <div class="row">
+                            <div class="col-md-7 col-md-offset-3">
+                                <input type="text" />
+                                <button class="btn btn-default">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="topMenu">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="#" class="menu-item"><span class="icon product-icon"></span><span class="content">Tất cả sản phẩm</span></a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="menu-item"><span class="icon tech-icon"></span><span class="content">Công nghệ</span></a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="menu-item"><span class="icon support-icon"></span><span class="content">Hướng dẫn sử dụng</span></a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="menu-item"><span class="icon event-icon"></span><span class="content">Triển lãm sự kiện</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*</nav>*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>Copyright &copy; 2017 | Upup Mechanic | Powered by ICA Team</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/js-cookie/js.cookie-2.1.4.min.js"></script>
+    <!-- End of liblary scripts -->
+
+    <!-- Begin of common scripts -->
+    <script src="~/Scripts/site.js" asp-append-version="true"></script>
+    <script src="~/Scripts/helpers/utils.js" asp-append-version="true"></script>
+    <script src="~/Scripts/helpers/upupConfigs.js" asp-append-version="true"></script>
+    <script src="~/Scripts/helpers/lang.js" asp-append-version="true"></script>
+    <script src="~/Scripts/helpers/httpHelper.js" asp-append-version="true"></script>
+    <!-- End of liblary scripts -->
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,210 @@
+﻿@model Upup.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+@using Upup.Globalization 
+@using Upup.Models;
+
+<div>
+    <form name="registration" method="post" action="/account/register">
+        <div class="panel panel-default panel-group">
+            <div class="panel-heading">
+                <h2>@Lang.Register</h2>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-primary">
+                    <div class="panel-heading ">
+                        <h4>@Lang.Register_Section_Login_Info</h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label for="UserName">@Lang.Register_UserId </label> <span class="text-red">*</span>
+                            <input name="UserName" class="form-control" type="text" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Password">@Lang.Register_Password </label> <span class="text-red">*</span>
+                            <input name="Password" class="form-control" type="password" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PasswordConfirm">@Lang.Register_Password_Confirm </label> <span class="text-red">*</span>
+                            <input name="PasswordConfirm" class="form-control" type="password" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <h4>@Lang.Register_Section_User_Info</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="FullName">@Lang.Register_Name </label> <span class="text-red">*</span>
+                            <input name="FullName" class="form-control" type="text" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="OrgName">@Lang.Register_Company_Name </label> <span class="text-red">*</span>
+                            <input name="OrgName" class="form-control" type="text" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="DepartmentName">@Lang.Register_Department</label>
+                            <input name="DepartmentName" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Email">@Lang.Register_Email </label> <span class="text-red">*</span>
+                            <input name="Email" class="form-control" type="text" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="EmailConfirm">@Lang.Register_Email_Confirm </label> <span class="text-red">*</span>
+                            <input name="EmailConfirm" class="form-control" type="text" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Address1">@Lang.Register_Address1 </label> <span class="text-red">*</span>
+                            <input name="Address1" class="form-control" type="text" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Address2">@Lang.Register_Address2</label>
+                            <input name="Address2" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Address3">@Lang.Register_Address3</label>
+                            <input name="Address3" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Address4">@Lang.Register_Address4</label>
+                            <input name="Address4" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PostalCode">@Lang.Register_Postal_Code</label>
+                            <input name="PostalCode" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PhoneNumber">@Lang.Register_Phone</label>
+                            <input name="PhoneNumber" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Fax">@Lang.Register_Fax</label>
+                            <input name="Fax" class="form-control" type="text" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <h4>@Lang.Register_Section_Questionnaire</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="IndustryId">@Lang.Register_Type_of_Business</label>
+                            <select name="IndustryId" class="form-control">
+                                @foreach (var item in TypeOfBusinessesExtensions.GetSelectionList())
+                                {
+                                    <option value="@item.Value">@item.Display</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ServiceId">@Lang.Register_Main_Served_Industry</label>
+                            <select name="ServiceId" class="form-control">
+                                @foreach (var item in MainServedIndustryExtensions.GetSelectionList())
+                                {
+                                    <option value="@item.Value">@item.Display</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="NumberOfDesigner">@Lang.Register_Number_Of_Designer</label>
+                            <select name="NumberOfDesigner" class="form-control">
+                                <option value="0">@Lang.Register_Select</option>
+                                <option value="1">0</option>
+                                <option value="2">1-5</option>
+                                <option value="3">6-10</option>
+                                <option value="4">11-20</option>
+                                <option value="5">21-50</option>
+                                <option value="6">> 50</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="NumberOfEmployee">@Lang.Register_Number_Of_Employee</label>
+                            <select name="NumberOfEmployee" class="form-control">
+                                <option value="0">@Lang.Register_Select</option>
+                                <option value="1">1-20</option>
+                                <option value="2">21-50</option>
+                                <option value="3">51-100</option>
+                                <option value="4">101-200</option>
+                                <option value="5">201-300</option>
+                                <option value="6">301-500</option>
+                                <option value="7">501-1000</option>
+                                <option value="8">> 1000</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="KnowById">@Lang.Register_Know_Us_From</label>
+                            <select name="KnowById" class="form-control">
+                                @foreach (var item in KnowFromExtensions.GetSelectionList())
+                                {
+                                    <option value="@item.Value">@item.Display</option>
+                                }
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <input type="submit" class="btn btn-primary" value="@Lang.Register">
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn hidden" data-toggle="modal" data-target="#registerFailModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="registerFailModal" class="modal danger fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-danger custom-modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Đăng</h4>
+            </div>
+            <div class="modal-body">
+                <p class="registerFailTextContent">Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Pages/register.page.js"></script>
+}
