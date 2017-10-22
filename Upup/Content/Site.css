@@ -118,11 +118,11 @@ body {
     margin-top: 10px;
 }
 
-    #topMenu > div, #topHomeBody > div {
+    #topMenu > div, #topHomeBody > div, #categoryProductLv1 > div {
         margin: 0;
     }
 
-    #topMenu div.col-md-3, #topHomeBody div.col-md-3 {
+    #topMenu div.col-md-3, #topHomeBody div.col-md-3, #categoryProductLv1 div.col-md-3 {
         width: 24.6%;
         padding: 0;
         margin-right: 6px;
@@ -143,6 +143,11 @@ body {
     margin-right: 0;
 }
 
+#categoryProductLv1 div.col-md-9 {
+    width: 74.8%;
+    padding: 0;
+}
+
 .quick-access .btn {
     width: 175px;
     margin-bottom: 10px;
@@ -152,8 +157,8 @@ body {
     background: #e2f0ff;
     display: block;
     padding: 10px 20px;
-    color: #005382;
-    border: 1px solid #5F9EA0;
+    color: #64aaac;
+    border: 1px solid #86cccf;
     text-align: center;
 }
 
@@ -274,7 +279,6 @@ footer {
 .header {
     font-size: 12px;
     line-height: 1.5;
-    background: #f2f2f2;
     height: 120px;
     margin: 0 auto;
     text-align: left;
@@ -576,7 +580,7 @@ footer {
         right: 0;
     }
 
-.product-category-item {
+.product-category-items {
     width: 100%;
     border-top: 1px solid #BFBFBF;
     border-left: 1px solid #BFBFBF;
@@ -584,7 +588,7 @@ footer {
     font-size: 0;
 }
 
-    .product-category-item li {
+    .product-category-items li, .product-category-item {
         position: relative;
         display: inline-block;
         vertical-align: top;
@@ -607,13 +611,13 @@ footer {
         padding: 20px;
     }
 
-        .product-category-item li a {
+        .product-category-items li a, .product-category-item a {
             display: block;
             text-decoration: none;
             animation: fadeInFromNone 0.5s ease-out;
         }
 
-            .product-category-item li a:hover {
+            .product-category-items li a:hover, .product-category-item a:hover {
                 opacity: 0.75;
             }
 
@@ -626,14 +630,14 @@ footer {
     color: #0169c6;
 }
 
-.product-category-item li p {
+.product-category-items li p, .product-category-item p {
     color: #333;
     margin-bottom: 5px;
     font-size: 9.5pt;
     line-height: 18px;
 }
 
-.product-category-item li img {
+.product-category-items li img, .product-category-item img {
     margin: 0;
     width: 197px;
     position: absolute;
@@ -641,9 +645,17 @@ footer {
     left: 20px;
 }
 
-#bottomHomeBody {
-    margin-top: 10px;
+.product-category-items .product-category-item {
+    width: 212.9px;
 }
+
+    .product-category-items .product-category-item img {
+        width: 172px;
+    }
+    
+    #bottomHomeBody {
+        margin-top: 10px;
+    }
 
     #bottomHomeBody .col-md-10 {
         padding: 0 0 0 15px;
@@ -660,7 +672,7 @@ footer {
 
     .content-wrapper h3 {
         padding: 10px;
-        background-color: #5F9EA0;
+        background-color: #86cccf;
         color: #ffffff;
         text-align: center;
         font-size: 10.5pt;
@@ -714,6 +726,86 @@ footer {
 .error {
     color: red;
 }
+
+#crumbs {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+    #crumbs ul {
+        list-style: none;
+        display: inline-table;
+    }
+
+        #crumbs ul li {
+            display: inline;
+        }
+
+            #crumbs ul li.active a {
+                background: #64aaac;
+            }
+            
+            #crumbs ul li a {
+                display: block;
+                float: left;
+                height: 32px;
+                background: #86cccf;
+                text-align: center;
+                padding: 9px 16px 0 36px;
+                position: relative;
+                margin: 0 10px 0 0;
+                font-size: 14px;
+                text-decoration: none;
+                color: #fff;
+            }
+
+                #crumbs ul li a:after {
+                    content: "";
+                    border-top: 16px solid transparent;
+                    border-bottom: 16px solid transparent;
+                    border-left: 16px solid #86cccf;
+                    position: absolute;
+                    right: -16px;
+                    top: 0;
+                    z-index: 1;
+                }
+
+                #crumbs ul li a:before {
+                    content: "";
+                    border-top: 16px solid transparent;
+                    border-bottom: 16px solid transparent;
+                    border-left: 16px solid white;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
+
+            #crumbs ul li:first-child a {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+
+                #crumbs ul li:first-child a:before {
+                    display: none;
+                }
+
+            #crumbs ul li:last-child a {
+                padding-right: 34px;
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
+                #crumbs ul li:last-child a:after {
+                    display: none;
+                }
+
+            #crumbs ul li a:hover {
+                background: #64aaac;
+            }
+
+                #crumbs ul li a:hover:after {
+                    border-left-color: #64aaac;
+                }
 
 /*this help modal with ng-danger header display properly*/
 .custom-modal-header {

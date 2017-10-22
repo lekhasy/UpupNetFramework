@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="categoryProductLv1">
+    <div class="row">
+        <div class="col-md-3">
+            @{Html.RenderPartial("_MenuPartial");}
+        </div>
+        <div class="col-md-9">
+            <div id="crumbs">
+                <ul>
+                    <li><a href="#1">Ốc vít</a></li>
+                    <li><a href="#2">Ốc vít titan</a></li>
+                    <li class="active"><a href="#5">Ốc lục giác</a></li>
+                </ul>
+            </div>
+            <div class="product-category-items">
+                @for (var i = 0; i < 8; i++)
+                {
+                    Html.RenderPartial("_ProductCategoryItemPartial");
+                }
+            </div>
+        </div>
+    </div>
+</div>
