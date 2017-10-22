@@ -207,6 +207,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Migrations\201710220719024_AddQuantity.cs" />
     <Compile Include="Migrations\201710220719024_AddQuantity.Designer.cs">
       <DependentUpon>201710220719024_AddQuantity.cs</DependentUpon>
@@ -252,6 +253,15 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\admin-avatar.jpg" />
+    <Content Include="Images\banner1.svg" />
+    <Content Include="Images\banner2.svg" />
+    <Content Include="Images\banner3.svg" />
+    <Content Include="Images\banner4.svg" />
+    <Content Include="Images\icons\calendar-icon.png" />
+    <Content Include="Images\icons\support-icon.png" />
+    <Content Include="Images\icons\tech-icon.png" />
+    <Content Include="Images\icons\tool-icon.png" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="Scripts\admin-custom.js" />
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\bootstrap-dialog.js" />

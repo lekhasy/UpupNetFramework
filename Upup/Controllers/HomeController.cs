@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Upup.Web.Helpers;
 
 namespace Upup.Controllers
 {
@@ -10,6 +11,7 @@ namespace Upup.Controllers
     {
         public ActionResult Index()
         {
+            //MailHelper.SendMailNow("lekhasy@outlook.com", "Test", "Test hàng cái nha", null, null, null);
             return View();
         }
 
