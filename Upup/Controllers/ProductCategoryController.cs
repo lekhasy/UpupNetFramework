@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Upup.Controllers
 {
-    public class ProductCategoryController : Controller
+    public class ProductCategoryController : ControllerBase
     {
         // GET: ProductCategory
         public ActionResult Index()

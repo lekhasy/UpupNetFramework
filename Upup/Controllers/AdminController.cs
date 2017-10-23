@@ -10,7 +10,7 @@ using Upup.Models;
 
 namespace Upup.Controllers {
     //[Authorize(Roles = "Admin")]
-    public class AdminController : Controller {
+    public class AdminController : ControllerBase {
         //
         // GET: /Admin/
 
