@@ -11,48 +11,15 @@ using Microsoft.Owin.Security;
 using Upup.Models;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace Upup.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
 
         public AccountController()
         {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
         }
 
         //
@@ -154,8 +121,6 @@ namespace Upup.Controllers
         {
             if (ModelState.IsValid)
             {
-                var customerRole = HttpContext.GetOwinContext().Get<ApplicationDbContext>().Roles.First(r => r.Name == "Customer");
-
                 var user = new ApplicationUser
                 {
                     Address1 = model.Address1,
@@ -176,10 +141,12 @@ namespace Upup.Controllers
                     ServiceId = model.ServiceId,
                     Webiste = model.Website
                 };
-                user.Roles.Add(new IdentityUserRole() { RoleId = customerRole.Id });
 
                 var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+
+                var addRoleResult = await UserManager.AddToRoleAsync(user.Id, "Customer");
+
+                if (result.Succeeded && addRoleResult.Succeeded)
                 {
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -424,26 +391,6 @@ namespace Upup.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
-            }
-
-            base.Dispose(disposing);
         }
 
         [AllowAnonymous]
