@@ -31,15 +31,18 @@ namespace Upup.Models
             return new ApplicationDbContext();
         }
 
-        public IDbSet<Post> Posts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
-        public IDbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
-        public IDbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
 
-        public IDbSet<Product> Products { get; set; }
+        public DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
 
-        public IDbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
     }
 
     // This is useful if you do not want to tear down the database each time you run the application.

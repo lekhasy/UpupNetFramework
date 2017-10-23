@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Upup.Controllers
 {
-    public class AuthCheckController : ControllerBase
+    public class AuthCheckController : UpupControllerBase
     {
         public ActionResult Index()
         {
