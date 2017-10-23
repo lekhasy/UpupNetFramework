@@ -7,6 +7,7 @@ using Upup.Web.Helpers;
 
 namespace Upup.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : ControllerBase
     {
         public ActionResult Index()

@@ -9,22 +9,13 @@ using System.Web.Security;
 using Upup.Models;
 
 namespace Upup.Controllers {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase {
         //
         // GET: /Admin/
 
         
         public ActionResult AdminConsole() {
-            return View();
-        }
-
-        //#region Login Admin
-
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 

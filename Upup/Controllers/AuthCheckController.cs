@@ -16,32 +16,32 @@ namespace Upup.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Admin()
         {
-            return Json("Admin");
+            return Json("Admin", JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "Admin, Editor")]
         public ActionResult AdminOrEditor()
         {
-            return Json("Admin or editor");
+            return Json("Admin or editor", JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "Admin, Customer")]
         public ActionResult AdminOrCustomer()
         {
-            return Json("Admin or customer");
+            return Json("Admin or customer", JsonRequestBehavior.AllowGet);
         }
 
 
         [Authorize(Roles = "Customer")]
         public ActionResult Customer()
         {
-            return Json("customer");
+            return Json("customer", JsonRequestBehavior.AllowGet);
         }
 
         [Authorize()]
         public ActionResult Authenticated()
         {
-            return Json("authenticated");
+            return Json("authenticated", JsonRequestBehavior.AllowGet);
         }
 
     }

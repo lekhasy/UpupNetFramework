@@ -14,23 +14,17 @@ namespace Upup.Web.Helpers
     {
         public static void SendMailNow(string toEmail, string subject, string htmlBody, string fromEmail, string cc, string bcc)
         {
-            try
-            {
-                MailMessage mail = new MailMessage("no-reply@upup.com.vn", toEmail);
-                SmtpClient client = new SmtpClient();
-                client.Port = 25;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Host = "mail.upup.com.vn";
-                client.Credentials = new NetworkCredential("no-reply@upup.com.vn", "Aa6LceC,<3P[3A@)");
-                mail.Subject = subject;
-                mail.Body = htmlBody;
-                client.Send(mail);
-            }
-            catch (Exception ex)
-            {
-                var a = ex;
-            }
+            MailMessage mail = new MailMessage("no-reply@upup.com.vn", toEmail);
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Host = "mail.upup.com.vn";
+            client.Credentials = new NetworkCredential("no-reply@upup.com.vn", "Aa6LceC,<3P[3A@)");
+            mail.Subject = subject;
+            mail.Body = htmlBody;
+            mail.IsBodyHtml = true;
+            client.Send(mail);
         }
     }
 }
