@@ -200,12 +200,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthCheckController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductCategoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Migrations\201710220719024_AddQuantity.cs" />
     <Compile Include="Migrations\201710220719024_AddQuantity.Designer.cs">
       <DependentUpon>201710220719024_AddQuantity.cs</DependentUpon>
@@ -225,8 +229,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin-style.css" />
+    <Content Include="Content\AdminLTE.min.css" />
+    <Content Include="Content\bootstrap-dialog.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom-admin.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\banner1.svg" />
     <Content Include="Content\Images\banner2.svg" />
     <Content Include="Content\Images\banner3.svg" />
@@ -236,20 +245,55 @@
     <Content Include="Content\Images\icons\tech-icon.png" />
     <Content Include="Content\Images\icons\tool-icon.png" />
     <Content Include="Content\Images\logo.jpg" />
+    <Content Include="Content\ionicons.min.css" />
+    <Content Include="Content\jquery-jvectormap-2.0.2.css" />
+    <Content Include="Content\select2.min.css" />
+    <Content Include="Content\_all-skins.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\admin-avatar.jpg" />
+    <Content Include="Images\banner1.svg" />
+    <Content Include="Images\banner2.svg" />
+    <Content Include="Images\banner3.svg" />
+    <Content Include="Images\banner4.svg" />
+    <Content Include="Images\icons\calendar-icon.png" />
+    <Content Include="Images\icons\support-icon.png" />
+    <Content Include="Images\icons\tech-icon.png" />
+    <Content Include="Images\icons\tool-icon.png" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Scripts\admin-custom.js" />
+    <Content Include="Scripts\app.min.js" />
+    <Content Include="Scripts\bootstrap-dialog.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\civem-0.0.7.min.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\fastclick.min.js" />
     <Content Include="Scripts\helpers\utils.js" />
     <Content Include="Scripts\helpers\upupConfigs.js" />
+    <Content Include="Scripts\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Scripts\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\jquery.sparkline.min.js" />
     <Content Include="Scripts\js-cookie\js.cookie-2.1.4.min.js" />
     <Content Include="Scripts\js-cookie\js.cookie.js" />
+    <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\FiraSans-Regular.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
@@ -299,6 +343,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Admin\AdminConsole.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\ProductCategory\Index.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Shared\_ProductCategoryItemPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

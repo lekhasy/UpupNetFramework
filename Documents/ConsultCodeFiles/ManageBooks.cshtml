@@ -1,0 +1,434 @@
+﻿@{
+    ViewBag.Title = "Quản lý sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using Booky.Helper
+@model Booky.Models.BookModel
+
+@section AddCssToHead
+{
+    <link href="@Url.Content("~/Content/dropzone.min.css")" rel="stylesheet" type="text/css" />
+}
+
+<section class="content-header">
+    <h1>
+        Quản lý Sách
+        <small>Preview</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>@Html.ActionSiteMap("AdminConsole", "Admin", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
+        <li class="active">Quản lý Sách</li>
+    </ol>
+</section>
+
+@using (Html.BeginForm("ManageBooks", "Admin", FormMethod.Post, new { id = "insertForm" })) {
+    <section class="content">
+        <div class="box box-primary">
+            <!-- form start -->
+            <form role="form">
+                <div class="box-body">
+                    @Html.HiddenFor(n => n.Id)
+                    @Html.HiddenFor(n => n.CategoryName)
+                    @Html.HiddenFor(n => n.AuthorName)
+                    @Html.HiddenFor(n => n.PublisherName)
+                    @Html.HiddenFor(n => n.ExporterName)
+                    @Html.HiddenFor(n => n.Tags)
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.IdCategory)
+                        @Html.DropDownListFor(n => n.IdCategory, Model.BookCategories, new
+                        {
+                            @class = "form-control",
+                            @required = "required",
+                            @data_errormessage_value_missing = "Vui lòng chọn danh mục"
+                        })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Name)
+                        @Html.TextBoxFor(n => n.Name, new {
+                       @class = "form-control",
+                       @placeholder = "Nhập tên sách",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền tên sách"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.ImageUrl)
+                        @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl)) {
+                            <img src="/Images/Books/@Model.ImageUrl" alt="@Model.Name" width="150" />
+                        }
+                        <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-img">Upload Image</button>
+                        @Html.HiddenFor(p => p.ImageUrl)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.IdAuthor)
+                        @Html.DropDownListFor(n => n.IdAuthor, Model.BookAuthors, new {
+                            @class = "form-control",
+                            @required = "required",
+                            @data_errormessage_value_missing = "Vui lòng chọn tác giả"
+                        })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.IdPublisher)
+                        @Html.DropDownListFor(n => n.IdPublisher, Model.BookPublishers, new {
+                            @class = "form-control",
+                            @required = "required",
+                            @data_errormessage_value_missing = "Vui lòng chọn nhà xuất bản"
+                        })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.IdExporter)
+                        @Html.DropDownListFor(n => n.IdExporter, Model.BookExporters, new {
+                       @class = "form-control",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng chọn nhà phát hành"
+                   })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Summary)
+                        @Html.TextAreaFor(n => n.Summary, new {
+                       @class = "form-control",
+                       @placeholder = "Nhập sơ lược về sách",
+                       @rows = "3"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.FileUrl)
+                        <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-file">Upload File</button>
+                        @Html.HiddenFor(p => p.FileUrl)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.IsFree)
+                        @Html.CheckBoxFor(n => n.IsFree)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.IsFeatured)
+                        @Html.CheckBoxFor(n => n.IsFeatured)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Price)
+                        @Html.TextBoxFor(n => n.Price, new {
+                       @class = "form-control",
+                       @placeholder = "Nhập giá",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền giá sách"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Tags)
+                        @Html.DropDownList("SelectTags",Model.TagCategories, new
+                        {
+                            @multiple = "multiple", 
+                            @class = "form-control js-example-basic-multiple",
+                            @required = "required",
+                            @data_errormessage_value_missing = "Vui lòng thêm thẻ Tag"
+                        })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.PageDescription)
+                        @Html.TextBoxFor(n => n.PageDescription, new {
+                       @class = "form-control",
+                       @placeholder = "Nhập mô tả cho trang",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền mô tả trang"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.PageKeywords)
+                        @Html.TextBoxFor(n => n.PageKeywords, new {
+                       @class = "form-control",
+                       @placeholder = "Nhập từ khỏa cho trang",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
+                   })
+                    </div>
+                </div><!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </section>
+}
+
+<div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Books"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm single-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single File</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "BookFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Dữ liệu Sách</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên danh mục</th>
+                        <th>Tên sách</th>
+                        <th>Hình ảnh</th>
+                        <th>Tác giả</th>
+                        <th>Tùy chỉnh</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</section>
+
+@section AddScriptToBody{
+    <script src="@Url.Content("~/Scripts/dropzone.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $select = $(".js-example-basic-multiple");
+            $select.select2().on("change", function(e) {
+                $("#Tags").val($("#SelectTags").val());
+            });
+            $select.val($("#Tags").val().split(',')).trigger("change");
+        });
+        $(function() {
+            Dropzone.options.dropzoneForm = {
+                maxFiles: 1,
+                init: function() {
+                    this.on("success", function(file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function(e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#ImageUrl").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            Dropzone.options.dropzoneForm2 = {
+                maxFiles: 1,
+                init: function() {
+                    this.on("success", function(file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function(e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#FileUrl").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            $('#IdCategory').change(function () {
+                var $this = $(this);
+                if ($this.find('option').is(':selected')) {
+                    $('#CategoryName').val($this.find('option[value=' + $this.val() + ']').text());
+                }
+            });
+
+            $('#IdAuthor').change(function () {
+                var $this = $(this);
+                if ($this.find('option').is(':selected')) {
+                    $('#AuthorName').val($this.find('option[value=' + $this.val() + ']').text());
+                }
+            });
+
+            $('#IdPublisher').change(function () {
+                var $this = $(this);
+                if ($this.find('option').is(':selected')) {
+                    $('#PublisherName').val($this.find('option[value=' + $this.val() + ']').text());
+                }
+            });
+
+            $('#IdExporter').change(function () {
+                var $this = $(this);
+                if ($this.find('option').is(':selected')) {
+                    $('#ExporterName').val($this.find('option[value=' + $this.val() + ']').text());
+                }
+            });
+
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('Summary', {
+                extraPlugins: 'divarea'
+            });
+
+            $("button[type='submit']").click(function() {
+                var messageLength = CKEDITOR.instances.Summary.getData().replace(/<[^>]*>/gi, '').length;
+                if (!messageLength && $("#IdCategory").val() !== '' && $("#Name").val() !== '' && $("#Author").val() !== '') {
+                    AlertBootstrap('Vui lòng viết vài dòng tóm lượt');
+                    return false;
+                }
+                return true;
+            });
+
+            var $table = $("#example1").DataTable({
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                    "search": "Tìm kiếm: ",
+                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
+                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
+                    "infoEmpty": "Dữ liệu không tồn tại",
+                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "last": "Trang cuối",
+                        "previous": "Trang trước",
+                        "next": "Trang sau"
+                    }
+                },
+                "serverSide": true,
+                "ajaxSource": "/Admin/LoadAllBooks",
+                "processing": true,
+                "columns": [
+                    {
+                        "name": "ID",
+                        "class": "data-id"
+                    },
+                    { "name": "CategoryName" },
+                    {
+                        "name": "Name",
+                        "sortable": false
+                    },
+                    {
+                        "name": "ImageUrl",
+                        "sortable": false
+                    },
+                    { "name": "AuthorName" },
+                    {
+                        "name": "ID",
+                        "targets": 5,
+                        "searchable": false,
+                        "sortable": false,
+                        "width": 90,
+                        "render": function(data, type, full, meta) {
+                            return '<a href=\"/Admin/ManageBooks/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
+                        }
+                    }
+                ],
+                "drawCallback": function(settings) {
+                    $(".act-del").click(function() {
+                        var id = $(this).attr('data-id');
+                        BootstrapDialog.confirm({
+                            title: 'Tin nhắn',
+                            message: 'Bạn thật sự muốn xóa Sách này ?',
+                            //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                            closable: true, // <-- Default value is false
+                            draggable: true, // <-- Default value is false
+                            btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                            btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                            //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                            callback: function(result) {
+                                // result will be true if button was click, while it will be false if users close the dialog directly.
+                                if (result) {
+                                    $.post('/Admin/RemoveBooks', { 'id': parseInt(id, 10) },
+                                        function(data) {
+                                            if (data.ResultValue) {
+                                                BootstrapDialog.show({
+                                                    type: BootstrapDialog.TYPE_SUCCESS,
+                                                    title: 'Thành công',
+                                                    message: data.Message
+                                                });
+                                            } else {
+                                                BootstrapDialog.show({
+                                                    type: BootstrapDialog.TYPE_DANGER,
+                                                    title: 'Thất bại',
+                                                    message: data.Message
+                                                });
+                                            }
+                                            $table.ajax.reload();
+                                            setTimeout(function() {
+                                                BootstrapDialog.closeAll();
+                                            }, 5000);
+                                        }
+                                    );
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+}

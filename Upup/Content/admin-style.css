@@ -1,0 +1,35 @@
+﻿.content-wrapper label, .content-wrapper img {
+    display: block;
+}
+
+.dataTables_filter label {
+    display: inline-block;
+}
+
+/* BOOTSTRAP CUSTOM STYLE */
+.modal-header {
+    padding: 10px 15px;
+    background-color: #67B0D1;
+}
+
+.modal-header h4 {
+    font-size: 14px;
+    color: #ffffff;
+    font-family: "Arial";
+}
+
+button.close {
+    opacity: 0.4;
+}
+
+button.close:hover {
+    opacity: 0.8;
+}
+
+button.close, button.close:hover {
+    color: #ffffff;
+}
+
+.display-none {
+    display: none;
+}
