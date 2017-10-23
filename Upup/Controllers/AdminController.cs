@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Upup.Models;
 
 namespace Upup.Controllers {
     //[Authorize(Roles = "Admin")]
@@ -20,49 +21,59 @@ namespace Upup.Controllers {
 
         //#region Login Admin
 
-        //[AllowAnonymous]
-        //public ActionResult Login(string returnUrl) {
-        //    ViewBag.ReturnUrl = returnUrl;
-        //    return View();
-        //}
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Login(LoginModel model, string returnUrl) {
-        //    if (ModelState.IsValid && model.IsValid(model.UserName, model.Password)) {
-        //        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-        //        var authCookie = FormsAuthentication.GetAuthCookie(model.UserName, model.RememberMe);
-        //        if (!model.RememberMe) {
-        //            authCookie.Expires = DateTime.Now.AddDays(2);
-        //        }
-        //        Response.Cookies.Add(authCookie);
-        //        return RedirectToLocal(HttpUtility.UrlDecode(returnUrl));
-        //    }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                var authCookie = FormsAuthentication.GetAuthCookie(model.Email, model.RememberMe);
+                if (!model.RememberMe)
+                {
+                    authCookie.Expires = DateTime.Now.AddDays(2);
+                }
+                Response.Cookies.Add(authCookie);
+                return RedirectToLocal(HttpUtility.UrlDecode(returnUrl));
+            }
 
-        //    // If we got this far, something failed, redisplay form
-        //    ModelState.AddModelError("ProgressError", "Tên đăng nhập hoặc mật khẩu bạn cung cấp không chính xác. Vui lòng thử lại.");
-        //    return View(model);
-        //}
+            // If we got this far, something failed, redisplay form
+            ModelState.AddModelError("ProgressError", "Tên đăng nhập hoặc mật khẩu bạn cung cấp không chính xác. Vui lòng thử lại.");
+            return View(model);
+        }
 
-        //private ActionResult RedirectToLocal(string returnUrl) {
-        //    if (Url.IsLocalUrl(Server.HtmlDecode(returnUrl))) {
-        //        return Redirect(returnUrl);
-        //    } else {
-        //        return RedirectToAction("AdminConsole", "Admin", new { id = "admin" });
-        //    }
-        //}
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(Server.HtmlDecode(returnUrl)))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("AdminConsole", "Admin", new { id = "admin" });
+            }
+        }
 
         //#endregion
 
         //#region Contact
 
-        
-        //public ActionResult ManageContact(int? id) {
+
+        //public ActionResult ManageContact(int? id)
+        //{
         //    if (id == null) return View();
         //    var result = B_Contact.Find(c => c.Id == id).SingleOrDefault();
         //    var contact = new ContactModel();
-        //    if (result != null) {
+        //    if (result != null)
+        //    {
         //        contact.Id = result.Id;
         //        contact.IpAddress = result.IpAddress;
         //        contact.Fullname = result.Fullname;
@@ -77,10 +88,12 @@ namespace Upup.Controllers {
         //}
 
         //[HttpGet]
-        
-        //public ActionResult LoadAllContact(JQueryDataTableParamModel param) {
+
+        //public ActionResult LoadAllContact(JQueryDataTableParamModel param)
+        //{
         //    IEnumerable<B_Contact> allContact = B_Contact.All();
-        //    if (!string.IsNullOrEmpty(param.sSearch)) {
+        //    if (!string.IsNullOrEmpty(param.sSearch))
+        //    {
         //        allContact = B_Contact
         //                 .Find(c => c.Fullname.Contains(param.sSearch)
         //                             ||
@@ -105,11 +118,12 @@ namespace Upup.Controllers {
 
         //    var result = filteredContact.Select(news => new[]
         //    {
-        //        news.Id.ToString(CultureInfo.InvariantCulture), news.IpAddress, news.Title, 
+        //        news.Id.ToString(CultureInfo.InvariantCulture), news.IpAddress, news.Title,
         //        news.Email, news.Title, news.CreatedOn.ToString(CultureInfo.InvariantCulture), news.Id.ToString(CultureInfo.InvariantCulture)
         //    }).ToList();
 
-        //    return Json(new {
+        //    return Json(new
+        //    {
         //        param.sEcho,
         //        iTotalRecords = allContact.Count(),
         //        iTotalDisplayRecords = allContact.Count(),
@@ -119,21 +133,27 @@ namespace Upup.Controllers {
         //}
 
         //[HttpPost]
-        
-        //public ActionResult RemoveContact(int id) {
+        //public ActionResult RemoveContact(int id)
+        //{
         //    var result = new AjaxSimpleResultModel();
         //    var contact = B_Contact.Find(c => c.Id == id).SingleOrDefault();
-        //    if (contact != null) {
-        //        try {
+        //    if (contact != null)
+        //    {
+        //        try
+        //        {
         //            contact.Delete();
         //            result.ResultValue = true;
         //            result.Message = "Thư liên hệ bạn chọn đã được xóa thành công !";
-        //        } catch (Exception) {
+        //        }
+        //        catch (Exception)
+        //        {
         //            result.ResultValue = false;
         //            result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";
         //            return Json(result);
         //        }
-        //    } else {
+        //    }
+        //    else
+        //    {
         //        result.ResultValue = false;
         //        result.Message = "Thư liên hệ bạn chọn đã bị xóa hoặc không tồn tại";
         //    }
@@ -141,6 +161,6 @@ namespace Upup.Controllers {
         //}
 
         //#endregion
-        
+
     }
 }

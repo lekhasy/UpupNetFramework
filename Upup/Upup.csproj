@@ -348,6 +348,7 @@
     <Content Include="Views\ProductCategory\Index.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
     <Content Include="Views\Shared\_ProductCategoryItemPartial.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

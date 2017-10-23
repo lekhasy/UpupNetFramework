@@ -11,15 +11,19 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Upup.Models;
+using Upup.Web.Helpers;
 
 namespace Upup
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await Task.Run(() => {
+                MailHelper.SendMailNow(message.Destination, message.Subject, message.Body, null, null, null);
+            });
+
+            return;
         }
     }
 
