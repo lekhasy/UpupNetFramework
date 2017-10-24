@@ -11,7 +11,7 @@ using Upup.Models;
 namespace Upup.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : UpupControllerBase
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

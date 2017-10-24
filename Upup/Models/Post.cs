@@ -16,5 +16,7 @@ namespace Upup.Models
 
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
+
+        public virtual PostCategory Category { get; set; }
     }
 }

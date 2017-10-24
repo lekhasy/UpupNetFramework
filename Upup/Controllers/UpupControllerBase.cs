@@ -8,18 +8,19 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace Upup.Controllers
 {
-    public class ControllerBase : Controller
+    [Authorize]
+    public class UpupControllerBase : Controller
     {
         private ApplicationDbContext _db;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private ApplicationSignInManager _signInManager;
 
-        public ControllerBase()
+        public UpupControllerBase()
         {
         }
 
-        public ControllerBase(ApplicationDbContext db,
+        public UpupControllerBase(ApplicationDbContext db,
         ApplicationUserManager userManager,
         ApplicationRoleManager roleManager,
         ApplicationSignInManager signInManager)

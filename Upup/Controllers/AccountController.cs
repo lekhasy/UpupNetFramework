@@ -15,7 +15,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace Upup.Controllers
 {
     [Authorize]
-    public class AccountController : ControllerBase
+    public class AccountController : UpupControllerBase
     {
 
         public AccountController()
@@ -121,7 +121,7 @@ namespace Upup.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new Customer
                 {
                     Address1 = model.Address1,
                     Address2 = model.Address2,

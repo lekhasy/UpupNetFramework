@@ -6,60 +6,21 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Upup.Controllers;
 using Upup.Models;
 
-namespace Upup.Controllers {
-    //[Authorize(Roles = "Admin")]
-    public class AdminController : Controller {
+namespace Upup.Areas.Admin.Controllers
+{
+    [Authorize(Roles = "Admin")]
+    public class AdminController : UpupControllerBase
+    {
         //
         // GET: /Admin/
 
-        
-        public ActionResult AdminConsole() {
+
+        public ActionResult AdminConsole()
+        {
             return View();
-        }
-
-        //#region Login Admin
-
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                var authCookie = FormsAuthentication.GetAuthCookie(model.Email, model.RememberMe);
-                if (!model.RememberMe)
-                {
-                    authCookie.Expires = DateTime.Now.AddDays(2);
-                }
-                Response.Cookies.Add(authCookie);
-                return RedirectToLocal(HttpUtility.UrlDecode(returnUrl));
-            }
-
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("ProgressError", "Tên đăng nhập hoặc mật khẩu bạn cung cấp không chính xác. Vui lòng thử lại.");
-            return View(model);
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(Server.HtmlDecode(returnUrl)))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("AdminConsole", "Admin", new { id = "admin" });
-            }
         }
 
         //#endregion
