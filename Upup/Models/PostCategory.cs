@@ -10,6 +10,8 @@ namespace Upup.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public string Name_en { get; set; }
+        public string Description { get; set; }
+        public string Description_en { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual PostCategory ParentCategory { get; set; }

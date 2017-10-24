@@ -1005,21 +1005,18 @@ DECLARE @AdminRole nvarchar(max) = (select AspNetRoles.Id from  AspNetRoles wher
 
 INSERT INTO AspNetUserRoles (UserId, RoleId)
 select Id, @AdminRole from AspNetUsers
-where Email != 'admin@abc.com'
+where Email != 'admin@abc.com' and Discriminator = 'ApplicationUser'
 ORDER BY Id
 OFFSET     0 ROWS       -- skip 0 rows
 FETCH NEXT 100 ROWS ONLY; -- take 100 rows
 
 INSERT INTO AspNetUserRoles (UserId, RoleId)
 select Id, @EditorRole from AspNetUsers
-where Email != 'admin@abc.com'
+where Email != 'admin@abc.com' and Discriminator = 'ApplicationUser'
 ORDER BY Id
 OFFSET     99 ROWS       -- skip 99 rows
-FETCH NEXT 300 ROWS ONLY; -- take 300 rows
+FETCH NEXT 1000 ROWS ONLY; -- take 1000 rows
 
 INSERT INTO AspNetUserRoles (UserId, RoleId)
 select Id, @CustomerRole from AspNetUsers
-where Email != 'admin@abc.com'
-ORDER BY Id
-OFFSET     399 ROWS       -- skip 399 rows
-FETCH NEXT 2000 ROWS ONLY; -- take 2000 rows
+where Discriminator = 'Customer';
