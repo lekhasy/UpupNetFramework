@@ -25,6 +25,7 @@ namespace Upup.Web.Helpers
                 client.Credentials = new NetworkCredential("no-reply@upup.com.vn", "Aa6LceC,<3P[3A@)");
                 mail.Subject = subject;
                 mail.Body = htmlBody;
+                mail.IsBodyHtml = true;
                 client.Send(mail);
             }
             catch (Exception ex)

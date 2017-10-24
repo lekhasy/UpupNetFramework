@@ -11,7 +11,6 @@ namespace Upup.Controllers
     {
         public ActionResult Index()
         {
-            //MailHelper.SendMailNow("thangphuong88@gmail.com", "Test nha", "Test hàng lần nữa nè", null, null, null);
             return View();
         }
 
