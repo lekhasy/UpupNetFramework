@@ -16,5 +16,8 @@ namespace Upup.Models
         public string ImageUrl { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
+
+        public virtual ICollection<Category> ChildCategories { get; set; }
+        public virtual Category ParentCategory { get; set; }
     }
 }
