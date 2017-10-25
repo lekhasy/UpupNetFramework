@@ -9,18 +9,32 @@ using System.Web;
 using System.Web.Mvc;
 using Upup.Models;
 using Upup.Controllers;
+using Upup.Areas.Admin.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class CustomersController : UpupControllerBase
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Customers
         public async Task<ActionResult> Index()
         {
-            return View(await db.Customers.ToListAsync());
+            return View();
+        }
+
+
+
+
+        public async Task<ActionResult> CustomerList(DataTableRequest req)
+        {
+            return Json(new DataTableResponse<Customer>
+            {
+                draw = req.draw,
+                 data = Db.Customers.Take(20).ToList(),
+                  recordsTotal = Db.Customers.Count(),
+                  recordsFiltered = Db.Customers.Count()
+            }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Customers/Details/5
@@ -30,7 +44,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = await db.Customers.FindAsync(id);
+            Customer customer = await Db.Customers.FindAsync(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -53,8 +67,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                await db.SaveChangesAsync();
+                Db.Customers.Add(customer);
+                await Db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +82,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = await db.Customers.FindAsync(id);
+            Customer customer = await Db.Customers.FindAsync(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -85,8 +99,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                Db.Entry(customer).State = EntityState.Modified;
+                await Db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(customer);
@@ -99,7 +113,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = await db.Customers.FindAsync(id);
+            Customer customer = await Db.Customers.FindAsync(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -112,9 +126,9 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            Customer customer = await db.Customers.FindAsync(id);
-            db.Customers.Remove(customer);
-            await db.SaveChangesAsync();
+            Customer customer = await Db.Customers.FindAsync(id);
+            Db.Customers.Remove(customer);
+            await Db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -122,7 +136,7 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
