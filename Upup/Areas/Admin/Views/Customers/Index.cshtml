@@ -15,7 +15,6 @@
             <th>OrgName</th>
             <th>Email</th>
             <th>PhoneNumber</th>
-            <th>UserName</th>
             <th>DepartmentName</th>
             <th>Address1</th>
             <th>PostalCode</th>
@@ -28,7 +27,6 @@
             <th>OrgName</th>
             <th>Email</th>
             <th>PhoneNumber</th>
-            <th>UserName</th>
             <th>DepartmentName</th>
             <th>Address1</th>
             <th>PostalCode</th>
@@ -42,10 +40,30 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#example').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "CustomerList/"
+            $('#example')
+                .on('preInit.dt', function (e, settings, data) {
+                    $('#example').LoadingOverlay("show");
+                })
+                .on('preXhr.dt', function (e, settings, data) {
+                    $('#example').LoadingOverlay("show");
+                })
+                .on('xhr.dt', function (e, settings, data) {
+                    $('#example').LoadingOverlay("hide");
+                })
+                .DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: { url: "CustomerList/", type: "POST" },
+                columns: [
+                    { data: "OrgName" },
+                    { data: "Email" },
+                    { data: "PhoneNumber" },
+                    { data: "DepartmentName" },
+                    { data: "Address1" },
+                    { data: "PostalCode" },
+                    { data: "Fax" },
+                    { data: "Webiste" },
+                ]
             });
         });
     </script>
