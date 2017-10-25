@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Upup.Models;
+using Upup.Configurations;
 
 namespace Upup
 {
@@ -19,6 +19,7 @@ namespace Upup
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            MapperConfigurations.RegistryMapper();
         }
     }
 }
