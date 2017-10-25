@@ -25,7 +25,7 @@ namespace Upup.Areas.Admin.Models
 
         public class Column
         {
-            public int data { get; set; }
+            public string data { get; set; }
             public string name { get; set; }
             public bool searchable { get; set; }
             public bool orderable { get; set; }
