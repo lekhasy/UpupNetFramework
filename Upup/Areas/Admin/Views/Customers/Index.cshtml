@@ -36,6 +36,13 @@
     </tfoot>
 </table>
 
+<style>
+    #example_processing {
+        visibility: collapse;
+        height: 0px;
+    }
+</style>
+
 @section AddScriptToBody{
 
     <script type="text/javascript">
@@ -54,6 +61,8 @@
                 processing: true,
                 serverSide: true,
                 ajax: { url: "CustomerList/", type: "POST" },
+                scrollY: "300px",
+                scrollCollapse: true,
                 columns: [
                     { data: "OrgName" },
                     { data: "Email" },
