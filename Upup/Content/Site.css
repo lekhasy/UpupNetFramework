@@ -812,3 +812,23 @@ footer {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
 }
+
+.order-suggest {
+    border: 1px solid #86cccf;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.order-suggest label{
+    font-size: 10.5pt;
+    font-weight: normal;
+    line-height: 18pt;
+}
+
+    .order-suggest .col-md-5 label {
+        line-height: 28pt;
+    }
+
+.order-suggest .btn{
+    margin: 10px 0;
+}
