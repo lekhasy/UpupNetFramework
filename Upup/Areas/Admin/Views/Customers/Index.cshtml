@@ -3,12 +3,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 <table id="example" class="table">
     <thead>
         <tr>
@@ -36,24 +30,33 @@
     </tfoot>
 </table>
 
+<style>
+    #example_processing {
+        visibility: collapse;
+        height: 0px;
+    }
+</style>
+
 @section AddScriptToBody{
 
     <script type="text/javascript">
         $(document).ready(function () {
             $('#example')
                 .on('preInit.dt', function (e, settings, data) {
-                    $('#example').LoadingOverlay("show");
+                    $('.dataTables_scroll').LoadingOverlay("show");
                 })
                 .on('preXhr.dt', function (e, settings, data) {
-                    $('#example').LoadingOverlay("show");
+                    $('.dataTables_scroll').LoadingOverlay("show");
                 })
                 .on('xhr.dt', function (e, settings, data) {
-                    $('#example').LoadingOverlay("hide");
+                    $('.dataTables_scroll').LoadingOverlay("hide");
                 })
                 .DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: { url: "CustomerList/", type: "POST" },
+                scrollY: "300px",
+                scrollCollapse: true,
                 columns: [
                     { data: "OrgName" },
                     { data: "Email" },
