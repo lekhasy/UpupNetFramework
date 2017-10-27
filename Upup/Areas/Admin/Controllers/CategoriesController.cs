@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Upup.Areas.Admin.ViewModels;
@@ -37,6 +38,7 @@ namespace Upup.Areas.Admin.Controllers
             if (result != null)
             {
                 productCategory = Mapper.Map<Category, CategoryModel>(result);
+                productCategory.ParentCategories = parentCategories;
                 return View(productCategory);
             }
             ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đã bị xóa hoặc không tồn tại");
@@ -46,20 +48,20 @@ namespace Upup.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
 
-        public ActionResult ManageCategory(CategoryModel model)
+        public ActionResult ManageCategories(CategoryModel model)
         {
             var imgUrl = !string.IsNullOrEmpty(model.ImageUrl) ? model.ImageUrl : string.Empty;
             imgUrl = imgUrl.EndsWith(",") ? imgUrl.Remove(imgUrl.Length - 1, 1) : imgUrl;
-            //var keywords = model.PageKeywords;
-            //if (!string.IsNullOrEmpty(keywords))
-            //{
-            //    keywords = keywords.EndsWith(",")
-            //        ? Regex.Replace(model.PageKeywords, ",{2,}", ",").Trim(',')
-            //        : model.PageKeywords;
-            //}
+            var keywords = model.MetaKeyword;
+            if (!string.IsNullOrEmpty(keywords))
+            {
+                keywords = keywords.EndsWith(",")
+                    ? Regex.Replace(model.MetaKeyword, ",{2,}", ",").Trim(',')
+                    : model.MetaKeyword;
+            }
             var parentCategory = db.Categories.Find(model.ParentCategory_Id);
-            if (parentCategory == null)
-                throw new Exception("Danh mục cha có thể đã bị xóa!");
+            //if (parentCategory == null)
+            //    throw new Exception("Danh mục cha có thể đã bị xóa!");
             if (model.Id == 0)
             {
                 var category = new Category
@@ -67,9 +69,10 @@ namespace Upup.Areas.Admin.Controllers
                     Name = model.Name,
                     Name_en = model.Name_en,
                     Description = model.Description,
+                    Description_en = model.Description_en,
                     ParentCategory = parentCategory,
-                    //PageDescription = model.PageDescription,
-                    //PageKeywords = keywords,
+                    MetaDescription = model.MetaDescription,
+                    MetaKeyword = keywords,
                     ImageUrl = imgUrl,
                 };
                 try
@@ -92,9 +95,10 @@ namespace Upup.Areas.Admin.Controllers
                     category.Name_en = model.Name_en;
                     category.ImageUrl = imgUrl;
                     category.Description = model.Description;
+                    category.Description_en = model.Description_en;
                     category.ParentCategory = parentCategory;
-                    //category.PageDescription = model.PageDescription;
-                    //category.PageKeywords = keywords;
+                    category.MetaDescription = model.MetaDescription;
+                    category.MetaKeyword = keywords;
                     try
                     {
                         db.Entry(category).State = EntityState.Modified;
@@ -112,7 +116,7 @@ namespace Upup.Areas.Admin.Controllers
                 }
             }
             ViewData["CategoryImgUrl"] = "/Images/Category/" + imgUrl;
-            return View(model);
+            return RedirectToAction("ManageCategories");
         }
 
         [HttpGet]
@@ -166,7 +170,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 try
                 {
-                    Delete(id);
+                    DeleteConfirmed(id);
                     result.ResultValue = true;
                     result.Message = "Danh mục bạn chọn đã được xóa thành công !";
                 }
