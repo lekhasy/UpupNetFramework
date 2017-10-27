@@ -12,6 +12,8 @@ namespace Upup.Models
         public string Name_en { get; set; }
         public string Description { get; set; }
         public string Description_en { get; set; }
+        public string MetaKeyword { get; set; }
+        public string MetaDescription { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual PostCategory ParentCategory { get; set; }
