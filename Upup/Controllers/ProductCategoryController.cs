@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Upup.Controllers
 {
+    [AllowAnonymous]
     public class ProductCategoryController : UpupControllerBase
     {
         // GET: ProductCategory
