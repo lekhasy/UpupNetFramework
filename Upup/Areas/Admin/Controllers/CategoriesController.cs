@@ -17,7 +17,7 @@ namespace Upup.Areas.Admin.Controllers
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        [HttpGet]
         public ActionResult ManageCategories(int? id)
         {
             var parentCategories = db.Categories.ToList().Select(cat => new SelectListItem
@@ -66,7 +66,7 @@ namespace Upup.Areas.Admin.Controllers
                 {
                     Name = model.Name,
                     Name_en = model.Name_en,
-                    Descripton = model.Descripton,
+                    Description = model.Description,
                     ParentCategory = parentCategory,
                     //PageDescription = model.PageDescription,
                     //PageKeywords = keywords,
@@ -91,7 +91,7 @@ namespace Upup.Areas.Admin.Controllers
                     category.Name = model.Name;
                     category.Name_en = model.Name_en;
                     category.ImageUrl = imgUrl;
-                    category.Descripton = model.Descripton;
+                    category.Description = model.Description;
                     category.ParentCategory = parentCategory;
                     //category.PageDescription = model.PageDescription;
                     //category.PageKeywords = keywords;
@@ -128,7 +128,7 @@ namespace Upup.Areas.Admin.Controllers
                                      ||
                           c.Name_en.Contains(param.sSearch)
                                      ||
-                          c.Descripton.Contains(param.sSearch)).ToList();
+                          c.Description.Contains(param.sSearch)).ToList();
             }
             var filteredCategories = allCategories.Skip(param.iDisplayStart)
                         .Take(param.iDisplayLength);
@@ -136,14 +136,14 @@ namespace Upup.Areas.Admin.Controllers
             var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
             Func<Category, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
                                                                 sortColumnIndex == 1 ? n.Name :
-                                                                sortColumnIndex == 2 ? n.Name_en : n.Descripton);
+                                                                sortColumnIndex == 2 ? n.Name_en : n.Description);
 
             var sortDirection = Request["sSortDir_0"]; // asc or desc
             filteredCategories = sortDirection == "asc" ? filteredCategories.OrderBy(orderingFunction) : filteredCategories.OrderByDescending(orderingFunction);
 
             var result = filteredCategories.Select(Category => new[]
             {
-                Category.Id.ToString(CultureInfo.InvariantCulture), Category.Name, Category.Name_en, Category.Descripton,
+                Category.Id.ToString(CultureInfo.InvariantCulture), Category.Name, Category.Name_en, Category.Description,
                 Category.ImageUrl, Category.Id.ToString(CultureInfo.InvariantCulture)
             }).ToList();
 

@@ -23,7 +23,7 @@
     </ol>
 </section>
 
-@using (Html.BeginForm("ManageCategories", "Admin", FormMethod.Post, new { id = "insertForm" }))
+@using (Html.BeginForm("ManageCategories", "Categories", FormMethod.Post, new { id = "insertForm" }))
 {
     <section class="content">
         <div class="box box-primary">
@@ -35,9 +35,7 @@
                         @Html.LabelFor(n => n.ParentCategory_Id)
                         @Html.DropDownListFor(n => n.ParentCategory_Id, Model.ParentCategories, new
                    {
-                       @class = "form-control",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng chọn danh mục cha"
+                       @class = "form-control"
                    })
                     </div>
                     <div class="form-group">
@@ -71,17 +69,26 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(n => n.Descripton)
-                        @Html.TextAreaFor(n => n.Descripton, new
+                        @Html.LabelFor(n => n.Description)
+                        @Html.TextAreaFor(n => n.Description, new
                    {
                        @class = "form-control",
                        @placeholder = "Nhập sơ lược về danh mục",
                        @rows = "3"
                    })
                     </div>
-                    @*<div class="form-group">
-                        @Html.LabelFor(n => n.PageDescription)
-                        @Html.TextBoxFor(n => n.PageDescription, new
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Description_en)
+                        @Html.TextAreaFor(n => n.Description_en, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập sơ lược tiếng anh về danh mục",
+                       @rows = "3"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.MetaDescription)
+                        @Html.TextBoxFor(n => n.MetaDescription, new
                    {
                        @class = "form-control",
                        @placeholder = "Nhập mô tả cho trang",
@@ -90,15 +97,15 @@
                    })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(n => n.PageKeywords)
-                        @Html.TextBoxFor(n => n.PageKeywords, new
+                        @Html.LabelFor(n => n.MetaKeyword)
+                        @Html.TextBoxFor(n => n.MetaKeyword, new
                    {
                        @class = "form-control",
                        @placeholder = "Nhập từ khỏa cho trang",
                        @required = "required",
                        @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
                    })
-                    </div>*@
+                    </div>
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">
@@ -238,7 +245,11 @@
 
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
-            CKEDITOR.replace('Descripton', {
+            CKEDITOR.replace('Description', {
+                extraPlugins: 'divarea'
+            });
+
+            CKEDITOR.replace('Description_en', {
                 extraPlugins: 'divarea'
             });
 
@@ -291,7 +302,7 @@
                         "sortable": false,
                         "width": 90,
                         "render": function(data, type, full, meta) {
-                            return '<a href=\"/Admin/ManageCategories/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
+                            return '<a href=\"/Categories/ManageCategories/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
                         }
                     }
                 ],
@@ -310,7 +321,7 @@
                             callback: function(result) {
                                 // result will be true if button was click, while it will be false if users close the dialog directly.
                                 if (result) {
-                                    $.post('/Admin/RemoveCategories', { 'id': parseInt(id, 10) },
+                                    $.post('/Categories/RemoveCategories', { 'id': parseInt(id, 10) },
                                         function(data) {
                                             if (data.ResultValue) {
                                                 BootstrapDialog.show({
