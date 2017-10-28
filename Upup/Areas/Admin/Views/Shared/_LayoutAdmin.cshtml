@@ -326,31 +326,31 @@
                         @Html.ActionSlideMenu("AdminConsole", "Admin", null, "Tổng quan", new { @class = "fa fa-dashboard" }, "3", new { @class = "label pull-right bg-blue" })
                     </li>
                     <li>
-                        @Html.ActionSlideMenu("ManageBanners", "Admin", null, "Biểu Ngữ", new { @class = "fa fa-flag " }, "1", new { @class = "label pull-right bg-blue" })
+                        @Html.ActionSlideMenu("ManageInvoices", "Invoice", null, "Đơn hàng", new { @class = "fa fa-shopping-basket" }, "1", new { @class = "label pull-right bg-blue" })
                     </li>
                     <li>
-                        @Html.ActionSlideParentMenu("Sách Upup", new { @class = "fa fa-book" }, new { @class = "fa fa-angle-right pull-right" })
+                        @Html.ActionSlideParentMenu("Sản phẩm", new { @class = "fa fa-cogs" }, new { @class = "fa fa-angle-right pull-right" })
                         <ul class="treeview-menu menu-open">
-                            <li>@Html.ActionSlideMenu("ManageBookCategories", "Admin", null, "Danh mục", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
-                            <li>@Html.ActionSlideMenu("ManageBooks", "Admin", null, "Sách", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
+                            <li>@Html.ActionSlideMenu("ManageCategories", "Categories", null, "Danh mục", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
+                            <li>@Html.ActionSlideMenu("ManageProduct", "Products", null, "Cơ khí", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
                         </ul>
                     </li>
                     <li>
-                        @Html.ActionSlideParentMenu("Bài dự thi", new { @class = "fa fa-heartbeat" }, new { @class = "fa fa-angle-right pull-right" })
+                        @Html.ActionSlideParentMenu("Bài viết", new { @class = "fa fa-newspaper-o" }, new { @class = "fa fa-angle-right pull-right" })
                         <ul class="treeview-menu menu-open">
-                            <li>@Html.ActionSlideMenu("ManageComposeSubjects", "Admin", null, "Chủ đề", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
-                            <li>@Html.ActionSlideMenu("ManageComposes", "Admin", null, "Bài viết", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
+                            <li>@Html.ActionSlideMenu("ManagePostCategories", "PostCategories", null, "Danh mục", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
+                            <li>@Html.ActionSlideMenu("ManagePost", "Posts", null, "Bài viết", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
                         </ul>
                     </li>
-                    <li>
-                        @Html.ActionSlideMenu("ManageNews", "Admin", null, "Tin tức", new { @class = "fa fa-newspaper-o" }, "3", new { @class = "label pull-right bg-blue" })
+                    @*<li>
+                        @Html.ActionSlideMenu("ManageNews", "Admin", null, "Bài viết", new { @class = "fa fa-newspaper-o" }, "3", new { @class = "label pull-right bg-blue" })
                     </li>
                     <li>
                         @Html.ActionSlideMenu("ManagePartners", "Admin", null, "Đối tác", new { @class = "fa fa-gg" }, "3", new { @class = "label pull-right bg-blue" })
                     </li>
                     <li>
                         @Html.ActionSlideMenu("ManageContact", "Admin", null, "Liên hệ", new { @class = "fa fa-inbox" }, "3", new { @class = "label pull-right bg-blue" })
-                    </li>
+                    </li>*@
                     <li>
                         @Html.ActionSlideParentMenu("Người dùng", new { @class = "fa fa-user" }, new { @class = "fa fa-angle-right pull-right" })
                         <ul class="treeview-menu menu-open">
@@ -358,12 +358,12 @@
                             <li>@Html.ActionSlideMenu("ManageUser", "Admin", null, "Người dùng hệ thống", new { @class = "fa fa-circle-o" }, "3", new { @class = "label pull-right bg-green" })</li>
                         </ul>
                     </li>
-                    <li>
+                    @*<li>
                         @Html.ActionSlideMenu("ManageTags", "Admin", null, "Nhãn tag", new { @class = "fa fa-tag " }, "1", new { @class = "label pull-right bg-blue" })
-                    </li>
-                    <li>
+                    </li>*@
+                    @*<li>
                         @Html.ActionSlideMenu("ManagePolicies", "Admin", null, "Chính sách", new { @class = "fa fa-clone " }, "1", new { @class = "label pull-right bg-blue" })
-                    </li>
+                    </li>*@
                 </ul>
             </section>
             <!-- /.sidebar -->
