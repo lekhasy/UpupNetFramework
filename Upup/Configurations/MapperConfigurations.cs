@@ -14,6 +14,7 @@ namespace Upup.Configurations
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Category, CategoryModel>().ReverseMap();
                 cfg.CreateMap<PostCategory, PostCategoryModel>().ReverseMap();
+                cfg.CreateMap<Post, PostModel>().ReverseMap();
             });
         }
     }
