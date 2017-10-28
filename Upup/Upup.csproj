@@ -207,6 +207,7 @@
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Models\DataTableRequest.cs" />
     <Compile Include="Areas\Admin\ViewModels\CategoryModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CustomerModel.cs" />
     <Compile Include="Configurations\MapperConfigurations.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
@@ -449,6 +450,7 @@
     <Content Include="bower_components\jquery\external\sizzle\dist\sizzle.min.map" />
     <Content Include="bower_components\jquery\README.md" />
     <Content Include="bower_components\jquery\src\.eslintrc.json" />
+    <Content Include="Areas\Admin\Views\Customers\ManageCustomers.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />

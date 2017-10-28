@@ -8,6 +8,8 @@ using Upup.Models;
 using Upup.Controllers;
 using Upup.Areas.Admin.Models;
 using Upup.Utils;
+using System;
+using Upup.Areas.Admin.ViewModels;
 
 namespace Upup.Areas.Admin.Controllers
 {
@@ -37,18 +39,50 @@ namespace Upup.Areas.Admin.Controllers
             {
                 var indexCol = req.order.First().column;
                 var col = req.columns.ElementAt(indexCol);
-                dataResultQuery = dataResultQuery.OrderBy<Customer>(col.data, req.order.First().dir == "ASC" ? true : false);
+                dataResultQuery = dataResultQuery.OrderBy<Customer>(col.data.Replace("DT_RowData.", ""), req.order.First().dir == "asc" ? true : false);
             }
 
-            return Json(new DataTableResponse<Customer>
+            var dt = dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking()
+                .Select(c => new CustomerDataRow
+                {
+                    DT_RowData = c
+                }).ToList();
+
+            return Json(new DataTableResponse<CustomerDataRow>
             {
                 draw = req.draw,
-                data = dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking().ToList(),
+                data = dt,
                 recordsTotal = Db.Customers.Count(),
                 recordsFiltered = Db.Customers.Count()
             }, JsonRequestBehavior.AllowGet);
         }
-     
+
+        public async Task<ActionResult> ManageCustomers(DataTableRequest req)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveCustomer(string Id)
+        {
+            var cus = await Db.Customers.FindAsync(Id);
+            if (cus == null)
+            {
+
+                return Json(new AjaxSimpleResultModel
+                {
+                    ResultValue = false,
+                    Message = "Khách hàng không tồn tại"
+                });
+            }
+            Db.Customers.Remove(cus);
+            await Db.SaveChangesAsync();
+            return Json(new AjaxSimpleResultModel
+            {
+                ResultValue = true
+            });
+    }
+
         // GET: Customers/Details/5
         public async Task<ActionResult> Details(string id)
         {
@@ -154,5 +188,5 @@ namespace Upup.Areas.Admin.Controllers
         }
     }
 
-   
+
 }
