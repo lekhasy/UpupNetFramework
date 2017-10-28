@@ -14,6 +14,7 @@
             <th>PostalCode</th>
             <th>Fax</th>
             <th>Webiste</th>
+            <th>Tùy chỉnh</th>
         </tr>
     </thead>
     <tfoot>
@@ -25,10 +26,18 @@
             <th>Address1</th>
             <th>PostalCode</th>
             <th>Fax</th>
-            <th>Webiste</th>
+            <th>Tùy chỉnh</th>
+            
         </tr>
     </tfoot>
 </table>
+
+<div id="actionCell" class="hidden">
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" style="display:inline-block"><span class="glyphicon glyphicon-edit"></span></button>
+        <button type="button" class="btn btn-default" style="display:inline-block"><span class="glyphicon glyphicon-trash"></span></button>
+    </div>
+</div>
 
 
 @section AddScriptToBody{
@@ -46,6 +55,20 @@
                     $('.dataTables_scroll').LoadingOverlay("hide");
                 })
                 .DataTable({
+                    "language": {
+                        "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                        "search": "Tìm kiếm: ",
+                        "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
+                        "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
+                        "infoEmpty": "Dữ liệu không tồn tại",
+                        "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                        "paginate": {
+                            "first": "Trang đầu",
+                            "last": "Trang cuối",
+                            "previous": "Trang trước",
+                            "next": "Trang sau"
+                        }
+                    },
                     processing: true,
                     serverSide: true,
                     ajax: { url: "CustomerList/", type: "POST" },
@@ -61,7 +84,11 @@
                         { data: "Address1" },
                         { data: "PostalCode" },
                         { data: "Fax" },
-                        { data: "Webiste" },
+                        { data: "Webiste" }
+                        //{
+                        //    data: null,
+                        //    defaultContent: $("#actionCell")[0].innerHTML
+                        //},
                     ]
                 });
         });

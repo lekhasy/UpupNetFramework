@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Upup.Globalization;
 
 namespace Upup.Models
 {
@@ -12,6 +13,7 @@ namespace Upup.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        // public string Email { get; internal set; }
     }
 
     public class ManageLoginsViewModel
@@ -43,17 +45,17 @@ namespace Upup.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Current_Password", ResourceType = typeof(Lang))]
         public string OldPassword { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "New_Password", ResourceType = typeof(Lang))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
+        [Display(Name = "Confirm_New_Password", ResourceType = typeof(Lang))]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }

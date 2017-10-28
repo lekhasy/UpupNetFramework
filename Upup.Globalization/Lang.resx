@@ -120,11 +120,20 @@
   <data name="Account" xml:space="preserve">
     <value>Tài khoản</value>
   </data>
+  <data name="Confirm_New_Password" xml:space="preserve">
+    <value>Xác nhận mật khẩu mới</value>
+  </data>
+  <data name="Current_Password" xml:space="preserve">
+    <value>Mật khẩu hiện tại</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Đăng nhập</value>
   </data>
   <data name="Login_Remember_Me" xml:space="preserve">
     <value>Ghi nhớ tài khoản</value>
+  </data>
+  <data name="New_Password" xml:space="preserve">
+    <value>Mật khẩu mới</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Khác</value>
@@ -278,6 +287,9 @@
   </data>
   <data name="Register_Verify_Email" xml:space="preserve">
     <value>Chúng tôi đã gửi tới bạn một email chứa liên kết dùng để xác thực email, vui lòng kiểm tra hộp thư để kích hoạt tài khoản của bạn</value>
+  </data>
+  <data name="Remember_Me" xml:space="preserve">
+    <value>Ghi nhớ</value>
   </data>
   <data name="User_Not_Found" xml:space="preserve">
     <value>Không tìm thấy user</value>

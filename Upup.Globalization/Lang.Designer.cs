@@ -70,6 +70,24 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xác nhận mật khẩu mới.
+        /// </summary>
+        public static string Confirm_New_Password {
+            get {
+                return ResourceManager.GetString("Confirm_New_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu hiện tại.
+        /// </summary>
+        public static string Current_Password {
+            get {
+                return ResourceManager.GetString("Current_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đăng nhập.
         /// </summary>
         public static string Login {
@@ -84,6 +102,15 @@ namespace Upup.Globalization {
         public static string Login_Remember_Me {
             get {
                 return ResourceManager.GetString("Login_Remember_Me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu mới.
+        /// </summary>
+        public static string New_Password {
+            get {
+                return ResourceManager.GetString("New_Password", resourceCulture);
             }
         }
         
@@ -543,6 +570,15 @@ namespace Upup.Globalization {
         public static string Register_Verify_Email {
             get {
                 return ResourceManager.GetString("Register_Verify_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ghi nhớ.
+        /// </summary>
+        public static string Remember_Me {
+            get {
+                return ResourceManager.GetString("Remember_Me", resourceCulture);
             }
         }
         
