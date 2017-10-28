@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Upup.Areas.Admin.ViewModels
 {
-    public class CategoryModel
+    public class PostCategoryModel
     {
         public long Id { get; set; }
         [Display(Name = "Tên danh mục")]
@@ -18,10 +18,8 @@ namespace Upup.Areas.Admin.ViewModels
         public string Description { get; set; }
         [Display(Name = "Mô tả tiếng anh")]
         public string Description_en { get; set; }
-        [Display(Name = "Hình ảnh")]
-        public string ImageUrl { get; set; }
         [Display(Name = "Danh mục cha")]
-        public int ParentCategory_Id { get; set; }
+        public int PostParentCategory_Id { get; set; }
         [Display(Name = "Từ khóa trang")]
         public string MetaKeyword { get; set; }
         [Display(Name = "Mô tả trang")]

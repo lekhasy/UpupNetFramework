@@ -14,31 +14,37 @@ using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class CategoriesController : Controller
+    public class PostCategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        [HttpGet]
-        public ActionResult ManageCategories(int? id)
+
+        // GET: Admin/PostCategories
+        public ActionResult Index()
         {
-            var parentCategories = db.Categories.ToList().Select(cat => new SelectListItem
+            return View(db.PostCategories.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult ManagePostCategories(int? id)
+        {
+            var parentCategories = db.PostCategories.ToList().Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
             }).ToList();
             parentCategories.Insert(0, new SelectListItem
             {
-                Text = "Chọn danh mục cha",
+                Text = "Chọn Danh mục bài viết cha",
                 Value = string.Empty,
                 Selected = true
             });
-            var productCategory = new CategoryModel { ParentCategories = parentCategories };
-            if (id == null) return View(productCategory);
-            var result = db.Categories.Find(id);
+            var postCategory = new PostCategoryModel { ParentCategories = parentCategories };
+            if (id == null) return View(postCategory);
+            var result = db.PostCategories.Find(id);
             if (result != null)
             {
-                productCategory = Mapper.Map<Category, CategoryModel>(result);
-                var existParentCategory = db.PostCategories.Find(productCategory.ParentCategory_Id);
+                postCategory = Mapper.Map<PostCategory, PostCategoryModel>(result);
+                var existParentCategory = db.PostCategories.Find(postCategory.PostParentCategory_Id);
                 if (existParentCategory == null)
                 {
                     result.ParentCategory = null;
@@ -47,22 +53,20 @@ namespace Upup.Areas.Admin.Controllers
                 }
                 else
                 {
-                    productCategory.ParentCategory_Id = Convert.ToInt32(result.ParentCategory.Id);
+                    postCategory.PostParentCategory_Id = Convert.ToInt32(result.ParentCategory.Id);
                 }
-                productCategory.ParentCategories = parentCategories;
-                return View(productCategory);
+                postCategory.ParentCategories = parentCategories;
+                return View(postCategory);
             }
-            ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đã bị xóa hoặc không tồn tại");
-            return View(productCategory);
+            ModelState.AddModelError("ProgressError", "Danh mục bài viết bạn chọn đã bị xóa hoặc không tồn tại");
+            return View(postCategory);
         }
 
         [HttpPost]
         [ValidateInput(false)]
 
-        public ActionResult ManageCategories(CategoryModel model)
+        public ActionResult ManagePostCategories(PostCategoryModel model)
         {
-            var imgUrl = !string.IsNullOrEmpty(model.ImageUrl) ? model.ImageUrl : string.Empty;
-            imgUrl = imgUrl.EndsWith(",") ? imgUrl.Remove(imgUrl.Length - 1, 1) : imgUrl;
             var keywords = model.MetaKeyword;
             if (!string.IsNullOrEmpty(keywords))
             {
@@ -70,12 +74,12 @@ namespace Upup.Areas.Admin.Controllers
                     ? Regex.Replace(model.MetaKeyword, ",{2,}", ",").Trim(',')
                     : model.MetaKeyword;
             }
-            var parentCategory = db.Categories.Find(model.ParentCategory_Id);
+            var parentCategory = db.PostCategories.Find(model.PostParentCategory_Id);
             //if (parentCategory == null)
-            //    throw new Exception("Danh mục cha có thể đã bị xóa!");
+            //    throw new Exception("Danh mục bài viết cha có thể đã bị xóa!");
             if (model.Id == 0)
             {
-                var category = new Category
+                var category = new PostCategory
                 {
                     Name = model.Name,
                     Name_en = model.Name_en,
@@ -83,12 +87,11 @@ namespace Upup.Areas.Admin.Controllers
                     Description_en = model.Description_en,
                     ParentCategory = parentCategory,
                     MetaDescription = model.MetaDescription,
-                    MetaKeyword = keywords,
-                    ImageUrl = imgUrl,
+                    MetaKeyword = keywords
                 };
                 try
                 {
-                    db.Categories.Add(category);
+                    db.PostCategories.Add(category);
                     db.SaveChanges();
                 }
                 catch (Exception)
@@ -99,12 +102,11 @@ namespace Upup.Areas.Admin.Controllers
             }
             else
             {
-                var category = db.Categories.Find(model.Id);
+                var category = db.PostCategories.Find(model.Id);
                 if (category != null)
                 {
                     category.Name = model.Name;
                     category.Name_en = model.Name_en;
-                    category.ImageUrl = imgUrl;
                     category.Description = model.Description;
                     category.Description_en = model.Description_en;
                     category.ParentCategory = parentCategory;
@@ -119,26 +121,25 @@ namespace Upup.Areas.Admin.Controllers
                     {
                         ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
                     }
-                    ModelState.AddModelError("ProgressSuccess", "Đã cập nhật nội dung mới cho danh mục !");
+                    ModelState.AddModelError("ProgressSuccess", "Đã cập nhật nội dung mới cho Danh mục bài viết !");
                 }
                 else
                 {
-                    ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đã bị xóa hoặc không tồn tại");
+                    ModelState.AddModelError("ProgressError", "Danh mục bài viết bạn chọn đã bị xóa hoặc không tồn tại");
                 }
             }
-            ViewData["CategoryImgUrl"] = "/Images/Category/" + imgUrl;
-            return RedirectToAction("ManageCategories");
+            return RedirectToAction("ManagePostCategories");
         }
 
         [HttpGet]
 
         public ActionResult LoadAllCategories(JQueryDataTableParamModel param)
         {
-            var allCategories = db.Categories.ToList();
-            List<Category> afterFound = new List<Category>();
+            var allCategories = db.PostCategories.ToList();
+            List<PostCategory> afterFound = new List<PostCategory>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = db.Categories.ToList()
+                afterFound = db.PostCategories.ToList()
                          .Where(c => c.Name.Contains(param.sSearch)
                                      ||
                           c.Name_en.Contains(param.sSearch)
@@ -149,17 +150,16 @@ namespace Upup.Areas.Admin.Controllers
                         .Take(param.iDisplayLength);
 
             var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
-            Func<Category, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
+            Func<PostCategory, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
                                                                 sortColumnIndex == 1 ? n.Name :
                                                                 sortColumnIndex == 2 ? n.Name_en : n.Description);
 
             var sortDirection = Request["sSortDir_0"]; // asc or desc
             filteredCategories = sortDirection == "asc" ? filteredCategories.OrderBy(orderingFunction) : filteredCategories.OrderByDescending(orderingFunction);
 
-            var result = filteredCategories.Select(Category => new[]
+            var result = filteredCategories.Select(PostCategory => new[]
             {
-                Category.Id.ToString(CultureInfo.InvariantCulture), Category.Name, Category.Name_en, Category.Description,
-                Category.ImageUrl, Category.Id.ToString(CultureInfo.InvariantCulture)
+                PostCategory.Id.ToString(CultureInfo.InvariantCulture), PostCategory.Name, PostCategory.Name_en, PostCategory.Description, PostCategory.Id.ToString(CultureInfo.InvariantCulture)
             }).ToList();
 
             return Json(new
@@ -176,14 +176,14 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult RemoveCategories(int id)
         {
             var result = new AjaxSimpleResultModel();
-            var category = db.Categories.ToList().SingleOrDefault(c => c.Id == id);
+            var category = db.PostCategories.ToList().SingleOrDefault(c => c.Id == id);
             if (category != null)
             {
                 try
                 {
                     DeleteConfirmed(id);
                     result.ResultValue = true;
-                    result.Message = "Danh mục bạn chọn đã được xóa thành công !";
+                    result.Message = "Danh mục bài viết bạn chọn đã được xóa thành công !";
                 }
                 catch (Exception)
                 {
@@ -195,108 +195,102 @@ namespace Upup.Areas.Admin.Controllers
             else
             {
                 result.ResultValue = false;
-                result.Message = "Danh mục bạn chọn đã bị xóa hoặc không tồn tại";
+                result.Message = "Danh mục bài viết bạn chọn đã bị xóa hoặc không tồn tại";
             }
             return Json(result);
         }
 
-        // GET: Admin/Categories
-        public ActionResult Index()
-        {
-            return View(db.Categories.ToList());
-        }
-
-        // GET: Admin/Categories/Details/5
+        // GET: Admin/PostCategories/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            PostCategory postCategory = db.PostCategories.Find(id);
+            if (postCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(postCategory);
         }
 
-        // GET: Admin/Categories/Create
+        // GET: Admin/PostCategories/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Categories/Create
+        // POST: Admin/PostCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Name_en,Descripton,ImageUrl")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Name,Name_en,Description,Description_en,MetaKeyword,MetaDescription")] PostCategory postCategory)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                db.PostCategories.Add(postCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return View(postCategory);
         }
 
-        // GET: Admin/Categories/Edit/5
+        // GET: Admin/PostCategories/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            PostCategory postCategory = db.PostCategories.Find(id);
+            if (postCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(postCategory);
         }
 
-        // POST: Admin/Categories/Edit/5
+        // POST: Admin/PostCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Name_en,Descripton,ImageUrl")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Name,Name_en,Description,Description_en,MetaKeyword,MetaDescription")] PostCategory postCategory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                db.Entry(postCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(postCategory);
         }
 
-        // GET: Admin/Categories/Delete/5
+        // GET: Admin/PostCategories/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            PostCategory postCategory = db.PostCategories.Find(id);
+            if (postCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(postCategory);
         }
 
-        // POST: Admin/Categories/Delete/5
+        // POST: Admin/PostCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            PostCategory postCategory = db.PostCategories.Find(id);
+            db.PostCategories.Remove(postCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

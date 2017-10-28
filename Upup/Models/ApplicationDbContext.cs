@@ -43,6 +43,7 @@ namespace Upup.Models
 
         public DbSet<Category> Categories { get; set; }
 
+        public System.Data.Entity.DbSet<Upup.Models.PostCategory> PostCategories { get; set; }
     }
 
     // This is useful if you do not want to tear down the database each time you run the application.

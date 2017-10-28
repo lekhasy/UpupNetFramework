@@ -13,6 +13,7 @@ namespace Upup.Configurations
         public static void RegistryMapper() {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Category, CategoryModel>().ReverseMap();
+                cfg.CreateMap<PostCategory, PostCategoryModel>().ReverseMap();
             });
         }
     }
