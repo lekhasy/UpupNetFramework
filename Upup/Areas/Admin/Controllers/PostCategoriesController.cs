@@ -14,7 +14,7 @@ using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    public class PostCategoriesController : Controller
+    public class PostCategoriesController : AdminControllerBase
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

@@ -13,12 +13,10 @@ using Upup.Areas.Admin.ViewModels;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class CustomersController : UpupControllerBase
+    public class CustomersController : AdminControllerBase
     {
-
         // GET: Customers
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             return View();
         }
@@ -42,11 +40,11 @@ namespace Upup.Areas.Admin.Controllers
                 dataResultQuery = dataResultQuery.OrderBy<Customer>(col.data.Replace("DT_RowData.", ""), req.order.First().dir == "asc" ? true : false);
             }
 
-            var dt = dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking()
+            var dt = await dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking()
                 .Select(c => new CustomerDataRow
                 {
                     DT_RowData = c
-                }).ToList();
+                }).ToListAsync();
 
             return Json(new DataTableResponse<CustomerDataRow>
             {
@@ -57,7 +55,7 @@ namespace Upup.Areas.Admin.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> ManageCustomers(DataTableRequest req)
+        public ActionResult ManageCustomers(DataTableRequest req)
         {
             return View();
         }

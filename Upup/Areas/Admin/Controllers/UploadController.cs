@@ -7,7 +7,8 @@ using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    public class UploadController : Controller
+
+    public class UploadController : AdminControllerBase
     {
         public ActionResult SaveUploadedFile(string folderName) {
             var isSavedSuccessfully = true;
