@@ -11,8 +11,7 @@ using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class AdminController : UpupControllerBase
+    public class AdminController : AdminControllerBase
     {
         //
         // GET: /Admin/

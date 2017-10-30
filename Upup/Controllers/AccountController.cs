@@ -139,7 +139,8 @@ namespace Upup.Controllers
                     PhoneNumber = model.PhoneNumber,
                     PostalCode = model.PostalCode,
                     ServiceId = model.ServiceId,
-                    Webiste = model.Website
+                    Webiste = model.Website,
+                    FullName = model.FullName
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);

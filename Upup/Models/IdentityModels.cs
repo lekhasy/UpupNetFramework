@@ -18,6 +18,6 @@ namespace Upup.Models
             return userIdentity;
         }
 
-        
+        public string FullName { get; set; }
     }
 }

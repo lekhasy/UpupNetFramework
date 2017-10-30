@@ -203,15 +203,18 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerBase.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostCategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\DataTableRequest.cs" />
     <Compile Include="Areas\Admin\ViewModels\PostCategoryModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CategoryModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\PostModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CustomerModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\UserModel.cs" />
     <Compile Include="Configurations\MapperConfigurations.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
@@ -460,16 +463,14 @@
     <Content Include="Areas\Admin\Views\PostCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\PostCategories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PostCategories\ManagePostCategories.cshtml" />
-<<<<<<< HEAD
     <Content Include="Areas\Admin\Views\Posts\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\ManagePosts.cshtml" />
-=======
     <Content Include="Areas\Admin\Views\Customers\ManageCustomers.cshtml" />
->>>>>>> master
+    <Content Include="Areas\Admin\Views\User\ManageUsers.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />

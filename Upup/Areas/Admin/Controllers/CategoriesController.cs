@@ -14,14 +14,12 @@ using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class CategoriesController : Controller
+    public class CategoriesController : AdminControllerBase
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         [HttpGet]
         public ActionResult ManageCategories(int? id)
         {
-            var parentCategories = db.Categories.ToList().Select(cat => new SelectListItem
+            var parentCategories = Db.Categories.ToList().Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
@@ -34,16 +32,16 @@ namespace Upup.Areas.Admin.Controllers
             });
             var productCategory = new CategoryModel { ParentCategories = parentCategories };
             if (id == null) return View(productCategory);
-            var result = db.Categories.Find(id);
+            var result = Db.Categories.Find(id);
             if (result != null)
             {
                 productCategory = Mapper.Map<Category, CategoryModel>(result);
-                var existParentCategory = db.PostCategories.Find(productCategory.ParentCategory_Id);
+                var existParentCategory = Db.PostCategories.Find(productCategory.ParentCategory_Id);
                 if (existParentCategory == null)
                 {
                     result.ParentCategory = null;
-                    db.Entry(result).State = EntityState.Modified;
-                    db.SaveChanges();
+                    Db.Entry(result).State = EntityState.Modified;
+                    Db.SaveChanges();
                 }
                 else
                 {
@@ -70,7 +68,7 @@ namespace Upup.Areas.Admin.Controllers
                     ? Regex.Replace(model.MetaKeyword, ",{2,}", ",").Trim(',')
                     : model.MetaKeyword;
             }
-            var parentCategory = db.Categories.Find(model.ParentCategory_Id);
+            var parentCategory = Db.Categories.Find(model.ParentCategory_Id);
             //if (parentCategory == null)
             //    throw new Exception("Danh mục cha có thể đã bị xóa!");
             if (model.Id == 0)
@@ -88,8 +86,8 @@ namespace Upup.Areas.Admin.Controllers
                 };
                 try
                 {
-                    db.Categories.Add(category);
-                    db.SaveChanges();
+                    Db.Categories.Add(category);
+                    Db.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -99,7 +97,7 @@ namespace Upup.Areas.Admin.Controllers
             }
             else
             {
-                var category = db.Categories.Find(model.Id);
+                var category = Db.Categories.Find(model.Id);
                 if (category != null)
                 {
                     category.Name = model.Name;
@@ -112,8 +110,8 @@ namespace Upup.Areas.Admin.Controllers
                     category.MetaKeyword = keywords;
                     try
                     {
-                        db.Entry(category).State = EntityState.Modified;
-                        db.SaveChanges();
+                        Db.Entry(category).State = EntityState.Modified;
+                        Db.SaveChanges();
                     }
                     catch (Exception)
                     {
@@ -134,11 +132,11 @@ namespace Upup.Areas.Admin.Controllers
 
         public ActionResult LoadAllCategories(JQueryDataTableParamModel param)
         {
-            var allCategories = db.Categories.ToList();
+            var allCategories = Db.Categories.ToList();
             List<Category> afterFound = new List<Category>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = db.Categories.ToList()
+                afterFound = Db.Categories.ToList()
                          .Where(c => c.Name.Contains(param.sSearch)
                                      ||
                           c.Name_en.Contains(param.sSearch)
@@ -176,7 +174,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult RemoveCategories(int id)
         {
             var result = new AjaxSimpleResultModel();
-            var category = db.Categories.ToList().SingleOrDefault(c => c.Id == id);
+            var category = Db.Categories.ToList().SingleOrDefault(c => c.Id == id);
             if (category != null)
             {
                 try
@@ -203,7 +201,7 @@ namespace Upup.Areas.Admin.Controllers
         // GET: Admin/Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return View(Db.Categories.ToList());
         }
 
         // GET: Admin/Categories/Details/5
@@ -213,7 +211,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = Db.Categories.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -236,8 +234,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
+                Db.Categories.Add(category);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -251,7 +249,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = Db.Categories.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -268,8 +266,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(category).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -282,7 +280,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = Db.Categories.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -295,9 +293,9 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            Category category = Db.Categories.Find(id);
+            Db.Categories.Remove(category);
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -305,7 +303,7 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
