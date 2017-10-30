@@ -34,7 +34,7 @@ namespace Upup.Areas.Admin.Controllers
             }).ToList();
             categories.Insert(0, new SelectListItem
             {
-                Text = "Chọn bài viết",
+                Text = "Chọn danh mục bài viết",
                 Value = string.Empty,
                 Selected = true
             });
@@ -74,6 +74,13 @@ namespace Upup.Areas.Admin.Controllers
                     ? Regex.Replace(model.MetaKeyword, ",{2,}", ",").Trim(',')
                     : model.MetaKeyword;
             }
+            var keywords2 = model.MetaKeyword_en;
+            if (!string.IsNullOrEmpty(keywords2))
+            {
+                keywords2 = keywords2.EndsWith(",")
+                    ? Regex.Replace(model.MetaKeyword_en, ",{2,}", ",").Trim(',')
+                    : model.MetaKeyword_en;
+            }
             var category = db.PostCategories.Find(model.Category_id);
             //if (category == null)
             //    throw new Exception("bài viết cha có thể đã bị xóa!");
@@ -86,16 +93,19 @@ namespace Upup.Areas.Admin.Controllers
                     Content = model.Content,
                     Content_en = model.Content_en,
                     CreatedDate = DateTime.Now,
+                    LastModifiedDate = DateTime.Now,
                     Category = category,
-                    //MetaDescription = model.MetaDescription,
-                    //MetaKeyword = keywords
+                    MetaDescription = model.MetaDescription,
+                    MetaKeyword = keywords,
+                    MetaDescription_en = model.MetaDescription_en,
+                    MetaKeyword_en = keywords2
                 };
                 try
                 {
                     db.Posts.Add(post);
                     db.SaveChanges();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
                 }
@@ -111,8 +121,11 @@ namespace Upup.Areas.Admin.Controllers
                     post.Content = model.Content;
                     post.Content_en = model.Content_en;
                     post.Category = category;
-                    //post.MetaDescription = model.MetaDescription;
-                    //post.MetaKeyword = keywords;
+                    post.MetaDescription = model.MetaDescription;
+                    post.MetaKeyword = keywords;
+                    post.MetaDescription_en = model.MetaDescription_en;
+                    post.MetaKeyword_en = keywords2;
+                    post.LastModifiedDate = DateTime.Now;
                     try
                     {
                         db.Entry(post).State = EntityState.Modified;
@@ -157,7 +170,7 @@ namespace Upup.Areas.Admin.Controllers
 
             var result = filteredPosts.Select(Post => new[]
             {
-                Post.Id.ToString(CultureInfo.InvariantCulture), Post.Title, Post.Title_en, Post.Id.ToString(CultureInfo.InvariantCulture)
+                Post.Id.ToString(CultureInfo.InvariantCulture), Post.Title, Post.Title_en, Post.Content, Post.Id.ToString(CultureInfo.InvariantCulture)
             }).ToList();
 
             return Json(new

@@ -14,16 +14,16 @@
 
 <section class="content-header">
     <h1>
-        Quản lý Danh mục bài viết
+        Quản lý Bài viết bài viết
         <small>Preview</small>
     </h1>
     <ol class="breadcrumb">
         <li>@Html.ActionSiteMap("AdminConsole", "Admin", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
-        <li class="active">Quản lý Danh mục bài viết</li>
+        <li class="active">Quản lý Bài viết bài viết</li>
     </ol>
 </section>
 
-@using (Html.BeginForm("ManageCategories", "Categories", FormMethod.Post, new { id = "insertForm" }))
+@using (Html.BeginForm("ManagePosts", "Posts", FormMethod.Post, new { id = "insertForm" }))
 {
     <section class="content">
         <div class="box box-primary">
@@ -43,9 +43,9 @@
                         @Html.TextBoxFor(n => n.Title, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập tên danh mục",
+                       @placeholder = "Nhập tên Bài viết",
                        @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên danh mục"
+                       @data_errormessage_value_missing = "Vui lòng điền tên Bài viết"
                    })
                     </div>
                     <div class="form-group">
@@ -53,9 +53,9 @@
                         @Html.TextBoxFor(n => n.Title_en, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập tên danh mục tiếng anh",
+                       @placeholder = "Nhập tên Bài viết tiếng anh",
                        @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên danh mục tiếng anh"
+                       @data_errormessage_value_missing = "Vui lòng điền tên Bài viết tiếng anh"
                    })
                     </div>
 
@@ -64,7 +64,7 @@
                         @Html.TextAreaFor(n => n.Content, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập sơ lược về danh mục",
+                       @placeholder = "Nhập sơ lược về Bài viết",
                        @rows = "3"
                    })
                     </div>
@@ -73,7 +73,7 @@
                         @Html.TextAreaFor(n => n.Content_en, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập sơ lược tiếng anh về danh mục",
+                       @placeholder = "Nhập sơ lược tiếng anh về Bài viết",
                        @rows = "3"
                    })
                     </div>
@@ -97,6 +97,26 @@
                        @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
                    })
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.MetaDescription_en)
+                        @Html.TextBoxFor(n => n.MetaDescription_en, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập mô tả tiếng anh cho trang",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.MetaKeyword_en)
+                        @Html.TextBoxFor(n => n.MetaKeyword_en, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập từ khỏa cho trang",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
+                   })
+                    </div>
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">
@@ -107,39 +127,19 @@
     </section>
 }
 
-<div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
-                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
-            </div>
-            <div class="modal-body">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Categories"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                        <input type="submit" value="Upload" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <section class="content">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Dữ liệu Danh mục</h3>
+            <h3 class="box-title">Dữ liệu Bài viết</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
             <table id="example1" class="table table-bordered table-striped display">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên danh mục</th>
-                        <th>Tên danh mục tiếng anh</th>
-                        <th>Mô tả</th>
-                        <th>Hình ảnh</th>
+                        <th>Tên Bài viết</th>
+                        <th>Tên Bài viết tiếng anh</th>
+                        <th>Nội dung</th>
                         <th>Tùy chỉnh</th>
                     </tr>
                 </thead>
@@ -153,62 +153,26 @@
     <script src="@Url.Content("~/Scripts/dropzone.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
         $(function() {
-            Dropzone.options.dropzoneForm = {
-                maxFiles: 1,
-                init: function() {
-                    this.on("success", function(file) {
-
-                        // Create the remove button
-                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
-
-                        // Capture the Dropzone instance as closure.
-                        var _this = this;
-                        var filePath = arguments[1].FilePath;
-
-                        // Listen to the click event
-                        removeButton.addEventListener("click", function(e) {
-                            // Make sure the button click doesn't submit the form:
-                            e.preventDefault();
-                            e.stopPropagation();
-                            // Remove the file preview.
-                            _this.removeFile(file);
-                            // If you want to the delete the file on the server as well,
-                            // you can do the AJAX request here.
-                            $.ajax({
-                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
-                                type: 'POST',
-                                data: {
-                                    filePath: filePath
-                                }
-                            });
-                        });
-
-                        // Add the button to the file preview element.
-                        file.previewElement.appendChild(removeButton);
-                        $("#ImageUrl").val(arguments[1].Message);
-                    });
-                }
-            };
-
+            
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
-            CKEDITOR.replace('Description', {
+            CKEDITOR.replace('Content', {
                 extraPlugins: 'divarea'
             });
 
-            CKEDITOR.replace('Description_en', {
+            CKEDITOR.replace('Content_en', {
                 extraPlugins: 'divarea'
             });
 
             $("button[type='submit']").click(function() {
-                var messageLength = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
-                if (!messageLength && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
-                    AlertBootstrap('Vui lòng viết vài dòng mô tả');
+                var messageLength = CKEDITOR.instances.Content.getData().replace(/<[^>]*>/gi, '').length;
+                if (!messageLength && $("#Title").val() !== '' && $("#Title_en").val() !== '') {
+                    AlertBootstrap('Vui lòng viết nội dung');
                     return false;
                 }
-                var messageLength2 = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
-                if (!messageLength2 && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
-                    AlertBootstrap('Vui lòng viết vài dòng mô tả tiếng anh');
+                var messageLength2 = CKEDITOR.instances.Content.getData().replace(/<[^>]*>/gi, '').length;
+                if (!messageLength2 && $("#Title").val() !== '' && $("#Title_en").val() !== '') {
+                    AlertBootstrap('Vui lòng viết nội dung mô tả tiếng anh');
                     return false;
                 }
                 return true;
@@ -230,7 +194,7 @@
                     }
                 },
                 "serverSide": true,
-                "ajaxSource": "/Categories/LoadAllCategories",
+                "ajaxSource": "/Posts/LoadAllPosts",
                 "processing": true,
                 "columns": [
                     {
@@ -240,11 +204,7 @@
                     { "name": "Name" },
                     { "name": "Name_en" },
                     {
-                        "name": "Description",
-                        "sortable": false
-                    },
-                    {
-                        "name": "ImageUrl",
+                        "name": "Content",
                         "sortable": false
                     },
                     {
@@ -254,7 +214,7 @@
                         "sortable": false,
                         "width": 90,
                         "render": function(data, type, full, meta) {
-                            return '<a href=\"/Admin/Categories/ManageCategories/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
+                            return '<a href=\"/Admin/Posts/ManagePosts/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
                         }
                     }
                 ],
@@ -263,7 +223,7 @@
                         var id = $(this).attr('data-id');
                         BootstrapDialog.confirm({
                             title: 'Tin nhắn',
-                            message: 'Bạn thật sự muốn xóa danh mục này ?',
+                            message: 'Bạn thật sự muốn xóa Bài viết này ?',
                             //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
                             closable: true, // <-- Default value is false
                             draggable: true, // <-- Default value is false
@@ -273,7 +233,7 @@
                             callback: function(result) {
                                 // result will be true if button was click, while it will be false if users close the dialog directly.
                                 if (result) {
-                                    $.post('/Categories/RemoveCategories', { 'id': parseInt(id, 10) },
+                                    $.post('/Posts/RemovePosts', { 'id': parseInt(id, 10) },
                                         function(data) {
                                             if (data.ResultValue) {
                                                 BootstrapDialog.show({
