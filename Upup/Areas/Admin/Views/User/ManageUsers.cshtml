@@ -224,6 +224,7 @@
                             });
                         });
                         $(".act-edit").click(function () {
+                            $('#resetFormButton').click();
                             var data = $(this).closest("tr").data();
                             $("#Id").val(data.Id);
                             $("#Role").val(data.Roles[0].RoleId);
