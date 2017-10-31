@@ -97,6 +97,26 @@
                        @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
                    })
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.MetaDescription_en)
+                        @Html.TextBoxFor(n => n.MetaDescription_en, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập mô tả tiếng anh cho trang",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.MetaKeyword_en)
+                        @Html.TextBoxFor(n => n.MetaKeyword_en, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập từ khỏa tiếng anh cho trang",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
+                   })
+                    </div>
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">
