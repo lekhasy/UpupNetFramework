@@ -20,7 +20,7 @@
 
 
 <section class="content collapse" id="collapseExample">
-    
+
     <div class="box box-primary">
         <!-- form start -->
         <form id="mainform" role="form" autocomplete="off" method="post">
@@ -54,7 +54,10 @@
 
             <div class="box-footer">
                 <button type="reset" id="resetFormButton" class="hidden"></button>
-                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                <button type="submit" class="btn btn-primary">
+                    <span id="updateButtonText">Cập nhật</span>
+                    <span id="addNewButtonText">Thêm mới</span>
+                </button>
                 <a id="Close" class="btn btn-danger" onclick="$('#collapseExample').collapse('hide'); $('#addNewUserbtn').removeClass('hidden');">Đóng</a>
             </div>
         </form>
@@ -113,6 +116,8 @@
                 $("#collapseExample").collapse('show');
                 $("#mainform").prop("action", "AddUser");
                 $('#addNewUserbtn').addClass("hidden");
+                $('#updateButtonText').addClass("hidden");
+                $('#addNewButtonText').removeClass("hidden");
             });
 
             $.getJSON("GetAllRoles", function (roles) {
@@ -235,6 +240,8 @@
                             $("#PhoneNumber").val(data.PhoneNumber);
                             $("#collapseExample").collapse('show');
                             $("#mainform").prop("action", "UpdateUser");
+                            $('#updateButtonText').removeClass("hidden");
+                            $('#addNewButtonText').addClass("hidden");
                         });
                     }
                 });
