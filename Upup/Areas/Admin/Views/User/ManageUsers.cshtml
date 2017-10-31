@@ -46,18 +46,11 @@
                 <thead>
                     <tr>
                         <th>Email</th>
-                        <th>PhoneNumber</th>
+                        <th>Họ tên</th>
+                        <th>Tel</th>
                         <th>Tùy chỉnh</th>
                     </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Email</th>
-                        <th>PhoneNumber</th>
-                        <th>Tùy chỉnh</th>
-
-                    </tr>
-                </tfoot>
+                </thead>                
             </table>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
@@ -108,6 +101,7 @@
                     processing: false,
                     columns: [
                         { data: "DT_RowData.Email" },
+                        { data: "DT_RowData.FullName" },
                         { data: "DT_RowData.PhoneNumber" },
                         {
                             data: null,
