@@ -19,10 +19,11 @@ namespace Upup.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<ActionResult> CustomerList(DataTableRequest req)
+        public async Task<ActionResult> UserList(DataTableRequest req)
         {
-            var dataResultQuery = Db.Users.AsQueryable();
-
+            var CustomerRole = Db.Roles.First(r => r.Name == "Customer");
+            var dataResultQuery = Db.Users.Where(u => !u.Roles.Any(r => r.RoleId == CustomerRole.Id));
+            var count = dataResultQuery.Count();
             if (req.search.value != null)
             {
                 dataResultQuery = dataResultQuery.Where(u => u.Email.Contains(req.search.value) ||
@@ -46,9 +47,14 @@ namespace Upup.Areas.Admin.Controllers
             {
                 draw = req.draw,
                 data = dt,
-                recordsTotal = Db.Customers.Count(),
-                recordsFiltered = Db.Customers.Count()
+                recordsTotal = count,
+                recordsFiltered = dataResultQuery.Count()
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetAllRoles()
+        {
+            return Json(Db.Roles.AsNoTracking().ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

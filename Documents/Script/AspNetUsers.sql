@@ -998,3 +998,26 @@ insert into AspNetUsers (Id, Email, FullName, EmailConfirmed, PasswordHash, Secu
 insert into AspNetUsers (Id, Email, FullName, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount, UserName, OrgName, DepartmentName, Address1, Address2, Address3, Address4, PostalCode, Fax, Webiste, IndustryId, ServiceId, NumberOfDesigner, NumberOfEmployee, KnowByid, Discriminator) values ('4289020f-a028-4884-9952-9714466cee62', 'oscannellrp@t-online.de', 'Odo Scannell', 1, 'AO+GqErp5Hsij3fmY+KQG9i9Iyjg0GS2tNuJsc4tPkb7davWpMWEdKzj3BFoQJNV0A==', '61004860-435b-44f5-98be-b03b77121013', '190-903-0441', 1, 0, '10/24/2016', 0, 0, 'oscannellrp', 'Gevee', 'Support', '8 Sutteridge Trail', '9513 Dahle Circle', '622 Brentwood Parkway', '782 Ridgeview Trail', '84200-000', '03', 'dot.gov', 0, 4, 1, 3, 3, 'Customer');
 insert into AspNetUsers (Id, Email, FullName, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount, UserName, OrgName, DepartmentName, Address1, Address2, Address3, Address4, PostalCode, Fax, Webiste, IndustryId, ServiceId, NumberOfDesigner, NumberOfEmployee, KnowByid, Discriminator) values ('3fddb208-c5ea-43cc-8a42-25d2a0ce693a', 'hchurmsrq@goo.ne.jp', 'Hadlee Churms', 1, 'AO+GqErp5Hsij3fmY+KQG9i9Iyjg0GS2tNuJsc4tPkb7davWpMWEdKzj3BFoQJNV0A==', '61004860-435b-44f5-98be-b03b77121013', '253-845-9958', 1, 0, '10/24/2016', 0, 0, 'hchurmsrq', 'Kanoodle', 'Sales', '771 Magdeline Circle', '6 Farmco Center', '7 Buhler Plaza', '305 Maywood Parkway', '692715', '9959', 'apache.org', 5, 0, 0, 0, 2, 'Customer');
 insert into AspNetUsers (Id, Email, FullName, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount, UserName, OrgName, DepartmentName, Address1, Address2, Address3, Address4, PostalCode, Fax, Webiste, IndustryId, ServiceId, NumberOfDesigner, NumberOfEmployee, KnowByid, Discriminator) values ('173ef3c8-0cae-4d0f-84aa-10535fc2a910', 'thardisonrr@twitpic.com', 'Tootsie Hardison', 1, 'AO+GqErp5Hsij3fmY+KQG9i9Iyjg0GS2tNuJsc4tPkb7davWpMWEdKzj3BFoQJNV0A==', '61004860-435b-44f5-98be-b03b77121013', '315-411-1784', 1, 0, '10/24/2016', 0, 0, 'thardisonrr', 'Dynava', 'Sales', '801 Grayhawk Street', '17760 Morningstar Parkway', '87456 Towne Circle', '78 Welch Place', '1945', '81', 'oracle.com', 3, 1, 4, 5, 4, 'Customer');
+
+DECLARE @EditorRole nvarchar(max) = (select AspNetRoles.Id from  AspNetRoles where AspNetRoles.[Name] = 'Editor');
+DECLARE @CustomerRole nvarchar(max) = (select AspNetRoles.Id from  AspNetRoles where AspNetRoles.[Name] = 'Customer');
+DECLARE @AdminRole nvarchar(max) = (select AspNetRoles.Id from  AspNetRoles where AspNetRoles.[Name] = 'Admin');
+
+INSERT INTO AspNetUserRoles (UserId, RoleId)
+select Id, @AdminRole from AspNetUsers
+where Email != 'admin@abc.com' and Discriminator = 'ApplicationUser'
+ORDER BY Id
+OFFSET     0 ROWS       -- skip 0 rows
+FETCH NEXT 100 ROWS ONLY; -- take 100 rows
+
+INSERT INTO AspNetUserRoles (UserId, RoleId)
+select Id, @EditorRole from AspNetUsers
+where Email != 'admin@abc.com' and Discriminator = 'ApplicationUser'
+ORDER BY Id
+OFFSET     99 ROWS       -- skip 99 rows
+FETCH NEXT 1000 ROWS ONLY; -- take 1000 rows
+
+INSERT INTO AspNetUserRoles (UserId, RoleId)
+select Id, @CustomerRole from AspNetUsers
+where Discriminator = 'Customer';
+
