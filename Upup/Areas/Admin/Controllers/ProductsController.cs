@@ -140,7 +140,19 @@ namespace Upup.Areas.Admin.Controllers
                 }
             }
             ViewData["ProductImgUrl"] = "/Images/Product/" + imgUrl;
-            return RedirectToAction("ManageProducts");
+            var categories = Db.Categories.ToList().Select(cat => new SelectListItem
+            {
+                Text = cat.Name,
+                Value = cat.Id.ToString(CultureInfo.InvariantCulture)
+            }).ToList();
+            categories.Insert(0, new SelectListItem
+            {
+                Text = "Chọn sản phẩm sản phẩm",
+                Value = string.Empty,
+                Selected = true
+            });
+            model.Categories = categories;
+            return View(model);
         }
 
         [HttpGet]

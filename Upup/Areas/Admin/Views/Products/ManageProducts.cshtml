@@ -16,9 +16,10 @@
     <h1>
         Quản lý Sản phẩm
         <small>Preview</small>
+        <a class="btn-sm btn-success" href="@Url.Action("ManageProducts","Products")">Tạo mới sản phẩm</a>
     </h1>
     <ol class="breadcrumb">
-        <li>@Html.ActionSiteMap("AdminConsole", "Admin", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
+        <li>@Html.ActionSiteMap("ProductsConsole", "Products", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
         <li class="active">Quản lý Sản phẩm</li>
     </ol>
 </section>
@@ -74,7 +75,7 @@
                         @Html.LabelFor(p => p.ImageUrl)
                         @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
                         {
-                            <img src="/Images/Books/@Model.ImageUrl" alt="@Model.Name" width="150" />
+                            <img src="/Images/Products/@Model.ImageUrl" alt="@Model.Name" width="150" />
                         }
                         <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-img">Upload Image</button>
                         @Html.HiddenFor(p => p.ImageUrl)
@@ -163,7 +164,7 @@
                 <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Books"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "Products"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                         <input type="submit" value="Upload" />
@@ -182,7 +183,7 @@
                 <h4 id="myLargeModalLabel" class="modal-title">Upload Single File</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "BookFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "ProductFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                         <input type="submit" value="Upload" />
@@ -203,10 +204,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên danh mục</th>
                         <th>Tên Sản phẩm</th>
+                        <th>Tên Sản phẩm tiếng anh</th>
+                        <th>Giá</th>
                         <th>Hình ảnh</th>
-                        <th>Tác giả</th>
                         <th>Tùy chỉnh</th>
                     </tr>
                 </thead>
@@ -219,13 +220,6 @@
 @section AddScriptToBody{
     <script src="@Url.Content("~/Scripts/dropzone.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            var $select = $(".js-example-basic-multiple");
-            $select.select2().on("change", function(e) {
-                $("#Tags").val($("#SelectTags").val());
-            });
-            $select.val($("#Tags").val().split(',')).trigger("change");
-        });
         $(function() {
             Dropzone.options.dropzoneForm = {
                 maxFiles: 1,
@@ -249,7 +243,7 @@
                             // If you want to the delete the file on the server as well,
                             // you can do the AJAX request here.
                             $.ajax({
-                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "Products"})',
                                 type: 'POST',
                                 data: {
                                     filePath: filePath
@@ -286,7 +280,7 @@
                             // If you want to the delete the file on the server as well,
                             // you can do the AJAX request here.
                             $.ajax({
-                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "Products"})',
                                 type: 'POST',
                                 data: {
                                     filePath: filePath
@@ -306,33 +300,6 @@
                 if ($this.find('option').is(':selected')) {
                     $('#CategoryName').val($this.find('option[value=' + $this.val() + ']').text());
                 }
-            });
-
-            $('#IdAuthor').change(function () {
-                var $this = $(this);
-                if ($this.find('option').is(':selected')) {
-                    $('#AuthorName').val($this.find('option[value=' + $this.val() + ']').text());
-                }
-            });
-
-            $('#IdPublisher').change(function () {
-                var $this = $(this);
-                if ($this.find('option').is(':selected')) {
-                    $('#PublisherName').val($this.find('option[value=' + $this.val() + ']').text());
-                }
-            });
-
-            $('#IdExporter').change(function () {
-                var $this = $(this);
-                if ($this.find('option').is(':selected')) {
-                    $('#ExporterName').val($this.find('option[value=' + $this.val() + ']').text());
-                }
-            });
-
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('Summary', {
-                extraPlugins: 'divarea'
             });
 
             $("button[type='submit']").click(function() {
@@ -360,7 +327,7 @@
                     }
                 },
                 "serverSide": true,
-                "ajaxSource": "/Admin/LoadAllBooks",
+                "ajaxSource": "/Products/LoadAllProducts",
                 "processing": true,
                 "columns": [
                     {
@@ -384,7 +351,7 @@
                         "sortable": false,
                         "width": 90,
                         "render": function(data, type, full, meta) {
-                            return '<a href=\"/Admin/ManageBooks/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
+                            return '<a href=\"/Products/ManageProducts/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
                         }
                     }
                 ],
@@ -403,7 +370,7 @@
                             callback: function(result) {
                                 // result will be true if button was click, while it will be false if users close the dialog directly.
                                 if (result) {
-                                    $.post('/Admin/RemoveBooks', { 'id': parseInt(id, 10) },
+                                    $.post('/Products/RemoveProducts', { 'id': parseInt(id, 10) },
                                         function(data) {
                                             if (data.ResultValue) {
                                                 BootstrapDialog.show({
