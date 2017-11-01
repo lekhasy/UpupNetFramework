@@ -25,21 +25,28 @@
         <!-- form start -->
         <form id="mainform" role="form" autocomplete="off" method="post">
             <div class="box-body">
-                <input class="hidden" name="Id" id="Id" value="" />
                 <div class="form-group">
                     <label for="Role">Vai trò</label>
-                    <select name="Role" id="Role" class="form-control"></select>
+                    <select name="RoleId" id="Role" class="form-control"></select>
                 </div>
                 <div class="form-group">
                     <label for="SkipEmailConfirmation"><input name="SkipEmailConfirmation" id="SkipEmailConfirmation" type="checkbox" value="" /> Bỏ qua xác thực email</label>
                 </div>
                 <div class="form-group">
-                    <label for="Email">Email</label>
+                    <label for="Email">Email <span class="text-red">*</span></label>
                     <input name="Email" id="Email" class="form-control" placeholder="Nhập địa chỉ Email" />
                 </div>
                 <div class="form-group">
-                    <label for="Password">Password</label>
+                    <label for="EmailConfirm">Email (Xác nhận) <span class="text-red">*</span></label>
+                    <input name="EmailConfirm" id="EmailConfirm" class="form-control" placeholder="Nhập địa chỉ Email" />
+                </div>
+                <div class="form-group">
+                    <label for="Password">Mật khẩu <span class="text-red">*</span></label>
                     <input name="Password" id="Password" autocomplete="off" type="password" class="form-control" placeholder="Nhập mật khẩu" />
+                </div>
+                <div class="form-group">
+                    <label for="PasswordConfirm">Mật khẩu (xác nhận) <span class="text-red">*</span></label>
+                    <input name="PasswordConfirm" id="PasswordConfirm" autocomplete="off" type="password" class="form-control" placeholder="Nhập mật khẩu" />
                 </div>
                 <div class="form-group">
                     <label for="FullName">Họ tên</label>
@@ -55,14 +62,50 @@
             <div class="box-footer">
                 <button type="reset" id="resetFormButton" class="hidden"></button>
                 <button type="submit" class="btn btn-primary">
-                    <span id="updateButtonText">Cập nhật</span>
                     <span id="addNewButtonText">Thêm mới</span>
                 </button>
-                <a id="Close" class="btn btn-danger" onclick="$('#collapseExample').collapse('hide'); $('#addNewUserbtn').removeClass('hidden');">Đóng</a>
+                <a id="Close" class="btn btn-danger" onclick="$('#collapseExample').hide();">Đóng</a>
+            </div>
+        </form>
+
+    </div>
+</section>
+
+<section class="content collapse" id="u_collapseExample">
+
+    <div class="box box-primary">
+        <!-- form start -->
+        <form id="u_mainform" role="form" autocomplete="off" method="post" action="UpdateUser">
+            <div class="box-body">
+                <input class="hidden" name="Id" id="u_Id" value="" />
+                <div class="form-group">
+                    <label for="u_Role">Vai trò</label>
+                    <select name="RoleId" id="u_Role" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label for="u_Email">Email</label>
+                    <input name="Email" id="u_Email" class="form-control" placeholder="Nhập địa chỉ Email" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="u_FullName">Họ tên</label>
+                    <input name="FullName" id="u_FullName" type="text" class="form-control" placeholder="Nhập họ tên" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="PhoneNumber">Số điện thoại</label>
+                    <input name="PhoneNumber" id="u_PhoneNumber" type="text" class="form-control" placeholder="Nhập số điện thoại" disabled />
+                </div>
+
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="reset" id="u_resetFormButton" class="hidden"></button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                <a id="Close" class="btn btn-danger" onclick="$('#u_collapseExample').hide(); $('#u_resetFormButton').click();">Đóng</a>
             </div>
         </form>
     </div>
 </section>
+
 
 <div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-sm">
@@ -110,20 +153,17 @@
         $(function () {
 
             $('#addNewUserbtn').click(function () {
-                $('#resetFormButton').click();
-                $("#Email").prop("disabled", false);
-                $("#SkipEmailConfirmation").parent().show();
-                $("#collapseExample").collapse('show');
-                $("#mainform").prop("action", "AddUser");
-                $('#addNewUserbtn').addClass("hidden");
-                $('#updateButtonText').addClass("hidden");
-                $('#addNewButtonText').removeClass("hidden");
+                $("#u_collapseExample").hide();
+                $("#collapseExample").show();
+
             });
 
             $.getJSON("GetAllRoles", function (roles) {
                 roles.forEach(function (role) {
-                    if (role.Name !== 'Customer')
+                    if (role.Name !== 'Customer') {
                         $("#Role").append("<option value=\"" + role.Id + "\">" + role.Name + "</option>")
+                        $("#u_Role").append("<option value=\"" + role.Id + "\">" + role.Name + "</option>")
+                    }
                 });
             });
 
@@ -188,7 +228,7 @@
                                     var exeCallback = function (result) {
                                         // result will be true if button was click, while it will be false if users close the dialog directly.
                                         if (result) {
-                                            $.post('/User/RemoveUser', { 'id': data.Id },
+                                            $.post('RemoveUser', { 'id': data.Id },
                                                 function (data) {
                                                     if (data.ResultValue) {
                                                         BootstrapDialog.show({
@@ -229,22 +269,129 @@
                             });
                         });
                         $(".act-edit").click(function () {
-                            $('#resetFormButton').click();
+                            $('#u_resetFormButton').click();
+
                             var data = $(this).closest("tr").data();
-                            $("#Id").val(data.Id);
-                            $("#Role").val(data.Roles[0].RoleId);
-                            $("#Email").val(data.Email);
-                            $("#Email").prop("disabled", true);
-                            $("#SkipEmailConfirmation").parent().hide();
-                            $("#FullName").val(data.FullName);
-                            $("#PhoneNumber").val(data.PhoneNumber);
-                            $("#collapseExample").collapse('show');
-                            $("#mainform").prop("action", "UpdateUser");
-                            $('#updateButtonText').removeClass("hidden");
-                            $('#addNewButtonText').addClass("hidden");
+                            $("#u_Id").val(data.Id);
+                            $("#u_Role").val(data.Roles[0].RoleId);
+                            $("#u_Email").val(data.Email);
+                            $("#u_FullName").val(data.FullName);
+                            $("#u_PhoneNumber").val(data.PhoneNumber);
+
+                            $("#collapseExample").hide();
+                            $("#u_collapseExample").show();
                         });
                     }
                 });
+
+            $("#mainform").validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    Password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    PasswordConfirm: {
+                        required: true,
+                        equalTo: "#Password"
+                    },
+                    FullName: "required",
+                    // DepartmentName
+                    Email: {
+                        required: true,
+                        // Specify that email should be validated
+                        // by the built-in "email" rule
+                        email: true
+                    },
+                    EmailConfirm: {
+                        required: true,
+                        // Specify that email should be validated
+                        // by the built-in "email" rule
+                        equalTo: "#Email"
+                    },
+                    PhoneNumber: {
+                        digits: true
+                    }
+                    // Fax
+                },
+                // Specify validation error messages
+                messages: {
+                    Password: {
+                        required: $uuLang.getText("required_field"),
+                        minlength: $uuLang.getText("password_min_length_validation")
+                    },
+                    PasswordConfirm: {
+                        required: $uuLang.getText("required_field"),
+                        equalTo: $uuLang.getText("password_confirm_match_validation")
+                    },
+                    FullName: $uuLang.getText("required_field"),
+                    Email: {
+                        required: $uuLang.getText("required_field"),
+                        email: $uuLang.getText("email_format_validation")
+                    },
+                    EmailConfirm: {
+                        required: $uuLang.getText("required_field"),
+                        equalTo: $uuLang.getText("email_confirm_match_validation")
+                    },
+                    PhoneNumber: $uuLang.getText("phone_format_validation")
+                },
+                submitHandler: function (form) {
+                    $.LoadingOverlay("show");
+                    // check for user name and email are available
+                    $.getJSON("CheckEmailAvailable", { email: $("#Email").val() }, function (emailAvailable) {
+                        if (emailAvailable) {
+
+                            $.post("AddUser", {
+                                RoleId: $('#Role').val(),
+                                Email: $('#Email').val(),
+                                SkipEmailConfirmation: $('#SkipEmailConfirmation').is(":checked"),
+                                Password: $('#Password').val(),
+                                FullName: $('#FullName').val(),
+                                PhoneNumber: $('#PhoneNumber').val()
+                            }, function (data) {
+                                if (data.ResultValue) {
+                                    $('#resetFormButton').click();
+                                    $("#collapseExample").hide();
+                                    
+                                    BootstrapDialog.show({
+                                        type: BootstrapDialog.TYPE_SUCCESS,
+                                        title: 'Thành công',
+                                        message: data.Message
+                                    });
+                                } else {
+                                    BootstrapDialog.show({
+                                        type: BootstrapDialog.TYPE_DANGER,
+                                        title: 'Thất bại',
+                                        message: data.Message
+                                    });
+                                }
+                            }).always(function () {
+                                $table.ajax.reload();
+                                setTimeout(function () {
+                                    BootstrapDialog.closeAll();
+                                }, 5000);
+                                $.LoadingOverlay("hide");
+                            });
+                        }
+                        else {
+                            $.LoadingOverlay("hide");
+                            $("#registerFailModal").find('.modal-title').text($uuLang.getText("register_fail"));
+                            $('[data-target="#registerFailModal"]').click();
+
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_DANGER,
+                                title: "Thất bại",
+                                message: $uuLang.getText("register_fail_email_existed")
+                            });
+                        }
+                    }).always(function () {
+
+                    });
+                }
+            });
         });
     </script>
 }
