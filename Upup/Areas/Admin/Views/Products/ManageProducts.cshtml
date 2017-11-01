@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "ManageCategories";
+    ViewBag.Title = "ManageProducts";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 @using Upup.Helpers
-@model Upup.Areas.Admin.ViewModels.CategoryModel
+@model Upup.Areas.Admin.ViewModels.ProductModel
 
 @section AddCssToHead
 {
@@ -14,17 +14,17 @@
 
 <section class="content-header">
     <h1>
-        Quản lý Danh mục sản phẩm
+        Quản lý Sản phẩm
         <small>Preview</small>
-        <a class="btn-sm btn-success" href="@Url.Action("ManageCategories", "Categories")">Tạo mới danh mục</a>
+        <a class="btn-sm btn-success" href="@Url.Action("ManageProducts","Products")">Tạo mới sản phẩm</a>
     </h1>
     <ol class="breadcrumb">
-        <li>@Html.ActionSiteMap("AdminConsole", "Admin", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
-        <li class="active">Quản lý Danh mục sản phẩm</li>
+        <li>@Html.ActionSiteMap("ProductsConsole", "Products", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
+        <li class="active">Quản lý Sản phẩm</li>
     </ol>
 </section>
 
-@using (Html.BeginForm("ManageCategories", "Categories", FormMethod.Post, new { id = "insertForm" }))
+@using (Html.BeginForm("ManageProducts", "Products", FormMethod.Post, new { id = "insertForm" }))
 {
     <section class="content">
         <div class="box box-primary">
@@ -33,10 +33,22 @@
                 <div class="box-body">
                     @Html.HiddenFor(n => n.Id)
                     <div class="form-group">
-                        @Html.LabelFor(n => n.ParentCategory_Id)
-                        @Html.DropDownListFor(n => n.ParentCategory_Id, Model.ParentCategories, new
+                        @Html.LabelFor(n => n.Category_Id)
+                        @Html.DropDownListFor(n => n.Category_Id, Model.Categories, new
                    {
-                       @class = "form-control"
+                       @class = "form-control",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng chọn danh mục"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Code)
+                        @Html.TextBoxFor(n => n.Code, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập mã Sản phẩm",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền mã Sản phẩm"
                    })
                     </div>
                     <div class="form-group">
@@ -44,9 +56,9 @@
                         @Html.TextBoxFor(n => n.Name, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập tên danh mục",
+                       @placeholder = "Nhập tên Sản phẩm",
                        @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên danh mục"
+                       @data_errormessage_value_missing = "Vui lòng điền tên Sản phẩm"
                    })
                     </div>
                     <div class="form-group">
@@ -54,37 +66,44 @@
                         @Html.TextBoxFor(n => n.Name_en, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập tên danh mục tiếng anh",
+                       @placeholder = "Nhập tên Sản phẩm tiếng anh",
                        @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên danh mục tiếng anh"
+                       @data_errormessage_value_missing = "Vui lòng điền tên Sản phẩm tiếng anh"
                    })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(p => p.ImageUrl)
                         @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
                         {
-                            <img src="/Images/Categories/@Model.ImageUrl" alt="@Model.Name" width="150" />
+                            <img src="/Images/Products/@Model.ImageUrl" alt="@Model.Name" width="150" />
                         }
                         <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-img">Upload Image</button>
                         @Html.HiddenFor(p => p.ImageUrl)
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.PdfUrl)
+                        <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-file">Upload File</button>
+                        @Html.HiddenFor(p => p.PdfUrl)
+                    </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(n => n.Description)
-                        @Html.TextAreaFor(n => n.Description, new
+                        @Html.LabelFor(n => n.Price)
+                        @Html.TextBoxFor(n => n.Price, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập sơ lược về danh mục",
-                       @rows = "3"
+                       @placeholder = "Nhập giá",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền giá Sản phẩm"
                    })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(n => n.Description_en)
-                        @Html.TextAreaFor(n => n.Description_en, new
+                        @Html.LabelFor(n => n.OnHand)
+                        @Html.TextBoxFor(n => n.OnHand, new
                    {
                        @class = "form-control",
-                       @placeholder = "Nhập sơ lược tiếng anh về danh mục",
-                       @rows = "3"
+                       @placeholder = "Nhập số lượng tồn kho",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng nhập số lượng tồn kho"
                    })
                     </div>
                     <div class="form-group">
@@ -145,7 +164,26 @@
                 <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Categories"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "Products"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm single-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single File</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "ProductFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                         <input type="submit" value="Upload" />
@@ -159,16 +197,16 @@
 <section class="content">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Dữ liệu Danh mục</h3>
+            <h3 class="box-title">Dữ liệu Sản phẩm</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
             <table id="example1" class="table table-bordered table-striped display">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên danh mục</th>
-                        <th>Tên danh mục tiếng anh</th>
-                        <th>Mô tả</th>
+                        <th>Tên Sản phẩm</th>
+                        <th>Tên Sản phẩm tiếng anh</th>
+                        <th>Giá</th>
                         <th>Hình ảnh</th>
                         <th>Tùy chỉnh</th>
                     </tr>
@@ -205,7 +243,7 @@
                             // If you want to the delete the file on the server as well,
                             // you can do the AJAX request here.
                             $.ajax({
-                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "Products"})',
                                 type: 'POST',
                                 data: {
                                     filePath: filePath
@@ -220,25 +258,54 @@
                 }
             };
 
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('Description', {
-                extraPlugins: 'divarea'
-            });
+            Dropzone.options.dropzoneForm2 = {
+                maxFiles: 1,
+                init: function() {
+                    this.on("success", function(file) {
 
-            CKEDITOR.replace('Description_en', {
-                extraPlugins: 'divarea'
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function(e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "Products"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#FileUrl").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            $('#IdCategory').change(function () {
+                var $this = $(this);
+                if ($this.find('option').is(':selected')) {
+                    $('#CategoryName').val($this.find('option[value=' + $this.val() + ']').text());
+                }
             });
 
             $("button[type='submit']").click(function() {
-                var messageLength = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
-                if (!messageLength && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
-                    AlertBootstrap('Vui lòng viết vài dòng mô tả');
-                    return false;
-                }
-                var messageLength2 = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
-                if (!messageLength2 && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
-                    AlertBootstrap('Vui lòng viết vài dòng mô tả tiếng anh');
+                var messageLength = CKEDITOR.instances.Summary.getData().replace(/<[^>]*>/gi, '').length;
+                if (!messageLength && $("#IdCategory").val() !== '' && $("#Name").val() !== '' && $("#Author").val() !== '') {
+                    AlertBootstrap('Vui lòng viết vài dòng tóm lượt');
                     return false;
                 }
                 return true;
@@ -260,23 +327,23 @@
                     }
                 },
                 "serverSide": true,
-                "ajaxSource": "/Categories/LoadAllCategories",
+                "ajaxSource": "/Products/LoadAllProducts",
                 "processing": true,
                 "columns": [
                     {
                         "name": "ID",
                         "class": "data-id"
                     },
-                    { "name": "Name" },
-                    { "name": "Name_en" },
+                    { "name": "CategoryName" },
                     {
-                        "name": "Description",
+                        "name": "Name",
                         "sortable": false
                     },
                     {
                         "name": "ImageUrl",
                         "sortable": false
                     },
+                    { "name": "AuthorName" },
                     {
                         "name": "ID",
                         "targets": 5,
@@ -284,7 +351,7 @@
                         "sortable": false,
                         "width": 90,
                         "render": function(data, type, full, meta) {
-                            return '<a href=\"/Admin/Categories/ManageCategories/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
+                            return '<a href=\"/Products/ManageProducts/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
                         }
                     }
                 ],
@@ -293,7 +360,7 @@
                         var id = $(this).attr('data-id');
                         BootstrapDialog.confirm({
                             title: 'Tin nhắn',
-                            message: 'Bạn thật sự muốn xóa danh mục này ?',
+                            message: 'Bạn thật sự muốn xóa Sản phẩm này ?',
                             //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
                             closable: true, // <-- Default value is false
                             draggable: true, // <-- Default value is false
@@ -303,7 +370,7 @@
                             callback: function(result) {
                                 // result will be true if button was click, while it will be false if users close the dialog directly.
                                 if (result) {
-                                    $.post('/Categories/RemoveCategories', { 'id': parseInt(id, 10) },
+                                    $.post('/Products/RemoveProducts', { 'id': parseInt(id, 10) },
                                         function(data) {
                                             if (data.ResultValue) {
                                                 BootstrapDialog.show({
