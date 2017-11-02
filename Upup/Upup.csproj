@@ -221,6 +221,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthCheckController.cs" />
+    <Compile Include="Controllers\TechController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UpupControllerBase.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
@@ -540,6 +541,8 @@
     <Content Include="Areas\Admin\Views\Customers\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Index.cshtml" />
+    <Content Include="Views\Tech\Index.cshtml" />
+    <Content Include="Views\Shared\_PostCategoryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

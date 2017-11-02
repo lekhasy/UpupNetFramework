@@ -30,12 +30,12 @@ namespace Upup.Areas.Admin.Controllers
                 Value = string.Empty,
                 Selected = true
             });
-            var productCategory = new CategoryModel { ParentCategories = parentCategories };
+            var productCategory = new ViewModels.CategoryModel { ParentCategories = parentCategories };
             if (id == null) return View(productCategory);
             var result = Db.Categories.Find(id);
             if (result != null)
             {
-                productCategory = Mapper.Map<Category, CategoryModel>(result);
+                productCategory = Mapper.Map<Category, ViewModels.CategoryModel>(result);
                 var existParentCategory = Db.PostCategories.Find(productCategory.ParentCategory_Id);
                 if (existParentCategory == null)
                 {
@@ -57,7 +57,7 @@ namespace Upup.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
 
-        public ActionResult ManageCategories(CategoryModel model)
+        public ActionResult ManageCategories(ViewModels.CategoryModel model)
         {
             var imgUrl = !string.IsNullOrEmpty(model.ImageUrl) ? model.ImageUrl : string.Empty;
             imgUrl = imgUrl.EndsWith(",") ? imgUrl.Remove(imgUrl.Length - 1, 1) : imgUrl;
