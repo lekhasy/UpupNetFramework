@@ -236,6 +236,7 @@
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="ViewModels\CategoryModel.cs" />
     <Compile Include="Models\jQueryDataTableParamModel.cs" />
     <Compile Include="Models\PostCategory.cs" />
     <Compile Include="Models\SharedModels.cs" />
