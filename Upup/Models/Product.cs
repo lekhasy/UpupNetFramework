@@ -12,7 +12,10 @@ namespace Upup.Models
 
         public string Name { get; set; }
         public string Name_en { get; set; }
+        public string Summary { get; set; }
+        public string Summary_en { get; set; }
         public string ImageUrl { get; set; }
+        public string ImageGuideUrl { get; set; }
         public string PdfUrl { get; set; }
 
         public decimal Price { get; set; }
