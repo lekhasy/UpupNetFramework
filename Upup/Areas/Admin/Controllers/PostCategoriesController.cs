@@ -128,7 +128,19 @@ namespace Upup.Areas.Admin.Controllers
                     ModelState.AddModelError("ProgressError", "Danh mục bài viết bạn chọn đã bị xóa hoặc không tồn tại");
                 }
             }
-            return RedirectToAction("ManagePostCategories");
+            var parentCategories = db.PostCategories.ToList().Select(cat => new SelectListItem
+            {
+                Text = cat.Name,
+                Value = cat.Id.ToString(CultureInfo.InvariantCulture)
+            }).ToList();
+            parentCategories.Insert(0, new SelectListItem
+            {
+                Text = "Chọn Danh mục bài viết cha",
+                Value = string.Empty,
+                Selected = true
+            });
+            model.ParentCategories = parentCategories;
+            return View(model);
         }
 
         [HttpGet]

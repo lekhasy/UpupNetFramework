@@ -142,7 +142,19 @@ namespace Upup.Areas.Admin.Controllers
                     ModelState.AddModelError("ProgressError", "bài viết bạn chọn đã bị xóa hoặc không tồn tại");
                 }
             }
-            return RedirectToAction("ManagePosts");
+            var categories = db.PostCategories.ToList().Select(cat => new SelectListItem
+            {
+                Text = cat.Name,
+                Value = cat.Id.ToString(CultureInfo.InvariantCulture)
+            }).ToList();
+            categories.Insert(0, new SelectListItem
+            {
+                Text = "Chọn danh mục bài viết",
+                Value = string.Empty,
+                Selected = true
+            });
+            model.PostCategories = categories;
+            return View(model);
         }
 
         [HttpGet]

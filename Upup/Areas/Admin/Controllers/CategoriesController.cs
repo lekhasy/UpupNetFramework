@@ -124,8 +124,20 @@ namespace Upup.Areas.Admin.Controllers
                     ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đã bị xóa hoặc không tồn tại");
                 }
             }
+            var parentCategories = Db.Categories.ToList().Select(cat => new SelectListItem
+            {
+                Text = cat.Name,
+                Value = cat.Id.ToString(CultureInfo.InvariantCulture)
+            }).ToList();
+            parentCategories.Insert(0, new SelectListItem
+            {
+                Text = "Chọn danh mục cha",
+                Value = string.Empty,
+                Selected = true
+            });
+            model.ParentCategories = parentCategories;
             ViewData["CategoryImgUrl"] = "/Images/Category/" + imgUrl;
-            return RedirectToAction("ManageCategories");
+            return View(model);
         }
 
         [HttpGet]
