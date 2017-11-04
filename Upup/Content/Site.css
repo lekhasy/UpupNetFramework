@@ -811,18 +811,59 @@ footer {
                 /* Search Page*/
 
 .search-result{
-
 }
 
 .search-result h2 {
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 18px 0;
 }
 
-/* End Search Page*/
-/*this help modal with ng-danger header display properly*/
-.custom-modal-header {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-}
+    .search-result small{
+        font-size: 10.5pt;
+        margin-bottom: 25px;
+        display: block;
+        font-style: italic;
+    }
+
+    .search-result h3 {
+        background: #dedede;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .search-result .result-item {
+        border-bottom: 1px dashed #ababab;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+    }
+
+        .search-result .result-item:last-child {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .search-result .result-item img {
+        width: 100%;
+    }
+
+        .search-result .result-item .title,
+        .search-result .result-item .category,
+        .search-result .result-item .price {
+            margin-bottom: 8px;
+        }
+
+        .search-result .result-item .summary {
+            line-height: 20px;
+        }
+
+            /* End Search Page*/
+            /*this help modal with ng-danger header display properly*/
+            .custom-modal-header {
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+            }
 
 .order-suggest {
     border: 1px solid #86cccf;
