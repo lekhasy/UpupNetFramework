@@ -23,7 +23,9 @@ namespace Upup.Areas.Admin.Controllers
 
         public async Task<ActionResult> CustomerList(DataTableRequest req)
         {
-            var dataResultQuery = Db.Customers.AsQueryable();
+            var CustomerRole = Db.Roles.First(r => r.Name == "Customer");
+            var dataResultQuery = Db.Customers.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id));
+            var count = dataResultQuery.Count();
 
             if (req.search.value != null)
             {
@@ -50,8 +52,8 @@ namespace Upup.Areas.Admin.Controllers
             {
                 draw = req.draw,
                 data = dt,
-                recordsTotal = Db.Customers.Count(),
-                recordsFiltered = Db.Customers.Count()
+                recordsTotal = count,
+                recordsFiltered = dataResultQuery.Count()
             }, JsonRequestBehavior.AllowGet);
         }
 

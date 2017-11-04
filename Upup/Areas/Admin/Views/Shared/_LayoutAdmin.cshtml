@@ -354,8 +354,8 @@
                     <li>
                         @Html.ActionSlideParentMenu("Người dùng", new { @class = "fa fa-user" }, new { @class = "fa fa-angle-right pull-right" })
                         <ul class="treeview-menu menu-open">
-                            <li>@Html.ActionSlideMenu("ManageCustomer", "Customers", null, "Khách hàng", new { @class = "fa fa-circle-o" }, "3", new { @class = "label pull-right bg-green" })</li>
-                            <li>@Html.ActionSlideMenu("ManageUser", "Admin", null, "Người dùng hệ thống", new { @class = "fa fa-circle-o" }, "3", new { @class = "label pull-right bg-green" })</li>
+                            <li>@Html.ActionSlideMenu("ManageCustomers", "Customers", null, "Khách hàng", new { @class = "fa fa-circle-o" }, "3", new { @class = "label pull-right bg-green" })</li>
+                            <li>@Html.ActionSlideMenu("ManageUsers", "User", null, "Người dùng hệ thống", new { @class = "fa fa-circle-o" }, "3", new { @class = "label pull-right bg-green" })</li>
                         </ul>
                     </li>
                     @*<li>
@@ -556,6 +556,7 @@
 
     <!-- ASP Ajax jQuery 2.1.4 -->
     @*<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>*@
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->
     <script src="@Url.Content("~/Scripts/bootstrap.min.js" )" type="text/javascript"></script>
     <!-- FastClick -->
@@ -582,6 +583,9 @@
     <script src="~/bower_components/gasparesganga-jquery-loading-overlay/src/loadingoverlay.min.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Scripts/admin-custom.js")" type="text/javascript"></script>
+    <script src="~/Scripts/js-cookie/js.cookie-2.1.4.min.js"></script>
+    <script src="~/Scripts/helpers/upupConfigs.js"></script>
+    <script src="~/Scripts/helpers/lang.js"></script>
     @if (IsSectionDefined("AddScriptToBody")) {
         @RenderSection("AddScriptToBody", required: false)
     }

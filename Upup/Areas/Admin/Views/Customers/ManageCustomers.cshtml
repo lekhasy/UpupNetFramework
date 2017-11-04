@@ -45,30 +45,18 @@
             <table id="example1" class="table table-bordered table-striped display">
                 <thead>
                     <tr>
-                        <th>OrgName</th>
+                        <th>Tên tổ chức</th>
                         <th>Email</th>
-                        <th>PhoneNumber</th>
-                        <th>DepartmentName</th>
-                        <th>Address1</th>
-                        <th>PostalCode</th>
-                        <th>Fax</th>
+                        <th>Họ tên</th>
+                        <th>Tel</th>
+                        <th>Bộ phận</th>
+                        <th>Địa chỉ 1</th>
+                        <th>Mã bưu điện</th>
+                        <th>Số Fax</th>
                         <th>Webiste</th>
                         <th>Tùy chỉnh</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>OrgName</th>
-                        <th>Email</th>
-                        <th>PhoneNumber</th>
-                        <th>DepartmentName</th>
-                        <th>Address1</th>
-                        <th>PostalCode</th>
-                        <th>Fax</th>
-                        <th>Tùy chỉnh</th>
-
-                    </tr>
-                </tfoot>
             </table>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
@@ -120,6 +108,7 @@
                     columns: [
                         { data: "DT_RowData.OrgName" },
                         { data: "DT_RowData.Email" },
+                        { data: "DT_RowData.FullName" },
                         { data: "DT_RowData.PhoneNumber" },
                         { data: "DT_RowData.DepartmentName" },
                         { data: "DT_RowData.Address1" },
