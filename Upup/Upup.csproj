@@ -221,6 +221,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthCheckController.cs" />
+    <Compile Include="Controllers\PostCategoryController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TechController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -406,6 +408,7 @@
     <Content Include="Images\banner2.svg" />
     <Content Include="Images\banner3.svg" />
     <Content Include="Images\banner4.svg" />
+    <Content Include="Images\banners\poster1.jpg" />
     <Content Include="Images\icons\calendar-icon.png" />
     <Content Include="Images\icons\support-icon.png" />
     <Content Include="Images\icons\tech-icon.png" />
@@ -549,6 +552,9 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Tech\TechGuide.cshtml" />
     <Content Include="Views\Tech\TechInfor.cshtml" />
+    <Content Include="Views\PostCategory\Index.cshtml" />
+    <Content Include="Views\Shared\_MenuPostPartial.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

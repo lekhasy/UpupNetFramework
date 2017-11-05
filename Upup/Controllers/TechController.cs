@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Upup.Controllers
 {
+    [AllowAnonymous]
     public class TechController : UpupControllerBase
     {
         public TechController()
