@@ -5,11 +5,6 @@ using System.Web;
 
 namespace Upup.ViewModels
 {
-    public class CategoryViewModel
-    {
-        Models.Category Category { get; set; }
-    }
-
     public class CategoryModel
     {
         public long Id { get; set; }

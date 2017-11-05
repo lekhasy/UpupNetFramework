@@ -238,7 +238,9 @@
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
+    <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\EnumConfigs.cs" />
     <Compile Include="ViewModels\CategoryModel.cs" />
     <Compile Include="Models\jQueryDataTableParamModel.cs" />
     <Compile Include="Models\PostCategory.cs" />
@@ -248,6 +250,8 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="ViewModels\CustomerViewModelBase.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Product.cs" />
