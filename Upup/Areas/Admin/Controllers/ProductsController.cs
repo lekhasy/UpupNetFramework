@@ -19,7 +19,7 @@ namespace Upup.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ManageProducts(int? id)
         {
-            var categories = Db.Categories.ToList().Select(cat => new SelectListItem
+            var categories = Db.Categories.Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
