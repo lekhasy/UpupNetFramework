@@ -26,7 +26,7 @@ namespace Upup.Areas.Admin.Controllers
             }).ToList();
             categories.Insert(0, new SelectListItem
             {
-                Text = "Chọn sản phẩm sản phẩm",
+                Text = "Chọn danh mục sản phẩm",
                 Value = string.Empty,
                 Selected = true
             });
@@ -147,7 +147,7 @@ namespace Upup.Areas.Admin.Controllers
             }).ToList();
             categories.Insert(0, new SelectListItem
             {
-                Text = "Chọn sản phẩm sản phẩm",
+                Text = "Chọn danh mục sản phẩm",
                 Value = string.Empty,
                 Selected = true
             });
