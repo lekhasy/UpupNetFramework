@@ -1,7 +1,10 @@
-﻿<div class="product-category-item">
-    <a href="/vona2/mech/M0100000000/?bid=bid_vn_m_mech_20161028_1004_1">
-        <span class="product-category-item-title">Linear Motion</span>
-        <p>Wide variety of linear shafts, guides, bushings &amp; more.</p>
-        <img src="http://vn.misumi-ec.com/operation/top/img/sale/top_bnr_product_201602_01.png" alt="Linear Motion">
+﻿@model Upup.Models.Category
+<div class="product-category-item">
+    <a href="/ProductCategory/Index/@Model.Id">
+        <span class="product-category-item-title lang-vi">@Model.Name</span>
+        <span class="product-category-item-title lang-en">@Model.Name_en</span>
+        <span class="lang-vi">@Html.Raw(Model.Description)</span>
+        <span class="lang-en">@Html.Raw(Model.Description_en)</span>
+        <img src="/Images/Categories/@Model.ImageUrl" alt="Linear Motion">
     </a>
 </div>

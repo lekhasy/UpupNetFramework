@@ -1,0 +1,10 @@
+﻿@model Upup.Models.Product
+<div class="product-category-item">
+    <a href="/Product/Index/@Model.Id">
+        <span class="product-category-item-title lang-vi">@Model.Name</span>
+        <span class="product-category-item-title lang-en">@Model.Name_en</span>
+        @*<p class="lang-vi">@Model.Description</p>
+        <p class="lang-en">@Model.Description_en</p>*@
+        <img src="/Images/products/@Model.ImageUrl" alt="Linear Motion">
+    </a>
+</div>

@@ -2,6 +2,19 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var categoryPath = new List<Upup.Models.Category>();
+    var currCategory = Model.CurrentCategory;
+    for (int i = 0; i < 10; i++) // do not user while true to avoid infinity loop if code have a bug
+    {
+        if (currCategory == null) { break; }
+        categoryPath.Insert(0, currCategory);
+        currCategory = currCategory.ParentCategory;
+    }
+
+    categoryPath.Remove(Model.CurrentCategory);
+
+    var allProducts = Model.CurrentCategory.Products.ToList();
+
 }
 
 <div id="categoryProductLv1">
@@ -12,17 +25,33 @@
         <div class="col-md-9">
             <div id="crumbs">
                 <ul>
-                    <li><a href="#1">Ốc vít</a></li>
-                    <li><a href="#2">Ốc vít titan</a></li>
-                    <li class="active"><a href="#5">Ốc lục giác</a></li>
+                    @foreach (var category in categoryPath)
+                    {
+                        <li><a href="/ProductCategory/Index/@category.Id"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></a></li>
+                    }
+                    <li class="active"><a href="/ProductCategory/Index/@Model.CurrentCategory.Id"><span class="lang-vi">@Model.CurrentCategory.Name</span><span class="lang-en">@Model.CurrentCategory.Name_en</span></a></li>
                 </ul>
             </div>
-            <div class="product-category-items">
-                @for (var i = 0; i < 8; i++)
-                {
-                    Html.RenderPartial("_ProductCategoryItemPartial");
-                }
-            </div>
+            @if (Model.CurrentCategory.ChildCategories.Any())
+            {
+                <div class="product-category-items">
+                    @foreach (var category in Model.CurrentCategory.ChildCategories)
+                    {
+                        Html.RenderPartial("_ProductCategoryItemPartial", category);
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="product-category-items">
+                    @foreach (var prod in allProducts)
+                    {
+                        Html.RenderPartial("_ProductItemPartial", prod);
+                    }
+                </div>
+            }
+
+
         </div>
     </div>
 </div>

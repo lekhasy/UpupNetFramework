@@ -11,10 +11,11 @@ namespace Upup.Controllers
     public class ProductCategoryController : UpupControllerBase
     {
         // GET: ProductCategory
-        public ActionResult Index()
+        public ActionResult Index(long? id)
         {
             ProductCategoryViewModel vm = new ProductCategoryViewModel();
             vm.Categories = Db.Categories.Where(c => c.ParentCategory == null).ToList();
+            vm.CurrentCategory = Db.Categories.FirstOrDefault(c => c.Id == id);
             return View(vm);
         }
     }

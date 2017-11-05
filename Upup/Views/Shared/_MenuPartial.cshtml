@@ -7,7 +7,7 @@
                 @foreach (var category in Model.Categories)
                 {
                     <dd class="root-category">
-                        <a href="/ProductCategory/Detail/@category.Id"  class="link category-link" imgUrl="@category.ImageUrl">
+                        <a href="/ProductCategory/Index/@category.Id"  class="link category-link" imgUrl="@category.ImageUrl">
                             <span class="lang-vi">@category.Name</span>
                             <span class="lang-en">@category.Name_en</span>
                         </a>
@@ -17,7 +17,7 @@
                             <ul>
                                 @foreach (var childCategories in category.ChildCategories)
                                 {
-                                    <li><a href="/ProductCategory/Detail/@childCategories.Id" data-head-category-code="M0100000000"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></a></li>
+                                    <li><a href="/ProductCategory/Index/@childCategories.Id" data-head-category-code="M0100000000"><span class="lang-vi">@childCategories.Name</span><span class="lang-en">@childCategories.Name_en</span></a></li>
                                 }
                             </ul>
                             <p class="image category-image"></p>
