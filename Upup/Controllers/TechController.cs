@@ -13,7 +13,12 @@ namespace Upup.Controllers
 
         }
 
-        public ActionResult Index()
+        public ActionResult TechGuide()
+        {
+            return View();
+        }
+
+        public ActionResult TechInfor()
         {
             return View();
         }

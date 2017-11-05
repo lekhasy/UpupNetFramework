@@ -545,9 +545,10 @@
     <Content Include="Areas\Admin\Views\Customers\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Index.cshtml" />
-    <Content Include="Views\Tech\Index.cshtml" />
     <Content Include="Views\Shared\_PostCategoryPartial.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Tech\TechGuide.cshtml" />
+    <Content Include="Views\Tech\TechInfor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
