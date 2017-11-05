@@ -259,6 +259,7 @@
     <Compile Include="Models\PurchaseOrderDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ProductCategoryViewModel.cs" />
     <Compile Include="ViewModels\SearchItemModels.cs" />
     <Compile Include="ViewModels\SearchModels.cs" />
   </ItemGroup>

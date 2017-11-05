@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Upup.Models;
 
 namespace Upup.ViewModels
 {
-    public class HomeViewModel
+    public class ProductCategoryViewModel : HomeViewModel
     {
-        public IEnumerable<Category> Categories { get; set; }
+        
     }
 }

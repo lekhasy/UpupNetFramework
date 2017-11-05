@@ -6,7 +6,11 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <style>
+        .lang-en {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     @*<nav class="navbar navbar-inverse navbar-fixed-top">*@
@@ -57,7 +61,7 @@
             <div id="topMenu">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="#" class="menu-item"><span class="icon product-icon"></span><span class="content">Tất cả sản phẩm</span></a>
+                        <a href="/" class="menu-item"><span class="icon product-icon"></span><span class="content">Tất cả sản phẩm</span></a>
                     </div>
                     <div class="col-md-3">
                         <a href="/Tech/TechGuide" class="menu-item"><span class="icon tech-icon"></span><span class="content">Công nghệ</span></a>
