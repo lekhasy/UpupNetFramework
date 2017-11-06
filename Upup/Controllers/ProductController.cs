@@ -6,12 +6,14 @@ using System.Web.Mvc;
 
 namespace Upup.Controllers
 {
-    public class ProductController : Controller
+    [AllowAnonymous]
+    public class ProductController : UpupControllerBase
     {
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(long? id)
         {
-            return View();
+            var product = Db.Products.Find(id);
+            return View(product);
         }
     }
 }

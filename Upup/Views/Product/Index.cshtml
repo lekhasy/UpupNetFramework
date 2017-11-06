@@ -1,8 +1,18 @@
-﻿
+﻿@model Upup.Models.Product
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=179668149113779';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
 <div id="productDetail">
     <div class="row">
@@ -35,13 +45,15 @@
             </div>
         </div>
         <div class="col-md-4">
+
             <div class="order-suggest form-group">
+
                 <div class="row">
                     <div class="col-md-8"><label>Mã sản phẩm</label></div>
                     <div class="col-md-4"><label>Số lượng</label></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8"><input type="text" class="form-control" /></div>
+                    <div class="col-md-8"><input type="text" class="form-control" value="@Model.Code" disabled/></div>
                     <div class="col-md-4"><input type="text" class="form-control" /></div>
                 </div>
                 <div class="row">
@@ -49,7 +61,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label>Đơn giá</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" value="@Model.Price" disabled/></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label>Số lượng</label></div>
@@ -57,11 +69,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label>Tổng tiền</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label>Ngày giao hàng</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 text-center"><button class="btn btn-primary">Dặt hàng nhanh</button></div>
@@ -69,7 +81,10 @@
                 </div>
             </div>
             <div class="text-center"><button class="btn btn-danger">Quản lý đơn hàng</button></div>
+
         </div>
     </div>
 </div>
 
+<div class="fb-share-button" data-href="http://localhost/Product/Index/1" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FProduct%2FIndex%2F1&amp;src=sdkpreparse">Chia sẻ</a></div>
+<div class="fb-comments" data-href="http://localhost/product/index/1" data-numposts="10"></div>
