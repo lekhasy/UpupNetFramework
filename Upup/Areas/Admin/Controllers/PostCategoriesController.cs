@@ -98,7 +98,7 @@ namespace Upup.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
                 }
-                ModelState.AddModelError("ProgressSuccess", "Đã thêm 1 tin tức mới !");
+                ModelState.AddModelError("ProgressSuccess", "Đã thêm 1 danh mục bài viết mới !");
             }
             else
             {
