@@ -17,17 +17,17 @@
     <div id="header">
         <div class="container">
             <div class="top-header row">
-                <div class="col-md-3">
+                <div class="area-logo">
                     <a asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/Content/Images/logo.jpg" alt="Logo" />
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div class="area-slogan">
                     <h3 class="text-center">Chuyên cung cấp chi tiết, thiết bị cơ khí</h3>
                     <h3 class="text-center">Không giới hạn số lượng mua hàng</h3>
                 </div>
-                <div class="col-md-3">
-                   @Html.Partial("_LoginPartial")
+                <div class="area-user">
+                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
             @*<div class="navbar-header">
@@ -49,28 +49,26 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="search-wrapper">
-                        <div class="row">
-                            <div class="col-md-7 col-md-offset-3">
-                                <input type="text" />
-                                <button class="btn btn-default">Tìm kiếm</button>
-                            </div>
+                        <div class="text-center">
+                            <input type="text" />
+                            <button class="btn btn-default">Tìm kiếm</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="topMenu">
                 <div class="row">
-                    <div class="col-md-3">
-                        <a href="/" class="menu-item"><span class="icon product-icon"></span><span class="content">Tất cả sản phẩm</span></a>
+                    <div class="menu-item">
+                        <a href="/"><span class="icon product-icon"></span><span class="content">Tất cả sản phẩm</span></a>
                     </div>
-                    <div class="col-md-3">
-                        <a href="/Tech/TechGuide" class="menu-item"><span class="icon tech-icon"></span><span class="content">Công nghệ</span></a>
+                    <div class="menu-item">
+                        <a href="/Tech/TechGuide"><span class="icon tech-icon"></span><span class="content">Công nghệ</span></a>
                     </div>
-                    <div class="col-md-3">
-                        <a href="/Manual" class="menu-item"><span class="icon support-icon"></span><span class="content">Hướng dẫn sử dụng</span></a>
+                    <div class="menu-item">
+                        <a href="/Manual"><span class="icon support-icon"></span><span class="content">Hướng dẫn sử dụng</span></a>
                     </div>
-                    <div class="col-md-3">
-                        <a href="/Events" class="menu-item"><span class="icon event-icon"></span><span class="content">Triển lãm sự kiện</span></a>
+                    <div class="menu-item">
+                        <a href="/Events"><span class="icon event-icon"></span><span class="content">Triển lãm sự kiện</span></a>
                     </div>
                 </div>
             </div>
@@ -81,16 +79,15 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>Copyright &copy; 2017 | Upup Mechanic | Powered by ICA Team</p>
+            <div>Copyright &copy; 2017 | Upup Mechanic | Powered by ICA Team</div>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
 
     <script src="~/Scripts/js-cookie/js.cookie-2.1.4.min.js"></script>
     <!-- End of liblary scripts -->
-
     <!-- Begin of common scripts -->
     <script src="~/Scripts/site.js" asp-append-version="true"></script>
     <script src="~/Scripts/helpers/utils.js" asp-append-version="true"></script>

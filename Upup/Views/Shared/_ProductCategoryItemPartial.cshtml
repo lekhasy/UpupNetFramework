@@ -5,6 +5,8 @@
         <span class="product-category-item-title lang-en">@Model.Name_en</span>
         <span class="lang-vi">@Html.Raw(Model.Description)</span>
         <span class="lang-en">@Html.Raw(Model.Description_en)</span>
-        <img src="/Images/Categories/@Model.ImageUrl" alt="Linear Motion">
+        <span class="img-block">
+            <img src="/Images/Categories/@Model.ImageUrl" alt="Linear Motion">
+        </span>
     </a>
 </div>
