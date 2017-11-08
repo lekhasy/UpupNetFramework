@@ -46,6 +46,8 @@ namespace Upup.Models
         public DbSet<PostCategory> PostCategories { get; set; }
 
         public DbSet<AppConfig> AppConfigs { get; set; }
+        public DbSet<ProductCustomProperties> ProductCustomProperties { get; set; }
+        public DbSet<ShipDateSetting> ShipDateSettings { get; set; }
     }
 
     // This is useful if you do not want to tear down the database each time you run the application.

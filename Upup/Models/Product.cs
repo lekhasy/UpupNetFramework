@@ -15,12 +15,7 @@ namespace Upup.Models
         public string Summary { get; set; }
         public string Summary_en { get; set; }
         public string ImageUrl { get; set; }
-        public string ImageGuideUrl { get; set; }
         public string PdfUrl { get; set; }
-
-        public decimal Price { get; set; }
-
-        public decimal OnHand { get; set; }
 
         public string MetaKeyword { get; set; }
         public string MetaDescription { get; set; }
@@ -29,5 +24,6 @@ namespace Upup.Models
         public string MetaDescription_en { get; set; }
 
         public virtual Category Category { get; set; }
+        public virtual ICollection<ProductCustomProperties> CustomProperties { get; set; }
     }
 }

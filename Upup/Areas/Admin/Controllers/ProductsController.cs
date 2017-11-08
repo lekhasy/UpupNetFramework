@@ -88,8 +88,8 @@ namespace Upup.Areas.Admin.Controllers
                     Name_en = model.Name_en,
                     Code = model.Code,
                     PdfUrl = model.PdfUrl,
-                    Price = model.Price,
-                    OnHand = model.OnHand,
+                    //Price = model.Price,
+                    //OnHand = model.OnHand,
                     Category = category,
                     MetaDescription = model.MetaDescription,
                     MetaKeyword = keywords,
@@ -118,8 +118,8 @@ namespace Upup.Areas.Admin.Controllers
                     product.ImageUrl = imgUrl;
                     product.Code = model.Code;
                     product.PdfUrl = model.PdfUrl;
-                    product.Price = model.Price;
-                    product.OnHand = model.OnHand;
+                    //product.Price = model.Price;
+                    //product.OnHand = model.OnHand;
                     product.Category = category;
                     product.MetaDescription = model.MetaDescription;
                     product.MetaKeyword = keywords;
@@ -165,36 +165,36 @@ namespace Upup.Areas.Admin.Controllers
             List<Product> afterFound = new List<Product>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = Db.Products.ToList()
-                         .Where(c => c.Name.Contains(param.sSearch)
-                                     ||
-                          c.Name_en.Contains(param.sSearch)
-                                     ||
-                          c.Price.ToString().Contains(param.sSearch)).ToList();
+                //afterFound = Db.Products.ToList()
+                //         .Where(c => c.Name.Contains(param.sSearch)
+                //                     ||
+                //          c.Name_en.Contains(param.sSearch)
+                //                     ||
+                //          c.Price.ToString().Contains(param.sSearch)).ToList();
             }
             var filteredProducts = allProducts.Skip(param.iDisplayStart)
                         .Take(param.iDisplayLength);
 
             var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
-            Func<Product, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
-                                                                sortColumnIndex == 1 ? n.Name :
-                                                                sortColumnIndex == 2 ? n.Name_en : n.Price.ToString());
+            //Func<Product, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
+            //                                                    sortColumnIndex == 1 ? n.Name :
+            //                                                    sortColumnIndex == 2 ? n.Name_en : n.Price.ToString());
 
-            var sortDirection = Request["sSortDir_0"]; // asc or desc
-            filteredProducts = sortDirection == "asc" ? filteredProducts.OrderBy(orderingFunction) : filteredProducts.OrderByDescending(orderingFunction);
+            //var sortDirection = Request["sSortDir_0"]; // asc or desc
+            //filteredProducts = sortDirection == "asc" ? filteredProducts.OrderBy(orderingFunction) : filteredProducts.OrderByDescending(orderingFunction);
 
-            var result = filteredProducts.Select(Product => new[]
-            {
-                Product.Id.ToString(CultureInfo.InvariantCulture), Product.Name, Product.Name_en, Product.Price.ToString(),
-                Product.ImageUrl, Product.Id.ToString(CultureInfo.InvariantCulture)
-            }).ToList();
+            //var result = filteredProducts.Select(Product => new[]
+            //{
+            //    Product.Id.ToString(CultureInfo.InvariantCulture), Product.Name, Product.Name_en, Product.Price.ToString(),
+            //    Product.ImageUrl, Product.Id.ToString(CultureInfo.InvariantCulture)
+            //}).ToList();
 
             return Json(new
             {
                 param.sEcho,
                 iTotalRecords = allProducts.Count(),
                 iTotalDisplayRecords = allProducts.Count(),
-                aaData = result
+                //aaData = result
             },
             JsonRequestBehavior.AllowGet);
         }
