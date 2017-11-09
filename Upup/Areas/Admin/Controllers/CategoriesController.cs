@@ -19,7 +19,8 @@ namespace Upup.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ManageCategories(int? id)
         {
-            var parentCategories = Db.Categories.ToList().Select(cat => new SelectListItem
+            var allCategories = Mapper.Map<List<Category>, List<CategoryModel>>(Db.Categories.ToList());
+            var parentCategories = allCategories.Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
@@ -30,24 +31,21 @@ namespace Upup.Areas.Admin.Controllers
                 Value = string.Empty,
                 Selected = true
             });
-            var productCategory = new ViewModels.CategoryModel { ParentCategories = parentCategories };
+            var productCategory = new CategoryModel {
+                AllCategoriesLevel = allCategories,
+                ParentCategories = parentCategories
+            };
             if (id == null) return View(productCategory);
             var result = Db.Categories.Find(id);
             if (result != null)
             {
-                productCategory = Mapper.Map<Category, ViewModels.CategoryModel>(result);
-                var existParentCategory = Db.PostCategories.Find(productCategory.ParentCategory_Id);
-                if (existParentCategory == null)
-                {
-                    result.ParentCategory = null;
-                    Db.Entry(result).State = EntityState.Modified;
-                    Db.SaveChanges();
-                }
-                else
+                productCategory = Mapper.Map<Category, CategoryModel>(result);
+                productCategory.ParentCategories = parentCategories;
+                productCategory.AllCategoriesLevel = allCategories;
+                if (productCategory.ParentCategory != null)
                 {
                     productCategory.ParentCategory_Id = Convert.ToInt32(result.ParentCategory.Id);
                 }
-                productCategory.ParentCategories = parentCategories;
                 return View(productCategory);
             }
             ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đã bị xóa hoặc không tồn tại");
@@ -57,8 +55,9 @@ namespace Upup.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
 
-        public ActionResult ManageCategories(ViewModels.CategoryModel model)
+        public ActionResult ManageCategories(CategoryModel model)
         {
+            var allCategories = Mapper.Map<List<Category>, List<CategoryModel>>(Db.Categories.ToList());
             var imgUrl = !string.IsNullOrEmpty(model.ImageUrl) ? model.ImageUrl : string.Empty;
             imgUrl = imgUrl.EndsWith(",") ? imgUrl.Remove(imgUrl.Length - 1, 1) : imgUrl;
             var keywords = model.MetaKeyword;
@@ -136,6 +135,7 @@ namespace Upup.Areas.Admin.Controllers
                 Selected = true
             });
             model.ParentCategories = parentCategories;
+            model.AllCategoriesLevel = allCategories;
             ViewData["CategoryImgUrl"] = "/Images/Category/" + imgUrl;
             return View(model);
         }

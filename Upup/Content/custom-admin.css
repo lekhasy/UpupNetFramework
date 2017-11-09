@@ -1,9 +1,195 @@
 ﻿.skin-blue-light .sidebar-menu > li > a {
     font-weight: normal;
 }
+
 .btn.upload {
     margin-top: 10px;
 }
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     color: #333333;
 }
+
+.site-map {
+    background: linear-gradient( to top right, white, #ECF0F5 );
+    margin-left: -25px;
+    margin-right: 15px;
+    margin-top: 14px;
+    padding: 10px;
+    border: 1px solid #ababab;
+}
+
+    .site-map label, .site-map input[type="range"] {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+    }
+
+    .site-map input[type="range"] {
+        width: 200px;
+        margin-left: 5px;
+    }
+/* ————————————————————–
+  Tree core styles
+*/
+.tree {
+    margin: 1em;
+    padding-left: 10px;
+}
+
+    .tree .glyphicon {
+        margin-left: 5px;
+        vertical-align: middle;
+    } 
+    
+    .tree, .tree ul {
+        list-style: none;
+    }
+
+        .tree ul {
+            padding-left: 10px;
+        }
+        
+        .tree input {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        .tree input ~ ul {
+            display: none;
+        }
+
+        .tree input:checked ~ ul {
+            display: block;
+        }
+
+    /* ————————————————————–
+  Tree rows
+*/
+    .tree li {
+        line-height: 1.2;
+        position: relative;
+        padding: 0 0 1em 1em;
+    }
+
+    .tree ul li {
+        padding: 1em 0 0 1em;
+    }
+
+    .tree > li:last-child {
+        padding-bottom: 0;
+    }
+
+/* ————————————————————–
+  Tree labels
+*/
+.tree_label {
+    position: relative;
+    display: inline-block;
+}
+
+label.tree_label {
+    cursor: pointer;
+}
+
+    label.tree_label:hover {
+        color: #666;
+    }
+
+    /* ————————————————————–
+  Tree expanded icon
+*/
+    label.tree_label:before {
+        background: #000;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+        float: left;
+        margin: 0 1em 0 -2em;
+        width: 1em;
+        height: 1em;
+        border-radius: 1em;
+        content: '+';
+        text-align: center;
+        line-height: .9em;
+    }
+
+ul.tree ul label.tree_label:before {
+    background: #3C8DBC;
+}
+
+ul.tree ul label.tree_label {
+    color: #3C8DBC;
+}
+
+ul.tree ul ul label.tree_label:before {
+    background: #D24B3E;
+}
+
+ul.tree ul ul label.tree_label {
+    color: #D24B3E;
+}
+
+:checked ~ label.tree_label:before {
+    content: '–';
+}
+
+/* ————————————————————–
+  Tree branches
+*/
+.tree li:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -.5em;
+    display: block;
+    width: 0;
+    border-left: 1px solid #777;
+    content: "";
+}
+
+.tree_label:after {
+    position: absolute;
+    top: 0;
+    left: -1.5em;
+    display: block;
+    height: 0.5em;
+    width: 1em;
+    border-bottom: 1px solid #777;
+    border-left: 1px solid #777;
+    border-radius: 0 0 0 .3em;
+    content: '';
+}
+
+label.tree_label:after {
+    border-bottom: 0;
+}
+
+:checked ~ label.tree_label:after {
+    border-radius: 0 .3em 0 0;
+    border-top: 1px solid #777;
+    border-right: 1px solid #777;
+    border-bottom: 0;
+    border-left: 0;
+    bottom: 0;
+    top: 0.5em;
+    height: auto;
+}
+
+.tree li:last-child:before {
+    height: 1em;
+    bottom: auto;
+}
+
+.tree > li:last-child:before {
+    display: none;
+}
+
+.tree_custom {
+    display: block;
+    background: #eee;
+    padding: 1em;
+    border-radius: 0.3em;
+}
+
+/* End tree style*/

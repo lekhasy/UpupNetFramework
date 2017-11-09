@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Upup.Models;
 
 namespace Upup.Areas.Admin.ViewModels
 {
@@ -31,5 +32,8 @@ namespace Upup.Areas.Admin.ViewModels
         [Display(Name = "Mô tả trang tiếng anh")]
         public string MetaDescription_en { get; set; }
         public List<SelectListItem> ParentCategories { get; set; }
+        public ICollection<CategoryModel> ChildCategories { get; set; }
+        public List<CategoryModel> AllCategoriesLevel { get; set; }
+        public CategoryModel ParentCategory { get; set; }
     }
 }
