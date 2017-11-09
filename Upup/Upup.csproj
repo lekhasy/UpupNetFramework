@@ -241,12 +241,16 @@
     <Compile Include="Migrations\201711081422449_Add 2 table product properties and ship date setting.Designer.cs">
       <DependentUpon>201711081422449_Add 2 table product properties and ship date setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711091543283_RenameandaddfieldProductVarianttable.cs" />
+    <Compile Include="Migrations\201711091543283_RenameandaddfieldProductVarianttable.Designer.cs">
+      <DependentUpon>201711091543283_RenameandaddfieldProductVarianttable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\EnumConfigs.cs" />
-    <Compile Include="Models\ProductCustomProperties.cs" />
+    <Compile Include="Models\ProductVariant.cs" />
     <Compile Include="Models\ShipDateSetting.cs" />
     <Compile Include="ViewModels\CategoryModel.cs" />
     <Compile Include="Models\jQueryDataTableParamModel.cs" />
@@ -601,6 +605,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711081422449_Add 2 table product properties and ship date setting.resx">
       <DependentUpon>201711081422449_Add 2 table product properties and ship date setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091543283_RenameandaddfieldProductVarianttable.resx">
+      <DependentUpon>201711091543283_RenameandaddfieldProductVarianttable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -2,8 +2,8 @@ IF OBJECT_ID('dbo.__MigrationHistory', 'U') IS NOT NULL
 DROP TABLE dbo.__MigrationHistory;
 IF OBJECT_ID('dbo.ShipDateSettings', 'U') IS NOT NULL 
 DROP TABLE dbo.ShipDateSettings;
-IF OBJECT_ID('dbo.ProductCustomProperties', 'U') IS NOT NULL 
-DROP TABLE dbo.ProductCustomProperties;
+IF OBJECT_ID('dbo.ProductVariants', 'U') IS NOT NULL 
+DROP TABLE dbo.ProductVariants;
 IF OBJECT_ID('dbo.PurchaseOrderDetails', 'U') IS NOT NULL 
 DROP TABLE dbo.PurchaseOrderDetails;
 IF OBJECT_ID('dbo.Products', 'U') IS NOT NULL 
