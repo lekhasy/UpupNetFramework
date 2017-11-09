@@ -14,6 +14,9 @@ namespace Upup.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
         // public string Email { get; internal set; }
+        public Customer Customer { get; set; }
+        public ApplicationUser User { get; set; }
+        public bool IsCustomer { get; set; }
     }
 
     public class ManageLoginsViewModel

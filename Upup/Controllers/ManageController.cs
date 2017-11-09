@@ -31,6 +31,9 @@ namespace Upup.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var isCustomer  = this.UserManager.IsInRole(userId, "Customer");
+            
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -38,8 +41,19 @@ namespace Upup.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                IsCustomer = isCustomer
             };
+
+            if (isCustomer)
+            {
+                model.Customer = Db.Customers.Find(userId);
+            }
+            else
+            {
+                model.User = Db.Users.Find(userId);
+            }
+
             return View(model);
         }
 

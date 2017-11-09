@@ -8,74 +8,56 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>Mẩ khẩu:</dt>
-        <dd>
-            [@Html.ActionLink("Đổi mật khẩu", "ChangePassword")]
-        </dd>
-        @*<dt>Email:</dt>
-        <dd>
-            @Model.Email | [@Html.ActionLink("Đổi email", "ChangePassword")]
-        </dd>*@
-        @*<dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>*@
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        @*<dt>Two-Factor Authentication:</dt>*@
-        @*<dd>*@
-            @*<p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>*@
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        @*</dd>*@
-    </dl>
+    <div class="dl-horizontal row">
+        <div class="form-group">
+            <span>Mật khẩu:</span>
+            <span>
+                @Html.ActionLink("Đổi mật khẩu", "ChangePassword")
+            </span>
+        </div>
+        @if (Model.IsCustomer)
+        {
+            <div>
+                <div class="form-group">
+                    <span>Email: @Model.Customer.Email</span>
+                </div>
+                <div class="form-group">
+                    <span>Họ Tên: @Model.Customer.FullName</span>
+                </div>
+                <div class="form-group">
+                    <span>Công ty/Tổ chức: @Model.Customer.OrgName</span>
+                </div>
+                <div class="form-group">
+                    <span>Webiste: @Model.Customer.Webiste</span>
+                </div>
+                <div class="form-group">
+                    <span>Bộ phận: @Model.Customer.DepartmentName</span>
+                </div>
+                <div class="form-group">
+                    <span>Địa chỉ 1: @Model.Customer.Address1</span>
+                </div>
+                <div class="form-group">
+                    <span>Địa chỉ 2: @Model.Customer.Address2</span>
+                </div>
+                <div class="form-group">
+                    <span>Địa chỉ 3: @Model.Customer.Address3</span>
+                </div>
+                <div class="form-group">
+                    <span>Địa chỉ 4: @Model.Customer.Address4</span>
+                </div>
+                <div class="form-group">
+                    <span>Mã bưu điện: @Model.Customer.PostalCode</span>
+                </div>
+                <div class="form-group">
+                    <span>Điện thoại: @Model.Customer.PhoneNumber</span>
+                </div>
+                <div class="form-group">
+                    <span>Fax: @Model.Customer.Fax</span>
+                </div>                
+            </div>
+            <div>
+                <button class="btn btn-primary bg-base-color-dark">Cập nhật</button>
+            </div>
+        }
+    </div>
 </div>
