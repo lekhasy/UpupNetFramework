@@ -46,7 +46,7 @@ namespace Upup.Models
         public DbSet<PostCategory> PostCategories { get; set; }
 
         public DbSet<AppConfig> AppConfigs { get; set; }
-        public DbSet<ProductCustomProperties> ProductCustomProperties { get; set; }
+        public DbSet<ProductVariant> ProductCustomProperties { get; set; }
         public DbSet<ShipDateSetting> ShipDateSettings { get; set; }
     }
 
