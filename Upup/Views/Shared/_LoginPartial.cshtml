@@ -8,9 +8,9 @@
 
     <ul class="text-right">
         <li>
-            @Html.ActionLink(Lang.Account, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink(Lang.Account, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-primary pull-right bg-base-color-dark" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary pull-right bg-base-color-dark">Log off</a></li>
     </ul>
     }
 }
