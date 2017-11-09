@@ -1,0 +1,108 @@
+﻿@model Upup.Models.UpdateInfoViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Upup.Globalization
+
+<h2>Cập nhật thông tin</h2>
+
+<form action="/Manage/Edit" name="edit" method="post">
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="FullName">@Lang.Register_Name </label> <span class="text-red">*</span>
+            <input name="FullName" class="form-control" type="text" value="@Model.FullName" required />
+        </div>
+
+        <div class="form-group">
+            <label for="OrgName">@Lang.Register_Company_Name </label> <span class="text-red">*</span>
+            <input name="OrgName" class="form-control" type="text" required value="@Model.OrgName" />
+        </div>
+
+        <div class="form-group">
+            <label for="Website">Website</label>
+            <input name="Website" class="form-control" type="text" value="@Model.Website" />
+        </div>
+
+        <div class="form-group">
+            <label for="DepartmentName">@Lang.Register_Department</label>
+            <input name="DepartmentName" class="form-control" type="text" value="@Model.DepartmentName" />
+        </div>
+
+        <div class="form-group">
+            <label for="Address1">@Lang.Register_Address1 </label> <span class="text-red">*</span>
+            <input name="Address1" class="form-control" type="text" required value="@Model.Address1" />
+        </div>
+
+        <div class="form-group">
+            <label for="Address2">@Lang.Register_Address2</label>
+            <input name="Address2" class="form-control" type="text" value="@Model.Address2" />
+        </div>
+
+        <div class="form-group">
+            <label for="Address3">@Lang.Register_Address3</label>
+            <input name="Address3" class="form-control" type="text" value="@Model.Address3" />
+        </div>
+
+        <div class="form-group">
+            <label for="Address4">@Lang.Register_Address4</label>
+            <input name="Address4" class="form-control" type="text" value="@Model.Address4" />
+        </div>
+
+        <div class="form-group">
+            <label for="PostalCode">@Lang.Register_Postal_Code</label>
+            <input name="PostalCode" class="form-control" type="text" value="@Model.PostalCode" />
+        </div>
+
+        <div class="form-group">
+            <label for="PhoneNumber">@Lang.Register_Phone</label>
+            <input name="PhoneNumber" class="form-control" type="text" value="@Model.PhoneNumber" />
+        </div>
+
+        <div class="form-group">
+            <label for="Fax">@Lang.Register_Fax</label>
+            <input name="Fax" class="form-control" type="text" value="@Model.Fax" />
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary bg-base-color-dark" value="Cập nhật" />
+    </div>
+</form>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("form[name='edit']").validate({
+                // Specify validation rules
+                rules: {
+                    FullName: "required",
+                    OrgName: "required",
+                    // DepartmentName
+
+                    Address1: "required",
+                    //Address2, 3,4
+                    //PostalCode
+                    PhoneNumber: {
+                        digits: true
+                    }
+                    // Fax
+                },
+                // Specify validation error messages
+                messages: {
+
+                    FullName: $uuLang.getText("required_field"),
+                    OrgName: $uuLang.getText("required_field"),
+
+                    Address1: $uuLang.getText("required_field"),
+                    PhoneNumber: $uuLang.getText("phone_format_validation")
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>>
+}

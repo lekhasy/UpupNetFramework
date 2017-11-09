@@ -31,8 +31,8 @@ namespace Upup.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var isCustomer  = this.UserManager.IsInRole(userId, "Customer");
-            
+            var isCustomer = this.UserManager.IsInRole(userId, "Customer");
+
 
             var model = new IndexViewModel
             {
@@ -55,6 +55,50 @@ namespace Upup.Controllers
             }
 
             return View(model);
+        }
+
+        public ActionResult Edit()
+        {
+            var customer = Db.Customers.Find(User.Identity.GetUserId());
+
+            UpdateInfoViewModel vm = new UpdateInfoViewModel
+            {
+                Address1 = customer.Address1,
+                Address2 = customer.Address2,
+                Address3 = customer.Address3,
+                Address4 = customer.Address4,
+                DepartmentName = customer.DepartmentName,
+                Email = customer.Email,
+                Fax = customer.Fax,
+                FullName = customer.FullName,
+                OrgName = customer.OrgName,
+                PhoneNumber = customer.PhoneNumber,
+                PostalCode = customer.PostalCode,
+                Website = customer.Webiste
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(UpdateInfoViewModel vm)
+        {
+            var customer = Db.Customers.Find(User.Identity.GetUserId());
+            customer.Address1 = vm.Address1;
+            customer.Address2 = vm.Address2;
+            customer.Address3 = vm.Address3;
+            customer.Address4 = vm.Address4;
+            customer.DepartmentName = vm.DepartmentName;
+            customer.Email = vm.Email;
+            customer.Fax = vm.Fax;
+            customer.FullName = vm.FullName;
+            customer.OrgName = vm.OrgName;
+            customer.PhoneNumber = vm.PhoneNumber;
+            customer.PostalCode = vm.PostalCode;
+            customer.Webiste = vm.Website;
+            await Db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         //
@@ -304,7 +348,7 @@ namespace Upup.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -355,6 +399,6 @@ namespace Upup.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

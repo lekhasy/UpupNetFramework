@@ -88,4 +88,20 @@ namespace Upup.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
+    public class UpdateInfoViewModel
+    {
+        public string Email { get; set; }
+        public string FullName { get; set; }
+        public string OrgName { get; set; }
+        public string Website { get; set; }
+        public string DepartmentName { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Address4 { get; set; }
+        public string PostalCode { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Fax { get; set; }
+    }
 }
