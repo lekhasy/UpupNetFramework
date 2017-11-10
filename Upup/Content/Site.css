@@ -822,6 +822,28 @@ footer {
 .search-result {
 }
 
+    .search-result .col-md-6, .search-result .col-md-4, .search-result .col-md-8 {
+        float: left;
+    }
+
+    .search-result .col-md-6 {
+        width: 49%;
+        margin-right: 24px;
+    }
+
+    .search-result .col-md-6:last-child {
+        margin-right: 0;
+    }
+
+        .search-result .col-md-4 {
+        width: 26%;
+        margin-right: 20px;
+    }
+
+    .search-result .col-md-8 {
+        width: 70%;
+    }
+    
     .search-result h2 {
         font-size: 11pt;
         font-weight: bold;

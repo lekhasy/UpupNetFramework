@@ -9,7 +9,7 @@
 
 @section AddCssToHead
 {
-    <link href="@Url.Content(" ~/Content/dropzone.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/dropzone.min.css")" rel="stylesheet" type="text/css" />
 }
 
 <section class="content-header">
@@ -142,8 +142,8 @@
         <div class="site-map">
             <div id="fontSizeWrapper">
                 <label for="fontSize">Kích cở</label>
-                <input type="range" value="1" id="fontSize" step="0.5" min="0.5" max="5" />
-                <a class="btn-sm btn-success btn-sm pull-right" href="@Url.Action(" ManageCategories", "Categories" )">Tạo mới</a>
+                <input type="range" value="1" id="fontSize" step="0.1" min="0.5" max="1" />
+                <a class="btn-sm btn-success btn-sm pull-right" href="@Url.Action("ManageCategories", "Categories" )">Tạo mới</a>
             </div>
             <ul class="tree">
                 @foreach (var subPage in Model.AllCategoriesLevel.Where(c => c.ParentCategory == null))
@@ -190,7 +190,7 @@
                 <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action(" SaveUploadedFile", "Upload" , new { id="admin" , folderName="Categories" })" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                <form action="@Url.Action("SaveUploadedFile", "Upload" , new { id="admin" , folderName="Categories" })" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                         <input type="submit" value="Upload" />
@@ -225,7 +225,7 @@
 </section>
 
 @section AddScriptToBody{
-    <script src="@Url.Content(" ~/Scripts/dropzone.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/dropzone.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
         $(function() {
             Dropzone.options.dropzoneForm = {
