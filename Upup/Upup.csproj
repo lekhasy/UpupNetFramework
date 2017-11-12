@@ -248,8 +248,8 @@
     <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\EnumConfigs.cs" />
-    <Compile Include="Models\ProductShipDateApply.cs" />
     <Compile Include="Models\ProductVariant.cs" />
+    <Compile Include="Models\ProductVariantUnit.cs" />
     <Compile Include="Models\ShipDateSetting.cs" />
     <Compile Include="ViewModels\CategoryModel.cs" />
     <Compile Include="Models\jQueryDataTableParamModel.cs" />
