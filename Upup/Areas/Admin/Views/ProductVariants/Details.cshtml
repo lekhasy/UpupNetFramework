@@ -1,0 +1,83 @@
+﻿@model Upup.Models.ProductVariant
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductVariant</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VariantName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VariantName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VariantCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VariantCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnHand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnHand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cad2dUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cad2dUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cad3dUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cad3dUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Origin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Origin)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

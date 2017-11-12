@@ -3,7 +3,7 @@ namespace Upup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Add2tableproductpropertiesandshipdatesetting : DbMigration
+    public partial class CreateProductShipDateApplied : DbMigration
     {
         public override void Up()
         {
@@ -60,15 +60,18 @@ namespace Upup.Migrations
                 .Index(t => t.Category_Id);
             
             CreateTable(
-                "dbo.ProductCustomProperties",
+                "dbo.ProductVariants",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        PropertyCode = c.String(),
+                        VariantName = c.String(),
+                        VariantCode = c.String(),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OnHand = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Cad2dUrl = c.String(),
                         Cad3dUrl = c.String(),
+                        BrandName = c.String(),
+                        Origin = c.String(),
                         Product_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -76,17 +79,19 @@ namespace Upup.Migrations
                 .Index(t => t.Product_Id);
             
             CreateTable(
-                "dbo.ShipDateSettings",
+                "dbo.ProductShipDateApplies",
                 c => new
                     {
-                        Id = c.Long(nullable: false, identity: true),
-                        QuantityOrderMax = c.Int(nullable: false),
-                        TargetDateNumber = c.Int(nullable: false),
-                        ProductCustomProperties_Id = c.Long(),
+                        ShipDateSettingID = c.Int(nullable: false),
+                        ProductVariantID = c.Int(nullable: false),
+                        ProductVariant_Id = c.Long(),
+                        ShipDateSetting_Id = c.Long(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.ProductCustomProperties", t => t.ProductCustomProperties_Id)
-                .Index(t => t.ProductCustomProperties_Id);
+                .PrimaryKey(t => new { t.ShipDateSettingID, t.ProductVariantID })
+                .ForeignKey("dbo.ProductVariants", t => t.ProductVariant_Id)
+                .ForeignKey("dbo.ShipDateSettings", t => t.ShipDateSetting_Id)
+                .Index(t => t.ProductVariant_Id)
+                .Index(t => t.ShipDateSetting_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -245,10 +250,21 @@ namespace Upup.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "dbo.ShipDateSettings",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        QuantityOrderMax = c.Int(nullable: false),
+                        TargetDateNumber = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.ProductShipDateApplies", "ShipDateSetting_Id", "dbo.ShipDateSettings");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.PurchaseOrderDetails", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.PurchaseOrderDetails", "Product_Id", "dbo.Products");
@@ -259,8 +275,8 @@ namespace Upup.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.ProductCustomProperties", "Product_Id", "dbo.Products");
-            DropForeignKey("dbo.ShipDateSettings", "ProductCustomProperties_Id", "dbo.ProductCustomProperties");
+            DropForeignKey("dbo.ProductVariants", "Product_Id", "dbo.Products");
+            DropForeignKey("dbo.ProductShipDateApplies", "ProductVariant_Id", "dbo.ProductVariants");
             DropForeignKey("dbo.Products", "Category_Id", "dbo.Categories");
             DropForeignKey("dbo.Categories", "ParentCategory_Id", "dbo.Categories");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -275,10 +291,12 @@ namespace Upup.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.ShipDateSettings", new[] { "ProductCustomProperties_Id" });
-            DropIndex("dbo.ProductCustomProperties", new[] { "Product_Id" });
+            DropIndex("dbo.ProductShipDateApplies", new[] { "ShipDateSetting_Id" });
+            DropIndex("dbo.ProductShipDateApplies", new[] { "ProductVariant_Id" });
+            DropIndex("dbo.ProductVariants", new[] { "Product_Id" });
             DropIndex("dbo.Products", new[] { "Category_Id" });
             DropIndex("dbo.Categories", new[] { "ParentCategory_Id" });
+            DropTable("dbo.ShipDateSettings");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.PurchaseOrderDetails");
             DropTable("dbo.Posts");
@@ -288,8 +306,8 @@ namespace Upup.Migrations
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.ShipDateSettings");
-            DropTable("dbo.ProductCustomProperties");
+            DropTable("dbo.ProductShipDateApplies");
+            DropTable("dbo.ProductVariants");
             DropTable("dbo.Products");
             DropTable("dbo.Categories");
             DropTable("dbo.AppConfigs");

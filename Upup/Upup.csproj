@@ -208,6 +208,7 @@
     <Compile Include="Areas\Admin\Controllers\PostCategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductVariantsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\DataTableRequest.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Areas\Admin\ViewModels\PostModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CustomerModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ProductVariantModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\UserModel.cs" />
     <Compile Include="Configurations\MapperConfigurations.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -237,19 +239,16 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
-    <Compile Include="Migrations\201711081422449_Add 2 table product properties and ship date setting.cs" />
-    <Compile Include="Migrations\201711081422449_Add 2 table product properties and ship date setting.Designer.cs">
-      <DependentUpon>201711081422449_Add 2 table product properties and ship date setting.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711091543283_RenameandaddfieldProductVarianttable.cs" />
-    <Compile Include="Migrations\201711091543283_RenameandaddfieldProductVarianttable.Designer.cs">
-      <DependentUpon>201711091543283_RenameandaddfieldProductVarianttable.cs</DependentUpon>
+    <Compile Include="Migrations\201711111604288_CreateProductShipDateApplied.cs" />
+    <Compile Include="Migrations\201711111604288_CreateProductShipDateApplied.Designer.cs">
+      <DependentUpon>201711111604288_CreateProductShipDateApplied.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\EnumConfigs.cs" />
+    <Compile Include="Models\ProductShipDateApply.cs" />
     <Compile Include="Models\ProductVariant.cs" />
     <Compile Include="Models\ShipDateSetting.cs" />
     <Compile Include="ViewModels\CategoryModel.cs" />
@@ -506,6 +505,11 @@
     <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\ManageProducts.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductVariants\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductVariants\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductVariants\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductVariants\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductVariants\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
@@ -604,11 +608,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711081422449_Add 2 table product properties and ship date setting.resx">
-      <DependentUpon>201711081422449_Add 2 table product properties and ship date setting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711091543283_RenameandaddfieldProductVarianttable.resx">
-      <DependentUpon>201711091543283_RenameandaddfieldProductVarianttable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711111604288_CreateProductShipDateApplied.resx">
+      <DependentUpon>201711111604288_CreateProductShipDateApplied.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

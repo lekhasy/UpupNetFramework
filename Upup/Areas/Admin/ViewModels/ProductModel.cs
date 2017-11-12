@@ -16,6 +16,10 @@ namespace Upup.Areas.Admin.ViewModels
         public string Name { get; set; }
         [Display(Name = "Tên sản phẩm tiếng anh")]
         public string Name_en { get; set; }
+        [Display(Name = "Mô tả ngắn")]
+        public string Summary { get; set; }
+        [Display(Name = "Mô tả ngắn tiếng anh")]
+        public string Summary_en { get; set; }
         [Display(Name = "Danh mục sản phẩm")]
         public int Category_Id { get; set; }
         [Display(Name = "Hình ảnh")]

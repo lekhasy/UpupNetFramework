@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Upup.Models
+﻿namespace Upup.Areas.Admin.ViewModels
 {
-    public class ProductVariant
+    public class ProductVariantModel
     {
         public long Id { get; set; }
         public string VariantName { get; set; }
@@ -16,6 +11,5 @@ namespace Upup.Models
         public string Cad3dUrl { get; set; }
         public string BrandName { get; set; }
         public string Origin { get; set; }
-        public ICollection<ProductShipDateApply> ProductShipDateApply { get; set; }
     }
 }

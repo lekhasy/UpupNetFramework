@@ -16,7 +16,6 @@
     <h1>
         Quản lý Sản phẩm
         <small>Preview</small>
-        <a class="btn-sm btn-success" href="@Url.Action("ManageProducts","Products")">Tạo mới sản phẩm</a>
     </h1>
     <ol class="breadcrumb">
         <li>@Html.ActionSiteMap("ProductsConsole", "Products", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
@@ -24,136 +23,201 @@
     </ol>
 </section>
 
-@using (Html.BeginForm("ManageProducts", "Products", FormMethod.Post, new { id = "insertForm" }))
-{
-    <section class="content">
-        <div class="box box-primary">
-            <!-- form start -->
-            <form role="form">
-                <div class="box-body">
-                    @Html.HiddenFor(n => n.Id)
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Category_Id)
-                        @Html.DropDownListFor(n => n.Category_Id, Model.Categories, new
-                   {
-                       @class = "form-control",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng chọn danh mục"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Code)
-                        @Html.TextBoxFor(n => n.Code, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập mã Sản phẩm",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền mã Sản phẩm"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Name)
-                        @Html.TextBoxFor(n => n.Name, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập tên Sản phẩm",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên Sản phẩm"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Name_en)
-                        @Html.TextBoxFor(n => n.Name_en, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập tên Sản phẩm tiếng anh",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên Sản phẩm tiếng anh"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(p => p.ImageUrl)
-                        @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
-                        {
-                            <img src="/Images/Products/@Model.ImageUrl" alt="@Model.Name" width="150" />
-                        }
-                        <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-img">Upload Image</button>
-                        @Html.HiddenFor(p => p.ImageUrl)
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(p => p.PdfUrl)
-                        <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-file">Upload File</button>
-                        @Html.HiddenFor(p => p.PdfUrl)
-                    </div>
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm("ManageProducts", "Products", FormMethod.Post, new { id = "insertForm" }))
+        {
+            <section class="content">
+                <div class="box box-primary">
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="box-body">
+                            @Html.HiddenFor(n => n.Id)
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Category_Id)
+                                @Html.DropDownListFor(n => n.Category_Id, Model.Categories, new
+                           {
+                               @class = "form-control",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng chọn danh mục"
+                           })
+                            </div>
+                            @*<div class="form-group">
+                                             @Html.LabelFor(n => n.Code)
+                                             @Html.TextBoxFor(n => n.Code, new
+                                {
+                                    @class = "form-control",
+                                    @placeholder = "Nhập mã Sản phẩm",
+                                    @required = "required",
+                                    @data_errormessage_value_missing = "Vui lòng điền mã Sản phẩm"
+                                })
+                                         </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Name)
+                                @Html.TextBoxFor(n => n.Name, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập tên Sản phẩm",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền tên Sản phẩm"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Name_en)
+                                @Html.TextBoxFor(n => n.Name_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập tên Sản phẩm tiếng anh",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền tên Sản phẩm tiếng anh"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Summary)
+                                @Html.TextAreaFor(n => n.Summary, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập sơ lược về sản phẩm",
+                               @rows = "3"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Summary_en)
+                                @Html.TextAreaFor(n => n.Summary_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập sơ lược về sản phẩm tiếng anh",
+                               @rows = "3"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(p => p.ImageUrl)
+                                @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <img src="/Images/Products/@Model.ImageUrl" alt="@Model.Name" width="150" />
+                                }
+                                <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-img">Upload Image</button>
+                                @Html.HiddenFor(p => p.ImageUrl)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(p => p.PdfUrl)
+                                <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-file">Tải lên</button>
+                                @Html.HiddenFor(p => p.PdfUrl)
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Price)
-                        @Html.TextBoxFor(n => n.Price, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập giá",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền giá Sản phẩm"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.OnHand)
-                        @Html.TextBoxFor(n => n.OnHand, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập số lượng tồn kho",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng nhập số lượng tồn kho"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaDescription)
-                        @Html.TextBoxFor(n => n.MetaDescription, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập mô tả cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền mô tả trang"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaKeyword)
-                        @Html.TextBoxFor(n => n.MetaKeyword, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập từ khỏa cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaDescription_en)
-                        @Html.TextBoxFor(n => n.MetaDescription_en, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập mô tả tiếng anh cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaKeyword_en)
-                        @Html.TextBoxFor(n => n.MetaKeyword_en, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập từ khỏa tiếng anh cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
-                   })
-                    </div>
-                </div><!-- /.box-body -->
+                            @*<div class="form-group">
+                                             @Html.LabelFor(n => n.Price)
+                                             @Html.TextBoxFor(n => n.Price, new
+                                {
+                                    @class = "form-control",
+                                    @placeholder = "Nhập giá",
+                                    @required = "required",
+                                    @data_errormessage_value_missing = "Vui lòng điền giá Sản phẩm"
+                                })
+                                         </div>
+                                         <div class="form-group">
+                                             @Html.LabelFor(n => n.OnHand)
+                                             @Html.TextBoxFor(n => n.OnHand, new
+                                {
+                                    @class = "form-control",
+                                    @placeholder = "Nhập số lượng tồn kho",
+                                    @required = "required",
+                                    @data_errormessage_value_missing = "Vui lòng nhập số lượng tồn kho"
+                                })
+                                         </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaDescription)
+                                @Html.TextBoxFor(n => n.MetaDescription, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền mô tả trang"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaKeyword)
+                                @Html.TextBoxFor(n => n.MetaKeyword, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khỏa cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaDescription_en)
+                                @Html.TextBoxFor(n => n.MetaDescription_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả tiếng anh cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaKeyword_en)
+                                @Html.TextBoxFor(n => n.MetaKeyword_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khỏa tiếng anh cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
+                           })
+                            </div>
+                        </div><!-- /.box-body -->
 
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </section>
+        }
+    </div>
+    <div class="col-md-4">
+        <div class="site-map">
+            <div id="fontSizeWrapper">
+                <label for="fontSize">Kích cở</label>
+                <input class="small" type="range" value="1" id="fontSize" step="0.1" min="0.5" max="1" />
+                <a id="createVariant" class="btn-sm btn-primary btn-sm pull-right" href="javascipt:void(0)">Tạo biến thể</a>
+                <a class="btn-sm btn-success btn-sm pull-right" href="@Url.Action("ManageProducts","Products")">Tạo mới</a>
+            </div>
+            <ul class="tree">
+                @*@foreach (var subPage in Model.AllCategoriesLevel.Where(c => c.ParentCategory == null))
+                    {
+                        <li>
+                            <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
+                            <label class="tree_label" for="@("c" + subPage.Id)">@subPage.Name</label>
+                            <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                            @RenderMenuItem(subPage)
+                        </li>
+                    }*@
+            </ul>
         </div>
-    </section>
+    </div>
+</div>
+
+@helper RenderMenuItem(Upup.Areas.Admin.ViewModels.CategoryModel category)
+{
+    <ul>
+        @if (category.ChildCategories.Count > 0)
+        {
+            foreach (var subPage in category.ChildCategories)
+            {
+                <li>
+                    <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
+                    <label for="@("c" + subPage.Id)" class="tree_label">@subPage.Name</label>
+                    <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    @RenderMenuItem(subPage)
+                </li>
+            }
+        }
+    </ul>
 }
 
 <div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -166,7 +230,7 @@
             <div class="modal-body">
                 <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "Products"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
                     <div class="fallback">
-                        <input name="file" type="file" multiple />
+                        <input name="file" type="file" />
                         <input type="submit" value="Upload" />
                     </div>
                 </form>
@@ -185,7 +249,99 @@
             <div class="modal-body">
                 <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "ProductFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
                     <div class="fallback">
-                        <input name="file" type="file" multiple />
+                        <input name="file" type="file" />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="variantModel" class="modal fade bs-example-modal-sm create-variant" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Tạo biến thể sản phẩm</h4>
+            </div>
+            <div class="modal-body edit">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "ProductFiles"})" method="post">
+                    <div class="panel-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label>Tên biến thể:</label>
+                                    <input class="form-control" type="text" name="VariantName" placeholder="Nhập tên biến thể" required data-errormessage-value-missing="Vui lòng tên biến thể" />
+                                </div>
+                                <div class="row">
+                                    <label>Mã biến thể:</label>
+                                    <input class="form-control" type="text" name="VariantCode" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng tên biến thể" />
+                                </div>
+                                <div class="row">
+                                    <label>Giá niêm yết:</label>
+                                    <input class="form-control" type="text" name="Price" placeholder="Nhập giá niêm yết" required data-errormessage-value-missing="Vui lòng tên biến thể" />
+                                </div>
+                                <div class="row">
+                                    <label>Tồn kho:</label>
+                                    <input class="form-control" type="text" name="OnHand" placeholder="Nhập số lượng tồn kho" required data-errormessage-value-missing="Vui lòng tên biến thể" />
+                                </div>
+                                <div class="row">
+                                    <label>Tài liệu 2D:</label>
+                                    <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".2d-file">Tải lên</button>
+                                    <input type="hidden" name="Cad2dUrl"/>
+                                </div>
+                                <div class="row">
+                                    <label>Tài liệu 3D:</label>
+                                    <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".3d-file">Tải lên</button>
+                                    <input type="hidden" name="Cad3dUrl" />
+                                </div>
+                                <div class="row">
+                                    <label>Thương hiệu:</label>
+                                    <input class="form-control" type="text" name="BrandName" placeholder="Nhập tên thương hiệu" required data-errormessage-value-missing="Vui lòng tên biến thể" />
+                                </div>
+                                <div class="row">
+                                    <label>Xuất xứ:</label>
+                                    <input class="form-control" type="text" name="Origin" placeholder="Nhập xuất xứ" required data-errormessage-value-missing="Vui lòng tên biến thể" />
+                                </div>
+                            </div>
+                            <div class="text-right"><input type="submit" class="btn btn-primary" value="Chấp nhận" /></div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm 2d-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single File</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "2dFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
+                    <div class="fallback">
+                        <input name="file" type="file" />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm 3d-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single File</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "3dFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
+                    <div class="fallback">
+                        <input name="file" type="file" />
                         <input type="submit" value="Upload" />
                     </div>
                 </form>
@@ -204,9 +360,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên Sản phẩm</th>
-                        <th>Tên Sản phẩm tiếng anh</th>
-                        <th>Giá</th>
+                        <th>Tên danh mục</th>
+                        <th>Tên danh mục tiếng anh</th>
                         <th>Hình ảnh</th>
                         <th>Tùy chỉnh</th>
                     </tr>
@@ -295,6 +450,26 @@
                 }
             };
 
+            CKEDITOR.replace('Summary', {
+                extraPlugins: 'divarea'
+            });
+
+            CKEDITOR.replace('Summary_en', {
+                extraPlugins: 'divarea'
+            });
+
+            $('#createVariant').click(function () {
+                if(@Model.Id == 0){
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_WARNING,
+                        title: 'Thông báo',
+                        message: 'Vui lòng tạo sản phẩm trước khi tạo biến thể'
+                        });
+                } else {
+                    $("#variantModel").modal("show");
+                }
+            });
+
             $('#IdCategory').change(function () {
                 var $this = $(this);
                 if ($this.find('option').is(':selected')) {
@@ -334,16 +509,12 @@
                         "name": "ID",
                         "class": "data-id"
                     },
-                    { "name": "CategoryName" },
-                    {
-                        "name": "Name",
-                        "sortable": false
-                    },
+                    { "name": "Name" },
+                    { "name": "Name_en" },
                     {
                         "name": "ImageUrl",
                         "sortable": false
                     },
-                    { "name": "AuthorName" },
                     {
                         "name": "ID",
                         "targets": 5,

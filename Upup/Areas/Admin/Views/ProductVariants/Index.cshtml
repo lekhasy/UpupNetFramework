@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Upup.Models.ProductVariant>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VariantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VariantCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnHand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cad2dUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cad3dUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Origin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VariantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VariantCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OnHand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cad2dUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cad3dUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Origin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

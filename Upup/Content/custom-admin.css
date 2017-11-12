@@ -29,13 +29,21 @@
         width: 200px;
         margin-left: 5px;
     }
-/* ————————————————————–
+
+    .site-map input.small[type="range"] {
+        width: 130px;
+    }
+
+    .site-map .btn-primary{
+        margin-left: 5px;
+    }
+    /* ————————————————————–
   Tree core styles
 */
-.tree {
-    margin: 1em;
-    padding-left: 10px;
-}
+    .tree {
+        margin: 1em;
+        padding-left: 10px;
+    }
 
     .tree .glyphicon {
         margin-left: 5px;
@@ -47,7 +55,7 @@
     }
 
         .tree ul {
-            padding-left: 10px;
+            padding-left: 25px;
         }
         
         .tree input {
@@ -193,3 +201,34 @@ label.tree_label:after {
 }
 
 /* End tree style*/
+
+.dropzone {
+    text-align: center;
+}
+
+    .dropzone .btn-danger{
+        margin-top: 10px;
+    } 
+    
+    .modal-body.edit label, .modal-body.edit input[type="text"] {
+        float: left;
+    }
+
+.modal-body.edit label {
+    width: 30%;
+    margin-right: 5px;
+    line-height: 26pt;
+}
+
+.modal-body.edit input[type="text"] {
+    width: 69%;
+}
+
+.modal-dialog.modal-sm {
+    width: 300px;
+    padding-top: 150px;
+}
+
+.create-variant .btn.upload {
+    margin-top: 0;
+}

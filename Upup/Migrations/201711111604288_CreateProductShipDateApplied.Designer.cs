@@ -7,13 +7,13 @@ namespace Upup.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Add2tableproductpropertiesandshipdatesetting : IMigrationMetadata
+    public sealed partial class CreateProductShipDateApplied : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Add2tableproductpropertiesandshipdatesetting));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateProductShipDateApplied));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711081422449_Add 2 table product properties and ship date setting"; }
+            get { return "201711111604288_CreateProductShipDateApplied"; }
         }
         
         string IMigrationMetadata.Source

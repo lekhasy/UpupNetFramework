@@ -67,6 +67,13 @@ namespace Upup.Areas.Admin.Controllers
                     ? Regex.Replace(model.MetaKeyword, ",{2,}", ",").Trim(',')
                     : model.MetaKeyword;
             }
+            var keywords2 = model.MetaKeyword_en;
+            if (!string.IsNullOrEmpty(keywords2))
+            {
+                keywords2 = keywords2.EndsWith(",")
+                    ? Regex.Replace(model.MetaKeyword_en, ",{2,}", ",").Trim(',')
+                    : model.MetaKeyword_en;
+            }
             var parentCategory = Db.Categories.Find(model.ParentCategory_Id);
             //if (parentCategory == null)
             //    throw new Exception("Danh mục cha có thể đã bị xóa!");
@@ -81,6 +88,8 @@ namespace Upup.Areas.Admin.Controllers
                     ParentCategory = parentCategory,
                     MetaDescription = model.MetaDescription,
                     MetaKeyword = keywords,
+                    MetaDescription_en = model.MetaDescription_en,
+                    MetaKeyword_en = keywords,
                     ImageUrl = imgUrl,
                 };
                 try
@@ -107,6 +116,8 @@ namespace Upup.Areas.Admin.Controllers
                     category.ParentCategory = parentCategory;
                     category.MetaDescription = model.MetaDescription;
                     category.MetaKeyword = keywords;
+                    category.MetaDescription_en = model.MetaDescription_en;
+                    category.MetaKeyword_en = keywords2;
                     try
                     {
                         Db.Entry(category).State = EntityState.Modified;

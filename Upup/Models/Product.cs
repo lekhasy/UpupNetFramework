@@ -24,6 +24,6 @@ namespace Upup.Models
         public string MetaDescription_en { get; set; }
 
         public virtual Category Category { get; set; }
-        public virtual ICollection<ProductVariant> CustomProperties { get; set; }
+        public virtual ICollection<ProductVariant> ProductVariants { get; set; }
     }
 }
