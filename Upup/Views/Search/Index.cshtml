@@ -1,4 +1,4 @@
-﻿
+﻿@model Upup.ViewModels.SearchModels
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,58 +6,45 @@
 
 <div class="search-result">
     <h2>Kết quả tìm kiếm cho từ khóa: Ốc vít</h2>
-    <small>25 kết quả được tìm thấy</small>
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Sản phẩm được tìm thấy</h3>
-            <div class="results">
-                <div class="result-item">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <a href="javascript:void(0)"><img src="http://vn.misumi-ec.com/material/mech/MSM1/PHOTO/10302521520.jpg" /></a>
+    <small>@Model.TotalCount  kết quả được tìm thấy</small>
+    @if (Model.TotalCount > 0)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Sản phẩm được tìm thấy</h3>
+                <div class="results">
+                    @foreach (var prod in Model.SearchProductResult)
+                    {
+                        <div class="result-item">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="/Product/Index/@prod.Id"><img src="/Images/products/@prod.Image" /></a>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="title"><a class="bold" href="/Product/Index/@prod.Id">@prod.Title</a></div>
+                                    <div class="category">Danh mục: <a href="/ProductCategory/Index/@prod.CategoryId">@prod.CategoryName</a></div>
+                                    <div class="summary">@prod.Content</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <div class="title"><a class="bold" href="javascript:void(0)">Ốc vít 6 cạnh(KH2Z123)</a></div>
-                            <div class="category">Danh mục: <a href="javascript:void(0)">Ốc vít</a></div>
-                            <div class="price">Giá: 200.000 vnđ</div>
-                            <div class="summary">"For Tapered Screw Plug, several pieces are sold by single package. Use this package product for bulk use or as the stock."</div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Bài viết được tìm thấy</h3>
+                <div class="results">
+                    @foreach (var post in Model.SearchTopicResult)
+                    {
+                        <div class="result-item">
+                            <div class="title"><a class="bold" href="/Topic/Index/@post.Id">@post.Title</a></div>
+                            <div class="category">
+                                Danh mục: <a class="result-category" href="/PostCategory/Index/@post.CategoryId">@post.CategoryName</a>
+                            </div>
+                            <div class="summary">@post.Content</div>
                         </div>
-                    </div>
-
+                    }
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <h3>Bài viết được tìm thấy</h3>
-            <div class="results">
-                <div class="result-item">
-                    <div class="title"><a class="bold" href="javascript:void(0)">Hướng dẫn cách chọn ốc vít</a></div>
-                    <div class="category">
-                        Danh mục: <a class="result-category" href="javascript:void(0)">Hướng dẫn sử dụng</a>
-                    </div>
-                    <div class="summary">
-                        Search for products easily. Use various search modes, such as product name search, part number search, catalog page search and specification search, to find the product you are looking for.
-                    </div>
-                </div>
-                <div class="result-item">
-                    <div class="title"><a class="bold" href="javascript:void(0)">Hướng dẫn cách chọn ốc vít</a></div>
-                    <div class="category">
-                        Danh mục: <a class="result-category" href="javascript:void(0)">Hướng dẫn sử dụng</a>
-                    </div>
-                    <div class="summary">
-                        Search for products easily. Use various search modes, such as product name search, part number search, catalog page search and specification search, to find the product you are looking for.
-                    </div>
-                </div>
-                <div class="result-item">
-                    <div class="title"><a class="bold" href="javascript:void(0)">Hướng dẫn cách chọn ốc vít</a></div>
-                    <div class="category">
-                        Danh mục: <a class="result-category" href="javascript:void(0)">Hướng dẫn sử dụng</a>
-                    </div>
-                    <div class="summary">
-                        Search for products easily. Use various search modes, such as product name search, part number search, catalog page search and specification search, to find the product you are looking for.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
 </div>
