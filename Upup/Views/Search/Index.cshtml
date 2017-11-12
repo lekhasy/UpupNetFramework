@@ -21,9 +21,22 @@
                                     <a href="/Product/Index/@prod.Id"><img src="/Images/products/@prod.Image" /></a>
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="title"><a class="bold" href="/Product/Index/@prod.Id">@prod.Title</a></div>
-                                    <div class="category">Danh mục: <a href="/ProductCategory/Index/@prod.CategoryId">@prod.CategoryName</a></div>
-                                    <div class="summary">@prod.Content</div>
+                                    <div class="title">
+                                        <a class="bold" href="/Product/Index/@prod.Id">
+                                            <span class="lang-vi">@prod.Title</span>
+                                            <span class="lang-en">@prod.Title_en</span>
+                                        </a>
+                                    </div>
+                                    <div class="category">
+                                        <span class="lang-vi">Danh mục:</span>
+                                        <span class="lang-en">Category:</span>
+                                        <a href="/ProductCategory/Index/@prod.CategoryId">
+                                            <span class="lang-vi">@prod.CategoryName</span>
+                                            <span class="lang-en">@prod.CategoryName_en</span>
+                                        </a>
+                                    </div>
+                                    <div class="summary lang-vi">@Html.Raw(prod.Content)</div>
+                                    <div class="summary lang-en">@Html.Raw(prod.Content_en)</div>
                                 </div>
                             </div>
                         </div>
@@ -31,16 +44,28 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h3>Bài viết được tìm thấy</h3>
+                <h3 class="lang-vi">Bài viết được tìm thấy</h3>
+                <h3 class="lang-en">Found posts</h3>
                 <div class="results">
                     @foreach (var post in Model.SearchTopicResult)
                     {
                         <div class="result-item">
-                            <div class="title"><a class="bold" href="/Topic/Index/@post.Id">@post.Title</a></div>
-                            <div class="category">
-                                Danh mục: <a class="result-category" href="/PostCategory/Index/@post.CategoryId">@post.CategoryName</a>
+                            <div class="title">
+                                <a class="bold" href="/Topic/Index/@post.Id">
+                                    <span class="lang-vi">@post.Title</span>
+                                    <span class="lang-en">@post.Title_en</span>
+                                </a>
                             </div>
-                            <div class="summary">@post.Content</div>
+                            <div class="category">
+                                <span class="lang-vi">Danh mục:</span>
+                                <span class="lang-en">Category:</span>
+                                <a class="result-category" href="/PostCategory/Index/@post.CategoryId">
+                                    <span class="lang-vi">@post.CategoryName</span>
+                                    <span class="lang-en">@post.CategoryName_en</span>
+                                </a>
+                            </div>
+                            <div class="summary lang-vi">@post.Content</div>
+                            <div class="summary lang-en">@post.Content_en</div>
                         </div>
                     }
                 </div>

@@ -50,9 +50,12 @@
                 <div class="col-md-12">
                     <div class="search-wrapper">
                         <div class="text-center">
-                            <form action="/Search/Index" method="get">
-                                <input type="text" name="term" id="searchBox" />
-                                <button class="btn btn-default" id="searchButton" type="submit">Tìm kiếm</button>
+                            <form action="/Search/Index" method="get">                                
+                                <input type="text" name="term" id="searchBox" value="@ViewBag.Term" />
+                                <button class="btn btn-default" id="searchButton" type="submit">
+                                    <span class="lang-vi">Tìm kiếm</span>
+                                    <span class="lang-en">Search</span>
+                                </button>
                             </form>
                         </div>
                     </div>
