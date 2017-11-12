@@ -973,12 +973,24 @@ footer {
         line-height: 15pt;
     }
 
-/* End Search Page*/
-/*this help modal with ng-danger header display properly*/
-.custom-modal-header {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
+#postDetail .col-md-3, #postDetail .col-md-9{
+    float: left;
 }
+
+#postDetail .col-md-3 {
+    width: 24.5%;
+    margin-right: 6px;
+}
+
+#postDetail .col-md-9 {
+    width: 75%;
+}
+    /* End Search Page*/
+    /*this help modal with ng-danger header display properly*/
+    .custom-modal-header {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+    }
 
 .head-category h3 {
     font-size: 11pt;
