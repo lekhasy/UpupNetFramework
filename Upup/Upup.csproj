@@ -239,17 +239,12 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
-    <Compile Include="Migrations\201711111604288_CreateProductShipDateApplied.cs" />
-    <Compile Include="Migrations\201711111604288_CreateProductShipDateApplied.Designer.cs">
-      <DependentUpon>201711111604288_CreateProductShipDateApplied.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\EnumConfigs.cs" />
-    <Compile Include="Models\ProductShipDateApply.cs" />
     <Compile Include="Models\ProductVariant.cs" />
+    <Compile Include="Models\ProductVariantUnit.cs" />
     <Compile Include="Models\ShipDateSetting.cs" />
     <Compile Include="ViewModels\CategoryModel.cs" />
     <Compile Include="Models\jQueryDataTableParamModel.cs" />
@@ -606,11 +601,6 @@
       <Project>{B6B4036F-4940-4127-8390-1524D7F36D6E}</Project>
       <Name>Upup.Utils</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711111604288_CreateProductShipDateApplied.resx">
-      <DependentUpon>201711111604288_CreateProductShipDateApplied.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

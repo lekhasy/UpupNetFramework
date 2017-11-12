@@ -10,6 +10,6 @@ namespace Upup.Models
         public long Id { get; set; }
         public int QuantityOrderMax { get; set; }
         public int TargetDateNumber { get; set; }
-        public ICollection<ProductShipDateApply> ProductShipDateApply { get; set; }
+        public virtual ICollection<ProductVariant> ProductVariants { get; set; }
     }
 }
