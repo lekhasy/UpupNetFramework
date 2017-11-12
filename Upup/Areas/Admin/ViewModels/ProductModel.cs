@@ -39,5 +39,8 @@ namespace Upup.Areas.Admin.ViewModels
         [Display(Name = "Mô tả trang tiếng anh")]
         public string MetaDescription_en { get; set; }
         public List<SelectListItem> Categories { get; set; }
+        public List<SelectListItem> ProductVariantUnits { get; set; }
+        public List<SelectListItem> ShipdateSettings { get; set; }
+        public List<ProductVariantModel> Variants { get; set; }
     }
 }
