@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace Upup.Models
 {
@@ -48,6 +50,30 @@ namespace Upup.Models
         public DbSet<AppConfig> AppConfigs { get; set; }
         public DbSet<ProductVariant> ProductVariants { get; set; }
         public DbSet<ShipDateSetting> ShipDateSettings { get; set; }
+
+
+        #region Store procs
+
+        public async Task<IEnumerable<Product>> SearchForProduct(string term)
+        {
+            var searchTerm = new SqlParameter("@term", term);
+            return await this.Database.SqlQuery<Product>("SearchForProduct @term", searchTerm).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Post>> SearchForPostByTitle(string term)
+        {
+            var searchTerm = new SqlParameter("@term", term);
+            return await this.Database.SqlQuery<Post>("SearchForPostByTitle @term", searchTerm).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Post>> SearchForPostByContent(string term)
+        {
+            var searchTerm = new SqlParameter("@term", term);
+            return await this.Database.SqlQuery<Post>("SearchForPostContent @term", searchTerm).ToListAsync();
+        }
+
+        #endregion
+
     }
 
     // This is useful if you do not want to tear down the database each time you run the application.

@@ -50,8 +50,10 @@
                 <div class="col-md-12">
                     <div class="search-wrapper">
                         <div class="text-center">
-                            <input type="text" />
-                            <button class="btn btn-default">Tìm kiếm</button>
+                            <form action="/Search/Index" method="get">
+                                <input type="text" name="term" id="searchBox" />
+                                <button class="btn btn-default" id="searchButton" type="submit">Tìm kiếm</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -95,7 +97,12 @@
     <script src="~/Scripts/helpers/lang.js" asp-append-version="true"></script>
     <script src="~/Scripts/helpers/httpHelper.js" asp-append-version="true"></script>
     <!-- End of liblary scripts -->
-
+    <script>
+        $('#TextBoxId').keypress(function (e) {
+            if (e.keyCode == 13)
+                $('#searchButton').click();
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

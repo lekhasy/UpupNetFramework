@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Upup.Models;
+using Upup.ViewModels;
 
 namespace Upup.Controllers
 {
@@ -19,21 +20,7 @@ namespace Upup.Controllers
             return View(product);
         }
 
-        //public ActionResult Search(string term)
-        //{
-            
-        //}
-
-        //private async Task<IEnumerable<Product>> SearchforProductAsync(string term)
-        //{
-        //    var products = await this.Db.Products.Where(p => p.Code == term).ToListAsync();
-
-        //    if (!products.Any())
-        //    {
-               
-        //    }
-
-        //}
+       
 
     }
 }
