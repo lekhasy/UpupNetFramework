@@ -183,13 +183,16 @@
                 <a id="createVariant" class="btn-sm btn-primary btn-sm pull-right" href="javascipt:void(0)">Tạo biến thể</a>
                 <a class="btn-sm btn-success btn-sm pull-right" href="@Url.Action("ManageProducts","Products")">Tạo mới</a>
             </div>
-            <ul class="tree">
-                <li>
-                    <input type="checkbox" checked="checked" id="@("c" + Model.Id)" />
-                    <label class="tree_label" for="@("c" + Model.Id)">@Model.Name</label>
-                    @RenderMenuItem(Model.Variants)
-                </li>
-            </ul>
+            @if (Model.Id > 0)
+            {
+                <ul class="tree">
+                    <li>
+                        <input type="checkbox" checked="checked" id="@("c" + Model.Id)" />
+                        <label class="tree_label" for="@("c" + Model.Id)">@Model.Name</label>
+                        @RenderMenuItem(Model.Variants)
+                    </li>
+                </ul>
+            }
         </div>
     </div>
 </div>
@@ -204,8 +207,11 @@
                 <li>
                     <input type="checkbox" checked="checked" id="@("ca" + item.Id)" />
                     <label for="@("ca" + item.Id)" class="tree_label">@item.VariantName</label>
-                    <a href="@Url.Action("ManageCategories", "Categories", new { id = item.Id  })">
+                    <a class="edit-variant" data-id="@item.Id" href="javascrip:void(0)" title="Chỉnh sửa">
                         <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="delete-variant" data-id="@item.Id" href="javascrip:void(0)" title="Xóa">
+                        <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </li>
             }
@@ -537,17 +543,17 @@
             $('#updateProductVariant').click(function () {
                 $.post('/ProductVariants/UpdateProductVariants',
                     { 'id': $('.create-variant input[name="Id"]').val() !== '' ? parseInt($('.create-variant input[name="Id"]').val(), 10) : 0,
-                     'productId': $('.create-variant input[name="ProductId"]').val(),
-                     'name': $('.create-variant input[name="VariantName"]').val(),
-                     'code': $('.create-variant input[name="VariantCode"]').val(),
-                     'price': $('.create-variant input[name="Price"]').val(),
-                     'onHand': $('.create-variant input[name="OnHand"]').val(),
-                     'url2d': $('.create-variant input[name="Cad2dUrl"]').val(),
-                     'url3d': $('.create-variant input[name="Cad3dUrl"]').val(),
-                     'brandName': $('.create-variant input[name="BrandName"]').val(),
-                     'orgin': $('.create-variant input[name="Orgin"]').val(),
-                     'unitId': $('.create-variant select[name="UnitDropdown"]').val(),
-                     'settingIds': [] },
+                        'productId': $('.create-variant input[name="ProductId"]').val(),
+                        'name': $('.create-variant input[name="VariantName"]').val(),
+                        'code': $('.create-variant input[name="VariantCode"]').val(),
+                        'price': $('.create-variant input[name="Price"]').val(),
+                        'onHand': $('.create-variant input[name="OnHand"]').val(),
+                        'url2d': $('.create-variant input[name="Cad2dUrl"]').val(),
+                        'url3d': $('.create-variant input[name="Cad3dUrl"]').val(),
+                        'brandName': $('.create-variant input[name="BrandName"]').val(),
+                        'orgin': $('.create-variant input[name="Orgin"]').val(),
+                        'unitId': $('.create-variant select[name="UnitDropdown"]').val(),
+                        'settingIds': [] },
                     function(data) {
                         if (data.ResultValue) {
                             BootstrapDialog.show({
@@ -563,19 +569,40 @@
                             });
                         }
                         setTimeout(function () {
-                            BootstrapDialog.closeAll();
+                            location.href = '@Url.Action("ManageProducts", "Products")';
                         }, 5000);
                     }
                 );
             });
 
+            $('.edit-variant').click(function () {
+                var id = parseInt($(this).attr('data-id'), 10);
+                if(id>0){
+                    $.post('/ProductVariants/GetProductVariantById',
+                        { 'id': id},
+                        function(data) {
+                            if (data) {
+                                $('.create-variant input[name="VariantName"]').val(data.VariantName);
+                                $("#variantModel").modal("show");
+                            } else {
+                                BootstrapDialog.show({
+                                    type: BootstrapDialog.TYPE_DANGER,
+                                    title: 'Thất bại',
+                                    message: 'Lấy dữ liệu thất bại'
+                                });
+                            }
+                        }
+                    );
+                }
+            });
+
             $('#createVariant').click(function () {
-                if(@Model.Id == 0){
+                if(@Model.Id === 0){
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_WARNING,
                         title: 'Thông báo',
                         message: 'Vui lòng tạo sản phẩm trước khi tạo biến thể'
-                        });
+                    });
                 } else {
                     $("#variantModel").modal("show");
                 }

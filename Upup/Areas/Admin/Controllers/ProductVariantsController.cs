@@ -80,6 +80,13 @@ namespace Upup.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        public ActionResult GetProductVariantById(int id)
+        {
+            var result = Mapper.Map<ProductVariant, ProductVariantModel>(Db.ProductVariants.Find(id));
+            return Json(result);
+        }
+
+        [HttpPost]
         public ActionResult RemoveProductVariants(int id)
         {
             var result = new AjaxSimpleResultModel();
