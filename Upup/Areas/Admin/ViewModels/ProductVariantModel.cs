@@ -1,4 +1,7 @@
-﻿namespace Upup.Areas.Admin.ViewModels
+﻿using System.Collections.Generic;
+using Upup.Models;
+
+namespace Upup.Areas.Admin.ViewModels
 {
     public class ProductVariantModel
     {
@@ -13,6 +16,6 @@
         public string BrandName { get; set; }
         public string Origin { get; set; }
         public int ProductVariantUnitId { get; set; }
-        public string ListShipDateSettingId { get; set; }
+        public string ShipDateSelected { get; set; }
     }
 }

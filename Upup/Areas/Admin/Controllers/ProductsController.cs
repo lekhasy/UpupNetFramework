@@ -54,6 +54,7 @@ namespace Upup.Areas.Admin.Controllers
                 Categories = categories,
                 ProductVariantUnits = units,
                 ShipdateSettings = shipDateSettings,
+                DefaultShipdateChoosen = string.Join(",", Db.ShipDateSettings.Select(ship => ship.Id)),
                 Variants = variants
             };
             if (id == null) return View(product);
@@ -76,6 +77,7 @@ namespace Upup.Areas.Admin.Controllers
                 product.Categories = categories;
                 product.ProductVariantUnits = units;
                 product.ShipdateSettings = shipDateSettings;
+                product.DefaultShipdateChoosen = string.Join(",", Db.ShipDateSettings.Select(ship => ship.Id));
                 product.Variants = variants;
                 return View(product);
             }

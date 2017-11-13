@@ -16,15 +16,16 @@ namespace Upup.Areas.Admin.Controllers
     {
         [HttpPost]
         public ActionResult UpdateProductVariants(int id, string productId, string name, string code, string price,
-            string onHand, string url2d, string url3d, string brandName, string orgin, string unitId, string[] settingIds)
+            string onHand, string url2d, string url3d, string brandName, string orgin, string unitId, string settingIds)
         {
             var unit = Db.ProductVariantUnits.Find(Convert.ToInt32(unitId));
             var settings = new List<ShipDateSetting>();
-            if (settingIds != null)
+            var settingIdList = settingIds.Split(',');
+            if (settingIdList != null)
             {
-                foreach (var setId in settingIds)
+                foreach (var setId in settingIdList)
                 {
-                    var set = Db.ShipDateSettings.Find(setId);
+                    var set = Db.ShipDateSettings.Find(Convert.ToInt32(setId));
                     settings.Add(set);
                 }
             }
@@ -82,8 +83,10 @@ namespace Upup.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult GetProductVariantById(int id)
         {
-            var result = Mapper.Map<ProductVariant, ProductVariantModel>(Db.ProductVariants.Find(id));
-            return Json(result);
+            var result = Db.ProductVariants.Find(id);
+            var model = Mapper.Map<ProductVariant,ProductVariantModel>(result);
+            model.ShipDateSelected = string.Join(",", result.ShipdateSettings.Select(ship => ship.Id));
+            return Json(model);
         }
 
         [HttpPost]

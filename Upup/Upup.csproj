@@ -210,6 +210,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantUnitsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShipDateSettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\DataTableRequest.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Areas\Admin\ViewModels\PostModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CustomerModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ShipDateSettingModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductVariantUnitModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductVariantModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\UserModel.cs" />
@@ -513,6 +515,7 @@
     <Content Include="Areas\Admin\Views\ProductVariantUnits\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ProductVariantUnits\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductVariantUnits\ManageProductVariantUnits.cshtml" />
+    <Content Include="Areas\Admin\Views\ShipDateSettings\ManageShipDateSettings.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />

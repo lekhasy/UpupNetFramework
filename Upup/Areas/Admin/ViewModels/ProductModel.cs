@@ -41,6 +41,7 @@ namespace Upup.Areas.Admin.ViewModels
         public List<SelectListItem> Categories { get; set; }
         public List<SelectListItem> ProductVariantUnits { get; set; }
         public List<SelectListItem> ShipdateSettings { get; set; }
+        public string DefaultShipdateChoosen { get; set; }
         public List<ProductVariantModel> Variants { get; set; }
     }
 }

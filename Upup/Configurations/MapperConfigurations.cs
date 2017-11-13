@@ -18,6 +18,7 @@ namespace Upup.Configurations
                 cfg.CreateMap<Product, ProductModel>().ReverseMap();
                 cfg.CreateMap<ProductVariant, ProductVariantModel>().ReverseMap();
                 cfg.CreateMap<ProductVariantUnit, ProductVariantUnitModel>().ReverseMap();
+                cfg.CreateMap<ShipDateSetting, ShipDateSettingModel>().ReverseMap();
             });
         }
     }

@@ -228,10 +228,14 @@ label.tree_label:after {
     width: 69%;
 }
 
-.modal-dialog.modal-sm {
-    width: 300px;
-    padding-top: 150px;
+.modal-body.edit span.select2 {
+    width: 69% !important;
 }
+
+.modal-dialog.modal-sm {
+        width: 300px;
+        padding-top: 150px;
+    }
 
 .create-variant .btn.upload {
     margin-top: 0;
