@@ -19,6 +19,7 @@ namespace Upup.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ManageProducts(int? id)
         {
+            var variants = new List<ProductVariantModel>();
             var categories = Db.Categories.ToList().Where(cat => cat.ChildCategories.Count == 0)
                 .Select(cat => new SelectListItem
             {
@@ -31,11 +32,35 @@ namespace Upup.Areas.Admin.Controllers
                 Value = string.Empty,
                 Selected = true
             });
-            var product = new ProductModel { Categories = categories };
+            var units = Db.ProductVariantUnits.ToList()
+                .Select(unit => new SelectListItem
+                {
+                    Text = unit.Name,
+                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
+            units.Insert(0, new SelectListItem
+            {
+                Text = "Chọn đơn vị tính",
+                Value = string.Empty,
+                Selected = true
+            });
+            var shipDateSettings = Db.ShipDateSettings.ToList()
+                .Select(unit => new SelectListItem
+                {
+                    Text = "SL " + unit.QuantityOrderMax + " (" + unit.TargetDateNumber + " ngày)",
+                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
+            var product = new ProductModel {
+                Categories = categories,
+                ProductVariantUnits = units,
+                ShipdateSettings = shipDateSettings,
+                Variants = variants
+            };
             if (id == null) return View(product);
             var result = Db.Products.Find(id);
             if (result != null)
             {
+                variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(Db.ProductVariants.Where(var => var.ProductId == id).ToList());
                 product = Mapper.Map<Product, ProductModel>(result);
                 var existProductCategory = Db.Categories.Find(product.Category_Id);
                 if (existProductCategory == null)
@@ -49,6 +74,9 @@ namespace Upup.Areas.Admin.Controllers
                     product.Category_Id = Convert.ToInt32(result.Category.Id);
                 }
                 product.Categories = categories;
+                product.ProductVariantUnits = units;
+                product.ShipdateSettings = shipDateSettings;
+                product.Variants = variants;
                 return View(product);
             }
             ModelState.AddModelError("ProgressError", "sản phẩm bạn chọn đã bị xóa hoặc không tồn tại");

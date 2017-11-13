@@ -16,6 +16,8 @@ namespace Upup.Configurations
                 cfg.CreateMap<PostCategory, PostCategoryModel>().ReverseMap();
                 cfg.CreateMap<Post, PostModel>().ReverseMap();
                 cfg.CreateMap<Product, ProductModel>().ReverseMap();
+                cfg.CreateMap<ProductVariant, ProductVariantModel>().ReverseMap();
+                cfg.CreateMap<ProductVariantUnit, ProductVariantUnitModel>().ReverseMap();
             });
         }
     }

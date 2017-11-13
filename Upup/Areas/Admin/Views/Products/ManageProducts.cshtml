@@ -184,36 +184,29 @@
                 <a class="btn-sm btn-success btn-sm pull-right" href="@Url.Action("ManageProducts","Products")">Tạo mới</a>
             </div>
             <ul class="tree">
-                @*@foreach (var subPage in Model.AllCategoriesLevel.Where(c => c.ParentCategory == null))
-                    {
-                        <li>
-                            <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
-                            <label class="tree_label" for="@("c" + subPage.Id)">@subPage.Name</label>
-                            <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
-                                <i class="glyphicon glyphicon-edit"></i>
-                            </a>
-                            @RenderMenuItem(subPage)
-                        </li>
-                    }*@
+                <li>
+                    <input type="checkbox" checked="checked" id="@("c" + Model.Id)" />
+                    <label class="tree_label" for="@("c" + Model.Id)">@Model.Name</label>
+                    @RenderMenuItem(Model.Variants)
+                </li>
             </ul>
         </div>
     </div>
 </div>
 
-@helper RenderMenuItem(Upup.Areas.Admin.ViewModels.CategoryModel category)
+@helper RenderMenuItem(List<Upup.Areas.Admin.ViewModels.ProductVariantModel> variants)
 {
     <ul>
-        @if (category.ChildCategories.Count > 0)
+        @if (variants.Count > 0)
         {
-            foreach (var subPage in category.ChildCategories)
+            foreach (var item in variants)
             {
                 <li>
-                    <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
-                    <label for="@("c" + subPage.Id)" class="tree_label">@subPage.Name</label>
-                    <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
+                    <input type="checkbox" checked="checked" id="@("ca" + item.Id)" />
+                    <label for="@("ca" + item.Id)" class="tree_label">@item.VariantName</label>
+                    <a href="@Url.Action("ManageCategories", "Categories", new { id = item.Id  })">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    @RenderMenuItem(subPage)
                 </li>
             }
         }
@@ -266,47 +259,56 @@
                 <h4 id="myLargeModalLabel" class="modal-title">Tạo biến thể sản phẩm</h4>
             </div>
             <div class="modal-body edit">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "ProductFiles"})" method="post">
-                    <div class="panel-body">
-                            <div class="form-group">
-                                <div class="row">
-                                    <label>Tên biến thể:</label>
-                                    <input class="form-control" type="text" name="VariantName" placeholder="Nhập tên biến thể" required data-errormessage-value-missing="Vui lòng tên biến thể" />
-                                </div>
-                                <div class="row">
-                                    <label>Mã biến thể:</label>
-                                    <input class="form-control" type="text" name="VariantCode" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng tên biến thể" />
-                                </div>
-                                <div class="row">
-                                    <label>Giá niêm yết:</label>
-                                    <input class="form-control" type="text" name="Price" placeholder="Nhập giá niêm yết" required data-errormessage-value-missing="Vui lòng tên biến thể" />
-                                </div>
-                                <div class="row">
-                                    <label>Tồn kho:</label>
-                                    <input class="form-control" type="text" name="OnHand" placeholder="Nhập số lượng tồn kho" required data-errormessage-value-missing="Vui lòng tên biến thể" />
-                                </div>
-                                <div class="row">
-                                    <label>Tài liệu 2D:</label>
-                                    <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".2d-file">Tải lên</button>
-                                    <input type="hidden" name="Cad2dUrl"/>
-                                </div>
-                                <div class="row">
-                                    <label>Tài liệu 3D:</label>
-                                    <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".3d-file">Tải lên</button>
-                                    <input type="hidden" name="Cad3dUrl" />
-                                </div>
-                                <div class="row">
-                                    <label>Thương hiệu:</label>
-                                    <input class="form-control" type="text" name="BrandName" placeholder="Nhập tên thương hiệu" required data-errormessage-value-missing="Vui lòng tên biến thể" />
-                                </div>
-                                <div class="row">
-                                    <label>Xuất xứ:</label>
-                                    <input class="form-control" type="text" name="Origin" placeholder="Nhập xuất xứ" required data-errormessage-value-missing="Vui lòng tên biến thể" />
-                                </div>
-                            </div>
-                            <div class="text-right"><input type="submit" class="btn btn-primary" value="Chấp nhận" /></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="hidden" name="Id" />
+                        <input type="hidden" name="ProductId" value="@Model.Id" />
+                        <div class="row">
+                            <label>Tên biến thể:</label>
+                            <input class="form-control" type="text" name="VariantName" placeholder="Nhập tên biến thể" required data-errormessage-value-missing="Vui lòng nhập tên biến thể" />
                         </div>
-                </form>
+                        <div class="row">
+                            <label>Mã biến thể:</label>
+                            <input class="form-control" type="text" name="VariantCode" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng nhập mã biến thể" />
+                        </div>
+                        <div class="row">
+                            <label>Giá niêm yết:</label>
+                            <input class="form-control" type="text" name="Price" placeholder="Nhập giá niêm yết" required data-errormessage-value-missing="Vui lòng nhập giá niêm yết" />
+                        </div>
+                        <div class="row">
+                            <label>Đơn vị tính:</label>
+                            @Html.DropDownList("UnitDropdown", Model.ProductVariantUnits, new
+                       {
+                           @class = "form-control",
+                           @required = "required",
+                           @data_errormessage_value_missing = "Vui lòng chọn danh mục"
+                       })
+                        </div>
+                        <div class="row">
+                            <label>Tồn kho:</label>
+                            <input class="form-control" type="text" name="OnHand" placeholder="Nhập số lượng tồn kho" required data-errormessage-value-missing="Vui lòng nhập lượng tồn kho" />
+                        </div>
+                        <div class="row">
+                            <label>Tài liệu 2D:</label>
+                            <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".2d-file">Tải lên</button>
+                            <input type="hidden" name="Cad2dUrl" />
+                        </div>
+                        <div class="row">
+                            <label>Tài liệu 3D:</label>
+                            <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".3d-file">Tải lên</button>
+                            <input type="hidden" name="Cad3dUrl" />
+                        </div>
+                        <div class="row">
+                            <label>Thương hiệu:</label>
+                            <input class="form-control" type="text" name="BrandName" placeholder="Nhập tên thương hiệu" required data-errormessage-value-missing="Vui lòng nhập thương hiệu" />
+                        </div>
+                        <div class="row">
+                            <label>Xuất xứ:</label>
+                            <input class="form-control" type="text" name="Orgin" placeholder="Nhập xuất xứ" required data-errormessage-value-missing="Vui lòng nhập xuất xứ" />
+                        </div>
+                    </div>
+                    <div class="text-right"><input id="updateProductVariant" type="button" class="btn btn-primary" value="Chấp nhận" /></div>
+                </div>
             </div>
         </div>
     </div>
@@ -320,7 +322,7 @@
                 <h4 id="myLargeModalLabel" class="modal-title">Upload Single File</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "2dFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "2dFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm3">
                     <div class="fallback">
                         <input name="file" type="file" />
                         <input type="submit" value="Upload" />
@@ -339,7 +341,7 @@
                 <h4 id="myLargeModalLabel" class="modal-title">Upload Single File</h4>
             </div>
             <div class="modal-body">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "3dFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm2">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="Products", folderName = "3dFiles"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm4">
                     <div class="fallback">
                         <input name="file" type="file" />
                         <input type="submit" value="Upload" />
@@ -450,12 +452,121 @@
                 }
             };
 
+            Dropzone.options.dropzoneForm3 = {
+                maxFiles: 1,
+                init: function() {
+                    this.on("success", function(file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function(e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "Products"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $(".create-variant input[name='Cad2dUrl']").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            Dropzone.options.dropzoneForm4 = {
+                maxFiles: 1,
+                init: function() {
+                    this.on("success", function(file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function(e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "Products"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $(".create-variant input[name='Cad3dUrl']").val(arguments[1].Message);
+                    });
+                }
+            };
+
             CKEDITOR.replace('Summary', {
                 extraPlugins: 'divarea'
             });
 
             CKEDITOR.replace('Summary_en', {
                 extraPlugins: 'divarea'
+            });
+
+            $('#updateProductVariant').click(function () {
+                $.post('/ProductVariants/UpdateProductVariants',
+                    { 'id': $('.create-variant input[name="Id"]').val() !== '' ? parseInt($('.create-variant input[name="Id"]').val(), 10) : 0,
+                     'productId': $('.create-variant input[name="ProductId"]').val(),
+                     'name': $('.create-variant input[name="VariantName"]').val(),
+                     'code': $('.create-variant input[name="VariantCode"]').val(),
+                     'price': $('.create-variant input[name="Price"]').val(),
+                     'onHand': $('.create-variant input[name="OnHand"]').val(),
+                     'url2d': $('.create-variant input[name="Cad2dUrl"]').val(),
+                     'url3d': $('.create-variant input[name="Cad3dUrl"]').val(),
+                     'brandName': $('.create-variant input[name="BrandName"]').val(),
+                     'orgin': $('.create-variant input[name="Orgin"]').val(),
+                     'unitId': $('.create-variant select[name="UnitDropdown"]').val(),
+                     'settingIds': [] },
+                    function(data) {
+                        if (data.ResultValue) {
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_SUCCESS,
+                                title: 'Thành công',
+                                message: data.Message
+                            });
+                        } else {
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_DANGER,
+                                title: 'Thất bại',
+                                message: data.Message
+                            });
+                        }
+                        setTimeout(function () {
+                            BootstrapDialog.closeAll();
+                        }, 5000);
+                    }
+                );
             });
 
             $('#createVariant').click(function () {
@@ -513,7 +624,10 @@
                     { "name": "Name_en" },
                     {
                         "name": "ImageUrl",
-                        "sortable": false
+                        "sortable": false,
+                        "render": function (data, type, full, meta) {
+                            return '<img width="100" src="/Images/Products/' + data + '"/>';
+                        }
                     },
                     {
                         "name": "ID",

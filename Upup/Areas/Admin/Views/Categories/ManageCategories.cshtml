@@ -320,7 +320,10 @@
                     },
                     {
                         "name": "ImageUrl",
-                        "sortable": false
+                        "sortable": false,
+                        "render": function (data, type, full, meta) {
+                            return '<img width="100" src="/Images/Categories/' + data + '"/>';
+                        }
                     },
                     {
                         "name": "ID",

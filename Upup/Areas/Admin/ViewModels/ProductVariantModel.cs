@@ -3,6 +3,7 @@
     public class ProductVariantModel
     {
         public long Id { get; set; }
+        public long ProductId { get; set; }
         public string VariantName { get; set; }
         public string VariantCode { get; set; }
         public decimal Price { get; set; }
@@ -11,5 +12,7 @@
         public string Cad3dUrl { get; set; }
         public string BrandName { get; set; }
         public string Origin { get; set; }
+        public int ProductVariantUnitId { get; set; }
+        public string ListShipDateSettingId { get; set; }
     }
 }

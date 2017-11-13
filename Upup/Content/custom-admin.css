@@ -220,7 +220,11 @@ label.tree_label:after {
     line-height: 26pt;
 }
 
-.modal-body.edit input[type="text"] {
+.modal-body.edit select {
+
+}
+
+.modal-body.edit input[type="text"], .modal-body.edit select {
     width: 69%;
 }
 
