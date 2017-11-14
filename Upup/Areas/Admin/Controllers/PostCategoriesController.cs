@@ -144,10 +144,9 @@ namespace Upup.Areas.Admin.Controllers
         }
 
         [HttpGet]
-
         public ActionResult LoadAllCategories(JQueryDataTableParamModel param)
         {
-            var allCategories = db.PostCategories.ToList();
+            var allCategories = db.PostCategories.Where(c => c.RootCategoryIdentifier == null).ToList();
             List<PostCategory> afterFound = new List<PostCategory>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
@@ -189,7 +188,7 @@ namespace Upup.Areas.Admin.Controllers
         {
             var result = new AjaxSimpleResultModel();
             var category = db.PostCategories.ToList().SingleOrDefault(c => c.Id == id);
-            if (category != null)
+            if (category != null && category.RootCategoryIdentifier == null)
             {
                 try
                 {
@@ -220,6 +219,7 @@ namespace Upup.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PostCategory postCategory = db.PostCategories.Find(id);
+            if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't view root category");
             if (postCategory == null)
             {
                 return HttpNotFound();
@@ -258,6 +258,7 @@ namespace Upup.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PostCategory postCategory = db.PostCategories.Find(id);
+            if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't edit root category");
             if (postCategory == null)
             {
                 return HttpNotFound();
@@ -272,6 +273,8 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Name_en,Description,Description_en,MetaKeyword,MetaDescription")] PostCategory postCategory)
         {
+            var post = db.PostCategories.Find(postCategory.Id);
+            if (post != null && post.RootCategoryIdentifier != null) throw new ArgumentException("Can't edit root category");
             if (ModelState.IsValid)
             {
                 db.Entry(postCategory).State = EntityState.Modified;
@@ -289,6 +292,7 @@ namespace Upup.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PostCategory postCategory = db.PostCategories.Find(id);
+            if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't delete root category");
             if (postCategory == null)
             {
                 return HttpNotFound();
@@ -302,6 +306,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             PostCategory postCategory = db.PostCategories.Find(id);
+            if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't delete root category");
             db.PostCategories.Remove(postCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
