@@ -16,7 +16,7 @@ namespace Upup.Areas.Admin.Controllers
     {
         [HttpPost]
         public ActionResult UpdateProductVariants(int id, string productId, string name, string code, string price,
-            string onHand, string url2d, string url3d, string brandName, string orgin, string unitId, string settingIds)
+            string onHand, string url2d, string url3d, string brandName, string origin, string unitId, string settingIds)
         {
             var unit = Db.ProductVariantUnits.Find(Convert.ToInt32(unitId));
             var settings = new List<ShipDateSetting>();
@@ -45,7 +45,7 @@ namespace Upup.Areas.Admin.Controllers
                         Cad2dUrl = url2d,
                         Cad3dUrl = url3d,
                         BrandName = brandName,
-                        Origin = orgin,
+                        Origin = origin,
                         ProductVariantUnit = unit,
                         ShipdateSettings = settings
                     });
@@ -55,7 +55,6 @@ namespace Upup.Areas.Admin.Controllers
                 }
                 else
                 {
-                    productVariant.ProductId = Convert.ToInt32(productId);
                     productVariant.VariantName = name;
                     productVariant.VariantCode = code;
                     productVariant.Price = Convert.ToDecimal(price);
@@ -63,8 +62,9 @@ namespace Upup.Areas.Admin.Controllers
                     productVariant.Cad2dUrl = url2d;
                     productVariant.Cad3dUrl = url3d;
                     productVariant.BrandName = brandName;
-                    productVariant.Origin = orgin;
+                    productVariant.Origin = origin;
                     productVariant.ProductVariantUnit = unit;
+                    productVariant.ShipdateSettings.Clear();
                     productVariant.ShipdateSettings = settings;
                     Db.Entry(productVariant).State = EntityState.Modified;
                     Db.SaveChanges();
@@ -72,7 +72,7 @@ namespace Upup.Areas.Admin.Controllers
                     result.Message = "Cập nhật thành công biến thể !";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result.ResultValue = false;
                 result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";

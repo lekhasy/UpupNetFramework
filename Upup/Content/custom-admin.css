@@ -224,7 +224,7 @@ label.tree_label:after {
 
 }
 
-.modal-body.edit input[type="text"], .modal-body.edit select {
+.modal-body.edit input[type="text"], .modal-body.edit  input[type="number"], .modal-body.edit select {
     width: 69%;
 }
 
