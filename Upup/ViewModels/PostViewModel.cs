@@ -7,9 +7,12 @@ namespace Upup.ViewModels
 {
     public class PostListViewModel
     {
+
+
+
     }
 
-    public class PostViewModel
+    public class PostDetailViewModel
     {
         
     }

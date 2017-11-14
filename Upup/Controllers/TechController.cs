@@ -16,10 +16,11 @@ namespace Upup.Controllers
 
         public ActionResult TechGuide()
         {
+
             return View();
         }
 
-        public ActionResult TechInfor()
+        public ActionResult TechInfo()
         {
             return View();
         }
