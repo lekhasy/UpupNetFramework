@@ -143,7 +143,7 @@
             <div id="fontSizeWrapper">
                 <label for="fontSize">Kích cở</label>
                 <input type="range" value="1" id="fontSize" step="0.1" min="0.5" max="1" />
-                <a class="btn-sm btn-success btn-sm pull-right" href="@Url.Action("ManageCategories", "Categories" )">Tạo mới</a>
+                <a class="btn-sm btn-success btn-sm pull-right" href="/Admin/Categories/ManageCategories">Tạo mới</a>
             </div>
             <ul class="tree">
                 @foreach (var subPage in Model.AllCategoriesLevel.Where(c => c.ParentCategory == null))

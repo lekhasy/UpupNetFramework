@@ -17,11 +17,11 @@
                             <ul>
                                 @foreach (var childCategories in category.ChildCategories)
                                 {
-                                    <li><a href="/ProductCategory/Index/@childCategories.Id" data-head-category-code="M0100000000"><span class="lang-vi">@childCategories.Name</span><span class="lang-en">@childCategories.Name_en</span></a></li>
+                                    <li><a data-img="/Images/Categories/@childCategories.ImageUrl" href="/ProductCategory/Index/@childCategories.Id" data-head-category-code="M0100000000"><span class="lang-vi">@childCategories.Name</span><span class="lang-en">@childCategories.Name_en</span></a></li>
                                 }
                             </ul>
                             <p class="image category-image"></p>
-                            <div class="category-list-bottom-link"><a href="/vona2/mech/">All Automation Components</a></div>
+                            <div class="category-list-bottom-link"><a href="/ProductCategory/Index/@category.Id">All @category.Name</a></div>
                         </div>
                     </dd>
                 }

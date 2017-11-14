@@ -123,7 +123,7 @@ a.btn {
     margin-right: 6px;
 }
 
-.area-menu, .area-slider, .area-quick-access, .area-category-list {
+.area-menu, .area-slider, .area-quick-access, .area-category-list, .subject-category div.col-md-3, .subject-category div.col-md-9 {
     float: left;
 }
 
@@ -355,10 +355,14 @@ footer {
             height: 30px;
         }
 
+        .header .head-category dd .category-list-box p {
+            margin-left: 20px;
+        } 
+        
         .header .head-category dd .category-list-box .lead {
-            padding: 7px 20px 0px 20px;
-            font-size: 16px;
-        }
+                padding: 7px 20px 0px 20px;
+                font-size: 16px;
+            }
 
         .header .head-category dd .category-list-box ul {
             margin: 0 10px 0 20px;
@@ -369,12 +373,12 @@ footer {
 
         .header .head-category .category-list-box ul li {
             /* CssLint: with can't be used with display: inline*/
-            /*width: 50%;*/
+            width: 33.33%;
             display: inline-block;
             letter-spacing: normal;
             *display: inline;
             *zoom: 1;
-            font-size: 14px;
+            font-size: 12pt;
             vertical-align: top;
         }
 
@@ -393,7 +397,7 @@ footer {
             display: block;
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAHAQMAAAAVq36TAAAABlBMVEW/v78AS7E2lsyyAAAAAXRSTlMAQObYZgAAABJJREFUGBljbmBmAEMJZgPmBAAIngE+HFgy7QAAAABJRU5ErkJggg==) 0px 8px no-repeat;
             padding: 2px 0 2px 10px;
-            font-size: 9pt;
+            font-size: 10.5pt;
         }
 
         .header .head-category .category-list-caption dd.on:before {
@@ -533,7 +537,7 @@ footer {
         background: #0169c6 15px center no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAMCAYAAABfnvydAAAAWElEQVQoz2P4//9/ChD/A+L3QGwCxAzIGMbAqQhZdTI2RQxoRmIoQleAoQibAhBe+B8CHmCTTIKa8AGbCSiS6G7AkERWgFUSpiAZlyRMgQAQCwIxFzYfAQB83zrGE54AXQAAAABJRU5ErkJggg==);
         width: auto;
         height: 30px;
-        padding: 10px 20px 0 35px;
+        padding: 4px 20px 0 35px;
         color: #fff;
         font-size: 14px;
         font-weight: bold;
@@ -756,7 +760,7 @@ footer {
 
             #crumbs ul li a {
                 display: block;
-                line-height: 24pt;
+                line-height: 18pt;
                 float: left;
                 height: 32px;
                 background: #86cccf;
