@@ -6,13 +6,21 @@ $(document).ready(function () {
         $(this).addClass("on");
     }, function () {
         $(this).removeClass("on");
-        });
-
-    $(function () {
-        $(".category-link").hover(function () {
-            var currentCatetoryImage = $(this).attr("imgUrl");
-            var rootCategoryImage = $(this).closest(".root-category").find('.image.category-image').css('background-image', 'url(/Images/Categories/' + currentCatetoryImage + ')');
-        });
     });
 
+    var rootImage;
+    var $categoryImageControl;
+
+    $(".category-link").hover(function () {
+        var currentCatetoryImage = $(this).attr("imgUrl");
+        var rootImage = "/Images/Categories/" + currentCatetoryImage;
+        $categoryImageControl = $(this).closest(".root-category").find('.image.category-image');
+        var rootCategoryImage = $categoryImageControl.css('background-image', 'url(' + rootImage + ')');
+    });
+
+    $(".category-list-box li a").hover(function () {
+        $categoryImageControl.css('background-image', 'url(' + $(this).attr('data-img') + ')');
+    }, function () {
+        $categoryImageControl.css('background-image', 'url(' + rootImage + ')');
+    });
 });
