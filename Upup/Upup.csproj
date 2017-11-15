@@ -276,7 +276,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PostViewModel.cs" />
     <Compile Include="ViewModels\PostCategoryViewModel.cs" />
-    <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\ProductCategoryViewModel.cs" />
     <Compile Include="ViewModels\SearchItemModels.cs" />
     <Compile Include="ViewModels\SearchModels.cs" />
