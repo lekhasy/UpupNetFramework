@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Upup.Areas.Admin.ViewModels;
+using Upup.ViewModels;
 
 namespace Upup.Models
 {
@@ -25,7 +27,7 @@ namespace Upup.Models
     }
 
 
-    public enum RootCategory
+    public enum RootPostCategory
     {
         Tech = 1,
         UserManual = 2,
