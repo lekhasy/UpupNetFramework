@@ -255,7 +255,6 @@
     <Compile Include="Models\ProductVariant.cs" />
     <Compile Include="Models\ProductVariantUnit.cs" />
     <Compile Include="Models\ShipDateSetting.cs" />
-    <Compile Include="ViewModels\PostCategoryModel.cs" />
     <Compile Include="ViewModels\CategoryModel.cs" />
     <Compile Include="Models\jQueryDataTableParamModel.cs" />
     <Compile Include="Models\PostCategory.cs" />

@@ -1,26 +1,48 @@
-﻿@using Upup.ViewModels
+﻿@model List<Upup.ViewModels.PostCategoryViewModel>
 
 <div class="header">
     <div class="head-category">
-        <h3>Hướng dẫn sử dụng</h3>
-        <div class="post-category-list">
-            <dl class="post-category-list-caption">
-                @{
-                    var categories = PostCategoryDefault.GetRootPostCategories();
-                    foreach (var item in categories)
+        <div class="category-list">
+
+            <dl class="category-list-caption">
+                @foreach (var category in Model)
+                {
+                    if (category.ParentCategory == null)
                     {
-                        <dd>
-                            <a data-id="@item.Id" href="#" class="link">
-                                <span>@item.Name</span>
+                        <dd class="root-category">
+                            <a href="/ProductCategory/Index/@category.Id" class="link category-link">
+                                <span class="lang-vi">@category.Name</span>
+                                <span class="lang-en">@category.Name_en</span>
                             </a>
+                            <div class="category-list-box">
+                                <p class="subtitle"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></p>
+                                <p class="category-list-caption"><span class="lang-vi">@Html.Raw(category.Description)</span><span class="lang-en">@Html.Raw(category.Description_en)</span></p>
+                                <ul>
+                                    @if (category.ChildCategories != null && category.ChildCategories.Count > 0)
+                                    {
+                                        foreach (var childCategories in category.ChildCategories)
+                                        {
+                                            <li>
+                                                <a href="/PostProductCategory/Index/@childCategories.Id"><span class="lang-vi">@childCategories.Name</span><span class="lang-en">@childCategories.Name_en</span></a>
+                                                @if (childCategories.ChildCategories.Count > 0)
+                                                {
+                                                    <ul>
+                                                        @foreach(var nestedChildCategory in childCategories.ChildCategories)
+                                                        {
+                                                            <li><a href="/PostProductCategory/Index/@nestedChildCategory.Id">@nestedChildCategory.Name</a></li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                                <div class="category-list-bottom-link"><a href="/ProductCategory/Index/@category.Id">All @category.Name</a></div>
+                            </div>
                         </dd>
                     }
                 }
             </dl>
-            <button data-toggle="collapse" data-target="#demo">Collapsible</button>
-            <div id="demo" class="collapse">
-                Lorem ipsum dolor text....
-            </div>
         </div>
     </div>
 </div>

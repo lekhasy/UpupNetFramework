@@ -44,18 +44,11 @@ namespace Upup.Areas.Admin.Controllers
             if (result != null)
             {
                 postCategory = Mapper.Map<PostCategory, PostCategoryModel>(result);
-                var existParentCategory = db.PostCategories.Find(postCategory.PostParentCategory_Id);
-                if (existParentCategory == null)
-                {
-                    result.ParentCategory = null;
-                    db.Entry(result).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                else
+                postCategory.ParentCategories = parentCategories;
+                if (postCategory.ParentCategory != null)
                 {
                     postCategory.PostParentCategory_Id = Convert.ToInt32(result.ParentCategory.Id);
                 }
-                postCategory.ParentCategories = parentCategories;
                 return View(postCategory);
             }
             ModelState.AddModelError("ProgressError", "Danh mục bài viết bạn chọn đã bị xóa hoặc không tồn tại");
@@ -74,6 +67,13 @@ namespace Upup.Areas.Admin.Controllers
                     ? Regex.Replace(model.MetaKeyword, ",{2,}", ",").Trim(',')
                     : model.MetaKeyword;
             }
+            var keywords2 = model.MetaKeyword_en;
+            if (!string.IsNullOrEmpty(keywords2))
+            {
+                keywords2 = keywords2.EndsWith(",")
+                    ? Regex.Replace(model.MetaKeyword_en, ",{2,}", ",").Trim(',')
+                    : model.MetaKeyword_en;
+            }
             var parentCategory = db.PostCategories.Find(model.PostParentCategory_Id);
             //if (parentCategory == null)
             //    throw new Exception("Danh mục bài viết cha có thể đã bị xóa!");
@@ -87,7 +87,9 @@ namespace Upup.Areas.Admin.Controllers
                     Description_en = model.Description_en,
                     ParentCategory = parentCategory,
                     MetaDescription = model.MetaDescription,
-                    MetaKeyword = keywords
+                    MetaKeyword = keywords,
+                    MetaDescription_en = model.MetaDescription_en,
+                    MetaKeyword_en = keywords2
                 };
                 try
                 {
@@ -112,6 +114,8 @@ namespace Upup.Areas.Admin.Controllers
                     category.ParentCategory = parentCategory;
                     category.MetaDescription = model.MetaDescription;
                     category.MetaKeyword = keywords;
+                    category.MetaDescription_en = model.MetaDescription_en;
+                    category.MetaKeyword_en = keywords2;
                     try
                     {
                         db.Entry(category).State = EntityState.Modified;

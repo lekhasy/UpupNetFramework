@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Upup.Areas.Admin.ViewModels;
 using Upup.Models;
+using Upup.ViewModels;
 
 namespace Upup.Configurations
 {
@@ -14,6 +15,7 @@ namespace Upup.Configurations
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Category, Areas.Admin.ViewModels.CategoryModel>().ReverseMap();
                 cfg.CreateMap<PostCategory, PostCategoryModel>().ReverseMap();
+                cfg.CreateMap<PostCategory, PostCategoryViewModel>().ReverseMap();
                 cfg.CreateMap<Post, PostModel>().ReverseMap();
                 cfg.CreateMap<Product, ProductModel>().ReverseMap();
                 cfg.CreateMap<ProductVariant, ProductVariantModel>().ReverseMap();

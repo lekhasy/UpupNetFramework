@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Upup.Models;
 using Upup.ViewModels;
 
 namespace Upup.Controllers
@@ -13,11 +15,8 @@ namespace Upup.Controllers
         // GET: PostCategory
         public ActionResult Index()
         {
-            var vm = new PostCategoryViewModel
-            {
-                PostCategories = Db.PostCategories.Where(c => c.ParentCategory == null).ToList()
-            };
-            return View(vm);
+            var categories = Mapper.Map<List<PostCategory>,List<PostCategoryViewModel>>(Db.PostCategories.ToList());
+            return View(categories);
         }
     }
 }
