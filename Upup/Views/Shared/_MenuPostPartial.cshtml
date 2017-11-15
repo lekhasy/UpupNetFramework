@@ -1,27 +1,23 @@
-﻿
+﻿@using Upup.ViewModels
+
 <div class="header">
     <div class="head-category">
         <h3>Hướng dẫn sử dụng</h3>
         <div class="post-category-list">
             <dl class="post-category-list-caption">
-                <dd>
-                    <a href="#" class="link">
-                        <span>Linh kiện máy</span>
-                    </a>
-                </dd>
-                <dd>
-                    <a href="#" class="link">
-                        <span>Linh kiện nhỏ</span>
-                    </a>
-                </dd>
-                <dd>
-                    <a href="#" class="link">
-                        <span>Hỗ trợ gia công</span>
-                    </a>
-                </dd>
+                @{
+                    var categories = PostCategoryDefault.GetRootPostCategories();
+                    foreach (var item in categories)
+                    {
+                        <dd>
+                            <a data-id="@item.Id" href="#" class="link">
+                                <span>@item.Name</span>
+                            </a>
+                        </dd>
+                    }
+                }
             </dl>
             <button data-toggle="collapse" data-target="#demo">Collapsible</button>
-
             <div id="demo" class="collapse">
                 Lorem ipsum dolor text....
             </div>

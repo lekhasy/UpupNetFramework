@@ -13,9 +13,11 @@ namespace Upup.Controllers
         // GET: ProductCategory
         public ActionResult Index(long? id)
         {
-            ProductCategoryViewModel vm = new ProductCategoryViewModel();
-            vm.Categories = Db.Categories.Where(c => c.ParentCategory == null).ToList();
-            vm.CurrentCategory = Db.Categories.FirstOrDefault(c => c.Id == id);
+            var vm = new ProductCategoryViewModel
+            {
+                Categories = Db.Categories.Where(c => c.ParentCategory == null).ToList(),
+                CurrentCategory = Db.Categories.FirstOrDefault(c => c.Id == id)
+            };
             return View(vm);
         }
     }

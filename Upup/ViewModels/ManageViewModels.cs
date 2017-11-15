@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Upup.Globalization;
+using Upup.Models;
 
-namespace Upup.Models
+namespace Upup.ViewModels
 {
     public class IndexViewModel
     {

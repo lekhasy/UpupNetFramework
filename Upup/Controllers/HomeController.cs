@@ -13,9 +13,11 @@ namespace Upup.Controllers
     {
         public ActionResult Index()
         {
-            HomeViewModel vm = new HomeViewModel();
-            vm.Categories = Db.Categories.Where(c => c.ParentCategory == null).ToList();
-            vm.CategoryShowInCarousel = Db.Categories.ToList();
+            var vm = new HomeViewModel
+            {
+                Categories = Db.Categories.Where(c => c.ParentCategory == null).ToList(),
+                CategoryShowInCarousel = Db.Categories.ToList()
+            };
             return View(vm);
         }
 
