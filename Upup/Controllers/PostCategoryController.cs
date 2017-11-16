@@ -13,9 +13,16 @@ namespace Upup.Controllers
         // GET: PostCategory
         public ActionResult Index(int id)
         {
+            var current = Db.PostCategories.Find(id);
+            var root = current;
+            while (root.ParentCategory != null)
+            {
+                root = root.ParentCategory;
+            }
             var vm = new PostCategoryViewModel
             {
-                PostCategories = Db.PostCategories.Where(c => c.ParentCategory == null).ToList()
+                RootCategory = root,
+                CurrentCategory = current
             };
             return View(vm);
         }

@@ -7,10 +7,10 @@
         <div class="post-category-list">
             <dl class="post-category-list-caption">
                 @{
-                    foreach (var item in Model.ChildCategories)
+                    foreach (var item in Model.ChildCategories.OrderBy(c => c.Id))
                     {
                         <dd>
-                            <a data-id="@item.Id" href="#" class="link">
+                            <a data-id="@item.Id" href="/@ViewBag.ControllerName/Category/@item.Id" class="link">
                                 <span class="lang-vi">@item.Name</span>
                                 <span class="lang-en">@item.Name_en</span>
                             </a>

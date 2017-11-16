@@ -19,8 +19,22 @@ namespace Upup.Controllers
 
         }
 
+        public ActionResult Category(int id)
+        {
+            var current = Db.PostCategories.Find(id);
+            var vm = new PostCategoryViewModel
+            {
+                RootCategory = GetRootCategory(),
+                CurrentCategory = current
+            };
+            ViewBag.ControllerName = ControllerName;
+            return View("_PostCategoryPartial", vm);
+        }
+
         public ActionResult EventGuide()
         {
+            ViewBag.ControllerName = ControllerName;
+
             return View(GetRootCategory());
         }
 
@@ -33,6 +47,8 @@ namespace Upup.Controllers
                 Post = post,
                 RootCategory = GetRootCategory()
             };
+            ViewBag.ControllerName = ControllerName;
+
             return View(vm);
         }
 

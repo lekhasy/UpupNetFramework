@@ -7,6 +7,8 @@ using Upup.ViewModels;
 
 namespace Upup.Controllers
 {
+
+    [AllowAnonymous]
     public class SearchController : UpupControllerBase
     {
         // GET: Search
