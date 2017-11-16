@@ -603,6 +603,8 @@
     <Content Include="Views\Shared\_PostPartial.cshtml" />
     <Content Include="Views\UserManual\ManualGuide.cshtml" />
     <Content Include="Views\UserManual\ManualInfo.cshtml" />
+    <Content Include="Views\Event\EventGuide.cshtml" />
+    <Content Include="Views\Event\EventInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

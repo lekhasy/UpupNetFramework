@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Upup.Models;
 
 namespace Upup.Controllers
 {
@@ -19,12 +20,17 @@ namespace Upup.Controllers
 
         public ActionResult EventGuide()
         {
-            return View();
+            return View(GetRootCategory());
         }
 
         public ActionResult EventInfo()
         {
             return View();
+        }
+
+        private PostCategory GetRootCategory()
+        {
+            return Db.PostCategories.First(c => c.RootCategoryIdentifier == (int)RootPostCategory.Event);
         }
 
     }
