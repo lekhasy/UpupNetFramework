@@ -1,17 +1,18 @@
-﻿@using Upup.ViewModels
+﻿@model Upup.Models.PostCategory
+@using Upup.Models
 
 <div class="header">
     <div class="head-category">
-        <h3>Hướng dẫn sử dụng</h3>
+        <h3>@Model.Name</h3>
         <div class="post-category-list">
             <dl class="post-category-list-caption">
                 @{
-                    var categories = PostCategoryDefault.GetRootPostCategories();
-                    foreach (var item in categories)
+                    foreach (var item in Model.ChildCategories)
                     {
                         <dd>
                             <a data-id="@item.Id" href="#" class="link">
-                                <span>@item.Name</span>
+                                <span class="lang-vi">@item.Name</span>
+                                <span class="lang-en">@item.Name_en</span>
                             </a>
                         </dd>
                     }

@@ -11,7 +11,7 @@ namespace Upup.Controllers
     public class PostCategoryController : UpupControllerBase
     {
         // GET: PostCategory
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             var vm = new PostCategoryViewModel
             {

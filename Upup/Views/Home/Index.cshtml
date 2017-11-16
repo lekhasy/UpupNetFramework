@@ -19,7 +19,7 @@
 <div id="topHomeBody">
     <div class="row">
         <div class="area-menu">
-            @{Html.RenderPartial("_MenuPartial");}
+            @{Html.RenderPartial("_MenuPartial", Model.Categories);}
         </div>
         <div class="area-slider">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
