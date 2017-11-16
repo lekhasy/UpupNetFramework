@@ -601,6 +601,8 @@
     <Content Include="Views\Shared\_ProductItemPartial.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Shared\_PostPartial.cshtml" />
+    <Content Include="Views\UserManual\ManualGuide.cshtml" />
+    <Content Include="Views\UserManual\ManualInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
