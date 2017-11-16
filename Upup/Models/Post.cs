@@ -14,6 +14,9 @@ namespace Upup.Models
         public string Content { get; set; }
         public string Content_en { get; set; }
 
+        public string Sumary { get; set; }
+        public string Sumary_en { get; set; }
+
         public string MetaKeyword { get; set; }
         public string MetaDescription { get; set; }
 

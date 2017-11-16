@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Upup.Models;
 using Upup.ViewModels;
 
 namespace Upup.Controllers
@@ -10,25 +12,42 @@ namespace Upup.Controllers
         // GET: Search
         public async Task<ActionResult> Index(string term)
         {
-            var productids = (await Db.SearchForProduct(term)).ToList().Select(p => p.Id);
+            if (string.IsNullOrEmpty(term) || string.IsNullOrWhiteSpace(term)) term = string.Empty;
 
-            var products = Db.Products.Where(p => productids.Contains(p.Id)).ToList();
+            List<Product> products = null;
 
-            var productContainsCode = products.Where(p => p.Code != null && p.Code.Contains(term));
+            IEnumerable<Post> posts = null;
 
-            products.RemoveAll(p => p.Code != null && p.Code.Contains(term));
+            if (term == string.Empty)
+            {
+                products = Db.Products.Take(10).ToList();
+                posts = Db.Posts.Take(10).ToList();
+            }
+            else
+            {
+                IEnumerable<long> productids = null; productids = (await Db.SearchForProduct(term)).ToList().Select(p => p.Id);
 
-            products = productContainsCode.Concat(products).ToList();
+                products = Db.Products.Where(p => productids.Contains(p.Id)).ToList();
 
-            var postsByTitleIds = (await Db.SearchForPostByTitle(term)).ToList().Select(p => p.Id);
-            var postByContentIds = (await Db.SearchForPostByContent(term)).ToList().Select(p => p.Id);
+                var productContainsCode = products.Where(p => p.Code != null && p.Code.Contains(term));
 
-            var postsByTitle = Db.Posts.Where(p => postsByTitleIds.Contains(p.Id)).ToList();
-            var postByContent = Db.Posts.Where(p => postByContentIds.Contains(p.Id)).ToList();
-           
-            postByContent.RemoveAll(p => postsByTitle.Any(pt => pt.Id == p.Id));
+                products.RemoveAll(p => p.Code != null && p.Code.Contains(term));
 
-            var posts = postsByTitle.Concat(postByContent);
+                products = productContainsCode.Concat(products).ToList();
+
+
+
+                var postsByTitleIds = (await Db.SearchForPostByTitle(term)).ToList().Select(p => p.Id);
+                var postByContentIds = (await Db.SearchForPostByContent(term)).ToList().Select(p => p.Id);
+
+                var postsByTitle = Db.Posts.Where(p => postsByTitleIds.Contains(p.Id)).ToList();
+                var postByContent = Db.Posts.Where(p => postByContentIds.Contains(p.Id)).ToList();
+
+                postByContent.RemoveAll(p => postsByTitle.Any(pt => pt.Id == p.Id));
+
+                posts = postsByTitle.Concat(postByContent);
+
+            }
 
 
             ViewBag.Term = term;
@@ -41,11 +60,11 @@ namespace Upup.Controllers
                         Id = p.Id,
                         CategoryId = p.Category.Id,
                         CategoryName = p.Category.Name,
-                        Content = p.Content,
+                        Content = p.Sumary,
                         Title = p.Title,
                         CategoryName_en = p.Category.Name_en,
                         Title_en = p.Title_en,
-                        Content_en = p.Content_en
+                        Content_en = p.Sumary_en
                     }).ToList(),
 
                     SearchProductResult = products.Select(p => new SearchItemModels

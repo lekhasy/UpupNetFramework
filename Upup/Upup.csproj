@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201711120835488_InitialCreate.Designer.cs">
       <DependentUpon>201711120835488_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711161349481_add_sumary_field.cs" />
+    <Compile Include="Migrations\201711161349481_add_sumary_field.Designer.cs">
+      <DependentUpon>201711161349481_add_sumary_field.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -627,6 +631,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711120835488_InitialCreate.resx">
       <DependentUpon>201711120835488_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711161349481_add_sumary_field.resx">
+      <DependentUpon>201711161349481_add_sumary_field.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

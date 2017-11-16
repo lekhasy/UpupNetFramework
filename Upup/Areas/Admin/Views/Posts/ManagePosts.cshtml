@@ -61,6 +61,27 @@
                     </div>
 
                     <div class="form-group">
+                        @Html.LabelFor(n => n.Sumary)
+                        @Html.TextBoxFor(n => n.Sumary, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập tóm tắt Bài viết",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền tóm tắt Bài viết"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Sumary_en)
+                        @Html.TextBoxFor(n => n.Sumary_en, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập tóm tắt Bài viết tiếng anh",
+                       @required = "required",
+                       @data_errormessage_value_missing = "Vui lòng điền tóm tắt     Bài viết tiếng anh"
+                   })
+                    </div>
+
+                    <div class="form-group">
                         @Html.LabelFor(n => n.Content)
                         @Html.TextAreaFor(n => n.Content, new
                    {
@@ -140,7 +161,7 @@
                         <th>ID</th>
                         <th>Tên Bài viết</th>
                         <th>Tên Bài viết tiếng anh</th>
-                        <th>Nội dung</th>
+                        <th>Tóm tắt</th>
                         <th>Tùy chỉnh</th>
                     </tr>
                 </thead>
@@ -205,7 +226,7 @@
                     { "name": "Name" },
                     { "name": "Name_en" },
                     {
-                        "name": "Content",
+                        "name": "Sumary",
                         "sortable": false
                     },
                     {
