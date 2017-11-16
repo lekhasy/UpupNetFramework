@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Upup.Models;
+using Upup.ViewModels;
 
 namespace Upup.Controllers
 {
@@ -18,9 +19,16 @@ namespace Upup.Controllers
             return View(GetRootCategory());
         }
 
-        public ActionResult ManualInfo()
+        public ActionResult ManualInfo(long id)
         {
-            return View();
+            var post = Db.Posts.Find(id);
+
+            var vm = new PostDetailViewModel
+            {
+                Post = post,
+                RootCategory = GetRootCategory()
+            };
+            return View(vm);
         }
         private PostCategory GetRootCategory()
         {

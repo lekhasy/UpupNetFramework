@@ -1,8 +1,7 @@
-﻿
+﻿@model Upup.ViewModels.PostDetailViewModel
 @{
-    ViewBag.Title = "EventInfo";
+    ViewBag.Title = Model.Post.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EventInfo</h2>
-
+@{Html.RenderPartial("_PostPartial");}
