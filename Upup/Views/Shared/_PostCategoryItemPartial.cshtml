@@ -1,0 +1,9 @@
+﻿@model Upup.Models.PostCategory
+<div class="product-category-item">
+    <a href="/@ViewBag.ControllerName/Category/@Model.Id">
+        <span class="product-category-item-title lang-vi">@Model.Name</span>
+        <span class="product-category-item-title lang-en">@Model.Name_en</span>
+        <span class="lang-vi">@Html.Raw(Model.Description)</span>
+        <span class="lang-en">@Html.Raw(Model.Description_en)</span>
+    </a>
+</div>

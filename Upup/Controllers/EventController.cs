@@ -9,12 +9,12 @@ using Upup.ViewModels;
 namespace Upup.Controllers
 {
     [AllowAnonymous]
-    public class TechController : UpupControllerBase
+    public class EventController : UpupControllerBase
     {
-        public const string ControllerName = "Tech";
-        public const string TechInfoActionName = "TechInfo";
+        public const string ControllerName = "Event";
+        public const string InfoActionName = "EventInfo";
 
-        public TechController()
+        public EventController()
         {
 
         }
@@ -28,18 +28,17 @@ namespace Upup.Controllers
                 CurrentCategory = current
             };
             ViewBag.ControllerName = ControllerName;
-
             return View("_PostCategoryPartial", vm);
         }
 
-        public ActionResult TechGuide()
+        public ActionResult EventGuide()
         {
             ViewBag.ControllerName = ControllerName;
 
             return View(GetRootCategory());
         }
 
-        public ActionResult TechInfo(long id)
+        public ActionResult EventInfo(long id)
         {
             var post = Db.Posts.Find(id);
 
@@ -55,7 +54,7 @@ namespace Upup.Controllers
 
         private PostCategory GetRootCategory()
         {
-            return Db.PostCategories.First(c => c.RootCategoryIdentifier == (int)RootPostCategory.Tech);
+            return Db.PostCategories.First(c => c.RootCategoryIdentifier == (int)RootPostCategory.Event);
         }
 
     }

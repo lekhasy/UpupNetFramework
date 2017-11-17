@@ -19,8 +19,5 @@ namespace Upup.Controllers
             var product = Db.Products.Find(id);
             return View(product);
         }
-
-       
-
     }
 }

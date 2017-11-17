@@ -1,46 +1,46 @@
-﻿@model List<Upup.ViewModels.PostCategoryViewModel>
+﻿@model Upup.Models.PostCategory
+@using Upup.Models
 
 <div class="header">
     <div class="head-category">
         <div class="category-list">
-
             <dl class="category-list-caption">
-                @foreach (var category in Model)
+                @foreach (var category in Model.ChildCategories.OrderBy(c => c.Id))
                 {
-                    if (category.ParentCategory == null)
-                    {
-                        <dd class="root-category">
-                            <a href="/ProductCategory/Index/@category.Id" class="link category-link">
-                                <span class="lang-vi">@category.Name</span>
-                                <span class="lang-en">@category.Name_en</span>
-                            </a>
-                            <div class="category-list-box">
-                                <p class="subtitle"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></p>
-                                <p class="category-list-caption"><span class="lang-vi">@Html.Raw(category.Description)</span><span class="lang-en">@Html.Raw(category.Description_en)</span></p>
-                                <ul>
-                                    @if (category.ChildCategories != null && category.ChildCategories.Count > 0)
+                    <dd class="root-category">
+                        <a href="/@ViewBag.ControllerName/Category/@category.Id" class="link category-link">
+                            <span class="lang-vi">@category.Name</span>
+                            <span class="lang-en">@category.Name_en</span>
+                        </a>
+                        <div class="category-list-box">
+                            <p class="subtitle"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></p>
+                            <p class="category-list-caption"><span class="lang-vi">@Html.Raw(category.Description)</span><span class="lang-en">@Html.Raw(category.Description_en)</span></p>
+                            <ul>
+                                @if (category.ChildCategories != null)
+                                {
+                                    foreach (var childCategory in category.ChildCategories)
                                     {
-                                        foreach (var childCategories in category.ChildCategories)
-                                        {
-                                            <li>
-                                                <a href="/PostProductCategory/Index/@childCategories.Id"><span class="lang-vi">@childCategories.Name</span><span class="lang-en">@childCategories.Name_en</span></a>
-                                                @if (childCategories.ChildCategories.Count > 0)
+                                    <li>
+                                        <a href="/@ViewBag.ControllerName/Category/@childCategory.Id">
+                                            <span class="lang-vi">@childCategory.Name</span>
+                                            <span class="lang-en">@childCategory.Name_en</span>
+                                        </a>
+                                        <ul>
+                                            @if (childCategory.ChildCategories != null)
+                                            {
+                                                foreach (var nestedChildCategory in childCategory.ChildCategories)
                                                 {
-                                                    <ul>
-                                                        @foreach(var nestedChildCategory in childCategories.ChildCategories)
-                                                        {
-                                                            <li><a href="/PostProductCategory/Index/@nestedChildCategory.Id">@nestedChildCategory.Name</a></li>
-                                                        }
-                                                    </ul>
+                                                <li><a href="/@ViewBag.ControllerName/Category/@nestedChildCategory.Id">@nestedChildCategory.Name</a></li>
                                                 }
-                                            </li>
-                                        }
+                                            }
+                                        </ul>
+                                    </li>
                                     }
-                                </ul>
-                                <div class="category-list-bottom-link"><a href="/ProductCategory/Index/@category.Id">All @category.Name</a></div>
-                            </div>
-                        </dd>
-                    }
+                                }
+                            </ul>
+                            <div class="category-list-bottom-link"><a href="/ProductCategory/Index/@category.Id">All @category.Name</a></div>
+                        </div>
+                    </dd>
                 }
             </dl>
         </div>

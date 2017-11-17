@@ -90,6 +90,8 @@ namespace Upup.Areas.Admin.Controllers
                 {
                     Title = model.Title,
                     Title_en = model.Title_en,
+                    Sumary = model.Sumary,
+                    Sumary_en = model.Sumary_en,
                     Content = model.Content,
                     Content_en = model.Content_en,
                     CreatedDate = DateTime.Now,
@@ -118,6 +120,8 @@ namespace Upup.Areas.Admin.Controllers
                 {
                     post.Title = model.Title;
                     post.Title_en = model.Title_en;
+                    post.Sumary = model.Sumary;
+                    post.Sumary_en = model.Sumary_en;
                     post.Content = model.Content;
                     post.Content_en = model.Content_en;
                     post.Category = category;
@@ -182,7 +186,7 @@ namespace Upup.Areas.Admin.Controllers
 
             var result = filteredPosts.Select(Post => new[]
             {
-                Post.Id.ToString(CultureInfo.InvariantCulture), Post.Title, Post.Title_en, Post.Content, Post.Id.ToString(CultureInfo.InvariantCulture)
+                Post.Id.ToString(CultureInfo.InvariantCulture), Post.Title, Post.Title_en, Post.Sumary, Post.Id.ToString(CultureInfo.InvariantCulture)
             }).ToList();
 
             return Json(new
@@ -249,7 +253,7 @@ namespace Upup.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Title_en,Content,Content_en,CreatedDate,LastModifiedDate")] Post post)
+        public ActionResult Create([Bind(Include = "Id,Title,Title_en,Content,Content_en,CreatedDate,LastModifiedDate,Sumary,Sumary_en")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -281,7 +285,7 @@ namespace Upup.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Title_en,Content,Content_en,CreatedDate,LastModifiedDate")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Title,Title_en,Content,Content_en,CreatedDate,LastModifiedDate,Sumary,Sumary_en")] Post post)
         {
             if (ModelState.IsValid)
             {

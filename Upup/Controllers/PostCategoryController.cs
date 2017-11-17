@@ -13,10 +13,20 @@ namespace Upup.Controllers
     public class PostCategoryController : UpupControllerBase
     {
         // GET: PostCategory
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            var categories = Mapper.Map<List<PostCategory>,List<PostCategoryViewModel>>(Db.PostCategories.ToList());
-            return View(categories);
+            var current = Db.PostCategories.Find(id);
+            var root = current;
+            while (root.ParentCategory != null)
+            {
+                root = root.ParentCategory;
+            }
+            var vm = new PostCategoryViewModel
+            {
+                RootCategory = root,
+                CurrentCategory = current
+            };
+            return View(vm);
         }
     }
 }

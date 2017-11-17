@@ -20,7 +20,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult ManageProducts(int? id)
         {
             var variants = new List<ProductVariantModel>();
-            var categories = Db.Categories.ToList().Where(cat => cat.ChildCategories.Count == 0)
+            var categories = Db.Categories.ToList()
                 .Select(cat => new SelectListItem
             {
                 Text = cat.Name,

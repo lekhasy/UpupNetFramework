@@ -1,0 +1,11 @@
+﻿@model Upup.Models.Post
+<div class="product-category-item">
+    <a href="/Post/Detail/@Model.Id">
+        <span class="product-category-item-title lang-vi">@Model.Title</span>
+        <span class="product-category-item-title lang-en">@Model.Title_en</span>
+        @*<p class="lang-vi">@Model.Description</p>
+            <p class="lang-en">@Model.Description_en</p>*@
+        <span class="lang-vi">@Model.Sumary</span>
+        <span class="lang-en">@Model.Sumary_en</span>
+    </a>
+</div>

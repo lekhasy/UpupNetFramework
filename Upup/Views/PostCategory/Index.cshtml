@@ -1,77 +1,57 @@
-﻿
+﻿@model Upup.ViewModels.PostCategoryViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var categoryPath = new List<Upup.Models.PostCategory>();
+    var currCategory = Model.CurrentCategory;
+    for (int i = 0; i < 10; i++) // do not user while true to avoid infinity loop if code have a bug
+    {
+        if (currCategory == null) { break; }
+        categoryPath.Insert(0, currCategory);
+        currCategory = currCategory.ParentCategory;
+    }
+
+    categoryPath.Remove(Model.CurrentCategory);
+
+    var allPost = Model.CurrentCategory.Posts.ToList();
+
 }
 
-<div class="subject-category">
+<div id="categoryProductLv1">
     <div class="row">
-        <div class="col-md-3">
-            @{Html.RenderPartial("_MenuPostPartial");}
+        <div class="area-menu">
+            @{Html.RenderPartial("_MenuPostPartial", Model.RootCategory);}
         </div>
-        <div class="col-md-9">
-            <div class="category-menu">
+        <div class="area-category-list">
+            <div id="crumbs">
                 <ul>
-                    <li>
-                        Bộ truyền động
-                        <ul>
-                            <li><a href="javascript:void(0)">Bộ truyền đai răng</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai thang</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai tròn</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai xích</a></li>
-                            <li><a href="javascript:void(0)">Khớp nối</a></li>
-                            <li><a href="javascript:void(0)">Vòng siết trục</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        Bộ dẫn động
-                        <ul>
-                            <li><a href="javascript:void(0)">Ray trượt</a></li>
-                            <li><a href="javascript:void(0)">Thanh trượt bạc trược</a></li>
-                            <li><a href="javascript:void(0)">Bạn đạn trực quay</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        Bộ truyền động
-                        <ul>
-                            <li><a href="javascript:void(0)">Bộ truyền đai răng</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai thang</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai tròn</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai xích</a></li>
-                            <li><a href="javascript:void(0)">Khớp nối</a></li>
-                            <li><a href="javascript:void(0)">Vòng siết trục</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        Bộ dẫn động
-                        <ul>
-                            <li><a href="javascript:void(0)">Ray trượt</a></li>
-                            <li><a href="javascript:void(0)">Thanh trượt bạc trược</a></li>
-                            <li><a href="javascript:void(0)">Bạn đạn trực quay</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        Bộ truyền động
-                        <ul>
-                            <li><a href="javascript:void(0)">Bộ truyền đai răng</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai thang</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai tròn</a></li>
-                            <li><a href="javascript:void(0)">Bộ truyền đai xích</a></li>
-                            <li><a href="javascript:void(0)">Khớp nối</a></li>
-                            <li><a href="javascript:void(0)">Vòng siết trục</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        Bộ dẫn động
-                        <ul>
-                            <li><a href="javascript:void(0)">Ray trượt</a></li>
-                            <li><a href="javascript:void(0)">Thanh trượt bạc trược</a></li>
-                            <li><a href="javascript:void(0)">Bạn đạn trực quay</a></li>
-                        </ul>
-                    </li>
+                    @foreach (var category in categoryPath)
+                    {
+                        <li><a href="/ProductCategory/Index/@category.Id"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></a></li>
+                    }
+                    <li class="active"><a href="/ProductCategory/Index/@Model.CurrentCategory.Id"><span class="lang-vi">@Model.CurrentCategory.Name</span><span class="lang-en">@Model.CurrentCategory.Name_en</span></a></li>
                 </ul>
             </div>
+            @if (Model.CurrentCategory.ChildCategories.Any())
+            {
+                <div class="product-category-items">
+                    @foreach (var category in Model.CurrentCategory.ChildCategories)
+                    {
+                        Html.RenderPartial("_PostCategoryItemPartial", category);
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="product-category-items">
+                    @foreach (var post in allPost)
+                    {
+                        Html.RenderPartial("_PostItemPartial", post);
+                    }
+                </div>
+            }
+
+
         </div>
     </div>
 </div>
-

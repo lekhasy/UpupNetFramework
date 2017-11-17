@@ -1,10 +1,10 @@
-﻿@model Upup.ViewModels.HomeViewModel
+﻿@model IEnumerable<Upup.Models.Category>
 <div class="header">
     <div class="head-category">
         <div class="category-list">
 
             <dl class="category-list-caption">
-                @foreach (var category in Model.Categories)
+                @foreach (var category in Model)
                 {
                     <dd class="root-category">
                         <a href="/ProductCategory/Index/@category.Id"  class="link category-link" imgUrl="@category.ImageUrl">
