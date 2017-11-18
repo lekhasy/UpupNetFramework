@@ -27,7 +27,8 @@ namespace Upup.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult ManagePostCategories(int? id)
         {
-            var parentCategories = db.PostCategories.ToList().Select(cat => new SelectListItem
+            var allPostCategories = Mapper.Map<List<PostCategory>, List<PostCategoryModel>>(Db.PostCategories.ToList());
+            var parentCategories = allPostCategories.Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
@@ -38,13 +39,17 @@ namespace Upup.Areas.Admin.Controllers
                 Value = string.Empty,
                 Selected = true
             });
-            var postCategory = new PostCategoryModel { ParentCategories = parentCategories };
+            var postCategory = new PostCategoryModel {
+                ParentCategories = parentCategories,
+                AllPostCategoriesLevel = allPostCategories
+            };
             if (id == null) return View(postCategory);
             var result = db.PostCategories.Find(id);
             if (result != null)
             {
                 postCategory = Mapper.Map<PostCategory, PostCategoryModel>(result);
                 postCategory.ParentCategories = parentCategories;
+                postCategory.AllPostCategoriesLevel = allPostCategories;
                 if (postCategory.ParentCategory != null)
                 {
                     postCategory.PostParentCategory_Id = Convert.ToInt32(result.ParentCategory.Id);
@@ -60,6 +65,7 @@ namespace Upup.Areas.Admin.Controllers
 
         public ActionResult ManagePostCategories(PostCategoryModel model)
         {
+            var allPostCategories = Mapper.Map<List<PostCategory>, List<PostCategoryModel>>(Db.PostCategories.ToList());
             var keywords = model.MetaKeyword;
             if (!string.IsNullOrEmpty(keywords))
             {
@@ -144,6 +150,7 @@ namespace Upup.Areas.Admin.Controllers
                 Selected = true
             });
             model.ParentCategories = parentCategories;
+            model.AllPostCategoriesLevel = allPostCategories;
             return View(model);
         }
 

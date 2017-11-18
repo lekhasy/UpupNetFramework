@@ -15,7 +15,9 @@ namespace Upup.Controllers
         // GET: PostCategory
         public ActionResult Index(int id)
         {
-            var current = Db.PostCategories.Find(id);
+            var allPostCategories = Db.PostCategories;
+            var rootCategories = allPostCategories.Where(cat => cat.ParentCategory == null).ToList();
+            var current = allPostCategories.Find(id);
             var root = current;
             while (root.ParentCategory != null)
             {
@@ -23,6 +25,7 @@ namespace Upup.Controllers
             }
             var vm = new PostCategoryViewModel
             {
+                RootCategories = rootCategories,
                 RootCategory = root,
                 CurrentCategory = current
             };

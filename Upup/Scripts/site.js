@@ -23,4 +23,12 @@ $(document).ready(function () {
     }, function () {
         $categoryImageControl.css('background-image', 'url(' + rootImage + ')');
     });
+
+    $(".category-list-box > ul > li a").hover(function () {
+        $(this).removeClass('collapsed');
+        $(this).next().removeClass('collapse').addClass('in');
+    }, function () {
+        $(this).addClass('collapsed');
+        $(this).next().removeClass('in').addClass('collapse');
+    });
 });

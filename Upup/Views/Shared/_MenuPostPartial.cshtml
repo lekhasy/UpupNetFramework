@@ -1,11 +1,11 @@
-﻿@model Upup.Models.PostCategory
-@using Upup.Models
+﻿@using Upup.Models
+@model List<PostCategory>
 
 <div class="header">
     <div class="head-category">
         <div class="category-list">
             <dl class="category-list-caption">
-                @foreach (var category in Model.ChildCategories.OrderBy(c => c.Id))
+                @foreach (var category in Model)
                 {
                     <dd class="root-category">
                         <a href="/@ViewBag.ControllerName/Category/@category.Id" class="link category-link">
@@ -20,21 +20,21 @@
                                 {
                                     foreach (var childCategory in category.ChildCategories)
                                     {
-                                    <li>
-                                        <a href="/@ViewBag.ControllerName/Category/@childCategory.Id">
-                                            <span class="lang-vi">@childCategory.Name</span>
-                                            <span class="lang-en">@childCategory.Name_en</span>
-                                        </a>
-                                        <ul>
-                                            @if (childCategory.ChildCategories != null)
+                                        <li>
+                                            <a href="/@ViewBag.ControllerName/Category/@childCategory.Id">
+                                                <span class="lang-vi">@childCategory.Name</span>
+                                                <span class="lang-en">@childCategory.Name_en</span>
+                                            </a>
+                                            @if (childCategory.ChildCategories != null && childCategory.ChildCategories.Count > 0)
                                             {
-                                                foreach (var nestedChildCategory in childCategory.ChildCategories)
-                                                {
-                                                <li><a href="/@ViewBag.ControllerName/Category/@nestedChildCategory.Id">@nestedChildCategory.Name</a></li>
-                                                }
+                                                <ul class="collapse">
+                                                    @foreach (var nestedChildCategory in childCategory.ChildCategories)
+                                                    {
+                                                        <li><a href="/@ViewBag.ControllerName/Category/@nestedChildCategory.Id">@nestedChildCategory.Name</a></li>
+                                                    }
+                                                </ul>
                                             }
-                                        </ul>
-                                    </li>
+                                        </li>
                                     }
                                 }
                             </ul>

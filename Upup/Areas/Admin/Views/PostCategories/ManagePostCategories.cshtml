@@ -24,262 +24,309 @@
     </ol>
 </section>
 
-@using (Html.BeginForm("ManagePostCategories", "PostCategories", FormMethod.Post, new { id = "insertForm" }))
-{
-    <section class="content">
-        <div class="box box-primary">
-            <!-- form start -->
-            <form role="form">
-                <div class="box-body">
-                    @Html.HiddenFor(n => n.Id)
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.PostParentCategory_Id)
-                        @Html.DropDownListFor(n => n.PostParentCategory_Id, Model.ParentCategories, new
-                   {
-                       @class = "form-control"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Name)
-                        @Html.TextBoxFor(n => n.Name, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập tên danh mục",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên danh mục"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Name_en)
-                        @Html.TextBoxFor(n => n.Name_en, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập tên danh mục tiếng anh",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền tên danh mục tiếng anh"
-                   })
-                    </div>
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm("ManagePostCategories", "PostCategories", FormMethod.Post, new { id = "insertForm" }))
+        {
+            <section class="content">
+                <div class="box box-primary">
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="box-body">
+                            @Html.HiddenFor(n => n.Id)
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.PostParentCategory_Id)
+                                @Html.DropDownListFor(n => n.PostParentCategory_Id, Model.ParentCategories, new
+                           {
+                               @class = "form-control"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Name)
+                                @Html.TextBoxFor(n => n.Name, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập tên danh mục",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền tên danh mục"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Name_en)
+                                @Html.TextBoxFor(n => n.Name_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập tên danh mục tiếng anh",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền tên danh mục tiếng anh"
+                           })
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Description)
-                        @Html.TextAreaFor(n => n.Description, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập sơ lược về danh mục",
-                       @rows = "3"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Description_en)
-                        @Html.TextAreaFor(n => n.Description_en, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập sơ lược tiếng anh về danh mục",
-                       @rows = "3"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaDescription)
-                        @Html.TextBoxFor(n => n.MetaDescription, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập mô tả cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền mô tả trang"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaKeyword)
-                        @Html.TextBoxFor(n => n.MetaKeyword, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập từ khỏa cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaDescription_en)
-                        @Html.TextBoxFor(n => n.MetaDescription_en, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập mô tả tiếng anh cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.MetaKeyword_en)
-                        @Html.TextBoxFor(n => n.MetaKeyword_en, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập từ khỏa tiếng anh cho trang",
-                       @required = "required",
-                       @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
-                   })
-                    </div>
-                </div><!-- /.box-body -->
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Description)
+                                @Html.TextAreaFor(n => n.Description, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập sơ lược về danh mục",
+                               @rows = "3"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Description_en)
+                                @Html.TextAreaFor(n => n.Description_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập sơ lược tiếng anh về danh mục",
+                               @rows = "3"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaDescription)
+                                @Html.TextBoxFor(n => n.MetaDescription, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền mô tả trang"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaKeyword)
+                                @Html.TextBoxFor(n => n.MetaKeyword, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khỏa cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaDescription_en)
+                                @Html.TextBoxFor(n => n.MetaDescription_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả tiếng anh cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaKeyword_en)
+                                @Html.TextBoxFor(n => n.MetaKeyword_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khỏa tiếng anh cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
+                           })
+                            </div>
+                        </div><!-- /.box-body -->
 
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-    </section>
-}
-
-<div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
-                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+            </section>
+        }
+    </div>
+    <div class="col-md-4">
+        <div class="site-map">
+            <div id="fontSizeWrapper">
+                <label for="fontSize">Kích cở</label>
+                <input type="range" value="1" id="fontSize" step="0.1" min="0.5" max="1" />
+                <a class="btn-sm btn-success btn-sm pull-right" href="/Admin/Categories/ManageCategories">Tạo mới</a>
             </div>
-            <div class="modal-body">
-                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "PostCategories"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                        <input type="submit" value="Upload" />
-                    </div>
-                </form>
-            </div>
+            <ul class="tree">
+                @foreach (var subPage in Model.AllPostCategoriesLevel.Where(c => c.ParentCategory == null))
+                {
+                    <li>
+                        <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
+                        <label class="tree_label" for="@("c" + subPage.Id)">@subPage.Name</label>
+                        <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a>
+                        @RenderMenuItem(subPage)
+                    </li>
+                }
+            </ul>
         </div>
     </div>
-</div>
 
-<section class="content">
-    <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Dữ liệu Danh mục</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tên danh mục</th>
-                        <th>Tên danh mục tiếng anh</th>
-                        <th>Mô tả</th>
-                        <th>Tùy chỉnh</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div><!-- /.box-body -->
-    </div><!-- /.box -->
-</section>
+    @helper RenderMenuItem(Upup.Areas.Admin.ViewModels.PostCategoryModel category)
+    {
+    <ul>
+        @if (category.ChildCategories.Count > 0)
+        {
+            foreach (var subPage in category.ChildCategories)
+            {
+                <li>
+                    <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
+                    <label for="@("c" + subPage.Id)" class="tree_label">@subPage.Name</label>
+                    <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    @RenderMenuItem(subPage)
+                </li>
+            }
+        }
+    </ul>
+}
 
-@section AddScriptToBody{
-        <script type="text/javascript">
-        $(function() {
+    </div>
 
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('Description', {
-                extraPlugins: 'divarea'
-            });
+        <div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "PostCategories"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                                <input type="submit" value="Upload" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            CKEDITOR.replace('Description_en', {
-                extraPlugins: 'divarea'
-            });
+        <section class="content">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Dữ liệu Danh mục</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên danh mục</th>
+                                <th>Tên danh mục tiếng anh</th>
+                                <th>Mô tả</th>
+                                <th>Tùy chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </section>
 
-            $("button[type='submit']").click(function() {
-                var messageLength = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
-                if (!messageLength && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
-                    AlertBootstrap('Vui lòng viết vài dòng mô tả');
-                    return false;
-                }
-                var messageLength2 = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
-                if (!messageLength2 && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
-                    AlertBootstrap('Vui lòng viết vài dòng mô tả tiếng anh');
-                    return false;
-                }
-                return true;
-            });
+        @section AddScriptToBody{
+            <script type="text/javascript">
+                $(function () {
 
-            var $table = $("#example1").DataTable({
-                "language": {
-                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
-                    "search": "Tìm kiếm: ",
-                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
-                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
-                    "infoEmpty": "Dữ liệu không tồn tại",
-                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
-                    "paginate": {
-                        "first": "Trang đầu",
-                        "last": "Trang cuối",
-                        "previous": "Trang trước",
-                        "next": "Trang sau"
-                    }
-                },
-                "serverSide": true,
-                "ajaxSource": "/PostCategories/LoadAllCategories",
-                "processing": true,
-                "columns": [
-                    {
-                        "name": "ID",
-                        "class": "data-id"
-                    },
-                    { "name": "Name" },
-                    { "name": "Name_en" },
-                    {
-                        "name": "Description",
-                        "sortable": false
-                    },
-                    {
-                        "name": "ID",
-                        "targets": 5,
-                        "searchable": false,
-                        "sortable": false,
-                        "width": 90,
-                        "render": function(data, type, full, meta) {
-                            return '<a href=\"/Admin/PostCategories/ManagePostCategories/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
+                    // Replace the <textarea id="editor1"> with a CKEditor
+                    // instance, using default configuration.
+                    CKEDITOR.replace('Description', {
+                        extraPlugins: 'divarea'
+                    });
+
+                    CKEDITOR.replace('Description_en', {
+                        extraPlugins: 'divarea'
+                    });
+
+                    $("button[type='submit']").click(function () {
+                        var messageLength = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
+                        if (!messageLength && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
+                            AlertBootstrap('Vui lòng viết vài dòng mô tả');
+                            return false;
                         }
-                    }
-                ],
-                "drawCallback": function(settings) {
-                    $(".act-del").click(function() {
-                        var id = $(this).attr('data-id');
-                        BootstrapDialog.confirm({
-                            title: 'Tin nhắn',
-                            message: 'Bạn thật sự muốn xóa danh mục này ?',
-                            //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-                            closable: true, // <-- Default value is false
-                            draggable: true, // <-- Default value is false
-                            btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
-                            btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
-                            //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
-                            callback: function(result) {
-                                // result will be true if button was click, while it will be false if users close the dialog directly.
-                                if (result) {
-                                    $.post('/PostCategories/RemoveCategories', { 'id': parseInt(id, 10) },
-                                        function(data) {
-                                            if (data.ResultValue) {
-                                                BootstrapDialog.show({
-                                                    type: BootstrapDialog.TYPE_SUCCESS,
-                                                    title: 'Thành công',
-                                                    message: data.Message
-                                                });
-                                            } else {
-                                                BootstrapDialog.show({
-                                                    type: BootstrapDialog.TYPE_DANGER,
-                                                    title: 'Thất bại',
-                                                    message: data.Message
-                                                });
-                                            }
-                                            $table.ajax.reload();
-                                            setTimeout(function() {
-                                                BootstrapDialog.closeAll();
-                                            }, 5000);
-                                        }
-                                    );
+                        var messageLength2 = CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length;
+                        if (!messageLength2 && $("#Name").val() !== '' && $("#Name_en").val() !== '') {
+                            AlertBootstrap('Vui lòng viết vài dòng mô tả tiếng anh');
+                            return false;
+                        }
+                        return true;
+                    });
+
+                    var $table = $("#example1").DataTable({
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                            "search": "Tìm kiếm: ",
+                            "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
+                            "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
+                            "infoEmpty": "Dữ liệu không tồn tại",
+                            "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                            "paginate": {
+                                "first": "Trang đầu",
+                                "last": "Trang cuối",
+                                "previous": "Trang trước",
+                                "next": "Trang sau"
+                            }
+                        },
+                        "serverSide": true,
+                        "ajaxSource": "/PostCategories/LoadAllCategories",
+                        "processing": true,
+                        "columns": [
+                            {
+                                "name": "ID",
+                                "class": "data-id"
+                            },
+                            { "name": "Name" },
+                            { "name": "Name_en" },
+                            {
+                                "name": "Description",
+                                "sortable": false
+                            },
+                            {
+                                "name": "ID",
+                                "targets": 5,
+                                "searchable": false,
+                                "sortable": false,
+                                "width": 90,
+                                "render": function (data, type, full, meta) {
+                                    return '<a href=\"/Admin/PostCategories/ManagePostCategories/' + data + '\" class="btn btn-success btn-xs"><i class="fa fa-edit fa-lg"></i> &nbsp;Sửa</a>  <a href=\"javascript:void(0)\" data-id="' + data + '" class="btn btn-danger btn-xs act-del" data-toggle="confirmation"><i class="fa fa-trash-o fa-lg"></i> &nbsp;Xóa</a>';
                                 }
                             }
-                        });
+                        ],
+                        "drawCallback": function (settings) {
+                            $(".act-del").click(function () {
+                                var id = $(this).attr('data-id');
+                                BootstrapDialog.confirm({
+                                    title: 'Tin nhắn',
+                                    message: 'Bạn thật sự muốn xóa danh mục này ?',
+                                    //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                                    closable: true, // <-- Default value is false
+                                    draggable: true, // <-- Default value is false
+                                    btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                                    btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                                    //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                                    callback: function (result) {
+                                        // result will be true if button was click, while it will be false if users close the dialog directly.
+                                        if (result) {
+                                            $.post('/PostCategories/RemoveCategories', { 'id': parseInt(id, 10) },
+                                                function (data) {
+                                                    if (data.ResultValue) {
+                                                        BootstrapDialog.show({
+                                                            type: BootstrapDialog.TYPE_SUCCESS,
+                                                            title: 'Thành công',
+                                                            message: data.Message
+                                                        });
+                                                    } else {
+                                                        BootstrapDialog.show({
+                                                            type: BootstrapDialog.TYPE_DANGER,
+                                                            title: 'Thất bại',
+                                                            message: data.Message
+                                                        });
+                                                    }
+                                                    $table.ajax.reload();
+                                                    setTimeout(function () {
+                                                        BootstrapDialog.closeAll();
+                                                    }, 5000);
+                                                }
+                                            );
+                                        }
+                                    }
+                                });
+                            });
+                        }
                     });
-                }
-            });
-        });
-    </script>
-}
+                });
+            </script>
+        }
 

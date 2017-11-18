@@ -384,11 +384,23 @@ footer {
 
             .header .head-category .category-list-box > ul > li > ul {
                 letter-spacing: normal;
+                margin: 0;
             }
 
-            .header .head-category .mech .category-list-box > ul, .header .head-category .fs_logistics .category-list-box ul {
-            margin: 0 0 0 20px;
-        }
+                .header .head-category .category-list-box > ul > li > ul > li {
+                    padding: 5px 0;
+                    background-color: #EEF6FF;
+                    border-bottom: 1px solid #ddd;
+                }
+
+                .header .head-category .category-list-box > ul > li > ul > li a {
+                    font-size: 10pt;
+                    background: none;
+                }
+                
+                .header .head-category .mech .category-list-box > ul, .header .head-category .fs_logistics .category-list-box ul {
+                    margin: 0 0 0 20px;
+                }
 
             .header .head-category .mech .category-list-box > ul > li,
             .header .head-category .el_wire .category-list-box > ul > li,

@@ -30,6 +30,8 @@ namespace Upup.Areas.Admin.ViewModels
         [Display(Name = "Mô tả trang tiếng anh")]
         public string MetaDescription_en { get; set; }
         public List<SelectListItem> ParentCategories { get; set; }
+        public ICollection<PostCategoryModel> ChildCategories { get; set; }
+        public List<PostCategoryModel> AllPostCategoriesLevel { get; set; }
         public PostCategory ParentCategory { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Upup.Models.PostCategory
+﻿@model Upup.ViewModels.TechGuideModel
 @{
     ViewBag.Title = "TechGuide";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +7,7 @@
 <div class="subject-category">
     <div class="row">
         <div class="col-md-3">
-            @{Html.RenderPartial("_MenuPostPartial");}
+            @{Html.RenderPartial("_MenuPostPartial", Model.RootCategories);}
         </div>
         <div class="col-md-9">
             <div class="poster">

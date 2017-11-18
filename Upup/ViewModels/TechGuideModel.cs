@@ -6,15 +6,9 @@ using Upup.Models;
 
 namespace Upup.ViewModels
 {
-    public class PostListViewModel
+    public class TechGuideModel
     {
-        
-    }
-
-    public class PostDetailViewModel
-    {
-        public PostCategory RootCategory { get; set; }
-        public Post Post { get; set; }
         public List<PostCategory> RootCategories { get; set; }
+        public PostCategory RootCategory { get; set; }
     }
 }
