@@ -1045,3 +1045,41 @@ form[name="registration"] .col-lg-6 {
 form[name="registration"] .col-lg-6:last-child {
     margin-right: 0;
 }
+
+#productDetail .col-md-8, #productDetail .col-md-4, #productDetail .col-md-5, #productDetail .col-md-7, #productDetail .col-md-6 {
+    float: left;
+}
+
+#productDetail .col-md-8 {
+    width: 74.9%;
+    margin-right: 8px;
+}
+
+#productDetail .col-md-4 {
+    width: 24.4%;
+}
+
+#productDetail .order-suggest .col-md-5{
+    width: 40%;
+}
+
+#productDetail .order-suggest .col-md-6 {
+    width: 50%;
+}
+
+#productDetail .order-suggest .col-md-7 {
+    width: 60%;
+}
+
+#productDetail .order-suggest .col-md-8 {
+    width: 72.5%;
+}
+
+#productDetail .order-suggest .col-md-6 .btn{
+    font-size: 10pt;
+}
+
+.arae-facebook .fb_iframe_widget{
+    display: block;
+    margin-top: 20px;
+}
