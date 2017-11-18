@@ -284,7 +284,6 @@
     <Compile Include="ViewModels\ProductCategoryViewModel.cs" />
     <Compile Include="ViewModels\SearchItemModels.cs" />
     <Compile Include="ViewModels\SearchModels.cs" />
-    <Compile Include="ViewModels\TechGuideModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\gasparesganga-jquery-loading-overlay\extras\loadingoverlay_progress\loadingoverlay_progress.js" />
@@ -1344,6 +1343,7 @@
     <Content Include="Views\Shared\_PostItemPartial.cshtml" />
     <Content Include="Views\Shared\_PostCategoryItemPartial.cshtml" />
     <Content Include="Views\Shared\_PostCategoryPartial.cshtml" />
+    <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
