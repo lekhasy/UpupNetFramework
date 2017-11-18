@@ -187,7 +187,9 @@ namespace Upup.Areas.Admin.Controllers
                 Value = string.Empty,
                 Selected = true
             });
+            var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(Db.ProductVariants.Where(var => var.ProductId == model.Id).ToList());
             model.Categories = categories;
+            model.Variants = variants;
             return View(model);
         }
 

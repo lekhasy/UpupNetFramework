@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="cart">
+    <h2>Tạo PO đơn hàng</h2>
+    <table class="cart">
+        <tbody>
+            <tr>
+                <td><label>Tên PO</label></td>
+                <td class="large"><input type="text" class="form-control" /></td>
+                <td><label>Mã khách hàng</label></td>
+                <td class="small"><div id="customerCode"></div></td>
+            </tr>
+            <tr>
+                <td><label>Tên khách hàng</label></td>
+                <td class="large"><div id="customerName"></div></td>
+                <td><label>Mã PO</label></td>
+                <td class="small"><div id="PoCode"></div></td>
+            </tr>
+            <tr>
+                <td><label>Địa chỉ</label></td>
+                <td class="large"><div id="customerAddress"></div></td>
+                <td colspan="2" rowspan="4"><label>Barcode</label></td>
+            </tr>
+            <tr>
+                <td><label>Số điện thoại</label></td>
+                <td class="large"><div id="customerPhone"></div></td>
+            </tr>
+            <tr>
+                <td><label>Email</label></td>
+                <td class="large"><div id="customerEmail"></div></td>
+            </tr>
+            <tr>
+                <td><label>Website</label></td>
+                <td class="large"><div id="customerWebsite"></div></td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Thông tin sản phẩm</h2>
+    <div class="area-button">
+        <a href="javascript:void(0)" class="btn btn-danger">Xóa</a>
+        <a href="javascript:void(0)" class="btn btn-success">Thêm</a>
+    </div>
+    <table id="example1" class="table table-bordered table-striped display">
+        <thead>
+            <tr>
+                <th class="check-all"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+                <th>Stt</th>
+                <th>Mã sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn vị</th>
+                <th>Tên sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+                <th>Ngày giao</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="area-button row">
+        <a href="javascript:void(0)" class="btn btn-warning pull-right">Kiểm tra</a>
+        <a href="javascript:void(0)" class="btn btn-danger">Xóa</a>
+        <a href="javascript:void(0)" class="btn btn-success">Thêm</a>
+    </div>
+    <div class="area-button text-center">
+        <a href="javascript:void(0)" class="btn btn-primary">Báo giá</a>
+        <a href="javascript:void(0)" class="btn btn-primary">Lưu PO</a>
+        <a href="javascript:void(0)" class="btn btn-primary">Đặt hàng</a>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var $table = $("#example1").DataTable({
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                    "search": "Tìm kiếm: ",
+                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
+                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
+                    "infoEmpty": "Dữ liệu không tồn tại",
+                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "last": "Trang cuối",
+                        "previous": "Trang trước",
+                        "next": "Trang sau"
+                    }
+                },
+                "autoWidth": false,
+                "ordering": false,
+                "serverSide": true,
+                "ajaxSource": "/Product/GetAllProductInCart",
+                "processing": true,
+                "searching": false,
+                "paging": false,
+                "info": false,
+                "columns": [
+                    {
+                        'targets': 0,
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'dt-body-center',
+                        'render': function (data, type, full, meta) {
+                            return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
+                        }
+                    },
+                    { "name": "AutoIdentity" },
+                    {
+                        "name": "ProductCode",
+                        'render': function (data, type, full, meta) {
+                            return '<input class="code-input" type="text" value="' + data + '"/>';
+                        }
+                    },
+                    {
+                        "name": "Quantity",
+                        "class": "number",
+                        'render': function (data, type, full, meta) {
+                            return '<input class="quantity-input" type="text" value="' + data + '"/>';
+                        }
+                    },
+                    { "name": "Etc" },
+                    { "name": "ProductName" },
+                    {
+                        "name": "ProductPrice",
+                        "class": "number"
+                    },
+                    {
+                        "name": "TotalPrice",
+                        "class": "number"
+                    },
+                    { "name": "DeliveryDate" }
+                ],
+                "select": {
+                    "style": 'os',
+                    "selector": 'td:not(:last-child)' // no row selection on last column
+                },
+                'order': [[1, 'asc']],
+                "drawCallback": function (settings) {
+                    $(".act-del").click(function () {
+                        var id = $(this).attr('data-id');
+                        BootstrapDialog.confirm({
+                            title: 'Tin nhắn',
+                            message: 'Bạn thật sự muốn xóa danh mục này ?',
+                            //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                            closable: true, // <-- Default value is false
+                            draggable: true, // <-- Default value is false
+                            btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                            btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                            //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                            callback: function (result) {
+                                // result will be true if button was click, while it will be false if users close the dialog directly.
+                                if (result) {
+                                    $.post('/PostCategories/RemoveCategories', { 'id': parseInt(id, 10) },
+                                        function (data) {
+                                            if (data.ResultValue) {
+                                                BootstrapDialog.show({
+                                                    type: BootstrapDialog.TYPE_SUCCESS,
+                                                    title: 'Thành công',
+                                                    message: data.Message
+                                                });
+                                            } else {
+                                                BootstrapDialog.show({
+                                                    type: BootstrapDialog.TYPE_DANGER,
+                                                    title: 'Thất bại',
+                                                    message: data.Message
+                                                });
+                                            }
+                                            $table.ajax.reload();
+                                            setTimeout(function () {
+                                                BootstrapDialog.closeAll();
+                                            }, 5000);
+                                        }
+                                    );
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+
+            // Handle click on "Select all" control
+            $('#example-select-all').on('click', function () {
+                // Get all rows with search applied
+                var rows = $table.rows({ 'search': 'applied' }).nodes();
+                // Check/uncheck checkboxes for all rows in the table
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+        });
+    </script>
+}
