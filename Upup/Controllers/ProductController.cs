@@ -19,5 +19,25 @@ namespace Upup.Controllers
             var product = Db.Products.Find(id);
             return View(product);
         }
+
+        public ActionResult GetProductVariant(string code)
+        {
+            var variant = Db.ProductVariants.FirstOrDefault(p => p.VariantCode == code);
+            if (variant != null)
+            {
+                return Json(new AjaxSimpleResultModel<ProductVariant>
+                {
+                    ResultValue = true,
+                    Data = variant
+                });
+            }
+            else
+            {
+                return Json(new AjaxSimpleResultModel<ProductVariant>
+                {
+                    ResultValue = false
+                });
+            }
+        }
     }
 }

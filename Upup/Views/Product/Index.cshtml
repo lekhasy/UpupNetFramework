@@ -17,47 +17,45 @@
 <div id="productDetail">
     <div class="row">
         <div class="col-md-8">
-            <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@Model.PdfUrl" style="width:100%;height:600px;">
-            </iframe>
+            <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@Model.PdfUrl" style="width:100%;height:600px;"></iframe>
         </div>
         <div class="col-md-4">
-
-            <div class="order-suggest form-group">
-
-                <div class="row">
-                    <div class="col-md-8"><label>Mã sản phẩm</label></div>
-                    <div class="col-md-4"><label>Số lượng</label></div>
+            <form>
+                <div class="order-suggest form-group">
+                    <div class="row">
+                        <div class="col-md-8"><label>Mã sản phẩm</label></div>
+                        <div class="col-md-4"><label>Số lượng</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8"><input type="text" id="variant_Code" class="form-control" /></div>
+                        <div class="col-md-4"><input type="number" min="1" value="1" class="form-control" /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right"><button type="button" id="btn_check" class="btn btn-success">Kiểm tra</button></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"><label>Đơn giá</label></div>
+                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"><label>Số lượng</label></div>
+                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"><label>Tổng tiền</label></div>
+                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"><label>Ngày giao hàng</label></div>
+                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-center"><button class="btn btn-primary">Đặt hàng nhanh</button></div>
+                        <div class="col-md-6 text-center"><button class="btn btn-primary">Cho vào đơn hàng</button></div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-8"><input type="text" class="form-control" value="@Model.Code" disabled /></div>
-                    <div class="col-md-4"><input type="text" class="form-control" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-right"><button class="btn btn-success">Kiểm tra</button></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5"><label>Đơn giá</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" value="" disabled /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5"><label>Số lượng</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5"><label>Tổng tiền</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5"><label>Ngày giao hàng</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 text-center"><button class="btn btn-primary">Đặt hàng nhanh</button></div>
-                    <div class="col-md-6 text-center"><button class="btn btn-primary">Cho vào đơn hàng</button></div>
-                </div>
-            </div>
-            <div class="text-center"><button class="btn btn-danger">Quản lý đơn hàng</button></div>
-
+                <div class="text-center"><button class="btn btn-danger">Quản lý đơn hàng</button></div>
+            </form>
         </div>
     </div>
 </div>
@@ -68,31 +66,15 @@
 </div>
 
 @section scripts{
-    @*<script src="~/bower_components/pdfjs-1.9.426-dist/build/pdf.js"></script>*@
+    <script>
+        $(function () {
+            $('#btn_check').click(function () {
+                $.getJSON("GetProductVariant", { code: $("#variant_Code").val() }, function (response) {
+                    if (response.ResultValue) {
 
-    @*<script>
-            $(function () {
-                // Fetch the PDF document from the URL using promises.
-                PDFJS.getDocument('@Model.PdfUrl').then(function (pdf) {
-                    // Fetch the page.
-                    pdf.getPage(1).then(function (page) {
-                        var scale = 1.0;
-                        var viewport = page.getViewport(scale);
-
-                        // Prepare canvas using PDF page dimensions.
-                        var canvas = document.getElementById('the-canvas');
-                        var context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
-
-                        // Render PDF page into canvas context.
-                        var renderContext = {
-                            canvasContext: context,
-                            viewport: viewport
-                        };
-                        page.render(renderContext);
-                    });
+                    }
                 });
             });
-    </script>*@
+        });
+    </script>
 }
