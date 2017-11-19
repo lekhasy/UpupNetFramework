@@ -23,38 +23,42 @@
             <form>
                 <div class="order-suggest form-group">
                     <div class="row">
-                        <div class="col-md-8"><label>Mã sản phẩm</label></div>
+                        <div class="col-md-8"><label><span class="lang-vi">Mã sản phẩm</span><span class="lang-en">Product code</span> </label></div>
                         <div class="col-md-4"><label>Số lượng</label></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8"><input type="text" id="variant_Code" class="form-control" /></div>
-                        <div class="col-md-4"><input type="number" min="1" value="1" class="form-control" /></div>
+                        <div class="col-md-8"><input type="text" id="variant_code" class="form-control" /></div>
+                        <div class="col-md-4"><input type="number" id="variant_quantity" min="1" value="1" class="form-control" /></div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-right"><button type="button" id="btn_check" class="btn btn-success">Kiểm tra</button></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5"><label>Đơn giá</label></div>
-                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                        <div class="col-md-5"><label><span class="lang-vi">Mã sản phẩm</span><span class="lang-en">Product code</span></label></div>
+                        <div class="col-md-7"><label id="code" /></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5"><label>Số lượng</label></div>
-                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                        <div class="col-md-5"><label><span class="lang-vi">Đơn giá</span><span class="lang-en">Price</span></label></div>
+                        <div class="col-md-7"><label id="price"/></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5"><label>Tổng tiền</label></div>
-                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                        <div class="col-md-5"><label><span class="lang-vi">Số lượng</span><span class="lang-en">Quanitty</span></label></div>
+                        <div class="col-md-7"><label id="quantity"/></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5"><label>Ngày giao hàng</label></div>
-                        <div class="col-md-7"><input type="text" class="form-control" disabled /></div>
+                        <div class="col-md-5"><label><span class="lang-vi">Tổng tiền</span><span class="lang-en">Total amount</span> </label></div>
+                        <div class="col-md-7"><label id="total_amount" /></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 text-center"><button class="btn btn-primary">Đặt hàng nhanh</button></div>
-                        <div class="col-md-6 text-center"><button class="btn btn-primary">Cho vào đơn hàng</button></div>
+                        <div class="col-md-5"><label><span class="lang-vi">Ngày giao hàng</span><span class="lang-en">Ship date</span></label></div>
+                        <div class="col-md-7"><label id="ship_date" /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-center"><button class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Đặt hàng nhanh</span><span class="lang-en">Order now</span></button></div>
+                        <div class="col-md-6 text-center"><button class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Cho vào đơn hàng</span><span class="lang-en">Cho vào đơn hàng</span></button></div>
                     </div>
                 </div>
-                <div class="text-center"><button class="btn btn-danger">Quản lý đơn hàng</button></div>
+                <div class="text-center"><button class="btn btn-danger"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Quản lý đơn hàng</span></button></div>
             </form>
         </div>
     </div>
@@ -69,8 +73,20 @@
     <script>
         $(function () {
             $('#btn_check').click(function () {
-                $.getJSON("GetProductVariant", { code: $("#variant_Code").val() }, function (response) {
+                $.getJSON("/api/ProductApi/GetProductVariant", { code: $("#variant_code").val(), quantity: $("#variant_quantity").val()}, function (response) {
                     if (response.ResultValue) {
+                        var pv = response.Data;
+                        $('.active-by-check-product').removeProp("disabled");
+                        $('#code').text(response.Code);
+                        $('#price').text(pv.Price);
+                        $('#quantity').text(response.Quantity);
+                        $('#total_amount').text(response.Quantity * pv.Price);
+                        if (response.ShipDate)
+                            $('#ship_date').text(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
+                        else
+                            $('#ship_date').text('Chưa xác định');
+                    }
+                    else {
 
                     }
                 });
