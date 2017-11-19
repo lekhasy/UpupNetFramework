@@ -24,5 +24,6 @@ namespace Upup.Models
         public int KnowByid { get; set; }
 
         public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
+        public virtual ICollection<ProductCart> ProductCarts { get; set; }
     }
 }

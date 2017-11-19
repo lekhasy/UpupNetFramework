@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +7,7 @@ using System.Web.Mvc;
 using Upup.Models;
 using Upup.Utils;
 using Upup.ViewModels;
+using System.Data.Entity;
 
 namespace Upup.Controllers
 {
@@ -20,43 +22,54 @@ namespace Upup.Controllers
 
     public class CartApiController : UpupAPIControllerBase
     {
-        public DataTableResponse<ProductCartItem> GetAllProductInCart(DataTableRequest req)
+        public DataTableResponse<ProductCartItemModel> GetAllProductInCart(DataTableRequest req)
         {
-            var productsInCart = GetAllProductCart();
+            var userId = User.Identity.GetUserId();
 
-            var result = productsInCart.Select(product => new[]
+            var user = Db.Customers.Find(userId);
+
+            var carts = user.ProductCarts.ToList();
+
+            var cartItems = carts.Select(c => new ProductCartItemModel
             {
-                string.Empty, product.Id.ToString(), product.ProductCode, product.Quantity.ToString(),
-                product.Etc, product.ProductName, product.ProductPrice.ToString("N0"), product.TotalPrice.ToString("N0"), product.DeliveryDate.ToShortDateString()
+                Id = c.Id,
+                DeliveryDate = c.CalculateShipDate(),
+                Quantity = c.Quantity,
+                ProductCode = c.ProductVariant.Product.Code,
+                ProductName = c.ProductVariant.Product.Name,
+                ProductPrice = c.ProductVariant.Price,
+                ProductVariantCode = c.ProductVariant.VariantCode,
+                TotalPrice = c.CalculateTotalAmount(),
+                UnitName = c.ProductVariant.ProductVariantUnit.Name
             });
 
-            return new DataTableResponse<ProductCartItem>
+            return new DataTableResponse<ProductCartItemModel>
             {
-                //draw = req.draw,
-                //data = result,
-                //recordsTotal = count,
-                //recordsFiltered = dataResultQuery.Count()
+                draw = req.draw,
+                data = cartItems,
+                recordsTotal = cartItems.Count(),
+                recordsFiltered = cartItems.Count()
             };
         }
 
-        private IEnumerable<ProductCartItem> GetAllProductCart()
+        private IEnumerable<ProductCartItemModel> GetAllProductCart()
         {
-            return new List<ProductCartItem>{
-                new ProductCartItem {
+            return new List<ProductCartItemModel>{
+                new ProductCartItemModel {
                     Id = 1,
                     ProductCode = "OS2203",
                     Quantity = 10,
-                    Etc = "Máy",
+                    UnitName = "Máy",
                     ProductName = "Máy khoan cắt bê tông",
                     ProductPrice = 1200000,
                     TotalPrice = 12000000,
                     DeliveryDate = new DateTime(2017, 11, 30)
                 },
-                new ProductCartItem {
+                new ProductCartItemModel {
                     Id = 2,
                     ProductCode = "TV2401",
                     Quantity = 100,
-                    Etc = "Cái",
+                    UnitName = "Cái",
                     ProductName = "Ốc vít 6 cạnh TVA",
                     ProductPrice = 24000,
                     TotalPrice = 2400000,

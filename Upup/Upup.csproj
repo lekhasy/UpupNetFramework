@@ -263,6 +263,10 @@
     <Compile Include="Migrations\201711190904156_replace_productId_by_nav_prop.Designer.cs">
       <DependentUpon>201711190904156_replace_productId_by_nav_prop.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.cs" />
+    <Compile Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.Designer.cs">
+      <DependentUpon>201711191354244_Edit_Purchase_Order_And_PO_Detail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -1768,6 +1772,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711190904156_replace_productId_by_nav_prop.resx">
       <DependentUpon>201711190904156_replace_productId_by_nav_prop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.resx">
+      <DependentUpon>201711191354244_Edit_Purchase_Order_And_PO_Detail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
