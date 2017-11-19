@@ -103,7 +103,7 @@ namespace Upup.Controllers
                 if (_db != null)
                 {
                     _db.Dispose();
-
+                    _db = null;
                 }
 
                 if (_roleManager != null)
