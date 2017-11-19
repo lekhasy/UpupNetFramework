@@ -101,6 +101,15 @@
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(p => p.PdfUrl)
+                                @if (Model != null && !string.IsNullOrEmpty(Model.PdfUrl))
+                                {
+                                    <div>
+                                        <a href="~/Images/ProductFiles/@(Model.PdfUrl)" target="_blank">
+                                            <img width="60" src="~/Images/icons/pdf-icon.png" />
+                                            <span>@Model.PdfUrl</span>
+                                        </a>
+                                    </div>
+                                }
                                 <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".single-file">Tải lên</button>
                                 @Html.HiddenFor(p => p.PdfUrl)
                             </div>

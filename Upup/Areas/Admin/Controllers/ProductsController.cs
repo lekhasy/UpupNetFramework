@@ -187,7 +187,29 @@ namespace Upup.Areas.Admin.Controllers
                 Value = string.Empty,
                 Selected = true
             });
+            var units = Db.ProductVariantUnits.ToList()
+                .Select(unit => new SelectListItem
+                {
+                    Text = unit.Name,
+                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
+            units.Insert(0, new SelectListItem
+            {
+                Text = "Chọn đơn vị tính",
+                Value = string.Empty,
+                Selected = true
+            });
+            var shipDateSettings = Db.ShipDateSettings.ToList()
+                .Select(unit => new SelectListItem
+                {
+                    Text = "SL " + unit.QuantityOrderMax + " (" + unit.TargetDateNumber + " ngày)",
+                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
+            var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(Db.ProductVariants.Where(var => var.ProductId == model.Id).ToList());
             model.Categories = categories;
+            model.Variants = variants;
+            model.ProductVariantUnits = units;
+            model.ShipdateSettings = shipDateSettings;
             return View(model);
         }
 

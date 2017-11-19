@@ -285,6 +285,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PostViewModel.cs" />
     <Compile Include="ViewModels\PostCategoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductCartViewModel.cs" />
     <Compile Include="ViewModels\ProductCategoryViewModel.cs" />
     <Compile Include="ViewModels\SearchItemModels.cs" />
     <Compile Include="ViewModels\SearchModels.cs" />
@@ -1718,6 +1719,7 @@
     <Content Include="Views\Shared\_PostItemPartial.cshtml" />
     <Content Include="Views\Shared\_PostCategoryItemPartial.cshtml" />
     <Content Include="Views\Shared\_PostCategoryPartial.cshtml" />
+    <Content Include="Views\Product\Cart.cshtml" />
     <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>

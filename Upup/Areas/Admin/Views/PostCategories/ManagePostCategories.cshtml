@@ -143,7 +143,7 @@
                     <li>
                         <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
                         <label class="tree_label" for="@("c" + subPage.Id)">@subPage.Name</label>
-                        <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
+                        <a href="@Url.Action("ManagePostCategories", "PostCategories", new { id = subPage.Id  })">
                             <i class="glyphicon glyphicon-edit"></i>
                         </a>
                         @RenderMenuItem(subPage)
@@ -163,7 +163,7 @@
                 <li>
                     <input type="checkbox" checked="checked" id="@("c" + subPage.Id)" />
                     <label for="@("c" + subPage.Id)" class="tree_label">@subPage.Name</label>
-                    <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
+                    <a href="@Url.Action("ManagePostCategories", "PostCategories", new { id = subPage.Id  })">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
                     @RenderMenuItem(subPage)
