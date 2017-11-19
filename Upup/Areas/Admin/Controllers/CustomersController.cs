@@ -9,6 +9,7 @@ using Upup.Controllers;
 using Upup.Utils;
 using System;
 using Upup.Areas.Admin.ViewModels;
+using Newtonsoft.Json;
 
 namespace Upup.Areas.Admin.Controllers
 {
@@ -41,20 +42,53 @@ namespace Upup.Areas.Admin.Controllers
                 dataResultQuery = dataResultQuery.OrderBy<Customer>(col.data.Replace("DT_RowData.", ""), req.order.First().dir == "asc" ? true : false);
             }
 
-            
-            var dt = await dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking()
-                .Select(c => new TableDataRow<Customer>
-                {
-                    DT_RowData = c
-                }).ToListAsync();
 
-            return Json(new DataTableResponse<TableDataRow<Customer>>
+            var dt = await dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking()
+                .Select(c => new TableDataRow<object>
+                {
+                    DT_RowData = new
+                    {
+                        AccessFailedCount = c.AccessFailedCount,
+                        Address1 = c.Address1,
+                        Address2 = c.Address2,
+                        Address3 = c.Address3,
+                        Address4 = c.Address4,
+                        AutoIncrementCode = c.AutoIncrementCode,
+                        DepartmentName = c.DepartmentName,
+                        Email = c.Email,
+                        EmailConfirmed = c.EmailConfirmed,
+                        Fax = c.Fax,
+                        FullName = c.FullName,
+                        Id = c.Id,
+                        IndustryId = c.IndustryId,
+                        KnowByid = c.KnowByid,
+                        LockoutEnabled = c.LockoutEnabled,
+                        LockoutEndDateUtc = c.LockoutEndDateUtc,
+                        NumberOfDesigner = c.NumberOfDesigner,
+                        NumberOfEmployee = c.NumberOfEmployee,
+                        OrgName = c.OrgName,
+                        PasswordHash = c.PasswordHash,
+                        PhoneNumber = c.PhoneNumber,
+                        PhoneNumberConfirmed = c.PhoneNumberConfirmed,
+                        PostalCode = c.PostalCode,
+                        SecurityStamp = c.SecurityStamp,
+                        ServiceId = c.ServiceId,
+                        TwoFactorEnabled = c.TwoFactorEnabled,
+                        UserName = c.UserName,
+                        Webiste = c.Webiste
+                    }
+                }).ToListAsync();
+            var returndata = new DataTableResponse<TableDataRow<object>>
             {
                 draw = req.draw,
                 data = dt,
                 recordsTotal = count,
                 recordsFiltered = dataResultQuery.Count()
-            }, JsonRequestBehavior.AllowGet);
+            };
+
+            //var json = JsonConvert.SerializeObject(returndata, Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+
+            return Json(returndata, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ManageCustomers(DataTableRequest req)
@@ -81,7 +115,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 ResultValue = true
             });
-    }
+        }
 
         // GET: Customers/Details/5
         public async Task<ActionResult> Details(string id)
