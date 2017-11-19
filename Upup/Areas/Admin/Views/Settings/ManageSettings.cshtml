@@ -12,73 +12,165 @@
 }
 @using (Html.BeginForm("Settings", "Admin", FormMethod.Post))
 {
-    <section class="content">
-        <div class="box box-primary">
-            <!-- form start -->
-            <form role="form">
-                <div class="box-body">
-                    <div class="form-group">
-                        @Html.LabelFor(p => p.LogoUrl)
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".single-img">Upload Image</button>
-                        @Html.HiddenFor(p => p.LogoUrl)
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.FacebookLink)
-                        @Html.TextBoxFor(n => n.FacebookLink, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập địa chỉ Facebook"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.GooglePlus)
-                        @Html.TextBoxFor(n => n.GooglePlus, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập địa chỉ Google Plus"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Twitter)
-                        @Html.TextBoxFor(n => n.Twitter, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập địa chỉ Twitter"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.YoutubeLink)
-                        @Html.TextBoxFor(n => n.YoutubeLink, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập địa chỉ Youtube"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.CompanyName)
-                        @Html.TextBoxFor(n => n.CompanyName, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập tên công ty"
-                   })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(n => n.Slogan)
-                        @Html.TextBoxFor(n => n.Slogan, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "Nhập khẩu hiệu cho công ty"
-                   })
-                    </div>
+    <div class="manage-setting">
+        <section class="content-header">
+            <button type="submit" class="btn btn-primary pull-right">Lưu cấu hình</button>
+            <h1>Cấu hình Website</h1>
+        </section>
+        <div class="row">
+            <div class="col-md-6">
+                <section class="content">
+                    <div class="box box-primary">
+                        <!-- form start -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(p => p.LogoUrl)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".single-img">Upload Image</button>
+                                @Html.HiddenFor(p => p.LogoUrl)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.CompanyName)
+                                @Html.TextBoxFor(n => n.CompanyName, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập tên công ty"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Phone)
+                                @Html.TextBoxFor(n => n.Phone, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập số điện thoại công ty"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Fax)
+                                @Html.TextBoxFor(n => n.Fax, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập số fax công ty"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Email)
+                                @Html.TextBoxFor(n => n.Email, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập email công ty"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.WorkTime)
+                                @Html.TextBoxFor(n => n.WorkTime, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập giờ làm việc của công ty"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Slogan)
+                                @Html.TextBoxFor(n => n.Slogan, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập khẩu hiệu cho công ty"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.Slogan_en)
+                                @Html.TextBoxFor(n => n.Slogan_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập khẩu hiệu tiếng anh cho công ty"
+                           })
+                            </div>
 
-                </div><!-- /.box-body -->
-
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Xác nhận</button>
-                </div>
-            </form>
+                        </div><!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-6">
+                <section class="content">
+                    <div class="box box-primary">
+                        <!-- form start -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(p => p.TechBanner)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".single-img">Upload Image</button>
+                                @Html.HiddenFor(p => p.TechBanner)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.TechSlogan)
+                                @Html.TextBoxFor(n => n.TechSlogan, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập biểu ngữ cho trang công nghệ"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(p => p.GuideBanner)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".single-img">Upload Image</button>
+                                @Html.HiddenFor(p => p.GuideBanner)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.GuideSlogan)
+                                @Html.TextBoxFor(n => n.GuideSlogan, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập biểu ngữ cho trang hướng dẫn"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(p => p.EventBanner)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".single-img">Upload Image</button>
+                                @Html.HiddenFor(p => p.EventBanner)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.EventSlogan)
+                                @Html.TextBoxFor(n => n.EventSlogan, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập biểu ngữ cho trang sự kiện"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaKeyword)
+                                @Html.TextBoxFor(n => n.MetaKeyword, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khóa cho website"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaKeyword_en)
+                                @Html.TextBoxFor(n => n.MetaKeyword_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khóa tiếng anh cho website"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaDescription)
+                                @Html.TextBoxFor(n => n.MetaDescription, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả cho website"
+                           })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MetaDescription_en)
+                                @Html.TextBoxFor(n => n.MetaDescription_en, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả tiếng anh cho website"
+                           })
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
         </div>
-    </section>
+    </div>
 }
 
 <div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
