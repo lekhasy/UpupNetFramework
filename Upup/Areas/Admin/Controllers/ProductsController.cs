@@ -22,10 +22,10 @@ namespace Upup.Areas.Admin.Controllers
             var variants = new List<ProductVariantModel>();
             var categories = Db.Categories.ToList()
                 .Select(cat => new SelectListItem
-            {
-                Text = cat.Name,
-                Value = cat.Id.ToString(CultureInfo.InvariantCulture)
-            }).ToList();
+                {
+                    Text = cat.Name,
+                    Value = cat.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
             categories.Insert(0, new SelectListItem
             {
                 Text = "Chọn danh mục sản phẩm",
@@ -50,7 +50,8 @@ namespace Upup.Areas.Admin.Controllers
                     Text = "SL " + unit.QuantityOrderMax + " (" + unit.TargetDateNumber + " ngày)",
                     Value = unit.Id.ToString(CultureInfo.InvariantCulture)
                 }).ToList();
-            var product = new ProductModel {
+            var product = new ProductModel
+            {
                 Categories = categories,
                 ProductVariantUnits = units,
                 ShipdateSettings = shipDateSettings,
@@ -61,7 +62,7 @@ namespace Upup.Areas.Admin.Controllers
             var result = Db.Products.Find(id);
             if (result != null)
             {
-                variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(Db.ProductVariants.Where(var => var.ProductId == id).ToList());
+                variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(result.ProductVariants.ToList());
                 product = Mapper.Map<Product, ProductModel>(result);
                 var existProductCategory = Db.Categories.Find(product.Category_Id);
                 if (existProductCategory == null)
@@ -109,6 +110,7 @@ namespace Upup.Areas.Admin.Controllers
             var category = Db.Categories.Find(model.Category_Id);
             //if (parentProduct == null)
             //    throw new Exception("sản phẩm cha có thể đã bị xóa!");
+            Product product = null;
             if (model.Id == 0)
             {
                 var Product = new Product
@@ -130,7 +132,7 @@ namespace Upup.Areas.Admin.Controllers
                 };
                 try
                 {
-                    Db.Products.Add(Product);
+                    product = Db.Products.Add(Product);
                     Db.SaveChanges();
                 }
                 catch (Exception)
@@ -141,7 +143,7 @@ namespace Upup.Areas.Admin.Controllers
             }
             else
             {
-                var product = Db.Products.Find(model.Id);
+                product = Db.Products.Find(model.Id);
                 if (product != null)
                 {
                     product.Name = model.Name;
@@ -177,10 +179,10 @@ namespace Upup.Areas.Admin.Controllers
             ViewData["ProductImgUrl"] = "/Images/Product/" + imgUrl;
             var categories = Db.Categories.ToList().Where(cat => cat.ChildCategories.Count == 0)
                 .Select(cat => new SelectListItem
-            {
-                Text = cat.Name,
-                Value = cat.Id.ToString(CultureInfo.InvariantCulture)
-            }).ToList();
+                {
+                    Text = cat.Name,
+                    Value = cat.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
             categories.Insert(0, new SelectListItem
             {
                 Text = "Chọn danh mục sản phẩm",
@@ -205,7 +207,7 @@ namespace Upup.Areas.Admin.Controllers
                     Text = "SL " + unit.QuantityOrderMax + " (" + unit.TargetDateNumber + " ngày)",
                     Value = unit.Id.ToString(CultureInfo.InvariantCulture)
                 }).ToList();
-            var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(Db.ProductVariants.Where(var => var.ProductId == model.Id).ToList());
+            var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(product.ProductVariants.ToList());
             model.Categories = categories;
             model.Variants = variants;
             model.ProductVariantUnits = units;

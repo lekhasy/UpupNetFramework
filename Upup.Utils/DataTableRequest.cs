@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace Upup.Areas.Admin.Models
+namespace Upup.Utils
 {
     public class DataTableRequest
     {

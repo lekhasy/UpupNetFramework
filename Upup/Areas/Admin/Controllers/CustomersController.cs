@@ -6,7 +6,6 @@ using System.Net;
 using System.Web.Mvc;
 using Upup.Models;
 using Upup.Controllers;
-using Upup.Areas.Admin.Models;
 using Upup.Utils;
 using System;
 using Upup.Areas.Admin.ViewModels;

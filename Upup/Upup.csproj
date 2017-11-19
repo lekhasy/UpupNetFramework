@@ -217,7 +217,6 @@
     <Compile Include="Areas\Admin\Controllers\ShipDateSettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
-    <Compile Include="Areas\Admin\Models\DataTableRequest.cs" />
     <Compile Include="Areas\Admin\ViewModels\PostCategoryModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CategoryModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\PostModel.cs" />
@@ -232,6 +231,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthCheckController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\UpupAPIControllerBase.cs" />
     <Compile Include="Controllers\UserManualController.cs" />
     <Compile Include="Controllers\EventController.cs" />
@@ -259,11 +259,16 @@
     <Compile Include="Migrations\201711161349481_add_sumary_field.Designer.cs">
       <DependentUpon>201711161349481_add_sumary_field.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711190904156_replace_productId_by_nav_prop.cs" />
+    <Compile Include="Migrations\201711190904156_replace_productId_by_nav_prop.Designer.cs">
+      <DependentUpon>201711190904156_replace_productId_by_nav_prop.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\EnumConfigs.cs" />
+    <Compile Include="Models\ProductCart.cs" />
     <Compile Include="Models\ProductVariant.cs" />
     <Compile Include="Models\ProductVariantUnit.cs" />
     <Compile Include="Models\ShipDateSetting.cs" />
@@ -1725,6 +1730,7 @@
     <Content Include="Views\Shared\_PostCategoryPartial.cshtml" />
     <Content Include="Views\Product\Cart.cshtml" />
     <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1759,6 +1765,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711161349481_add_sumary_field.resx">
       <DependentUpon>201711161349481_add_sumary_field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711190904156_replace_productId_by_nav_prop.resx">
+      <DependentUpon>201711190904156_replace_productId_by_nav_prop.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
