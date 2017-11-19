@@ -51,6 +51,7 @@ namespace Upup.Models
         public DbSet<ProductVariant> ProductVariants { get; set; }
         public DbSet<ProductVariantUnit> ProductVariantUnits { get; set; }
         public DbSet<ShipDateSetting> ShipDateSettings { get; set; }
+        public DbSet<ProductCart> ProductCarts { get; set; }
 
 
         #region Store procs

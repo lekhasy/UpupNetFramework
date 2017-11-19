@@ -11,7 +11,6 @@ namespace Upup.Models
         public string Code { get; set; }
         public string Name { get; set; }
         public int State { get; set; }
-        public DateTime? ReceiveDate { get; set; }
 
         public IEnumerable<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public virtual ApplicationUser Customer { get; set; }

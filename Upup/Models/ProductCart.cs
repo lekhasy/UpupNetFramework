@@ -8,19 +8,22 @@ namespace Upup.Models
 {
     public class ProductCart
     {
+        public long Id { get; set; }
         public int Quantity { get; set; }
 
         public virtual Customer Customer { get; set; }
         public virtual ProductVariant ProductVariant { get; set; }
 
-        [NotMapped]
-        public string UnitName
+        public DateTime? CalculateShipDate()
         {
-            get
-            {
-                return "";
-                // return ProductVariant != null?ProductVariant
-            }
+            var shipdate = ProductVariant.FindBestMatchShipDateByQuantity(Quantity);
+            if (shipdate == null) return null;
+            return DateTime.Now.AddDays(shipdate.TargetDateNumber);
+        }
+
+        public decimal CalculateTotalAmount()
+        {
+            return Quantity * ProductVariant.Price;
         }
     }
 }

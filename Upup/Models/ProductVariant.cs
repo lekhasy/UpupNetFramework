@@ -19,5 +19,11 @@ namespace Upup.Models
         public virtual Product Product { get; set; }
         public virtual ProductVariantUnit ProductVariantUnit { get; set; }
         public virtual ICollection<ShipDateSetting> ShipdateSettings { get; set; }
+        public virtual ICollection<ProductCart> ProductCarts { get; set; }
+
+        public ShipDateSetting FindBestMatchShipDateByQuantity(long quantity)
+        {
+            return ShipdateSettings.Where(s => s.QuantityOrderMax > quantity).OrderBy(s => s.QuantityOrderMax).FirstOrDefault();
+        }
     }
 }

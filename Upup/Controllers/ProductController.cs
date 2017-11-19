@@ -31,12 +31,12 @@ namespace Upup.Controllers
 
     public class ProductApiController : UpupAPIControllerBase
     {
-        public GetProductVariantModel GetProductVariant(string code, int quantity)
+        public GetProductVariantModel GetProductVariant(string code, long quantity)
         {
             var variant = Db.ProductVariants.FirstOrDefault(p => p.VariantCode == code);
             if (variant != null)
             {
-                var shipDate = variant.ShipdateSettings.Where(s => s.QuantityOrderMax > quantity).OrderBy(s => s.QuantityOrderMax).FirstOrDefault();
+                var shipDate = variant.FindBestMatchShipDateByQuantity(quantity);
                 DateTime? shipdate = null;
                 Db.Entry(variant).State = EntityState.Detached;
                 if (shipDate != null) shipdate = DateTime.Now.AddDays(shipDate.TargetDateNumber);
@@ -60,7 +60,7 @@ namespace Upup.Controllers
 
         public class GetProductVariantModel : AjaxSimpleResultModel<ProductVariant>
         {
-            public int Quantity { get; set; }
+            public long Quantity { get; set; }
             public string Code { get; set; }
             public DateTime? ShipDate { get; set; }
         }
