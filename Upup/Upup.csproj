@@ -210,6 +210,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantUnitsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShipDateSettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Areas\Admin\ViewModels\PostModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CustomerModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\SettingModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ShipDateSettingModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductVariantUnitModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductVariantModel.cs" />
@@ -1252,6 +1254,7 @@
     <Content Include="Images\banner4.svg" />
     <Content Include="Images\banners\poster1.jpg" />
     <Content Include="Images\icons\calendar-icon.png" />
+    <Content Include="Images\icons\pdf-icon.png" />
     <Content Include="Images\icons\support-icon.png" />
     <Content Include="Images\icons\tech-icon.png" />
     <Content Include="Images\icons\tool-icon.png" />
@@ -1638,6 +1641,7 @@
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zh-TW\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zu\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\viewer.js.map" />
+    <Content Include="Areas\Admin\Views\Settings\ManageSettings.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
@@ -1720,6 +1724,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Setting\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

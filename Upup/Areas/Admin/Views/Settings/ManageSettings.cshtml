@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "ManageSettings";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model Upup.Areas.Admin.ViewModels.SettingModel
+
+@section AddCssToHead
+{
+    <link href="@Url.Content("~/Scripts/dropzone/dropzone.css")" rel="stylesheet" type="text/css" />
+}
+@using (Html.BeginForm("Settings", "Admin", FormMethod.Post))
+{
+    <section class="content">
+        <div class="box box-primary">
+            <!-- form start -->
+            <form role="form">
+                <div class="box-body">
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.LogoUrl)
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".single-img">Upload Image</button>
+                        @Html.HiddenFor(p => p.LogoUrl)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.FacebookLink)
+                        @Html.TextBoxFor(n => n.FacebookLink, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập địa chỉ Facebook"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.GooglePlus)
+                        @Html.TextBoxFor(n => n.GooglePlus, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập địa chỉ Google Plus"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Twitter)
+                        @Html.TextBoxFor(n => n.Twitter, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập địa chỉ Twitter"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.YoutubeLink)
+                        @Html.TextBoxFor(n => n.YoutubeLink, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập địa chỉ Youtube"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.CompanyName)
+                        @Html.TextBoxFor(n => n.CompanyName, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập tên công ty"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(n => n.Slogan)
+                        @Html.TextBoxFor(n => n.Slogan, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập khẩu hiệu cho công ty"
+                   })
+                    </div>
+
+                </div><!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </section>
+}
+
+<div class="modal fade bs-example-modal-sm single-img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Settings"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section AddScriptToBody
+{
+    <script src="@Url.Content("~/Scripts/dropzone/dropzone.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            Dropzone.options.dropzoneForm = {
+                maxFiles: 1,
+                init: function () {
+                    this.on("success", function (file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function (e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#LogoUrl").val(arguments[1].Message);
+                    });
+                }
+            };
+        });
+    </script>
+}
+
+
+
+
