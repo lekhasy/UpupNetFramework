@@ -13,7 +13,7 @@
                 <td><label>Tên PO</label></td>
                 <td class="large"><input type="text" class="form-control" /></td>
                 <td><label>Mã khách hàng</label></td>
-                <td class="small"><div id="customerCode">@Model.Id</div></td>
+                <td class="small"><div id="customerCode">@Model.Code</div></td>
             </tr>
             <tr>
                 <td><label>Tên khách hàng</label></td>
@@ -111,7 +111,7 @@
                             return '<input type="checkbox" class="tblcbx"/>';
                         }
                     },
-                    { data: "DT_RowData.Id" },
+                    { data: "DT_RowData.Sequence" },
                     { data: "DT_RowData.ProductCode" },
                     { data: "DT_RowData.ProductVariantCode" },
                     { data: "DT_RowData.Quantity" },
@@ -136,13 +136,6 @@
                         $(this).closest('tr').data().Checked = cb.originalEvent.toElement.checked;
                     });
                     $(".act-del").click(function () {
-
-                        var allIds = [];
-                        $("#example1").children('tbody').children('tr').each((function (index, tr) {
-                            if ($(tr).data().Checked) {
-                                allIds.push($(tr).data().Id);
-                            }
-                        }));
                         BootstrapDialog.confirm({
                             title: 'Tin nhắn',
                             message: 'Bạn thật sự muốn xóa những phiếu này ?',
@@ -155,7 +148,13 @@
                             callback: function (result) {
                                 // result will be true if button was click, while it will be false if users close the dialog directly.
                                 if (result) {
-                                    $.post('/PostCategories/RemoveCategories', { 'id': parseInt(id, 10) },
+                                    var allIds = [];
+                                    $("#example1").children('tbody').children('tr').each((function (index, tr) {
+                                        if ($(tr).data().Checked) {
+                                            allIds.push($(tr).data().Id);
+                                        }
+                                    }));
+                                    $.post('/api/CartApi/RemoveItems', { ids: allIds },
                                         function (data) {
                                             if (data.ResultValue) {
                                                 BootstrapDialog.show({
@@ -173,7 +172,7 @@
                                             $table.ajax.reload();
                                             setTimeout(function () {
                                                 BootstrapDialog.closeAll();
-                                            }, 5000);
+                                            }, 3000);
                                         }
                                     );
                                 }

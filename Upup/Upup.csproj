@@ -265,6 +265,10 @@
     <Compile Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.Designer.cs">
       <DependentUpon>201711191354244_Edit_Purchase_Order_And_PO_Detail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711191636561_Add_Identity_Field.cs" />
+    <Compile Include="Migrations\201711191636561_Add_Identity_Field.Designer.cs">
+      <DependentUpon>201711191636561_Add_Identity_Field.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -1770,6 +1774,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.resx">
       <DependentUpon>201711191354244_Edit_Purchase_Order_And_PO_Detail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191636561_Add_Identity_Field.resx">
+      <DependentUpon>201711191636561_Add_Identity_Field.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

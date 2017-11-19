@@ -34,22 +34,29 @@ namespace Upup.Controllers
 
             var carts = user.ProductCarts.ToList();
 
-            var cartItems = carts.Select(c => new TableDataRow<ProductCartItemModel>
+            int sequence = 0;
+            List<TableDataRow<ProductCartItemModel>> cartItems = new List<TableDataRow<ProductCartItemModel>>();
+
+            foreach (var c in carts)
             {
-                DT_RowData = new ProductCartItemModel
+                cartItems.Add(new TableDataRow<ProductCartItemModel>
                 {
-                    Id = c.Id,
-                    DeliveryDate = c.CalculateShipDate(),
-                    Quantity = c.Quantity,
-                    ProductCode = c.ProductVariant.Product.Code,
-                    ProductName = c.ProductVariant.Product.Name,
-                    ProductPrice = c.ProductVariant.Price,
-                    ProductVariantCode = c.ProductVariant.VariantCode,
-                    ProductVariantName = c.ProductVariant.VariantName,
-                    TotalPrice = c.CalculateTotalAmount(),
-                    UnitName = c.ProductVariant.ProductVariantUnit.Name
-                }
-            });
+                    DT_RowData = new ProductCartItemModel
+                    {
+                        Id = c.Id,
+                        Sequence = ++sequence,
+                        DeliveryDate = c.CalculateShipDate(),
+                        Quantity = c.Quantity,
+                        ProductCode = c.ProductVariant.Product.Code,
+                        ProductName = c.ProductVariant.Product.Name,
+                        ProductPrice = c.ProductVariant.Price,
+                        ProductVariantCode = c.ProductVariant.VariantCode,
+                        ProductVariantName = c.ProductVariant.VariantName,
+                        TotalPrice = c.CalculateTotalAmount(),
+                        UnitName = c.ProductVariant.ProductVariantUnit.Name
+                    }
+                });
+            }
 
             return new DataTableResponse<TableDataRow<ProductCartItemModel>>
             {
@@ -97,10 +104,39 @@ namespace Upup.Controllers
             };
         }
 
+        [System.Web.Http.HttpPost]
+        public AjaxSimpleResultModel RemoveItems([FromBody]RemoveCartModel model)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var customer = Db.Customers.Find(userId);
+
+            var removing = customer.ProductCarts.Where(c => model.ids.Contains(c.Id)).ToList();
+
+            foreach (var item in removing)
+            {
+                customer.ProductCarts.Remove(item);
+            }
+
+            Db.SaveChanges();
+
+            return new AjaxSimpleResultModel
+            {
+                ResultValue = true,
+                Message = "Xóa thành công"
+            };
+        }
+
+
         public class AddCartModel
         {
             public long productVariantId { get; set; }
             public long quantity { get; set; }
+        }
+
+        public class RemoveCartModel
+        {
+            public long[] ids { get; set; }
         }
     }
 }

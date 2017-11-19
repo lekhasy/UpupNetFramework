@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,8 @@ namespace Upup.Models
 {
     public class Customer : ApplicationUser
     {
+        [NotMapped]
+        public string Code => "KH" + AutoIncrementCode.ToString();
         public string OrgName { get; set; }
         public string DepartmentName { get; set; }
         public string Address1 { get; set; }

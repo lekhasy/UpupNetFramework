@@ -41,6 +41,7 @@ namespace Upup.Areas.Admin.Controllers
                 dataResultQuery = dataResultQuery.OrderBy<Customer>(col.data.Replace("DT_RowData.", ""), req.order.First().dir == "asc" ? true : false);
             }
 
+            
             var dt = await dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking()
                 .Select(c => new TableDataRow<Customer>
                 {
