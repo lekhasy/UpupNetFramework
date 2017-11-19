@@ -70,6 +70,7 @@
 
 @section scripts{
     <script>
+
         $(function () {
             var lastestpv = null;
             $('#btn_check').click(function () {
@@ -98,14 +99,14 @@
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,
                             title: 'Thành công',
-                            message: data.Message
+                            message: response.Message
                         });
                     }
                     else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_DANGER,
                             title: 'Thất bại',
-                            message: data.Message
+                            message: response.Message
                         });
                     }
                 });
