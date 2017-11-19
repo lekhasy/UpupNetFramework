@@ -24,7 +24,7 @@
                         <!-- form start -->
                         <div class="box-body">
                             <div class="form-group">
-                                <img src="~/Images/Settings/@Model.LogoUrl" class="pull-right" width="50" />
+                                <img src="~/Images/Settings/@Model.LogoUrl" class="pull-right" width="60" />
                                 @Html.LabelFor(p => p.LogoUrl)
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".single-img">Upload Image</button>
                                 @Html.HiddenFor(p => p.LogoUrl)
@@ -119,6 +119,7 @@
                         <!-- form start -->
                         <div class="box-body">
                             <div class="form-group">
+                                <img src="~/Images/Settings/@Model.TechBannerUrl" class="pull-right" width="60" />
                                 @Html.LabelFor(p => p.TechBannerUrl)
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".tech-img">Upload Image</button>
                                 @Html.HiddenFor(p => p.TechBannerUrl)
@@ -132,6 +133,7 @@
                            })
                             </div>
                             <div class="form-group">
+                                <img src="~/Images/Settings/@Model.GuideBannerUrl" class="pull-right" width="60" />
                                 @Html.LabelFor(p => p.GuideBannerUrl)
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".guide-img">Upload Image</button>
                                 @Html.HiddenFor(p => p.GuideBannerUrl)
@@ -145,6 +147,7 @@
                            })
                             </div>
                             <div class="form-group">
+                                <img src="~/Images/Settings/@Model.EventBannerUrl" class="pull-right" width="60" />
                                 @Html.LabelFor(p => p.EventBannerUrl)
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".event-img">Upload Image</button>
                                 @Html.HiddenFor(p => p.EventBannerUrl)
