@@ -11,7 +11,7 @@ using System.Net.Http;
 
 namespace Upup.Controllers
 {
-    [System.Web.Http.Authorize]
+    [System.Web.Http.Authorize(Roles = "Customer")]
     public class UpupAPIControllerBase : ApiController
     {
         private ApplicationDbContext _db;

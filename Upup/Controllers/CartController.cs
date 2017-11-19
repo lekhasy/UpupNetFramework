@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 using Upup.Models;
 using Upup.Utils;
 using Upup.ViewModels;
@@ -13,16 +13,20 @@ namespace Upup.Controllers
 {
     public class CartController : UpupControllerBase
     {
-        public ActionResult Index()
+        public System.Web.Mvc.ActionResult Index()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+
+            var user = Db.Customers.Find(userId);
+
+            return View(user);
         }
 
     }
 
     public class CartApiController : UpupAPIControllerBase
     {
-        public DataTableResponse<ProductCartItemModel> GetAllProductInCart(DataTableRequest req)
+        public DataTableResponse<TableDataRow<ProductCartItemModel>> GetAllProductInCart()
         {
             var userId = User.Identity.GetUserId();
 
@@ -30,52 +34,73 @@ namespace Upup.Controllers
 
             var carts = user.ProductCarts.ToList();
 
-            var cartItems = carts.Select(c => new ProductCartItemModel
+            var cartItems = carts.Select(c => new TableDataRow<ProductCartItemModel>
             {
-                Id = c.Id,
-                DeliveryDate = c.CalculateShipDate(),
-                Quantity = c.Quantity,
-                ProductCode = c.ProductVariant.Product.Code,
-                ProductName = c.ProductVariant.Product.Name,
-                ProductPrice = c.ProductVariant.Price,
-                ProductVariantCode = c.ProductVariant.VariantCode,
-                TotalPrice = c.CalculateTotalAmount(),
-                UnitName = c.ProductVariant.ProductVariantUnit.Name
+                DT_RowData = new ProductCartItemModel
+                {
+                    Id = c.Id,
+                    DeliveryDate = c.CalculateShipDate(),
+                    Quantity = c.Quantity,
+                    ProductCode = c.ProductVariant.Product.Code,
+                    ProductName = c.ProductVariant.Product.Name,
+                    ProductPrice = c.ProductVariant.Price,
+                    ProductVariantCode = c.ProductVariant.VariantCode,
+                    ProductVariantName = c.ProductVariant.VariantName,
+                    TotalPrice = c.CalculateTotalAmount(),
+                    UnitName = c.ProductVariant.ProductVariantUnit.Name
+                }
             });
 
-            return new DataTableResponse<ProductCartItemModel>
+            return new DataTableResponse<TableDataRow<ProductCartItemModel>>
             {
-                draw = req.draw,
                 data = cartItems,
                 recordsTotal = cartItems.Count(),
                 recordsFiltered = cartItems.Count()
             };
         }
 
-        private IEnumerable<ProductCartItemModel> GetAllProductCart()
+        [System.Web.Http.HttpPost]
+        public AjaxSimpleResultModel Add([FromBody]AddCartModel model)
         {
-            return new List<ProductCartItemModel>{
-                new ProductCartItemModel {
-                    Id = 1,
-                    ProductCode = "OS2203",
-                    Quantity = 10,
-                    UnitName = "Máy",
-                    ProductName = "Máy khoan cắt bê tông",
-                    ProductPrice = 1200000,
-                    TotalPrice = 12000000,
-                    DeliveryDate = new DateTime(2017, 11, 30)
-                },
-                new ProductCartItemModel {
-                    Id = 2,
-                    ProductCode = "TV2401",
-                    Quantity = 100,
-                    UnitName = "Cái",
-                    ProductName = "Ốc vít 6 cạnh TVA",
-                    ProductPrice = 24000,
-                    TotalPrice = 2400000,
-                    DeliveryDate = new DateTime(2017, 11, 28)
-                }
+            var userId = User.Identity.GetUserId();
+
+            var customer = Db.Customers.Find(userId);
+
+            var variant = Db.ProductVariants.Find(model.productVariantId);
+            if (variant == null) return new AjaxSimpleResultModel
+            {
+                Message = "Sản phẩm không tồn tại",
+                ResultValue = false
             };
+
+            var exists = customer.ProductCarts.FirstOrDefault(c => c.ProductVariant.Id == model.productVariantId);
+
+            if (exists == null)
+            {
+                customer.ProductCarts.Add(new ProductCart
+                {
+                    ProductVariant = variant,
+                    Quantity = (int)model.quantity
+                });
+            }
+            else
+            {
+                exists.Quantity += (int)model.quantity;
+            }
+
+            Db.SaveChanges();
+
+            return new AjaxSimpleResultModel
+            {
+                ResultValue = true,
+                Message = "Thêm sản phẩm vào giỏ hàng thành công"
+            };
+        }
+
+        public class AddCartModel
+        {
+            public long productVariantId { get; set; }
+            public long quantity { get; set; }
         }
     }
 }

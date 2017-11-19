@@ -30,10 +30,4 @@ namespace Upup.Areas.Admin.ViewModels
         [Display(Name = "Địa chỉ 4")]
         public string Address4 { get; set; }
     }
-
-    public class CustomerDataRow
-    {
-        public object DT_RowData { get; set; }
-    }
-
 }

@@ -42,12 +42,12 @@ namespace Upup.Areas.Admin.Controllers
             }
 
             var dt = await dataResultQuery.Skip(req.start).Take(req.length).AsNoTracking()
-                .Select(c => new CustomerDataRow
+                .Select(c => new TableDataRow<Customer>
                 {
                     DT_RowData = c
                 }).ToListAsync();
 
-            return Json(new DataTableResponse<CustomerDataRow>
+            return Json(new DataTableResponse<TableDataRow<Customer>>
             {
                 draw = req.draw,
                 data = dt,

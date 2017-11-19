@@ -153,7 +153,7 @@ namespace Upup.Controllers
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "#_Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.SendEmailAsync(user.Id, "#_Confirm your account", "Vui xác thực email của bạn bằng cách click vào link dưới đây: <a href=\"" + callbackUrl + "\">Xác thực</a>");
                     return View("DisplayEmail");
                 }
                 AddErrors(result);

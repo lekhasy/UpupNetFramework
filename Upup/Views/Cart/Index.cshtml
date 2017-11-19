@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Upup.Models
+@model Customer
+@{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,30 +13,30 @@
                 <td><label>Tên PO</label></td>
                 <td class="large"><input type="text" class="form-control" /></td>
                 <td><label>Mã khách hàng</label></td>
-                <td class="small"><div id="customerCode"></div></td>
+                <td class="small"><div id="customerCode">@Model.Id</div></td>
             </tr>
             <tr>
                 <td><label>Tên khách hàng</label></td>
-                <td class="large"><div id="customerName"></div></td>
+                <td class="large"><div id="customerName">@Model.FullName</div></td>
                 <td><label>Mã PO</label></td>
                 <td class="small"><div id="PoCode"></div></td>
             </tr>
             <tr>
                 <td><label>Địa chỉ</label></td>
-                <td class="large"><div id="customerAddress"></div></td>
+                <td class="large"><div id="customerAddress">@Model.Address1</div></td>
                 <td colspan="2" rowspan="4"><label>Barcode</label></td>
             </tr>
             <tr>
                 <td><label>Số điện thoại</label></td>
-                <td class="large"><div id="customerPhone"></div></td>
+                <td class="large"><div id="customerPhone">@Model.PhoneNumber</div></td>
             </tr>
             <tr>
                 <td><label>Email</label></td>
-                <td class="large"><div id="customerEmail"></div></td>
+                <td class="large"><div id="customerEmail">@Model.Email</div></td>
             </tr>
             <tr>
                 <td><label>Website</label></td>
-                <td class="large"><div id="customerWebsite"></div></td>
+                <td class="large"><div id="customerWebsite">@Model.Webiste</div></td>
             </tr>
         </tbody>
     </table>
@@ -49,9 +51,11 @@
                 <th class="check-all"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
                 <th>Stt</th>
                 <th>Mã sản phẩm</th>
+                <th>Mã biến thể</th>
                 <th>Số lượng</th>
                 <th>Đơn vị</th>
                 <th>Tên sản phẩm</th>
+                <th>Tên biến thể</th>
                 <th>Đơn giá</th>
                 <th>Thành tiền</th>
                 <th>Ngày giao</th>
@@ -93,52 +97,41 @@
                 "autoWidth": false,
                 "ordering": false,
                 "serverSide": true,
-                "ajaxSource": "/Product/GetAllProductInCart",
+                "ajaxSource": "/api/CartApi/GetAllProductInCart",
                 "processing": true,
                 "searching": false,
                 "paging": false,
                 "info": false,
                 "columns": [
                     {
-                        'targets': 0,
-                        'searchable': false,
-                        'orderable': false,
-                        'className': 'dt-body-center',
-                        'render': function (data, type, full, meta) {
+                        data: null,
+                        targets: 0,
+                        className: 'dt-body-center',
+                        render: function (data, type, full, meta) {
                             return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
                         }
                     },
-                    { "name": "AutoIdentity" },
+                    { data: "DT_RowData.Id" },
+                    { data: "DT_RowData.ProductCode" },
+                    { data: "DT_RowData.ProductVariantCode" },
                     {
-                        "name": "ProductCode",
-                        'render': function (data, type, full, meta) {
-                            return '<input class="code-input" type="text" value="' + data + '"/>';
-                        }
+                        data: "DT_RowData.Quantity"
+                    },
+                    { data: "DT_RowData.UnitName" },
+                    { data: "DT_RowData.ProductName" },
+                    { data: "DT_RowData.ProductVariantName" },
+                    {
+                        data: "DT_RowData.ProductPrice"
                     },
                     {
-                        "name": "Quantity",
-                        "class": "number",
-                        'render': function (data, type, full, meta) {
-                            return '<input class="quantity-input" type="text" value="' + data + '"/>';
-                        }
+                        data: "DT_RowData.TotalPrice"
                     },
-                    { "name": "Etc" },
-                    { "name": "ProductName" },
-                    {
-                        "name": "ProductPrice",
-                        "class": "number"
-                    },
-                    {
-                        "name": "TotalPrice",
-                        "class": "number"
-                    },
-                    { "name": "DeliveryDate" }
+                    { data: "DT_RowData.DeliveryDate" }
                 ],
                 "select": {
                     "style": 'os',
                     "selector": 'td:not(:last-child)' // no row selection on last column
                 },
-                'order': [[1, 'asc']],
                 "drawCallback": function (settings) {
                     $(".act-del").click(function () {
                         var id = $(this).attr('data-id');

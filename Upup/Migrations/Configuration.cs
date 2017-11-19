@@ -9,7 +9,7 @@ namespace Upup.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "Upup.Models.ApplicationDbContext";
         }
 
