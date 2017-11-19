@@ -294,9 +294,7 @@
                             <label>Đơn vị tính:</label>
                             @Html.DropDownList("UnitDropdown", Model.ProductVariantUnits, new
                        {
-                           @class = "form-control",
-                           @required = "required",
-                           @data_errormessage_value_missing = "Vui lòng chọn đơn vị"
+                           @class = "form-control"
                        })
                         </div>
                         <div class="row">
@@ -568,6 +566,18 @@
             });
 
             $('#updateProductVariant').click(function () {
+                var unitSelectedValue = $('.create-variant select[name="UnitDropdown"]').val();
+                if (unitSelectedValue === '') {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Thông báo',
+                        message: 'Vui lòng chọn đơn vị tính'
+                    });
+                    setTimeout(function () {
+                        BootstrapDialog.closeAll();
+                    }, 3000);
+                    return;
+                }
                 $.post('/ProductVariants/UpdateProductVariants',
                     { 'id': $('.create-variant input[name="Id"]').val() !== '' ? parseInt($('.create-variant input[name="Id"]').val(), 10) : 0,
                         'productId': $('.create-variant input[name="ProductId"]').val(),
