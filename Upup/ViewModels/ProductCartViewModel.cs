@@ -5,10 +5,13 @@ using System.Web;
 
 namespace Upup.ViewModels
 {
-    public class ProductCartViewModel
+    public class ProductCartItem
     {
-        public int AutoIdentity { get; set; }
+        public long Id { get; set; }
+        public long ProductId { get; set; }
         public string ProductCode { get; set; }
+        public long ProductVariantId { get; set; }
+        public string ProductVariantCode { get; set; }
         public int Quantity { get; set; }
         public string Etc { get; set; }
         public string ProductName { get; set; }

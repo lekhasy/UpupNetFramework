@@ -15,9 +15,19 @@ namespace Upup.Areas.Admin.Controllers
     public class ProductVariantsController : AdminControllerBase
     {
         [HttpPost]
-        public ActionResult UpdateProductVariants(int id, string productId, string name, string code, string price,
+        public ActionResult UpdateProductVariants(int id, long productId, string name, string code, string price,
             string onHand, string url2d, string url3d, string brandName, string origin, string unitId, string settingIds)
         {
+            var product = Db.Products.Find(productId);
+            if (product == null)
+            {
+                return Json(new AjaxSimpleResultModel
+                {
+                    ResultValue = false,
+                    Message = "Sản phẩm không tồn tại"
+                });
+            }
+
             var unit = Db.ProductVariantUnits.Find(Convert.ToInt32(unitId));
             var settings = new List<ShipDateSetting>();
             var settingIdList = settingIds.Split(',');
@@ -35,9 +45,8 @@ namespace Upup.Areas.Admin.Controllers
                 var productVariant = Db.ProductVariants.Find(id);
                 if (productVariant == null)
                 {
-                    Db.ProductVariants.Add(new ProductVariant
+                    product.ProductVariants.Add(new ProductVariant
                     {
-                        ProductId = Convert.ToInt32(productId),
                         VariantName = name,
                         VariantCode = code,
                         Price = Convert.ToDecimal(price),
@@ -51,7 +60,7 @@ namespace Upup.Areas.Admin.Controllers
                     });
                     Db.SaveChanges();
                     result.ResultValue = true;
-                    result.Message = "Đã thêm thành công biến thể !";
+                    result.Message = "Đã thêm thành công biến thể!";
                 }
                 else
                 {
