@@ -21,12 +21,9 @@ namespace Upup.Controllers
 
         public ActionResult Category(int id)
         {
-            var allPostCategories = Db.PostCategories;
-            var current = allPostCategories.Find(id);
-            var rootCategories = allPostCategories.Where(cat => cat.RootCategoryIdentifier > 0 ).ToList();
+            var current = Db.PostCategories.Find(id);
             var vm = new PostCategoryViewModel
             {
-                RootCategories = rootCategories,
                 RootCategory = GetRootCategory(),
                 CurrentCategory = current
             };
@@ -37,25 +34,19 @@ namespace Upup.Controllers
 
         public ActionResult TechGuide()
         {
-            var rootCategories = Db.PostCategories.Where(cat => cat.RootCategoryIdentifier > 0).ToList();
             ViewBag.ControllerName = ControllerName;
 
-            return View(new TechGuideModel {
-                RootCategory = GetRootCategory(),
-                RootCategories = rootCategories
-            });
+            return View(GetRootCategory());
         }
 
         public ActionResult TechInfo(long id)
         {
             var post = Db.Posts.Find(id);
-            var rootCategories = Db.PostCategories.Where(cat => cat.RootCategoryIdentifier > 0).ToList();
 
             var vm = new PostDetailViewModel
             {
                 Post = post,
-                RootCategory = GetRootCategory(),
-                RootCategories = rootCategories
+                RootCategory = GetRootCategory()
             };
             ViewBag.ControllerName = ControllerName;
 

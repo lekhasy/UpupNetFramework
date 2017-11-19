@@ -8,7 +8,6 @@ namespace Upup.ViewModels
 {
     public class PostCategoryViewModel
     {
-        public List<PostCategory> RootCategories { get; set; }
         public PostCategory RootCategory { get; set; }
         public PostCategory CurrentCategory { get; set; }
     }

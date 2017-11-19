@@ -1,12 +1,4 @@
 ﻿@model Upup.ViewModels.PostDetailViewModel
-<script>
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=179668149113779';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
 <div id="postDetail" class="subject-category">
     <div class="row">
         <div class="col-md-3">
@@ -17,14 +9,13 @@
                 <h2 class="lang-vi">@Model.Post.Title</h2>
                 <h2 class="lang-en">@Model.Post.Title_en</h2>
                 <div class="content lang-vi">
-                    @Html.Raw(Model.Post.Content);
+                    @Html.Raw(Model.Post.Content)
                 </div>
                 <div class="content lang-en">
-                    @Html.Raw(Model.Post.Content_en);
+                    @Html.Raw(Model.Post.Content_en)
                 </div>
             </div>
-            <div class="fb-share-button" data-href="http://localhost/Product/Index/1" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FProduct%2FIndex%2F1&amp;src=sdkpreparse">Chia sẻ</a></div>
-            <div class="fb-comments" data-href="http://localhost/product/index/1" data-numposts="10"></div>
+            @Html.Partial("_FbCommentSharePartial");
         </div>
     </div>
 </div>

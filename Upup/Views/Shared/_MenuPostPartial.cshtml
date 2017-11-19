@@ -1,11 +1,11 @@
 ﻿@using Upup.Models
-@model List<PostCategory>
+@model  PostCategory
 
 <div class="header">
     <div class="head-category">
         <div class="category-list">
             <dl class="category-list-caption">
-                @foreach (var category in Model)
+                @foreach (var category in Model.ChildCategories.OrderBy(c => c.Id))
                 {
                     <dd class="root-category">
                         <a href="/@ViewBag.ControllerName/Category/@category.Id" class="link category-link">
