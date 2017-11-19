@@ -42,7 +42,7 @@
     </table>
     <h2>Thông tin sản phẩm</h2>
     <div class="area-button">
-        <a href="javascript:void(0)" class="btn btn-danger">Xóa</a>
+        <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
         <a href="javascript:void(0)" class="btn btn-success">Thêm</a>
     </div>
     <table id="example1" class="table table-bordered table-striped display">
@@ -65,7 +65,7 @@
     </table>
     <div class="area-button row">
         <a href="javascript:void(0)" class="btn btn-warning pull-right">Kiểm tra</a>
-        <a href="javascript:void(0)" class="btn btn-danger">Xóa</a>
+        <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
         <a href="javascript:void(0)" class="btn btn-success">Thêm</a>
     </div>
     <div class="area-button text-center">
@@ -104,40 +104,48 @@
                 "info": false,
                 "columns": [
                     {
-                        data: null,
+                        data: "DT_RowData.Checked",
                         targets: 0,
                         className: 'dt-body-center',
                         render: function (data, type, full, meta) {
-                            return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
+                            return '<input type="checkbox" class="tblcbx"/>';
                         }
                     },
                     { data: "DT_RowData.Id" },
                     { data: "DT_RowData.ProductCode" },
                     { data: "DT_RowData.ProductVariantCode" },
-                    {
-                        data: "DT_RowData.Quantity"
-                    },
+                    { data: "DT_RowData.Quantity" },
                     { data: "DT_RowData.UnitName" },
                     { data: "DT_RowData.ProductName" },
                     { data: "DT_RowData.ProductVariantName" },
+                    { data: "DT_RowData.ProductPrice" },
+                    { data: "DT_RowData.TotalPrice" },
                     {
-                        data: "DT_RowData.ProductPrice"
-                    },
-                    {
-                        data: "DT_RowData.TotalPrice"
-                    },
-                    { data: "DT_RowData.DeliveryDate" }
+                        data: "DT_RowData.DeliveryDate",
+                        'render': function (data, type, full, meta) {
+                            return new Date(Date.parse(data)).toLocaleDateString('vi');
+                        }
+                    }
                 ],
                 "select": {
                     "style": 'os',
                     "selector": 'td:not(:last-child)' // no row selection on last column
                 },
                 "drawCallback": function (settings) {
+                    $(".tblcbx").click(function (cb) {
+                        $(this).closest('tr').data().Checked = cb.originalEvent.toElement.checked;
+                    });
                     $(".act-del").click(function () {
-                        var id = $(this).attr('data-id');
+
+                        var allIds = [];
+                        $("#example1").children('tbody').children('tr').each((function (index, tr) {
+                            if ($(tr).data().Checked) {
+                                allIds.push($(tr).data().Id);
+                            }
+                        }));
                         BootstrapDialog.confirm({
                             title: 'Tin nhắn',
-                            message: 'Bạn thật sự muốn xóa danh mục này ?',
+                            message: 'Bạn thật sự muốn xóa những phiếu này ?',
                             //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
                             closable: true, // <-- Default value is false
                             draggable: true, // <-- Default value is false
