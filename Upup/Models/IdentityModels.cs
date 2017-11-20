@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Upup.Models
 {
@@ -18,6 +19,8 @@ namespace Upup.Models
             return userIdentity;
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AutoIncrementCode { get; set; }
         public string FullName { get; set; }
     }
 }

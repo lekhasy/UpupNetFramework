@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="@Url.Content("~/Content/bootstrap-dialog.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
@@ -99,7 +100,7 @@
     @Scripts.Render("~/bundles/jquery")
     @*@Scripts.Render("~/bundles/bootstrap")*@
     <script src="~/Scripts/js-cookie/js.cookie-2.1.4.min.js"></script>
-
+    <script src="@Url.Content("~/Scripts/bootstrap-dialog.js")" type="text/javascript"></script>
     <!-- End of liblary scripts -->
     <!-- Begin of common scripts -->
     <script src="~/Scripts/site.js" asp-append-version="true"></script>

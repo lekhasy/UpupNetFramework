@@ -54,11 +54,11 @@
                     <div class="col-md-7"><label id="ship_date" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 text-center"><button class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Đặt hàng nhanh</span><span class="lang-en">Order now</span></button></div>
-                    <div class="col-md-6 text-center"><button class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Cho vào đơn hàng</span><span class="lang-en">Cho vào đơn hàng</span></button></div>
+                    <div class="col-md-6 text-center"><button id="btn_order" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Đặt hàng nhanh</span><span class="lang-en">Order now</span></button></div>
+                    <div class="col-md-6 text-center"><button id="btn_add_cart" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Cho vào đơn hàng</span><span class="lang-en">Add to cart</span></button></div>
                 </div>
             </div>
-            <div class="text-center"><a class="btn btn-danger" href="/Product/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Quản lý đơn hàng</span></a></div>
+            <div class="text-center"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
         </div>
     </div>
 </div>
@@ -70,11 +70,14 @@
 
 @section scripts{
     <script>
+
         $(function () {
+            var lastestpv = null;
             $('#btn_check').click(function () {
                 $.getJSON("/api/ProductApi/GetProductVariant", { code: $("#variant_code").val(), quantity: $("#variant_quantity").val() }, function (response) {
                     if (response.ResultValue) {
                         var pv = response.Data;
+                        lastestpv = pv;
                         $('.active-by-check-product').removeProp("disabled");
                         $('#code').text(response.Code);
                         $('#price').text(pv.Price);
@@ -87,6 +90,24 @@
                     }
                     else {
 
+                    }
+                });
+            });
+            $('#btn_add_cart').click(function () {
+                $.post("/api/CartApi/Add", { productVariantId: lastestpv.Id, quantity: parseInt($("#quantity").text()) }, function (response) {
+                    if (response.ResultValue) {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_SUCCESS,
+                            title: 'Thành công',
+                            message: response.Message
+                        });
+                    }
+                    else {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_DANGER,
+                            title: 'Thất bại',
+                            message: response.Message
+                        });
                     }
                 });
             });

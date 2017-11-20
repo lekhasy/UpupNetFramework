@@ -1,29 +1,26 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using Upup.Models;
-using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
-using System.Web.Http.Owin;
-using System.Net.Http;
+using Upup.Models;
 
-namespace Upup.Controllers
+namespace Upup.Areas.Admin.Controllers
 {
-    [System.Web.Http.Authorize(Roles = "Customer")]
-    public class UpupAPIControllerBase : ApiController
+    [System.Web.Http.Authorize(Roles = "Admin")]
+    public class AdminAPIControllerBase : ApiController
     {
         private ApplicationDbContext _db;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private ApplicationSignInManager _signInManager;
 
-        public UpupAPIControllerBase()
+        public AdminAPIControllerBase()
         {
         }
 
-        public UpupAPIControllerBase(ApplicationDbContext db,
+        public AdminAPIControllerBase(ApplicationDbContext db,
         ApplicationUserManager userManager,
         ApplicationRoleManager roleManager,
         ApplicationSignInManager signInManager)
@@ -82,7 +79,7 @@ namespace Upup.Controllers
                 _roleManager = value;
             }
         }
-                
+
 
         protected override void Dispose(bool disposing)
         {
