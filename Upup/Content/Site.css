@@ -80,6 +80,7 @@ a.btn {
     margin-top: 10px;
     padding-bottom: 5px;
     font-size: 22px;
+    line-height: 24pt;
 }
 
 .search-wrapper {
@@ -913,6 +914,9 @@ footer {
 
     .subject-category .poster {
         position: relative;
+        overflow: hidden;
+        height: 800px;
+        width: 100%;
     }
 
     .subject-category .slogan {

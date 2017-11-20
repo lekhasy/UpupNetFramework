@@ -1,4 +1,5 @@
-﻿@model Upup.ViewModels.HomeViewModel
+﻿@using System.Web.Configuration
+@model Upup.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
 
@@ -104,7 +105,7 @@
                         <li data-target="#categoryCarousel" data-slide-to="0" class="active"></li>
                         <li data-target="#categoryCarousel" data-slide-to="1"></li>
                     </ol>
-                    <div class="carousel-inner" role="listbox">                        
+                    <div class="carousel-inner" role="listbox">
                         @foreach (var categoryPage in pagingCategory)
                         {
                             <div class="item active">
@@ -114,10 +115,10 @@
                                         <li>
                                             @{ Html.RenderPartial("_ProductCategoryItemPartial", category); }
                                         </li>
-                                     }
+                                                }
                                 </ul>
                             </div>
-                         }
+                                                }
                     </div>
                     @*<a class="left carousel-control" href="#categoryCarousel" role="button" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -135,13 +136,13 @@
                 <h3>Liên hệ</h3>
                 <div class="detail">
                     <ul class="contact">
-                        <li><span class="bold">Số điện thoại:</span><br> <strong>0222-361-1555</strong></li>
-                        <li><span class="bold">Số Fax:</span><br> <strong>0222-361-2555</strong></li>
-                        <li><span class="bold">Hộp thư:</span> <strong>cs@upup.com</strong></li>
+                        <li><span class="bold">Số điện thoại:</span><br> <strong>@WebConfigurationManager.AppSettings["Phone"]</strong></li>
+                        <li><span class="bold">Số Fax:</span><br> <strong>@WebConfigurationManager.AppSettings["Fax"]</strong></li>
+                        <li><span class="bold">Hộp thư:</span> <strong>@WebConfigurationManager.AppSettings["Email"]</strong></li>
                     </ul>
                     <ul class="hour">
                         <li>
-                            Thứ 2 đến Thứ 7: 8 giờ sáng đến 6 giờ chiều<br>Hạn chót đặt hàng là 5 giờ chiều
+                            @Html.Raw(HttpUtility.HtmlDecode(@WebConfigurationManager.AppSettings["WorkTime"]))
                         </li>
                     </ul>
                 </div>

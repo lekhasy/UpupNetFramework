@@ -22,18 +22,18 @@ namespace Upup.Areas.Admin.Controllers
                 Twitter = WebConfigurationManager.AppSettings["Twitter"],
                 YoutubeLink = WebConfigurationManager.AppSettings["YoutubeLink"],
                 CompanyName = WebConfigurationManager.AppSettings["CompanyName"],
-                Slogan = WebConfigurationManager.AppSettings["Slogan"],
-                Slogan_en = WebConfigurationManager.AppSettings["Slogan_en"],
+                Slogan = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan"]),
+                Slogan_en = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan_en"]),
                 Email = WebConfigurationManager.AppSettings["Email"],
                 Fax = WebConfigurationManager.AppSettings["Fax"],
                 Phone = WebConfigurationManager.AppSettings["Phone"],
-                WorkTime = WebConfigurationManager.AppSettings["WorkTime"],
+                WorkTime = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["WorkTime"]),
                 EventBannerUrl = WebConfigurationManager.AppSettings["EventBannerUrl"],
-                EventSlogan = WebConfigurationManager.AppSettings["EventSlogan"],
+                EventSlogan = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["EventSlogan"]),
                 GuideBannerUrl = WebConfigurationManager.AppSettings["GuideBannerUrl"],
-                GuideSlogan = WebConfigurationManager.AppSettings["GuideSlogan"],
+                GuideSlogan = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["GuideSlogan"]),
                 TechBannerUrl = WebConfigurationManager.AppSettings["TechBannerUrl"],
-                TechSlogan = WebConfigurationManager.AppSettings["TechSlogan"],
+                TechSlogan = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["TechSlogan"]),
                 MetaDescription = WebConfigurationManager.AppSettings["MetaDescription"],
                 MetaDescription_en = WebConfigurationManager.AppSettings["MetaDescription_en"],
                 MetaKeyword = WebConfigurationManager.AppSettings["MetaKeyword"],
@@ -53,25 +53,26 @@ namespace Upup.Areas.Admin.Controllers
             webConfigApp.AppSettings.Settings["Twitter"].Value = model.Twitter;
             webConfigApp.AppSettings.Settings["YoutubeLink"].Value = model.YoutubeLink;
             webConfigApp.AppSettings.Settings["CompanyName"].Value = model.CompanyName;
-            webConfigApp.AppSettings.Settings["Slogan"].Value = model.Slogan;
-            webConfigApp.AppSettings.Settings["Slogan_en"].Value = model.Slogan_en;
+            webConfigApp.AppSettings.Settings["Slogan"].Value = HttpUtility.HtmlEncode(model.Slogan);
+            webConfigApp.AppSettings.Settings["Slogan_en"].Value = HttpUtility.HtmlEncode(model.Slogan_en);
             webConfigApp.AppSettings.Settings["Email"].Value = model.Email;
             webConfigApp.AppSettings.Settings["Fax"].Value = model.Fax;
             webConfigApp.AppSettings.Settings["Phone"].Value = model.Phone;
-            webConfigApp.AppSettings.Settings["WorkTime"].Value = model.WorkTime;
+            webConfigApp.AppSettings.Settings["WorkTime"].Value = HttpUtility.HtmlEncode(model.WorkTime);
             webConfigApp.AppSettings.Settings["EventBannerUrl"].Value = model.EventBannerUrl;
-            webConfigApp.AppSettings.Settings["EventSlogan"].Value = model.EventSlogan;
+            webConfigApp.AppSettings.Settings["EventSlogan"].Value = HttpUtility.HtmlEncode(model.EventSlogan);
             webConfigApp.AppSettings.Settings["GuideBannerUrl"].Value = model.GuideBannerUrl;
-            webConfigApp.AppSettings.Settings["GuideSlogan"].Value = model.GuideSlogan;
+            webConfigApp.AppSettings.Settings["GuideSlogan"].Value = HttpUtility.HtmlEncode(model.GuideSlogan);
             webConfigApp.AppSettings.Settings["TechBannerUrl"].Value = model.TechBannerUrl;
-            webConfigApp.AppSettings.Settings["TechSlogan"].Value = model.TechSlogan;
+            webConfigApp.AppSettings.Settings["TechSlogan"].Value = HttpUtility.HtmlEncode(model.TechSlogan);
             webConfigApp.AppSettings.Settings["MetaDescription"].Value = model.MetaDescription;
             webConfigApp.AppSettings.Settings["MetaDescription_en"].Value = model.MetaDescription_en;
             webConfigApp.AppSettings.Settings["MetaKeyword"].Value = model.MetaKeyword;
             webConfigApp.AppSettings.Settings["MetaKeyword_en"].Value = model.MetaKeyword_en;
             //Save the Modified settings of AppSettings.
             webConfigApp.Save();
-            return View();
+            ModelState.AddModelError("ProgressSuccess", "Đã lưu thiết lập !");
+            return View(model);
         }
     }
 }
