@@ -3,9 +3,12 @@
 @{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var now = DateTime.Now;
 }
 
 <div id="cart">
+
+
     <h2>Tạo PO đơn hàng</h2>
     <table class="cart">
         <tbody>
@@ -19,7 +22,7 @@
                 <td><label>Tên khách hàng</label></td>
                 <td class="large"><div id="customerName">@Model.FullName</div></td>
                 <td><label>Mã PO</label></td>
-                <td class="small"><div id="PoCode"></div></td>
+                <td class="small"><div id="PoCode">@now.ToString("yyMMddhhmmss")</div></td>
             </tr>
             <tr>
                 <td><label>Địa chỉ</label></td>
@@ -69,9 +72,21 @@
         <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
     </div>
     <div class="area-button text-center">
-        <a href="javascript:void(0)" class="btn btn-primary">Báo giá</a>
-        <a href="javascript:void(0)" class="btn btn-primary">Lưu PO</a>
-        <a href="javascript:void(0)" class="btn btn-primary">Đặt hàng</a>
+        <form action="/Po/RequestPrice" method="post">
+            <input type="hidden" name="name" class="clone_po_name">
+            <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
+            <a href="javascript:void(0)" class="btn btn-primary"><input type="submit" value="Báo giá"></a>
+        </form>
+        <form action="/Po/SavePO" method="post">
+            <input type="hidden" name="name" class="clone_po_name">
+            <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
+            <a href="javascript:void(0)" class="btn btn-primary"><input type="submit" value="Lưu PO"></a>
+        </form>
+        <form action="/Po/Order" method="post">
+            <input type="hidden" name="name" class="clone_po_name">
+            <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
+            <a href="javascript:void(0)" class="btn btn-primary"><input type="submit" value="Đặt hàng"></a>
+        </form>
     </div>
 
     <div id="addVariantModel" class="modal fade bs-example-modal-sm modal-sm create-variant" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -162,7 +177,7 @@
                     $(".tblcbx").click(function (cb) {
                         $(this).closest('tr').data().Checked = cb.originalEvent.toElement.checked;
                     });
-                   
+
                 }
             });
 

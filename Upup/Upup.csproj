@@ -231,6 +231,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthCheckController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\PoController.cs" />
     <Compile Include="Controllers\UpupAPIControllerBase.cs" />
     <Compile Include="Controllers\UserManualController.cs" />
     <Compile Include="Controllers\EventController.cs" />
@@ -1736,6 +1737,7 @@
     <Content Include="Views\Product\Cart.cshtml" />
     <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Po\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

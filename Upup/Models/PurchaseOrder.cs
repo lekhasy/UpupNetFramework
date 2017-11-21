@@ -15,4 +15,12 @@ namespace Upup.Models
         public IEnumerable<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public virtual ApplicationUser Customer { get; set; }
     }
+
+    public enum PoState
+    {
+        Temp,
+        Processing,
+        Completed
+    }
+
 }
