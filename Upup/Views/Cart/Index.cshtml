@@ -43,7 +43,7 @@
     <h2>Thông tin sản phẩm</h2>
     <div class="area-button">
         <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
-        <a href="javascript:void(0)" class="btn btn-success">Thêm</a>
+        <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
     </div>
     <table id="example1" class="table table-bordered table-striped display">
         <thead>
@@ -66,13 +66,40 @@
     <div class="area-button row">
         <a href="javascript:void(0)" class="btn btn-warning pull-right">Kiểm tra</a>
         <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
-        <a href="javascript:void(0)" class="btn btn-success">Thêm</a>
+        <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
     </div>
     <div class="area-button text-center">
         <a href="javascript:void(0)" class="btn btn-primary">Báo giá</a>
         <a href="javascript:void(0)" class="btn btn-primary">Lưu PO</a>
         <a href="javascript:void(0)" class="btn btn-primary">Đặt hàng</a>
     </div>
+
+    <div id="addVariantModel" class="modal fade bs-example-modal-sm modal-sm create-variant" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 id="myLargeModalLabel" class="modal-title">Thêm sản phẩm vào giỏ hàng</h4>
+                </div>
+                <div class="modal-body edit">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <label>Mã biến thể:</label>
+                                <input class="form-control" id="variant-code" type="text" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng nhập mã biến thể" />
+                            </div>
+                            <div class="row">
+                                <label>Số lượng:</label>
+                                <input class="form-control" id="variant-quantity" min="1" type="number" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng nhập mã biến thể" />
+                            </div>
+                        </div>
+                        <div class="text-right"><input id="addProductVariantToCart" type="submit" class="btn btn-primary" value="Chấp nhận" /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @section scripts{
@@ -135,50 +162,7 @@
                     $(".tblcbx").click(function (cb) {
                         $(this).closest('tr').data().Checked = cb.originalEvent.toElement.checked;
                     });
-                    $(".act-del").click(function () {
-                        BootstrapDialog.confirm({
-                            title: 'Tin nhắn',
-                            message: 'Bạn thật sự muốn xóa những phiếu này ?',
-                            //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-                            closable: true, // <-- Default value is false
-                            draggable: true, // <-- Default value is false
-                            btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
-                            btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
-                            //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
-                            callback: function (result) {
-                                // result will be true if button was click, while it will be false if users close the dialog directly.
-                                if (result) {
-                                    var allIds = [];
-                                    $("#example1").children('tbody').children('tr').each((function (index, tr) {
-                                        if ($(tr).data().Checked) {
-                                            allIds.push($(tr).data().Id);
-                                        }
-                                    }));
-                                    $.post('/api/CartApi/RemoveItems', { ids: allIds },
-                                        function (data) {
-                                            if (data.ResultValue) {
-                                                BootstrapDialog.show({
-                                                    type: BootstrapDialog.TYPE_SUCCESS,
-                                                    title: 'Thành công',
-                                                    message: data.Message
-                                                });
-                                            } else {
-                                                BootstrapDialog.show({
-                                                    type: BootstrapDialog.TYPE_DANGER,
-                                                    title: 'Thất bại',
-                                                    message: data.Message
-                                                });
-                                            }
-                                            $table.ajax.reload();
-                                            setTimeout(function () {
-                                                BootstrapDialog.closeAll();
-                                            }, 3000);
-                                        }
-                                    );
-                                }
-                            }
-                        });
-                    });
+                   
                 }
             });
 
@@ -188,6 +172,77 @@
                 var rows = $table.rows({ 'search': 'applied' }).nodes();
                 // Check/uncheck checkboxes for all rows in the table
                 $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            $(".act-del").click(function () {
+                BootstrapDialog.confirm({
+                    title: 'Tin nhắn',
+                    message: 'Bạn thật sự muốn xóa những phiếu này ?',
+                    //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                    closable: true, // <-- Default value is false
+                    draggable: true, // <-- Default value is false
+                    btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                    btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                    //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                    callback: function (result) {
+                        // result will be true if button was click, while it will be false if users close the dialog directly.
+                        if (result) {
+                            var allIds = [];
+                            $("#example1").children('tbody').children('tr').each((function (index, tr) {
+                                if ($(tr).data().Checked) {
+                                    allIds.push($(tr).data().Id);
+                                }
+                            }));
+                            $.post('/api/CartApi/RemoveItems', { ids: allIds },
+                                function (data) {
+                                    if (data.ResultValue) {
+                                        BootstrapDialog.show({
+                                            type: BootstrapDialog.TYPE_SUCCESS,
+                                            title: 'Thành công',
+                                            message: data.Message
+                                        });
+                                    } else {
+                                        BootstrapDialog.show({
+                                            type: BootstrapDialog.TYPE_DANGER,
+                                            title: 'Thất bại',
+                                            message: data.Message
+                                        });
+                                    }
+                                    $table.ajax.reload();
+                                    setTimeout(function () {
+                                        BootstrapDialog.closeAll();
+                                    }, 3000);
+                                }
+                            );
+                        }
+                    }
+                });
+            });
+
+            $('.act-add').click(function () {
+                $('#addVariantModel').modal().show();
+            });
+
+            $('#addProductVariantToCart').click(function () {
+                $.post("/api/CartApi/Add", { productVariantCode: $('#variant-code').val(), quantity: parseInt($("#variant-quantity").val()) }, function (response) {
+                    if (response.ResultValue) {
+                        $('#variant-code').val('');
+                        $("#variant-quantity").val(1);
+                        $table.ajax.reload();
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_SUCCESS,
+                            title: 'Thành công',
+                            message: response.Message
+                        });
+                    }
+                    else {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_DANGER,
+                            title: 'Thất bại',
+                            message: response.Message
+                        });
+                    }
+                });
             });
         });
     </script>

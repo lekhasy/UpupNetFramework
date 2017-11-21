@@ -94,7 +94,7 @@
                 });
             });
             $('#btn_add_cart').click(function () {
-                $.post("/api/CartApi/Add", { productVariantId: lastestpv.Id, quantity: parseInt($("#quantity").text()) }, function (response) {
+                $.post("/api/CartApi/Add", { productVariantCode: lastestpv.VariantCode, quantity: parseInt($("#quantity").text()) }, function (response) {
                     if (response.ResultValue) {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,
