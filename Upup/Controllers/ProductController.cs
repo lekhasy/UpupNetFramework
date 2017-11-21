@@ -26,7 +26,10 @@ namespace Upup.Controllers
             return View();
         }
 
-       
+        public ActionResult CartHistory()
+        {
+            return View();
+        }
     }
 
     public class ProductApiController : UpupAPIControllerBase

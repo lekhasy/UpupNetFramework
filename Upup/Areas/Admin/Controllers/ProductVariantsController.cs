@@ -45,6 +45,17 @@ namespace Upup.Areas.Admin.Controllers
                 var productVariant = Db.ProductVariants.Find(id);
                 if (productVariant == null)
                 {
+                    var variantByCode = Db.ProductVariants.SingleOrDefault(p => p.VariantCode == code);
+
+                    if (variantByCode != null)
+                    {
+                        return Json(new AjaxSimpleResultModel
+                        {
+                            ResultValue = false,
+                            Message = "Mã biến thể này đã tồn tại, vui lòng chọn mã khác"
+                        });
+                    }
+
                     product.ProductVariants.Add(new ProductVariant
                     {
                         VariantName = name,

@@ -91,6 +91,40 @@ namespace Upup.Areas.Admin.Controllers
 
         public ActionResult ManageProducts(ProductModel model)
         {
+            var categories = Db.Categories.ToList().Where(cat => cat.ChildCategories.Count == 0)
+                .Select(cat => new SelectListItem
+                {
+                    Text = cat.Name,
+                    Value = cat.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
+            categories.Insert(0, new SelectListItem
+            {
+                Text = "Chọn danh mục sản phẩm",
+                Value = string.Empty,
+                Selected = true
+            });
+            var units = Db.ProductVariantUnits.ToList()
+                .Select(unit => new SelectListItem
+                {
+                    Text = unit.Name,
+                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
+            units.Insert(0, new SelectListItem
+            {
+                Text = "Chọn đơn vị tính",
+                Value = string.Empty,
+                Selected = true
+            });
+            var shipDateSettings = Db.ShipDateSettings.ToList()
+                .Select(unit => new SelectListItem
+                {
+                    Text = "SL " + unit.QuantityOrderMax + " (" + unit.TargetDateNumber + " ngày)",
+                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
+                }).ToList();
+            
+            model.Categories = categories;
+            model.ProductVariantUnits = units;
+            model.ShipdateSettings = shipDateSettings;
             var imgUrl = !string.IsNullOrEmpty(model.ImageUrl) ? model.ImageUrl : string.Empty;
             imgUrl = imgUrl.EndsWith(",") ? imgUrl.Remove(imgUrl.Length - 1, 1) : imgUrl;
             var keywords = model.MetaKeyword;
@@ -113,6 +147,15 @@ namespace Upup.Areas.Admin.Controllers
             Product product = null;
             if (model.Id == 0)
             {
+                var productByCode = Db.Products.SingleOrDefault(p => p.Code == model.Code);
+
+                if (productByCode != null)
+                {
+                    ModelState.AddModelError("ProgressError", "Mã sản phẩm này đã tồn tại, vui lòng chọn mã khác");
+                    model.Variants = new List<ProductVariantModel>();
+                    return View(model);
+                }
+
                 var Product = new Product
                 {
                     Name = model.Name,
@@ -177,41 +220,8 @@ namespace Upup.Areas.Admin.Controllers
                 }
             }
             ViewData["ProductImgUrl"] = "/Images/Product/" + imgUrl;
-            var categories = Db.Categories.ToList().Where(cat => cat.ChildCategories.Count == 0)
-                .Select(cat => new SelectListItem
-                {
-                    Text = cat.Name,
-                    Value = cat.Id.ToString(CultureInfo.InvariantCulture)
-                }).ToList();
-            categories.Insert(0, new SelectListItem
-            {
-                Text = "Chọn danh mục sản phẩm",
-                Value = string.Empty,
-                Selected = true
-            });
-            var units = Db.ProductVariantUnits.ToList()
-                .Select(unit => new SelectListItem
-                {
-                    Text = unit.Name,
-                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
-                }).ToList();
-            units.Insert(0, new SelectListItem
-            {
-                Text = "Chọn đơn vị tính",
-                Value = string.Empty,
-                Selected = true
-            });
-            var shipDateSettings = Db.ShipDateSettings.ToList()
-                .Select(unit => new SelectListItem
-                {
-                    Text = "SL " + unit.QuantityOrderMax + " (" + unit.TargetDateNumber + " ngày)",
-                    Value = unit.Id.ToString(CultureInfo.InvariantCulture)
-                }).ToList();
             var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(product.ProductVariants.ToList());
-            model.Categories = categories;
             model.Variants = variants;
-            model.ProductVariantUnits = units;
-            model.ShipdateSettings = shipDateSettings;
             return View(model);
         }
 
