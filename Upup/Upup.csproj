@@ -1259,6 +1259,7 @@
     <Content Include="Content\jquery-jvectormap-2.0.2.css" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\_all-skins.min.css" />
+    <Content Include="EmailTemplates\QuotesTemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1276,7 +1277,7 @@
     <Content Include="Images\icons\support-icon.png" />
     <Content Include="Images\icons\tech-icon.png" />
     <Content Include="Images\icons\tool-icon.png" />
-    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\products\0120.jpg" />
     <Content Include="Images\products\0121.jpg" />
     <Content Include="Images\products\0122.jpg" />
@@ -1660,6 +1661,7 @@
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zu\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\viewer.js.map" />
     <Content Include="Areas\Admin\Views\Settings\ManageSettings.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />

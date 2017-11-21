@@ -11,8 +11,7 @@
             @{Html.RenderPartial("_MenuPostPartial", Model);}
         </div>
         <div class="col-md-9">
-            <div class="poster">
-                <img src="~/Images/Settings/@WebConfigurationManager.AppSettings["TechBannerUrl"]" />
+            <div class="poster" style="background:url('/Images/Settings/@WebConfigurationManager.AppSettings["TechBannerUrl"]') no-repeat; background-size: 100%;">
                 <div class="slogan">
                     <div>
                         <div>

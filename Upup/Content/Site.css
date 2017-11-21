@@ -919,7 +919,11 @@ footer {
         width: 100%;
     }
 
-    .subject-category .slogan {
+    .subject-category .poster img {
+        width: 100%;
+    }
+
+        .subject-category .slogan {
         position: absolute;
         top: 0;
         left: 0;
