@@ -1657,6 +1657,7 @@
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zh-TW\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zu\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\viewer.js.map" />
+    <None Include="Properties\PublishProfiles\lekhasy - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />

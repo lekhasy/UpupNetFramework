@@ -11,19 +11,18 @@ using System.Net.Http;
 
 namespace Upup.Controllers
 {
-    [System.Web.Http.Authorize(Roles = "Customer")]
-    public class UpupAPIControllerBase : ApiController
+    public class UpupApiControllerBase : ApiController
     {
         private ApplicationDbContext _db;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private ApplicationSignInManager _signInManager;
 
-        public UpupAPIControllerBase()
+        public UpupApiControllerBase()
         {
         }
 
-        public UpupAPIControllerBase(ApplicationDbContext db,
+        public UpupApiControllerBase(ApplicationDbContext db,
         ApplicationUserManager userManager,
         ApplicationRoleManager roleManager,
         ApplicationSignInManager signInManager)

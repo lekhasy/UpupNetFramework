@@ -29,7 +29,8 @@ namespace Upup.Controllers
        
     }
 
-    public class ProductApiController : UpupAPIControllerBase
+    [System.Web.Mvc.AllowAnonymous]
+    public class ProductApiController : UpupApiControllerBase
     {
         public GetProductVariantModel GetProductVariant(string code, long quantity)
         {

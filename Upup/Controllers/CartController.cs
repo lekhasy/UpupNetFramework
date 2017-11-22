@@ -24,7 +24,7 @@ namespace Upup.Controllers
 
     }
 
-    public class CartApiController : UpupAPIControllerBase
+    public class CartApiController : UpupApiControllerBase
     {
         public DataTableResponse<TableDataRow<ProductCartItemModel>> GetAllProductInCart()
         {

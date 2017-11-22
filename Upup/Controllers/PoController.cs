@@ -50,8 +50,6 @@ namespace Upup.Controllers
             var allAdmins = Db.Users.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id)).ToList();
             CreatePO(code, name, true);
 
-            var listTask = new List<Task>();
-
             foreach (var admin in allAdmins)
             {
                 UserManager.SendEmailAsync(admin.Id, $"có khách hàng {admin.FullName} cần báo giá", $"Họ tên: {user.FullName}, Điện thoại: {user.PhoneNumber}, Email:{user.Email}").Wait();
