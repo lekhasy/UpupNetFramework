@@ -118,6 +118,10 @@ p {
     clear: both;
 }
 
+.uppercase{
+    text-transform: uppercase;
+}
+
 .text-left {
     text-align: left;
 }

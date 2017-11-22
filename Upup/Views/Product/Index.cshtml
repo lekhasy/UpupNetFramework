@@ -17,6 +17,10 @@
 <div id="productDetail">
     <div class="row">
         <div class="col-md-8">
+            <div class="row">
+                <h1 class="pull-left uppercase">@Model.Name</h1>
+                <h3 class="pull-right"><a href="~/Images/ProductFiles/@Model.PdfUrl">HƯỚNG DẪN SỬ DỤNG</a></h3>
+            </div>
             <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@Model.PdfUrl" style="width:100%;height:1242px;">
             </iframe>
         </div>
