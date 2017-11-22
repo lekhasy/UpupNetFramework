@@ -17,6 +17,10 @@
 <div id="productDetail">
     <div class="row">
         <div class="col-md-8">
+            <div class="row">
+                <h1 class="pull-left uppercase">@Model.Name</h1>
+                <h3 class="pull-right"><a target="_blank" href="@Model.LinkGuide">HƯỚNG DẪN SỬ DỤNG</a></h3>
+            </div>
             <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@Model.PdfUrl" style="width:100%;height:1242px;">
             </iframe>
         </div>
@@ -35,30 +39,40 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Mã sản phẩm</span><span class="lang-en">Product code</span></label></div>
-                    <div class="col-md-7"><label id="code" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="code" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Đơn giá</span><span class="lang-en">Price</span></label></div>
-                    <div class="col-md-7"><label id="price" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="price" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Số lượng</span><span class="lang-en">Quanitty</span></label></div>
-                    <div class="col-md-7"><label id="quantity" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="quantity" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Tổng tiền</span><span class="lang-en">Total amount</span> </label></div>
-                    <div class="col-md-7"><label id="total_amount" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="total_amount" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Ngày giao hàng</span><span class="lang-en">Ship date</span></label></div>
-                    <div class="col-md-7"><label id="ship_date" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="ship_date" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 text-center"><button id="btn_order" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Đặt hàng nhanh</span><span class="lang-en">Order now</span></button></div>
                     <div class="col-md-6 text-center"><button id="btn_add_cart" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Cho vào đơn hàng</span><span class="lang-en">Add to cart</span></button></div>
+                    <div class="text-center"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
                 </div>
             </div>
-            <div class="text-center"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
+            <div class="order-suggest form-group">
+                <h2>BẢNG VẼ: @Model.Code</h2>
+                <br />
+                <div class="area-button">
+                    <div class="row">
+                        <div class="col-md-6 text-center"><a href="~/Images/ProductFiles/" class="btn btn-success">2D CAD</a></div>
+                        <div class="col-md-6 text-center"><a href="~/Images/ProductFiles/" class="btn btn-success">3D CAD</a></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -79,14 +93,14 @@
                         var pv = response.Data;
                         lastestpv = pv;
                         $('.active-by-check-product').removeProp("disabled");
-                        $('#code').text(response.Code);
-                        $('#price').text(pv.Price);
-                        $('#quantity').text(response.Quantity);
-                        $('#total_amount').text(response.Quantity * pv.Price);
+                        $('#code').val(response.Code);
+                        $('#price').val(pv.Price);
+                        $('#quantity').val(response.Quantity);
+                        $('#total_amount').val(response.Quantity * pv.Price);
                         if (response.ShipDate)
-                            $('#ship_date').text(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
+                            $('#ship_date').val(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
                         else
-                            $('#ship_date').text('Chưa xác định');
+                            $('#ship_date').val('Chưa xác định');
                     }
                     else {
 

@@ -214,6 +214,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantUnitsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShipDateSettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Areas\Admin\ViewModels\PostModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CustomerModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\SettingModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ShipDateSettingModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductVariantUnitModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductVariantModel.cs" />
@@ -1262,6 +1264,8 @@
     <Content Include="Content\jquery-jvectormap-2.0.2.css" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\_all-skins.min.css" />
+    <Content Include="EmailTemplates\QuotesTemplate_en.html" />
+    <Content Include="EmailTemplates\QuotesTemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1275,10 +1279,11 @@
     <Content Include="Images\banner4.svg" />
     <Content Include="Images\banners\poster1.jpg" />
     <Content Include="Images\icons\calendar-icon.png" />
+    <Content Include="Images\icons\pdf-icon.png" />
     <Content Include="Images\icons\support-icon.png" />
     <Content Include="Images\icons\tech-icon.png" />
     <Content Include="Images\icons\tool-icon.png" />
-    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\products\0120.jpg" />
     <Content Include="Images\products\0121.jpg" />
     <Content Include="Images\products\0122.jpg" />
@@ -1661,7 +1666,7 @@
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zh-TW\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zu\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\viewer.js.map" />
-    <None Include="Properties\PublishProfiles\lekhasy - Web Deploy.pubxml" />
+    <Content Include="Areas\Admin\Views\Settings\ManageSettings.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
@@ -1742,10 +1747,12 @@
     <Content Include="Views\Product\Cart.cshtml" />
     <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Product\CartHistory.cshtml" />
     <Content Include="Views\Po\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Setting\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

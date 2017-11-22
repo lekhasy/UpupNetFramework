@@ -329,7 +329,7 @@
                         @Html.ActionSlideMenu("ManageInvoices", "Invoice", null, "Đơn hàng", new { @class = "fa fa-shopping-basket" }, "1", new { @class = "label pull-right bg-blue" })
                     </li>
                     <li>
-                        @Html.ActionSlideParentMenu("Sản phẩm", new { @class = "fa fa-cogs" }, new { @class = "fa fa-angle-right pull-right" })
+                        @Html.ActionSlideParentMenu("Sản phẩm", new { @class = "fa fa-cube" }, new { @class = "fa fa-angle-right pull-right" })
                         <ul class="treeview-menu menu-open">
                             <li>@Html.ActionSlideMenu("ManageCategories", "Categories", null, "Danh mục", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
                             <li>@Html.ActionSlideMenu("ManageProducts", "Products", null, "Sản phẩm", new { @class = "fa fa-circle-o" }, "2", new { @class = "label pull-right bg-green" })</li>
@@ -360,9 +360,9 @@
                             <li>@Html.ActionSlideMenu("ManageUsers", "User", null, "Người dùng hệ thống", new { @class = "fa fa-circle-o" }, "3", new { @class = "label pull-right bg-green" })</li>
                         </ul>
                     </li>
-                    @*<li>
-                        @Html.ActionSlideMenu("ManageTags", "Admin", null, "Nhãn tag", new { @class = "fa fa-tag " }, "1", new { @class = "label pull-right bg-blue" })
-                    </li>*@
+                    <li>
+                        @Html.ActionSlideMenu("ManageSettings", "Settings", null, "Thiết lập", new { @class = "fa fa-cogs " }, "1", new { @class = "label pull-right bg-blue" })
+                    </li>
                     @*<li>
                         @Html.ActionSlideMenu("ManagePolicies", "Admin", null, "Chính sách", new { @class = "fa fa-clone " }, "1", new { @class = "label pull-right bg-blue" })
                     </li>*@

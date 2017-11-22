@@ -26,7 +26,10 @@ namespace Upup.Controllers
             return View();
         }
 
-       
+        public ActionResult CartHistory()
+        {
+            return View();
+        }
     }
 
     [System.Web.Mvc.AllowAnonymous]

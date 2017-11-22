@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Configuration
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,12 +29,11 @@
             <div class="top-header row">
                 <div class="area-logo">
                     <a asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/Content/Images/logo.jpg" alt="Logo" />
+                        <img src="~/Images/Settings/@WebConfigurationManager.AppSettings["LogoUrl"]" alt="Logo" />
                     </a>
                 </div>
                 <div class="area-slogan">
-                    <h3 class="text-center">Chuyên cung cấp chi tiết, thiết bị cơ khí</h3>
-                    <h3 class="text-center">Không giới hạn số lượng mua hàng</h3>
+                    <h3 class="text-center">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan"]))</h3>
                 </div>
                 <div class="area-user">
                     @Html.Partial("_LoginPartial")

@@ -80,6 +80,7 @@ a.btn {
     margin-top: 10px;
     padding-bottom: 5px;
     font-size: 22px;
+    line-height: 24pt;
 }
 
 .search-wrapper {
@@ -913,7 +914,14 @@ footer {
 
     .subject-category .poster {
         position: relative;
+        overflow: hidden;
+        height: 800px;
+        width: 100%;
     }
+
+        .subject-category .poster img {
+            width: 100%;
+        }
 
     .subject-category .slogan {
         position: absolute;
@@ -1079,10 +1087,18 @@ form[name="registration"] .col-lg-6 {
     font-size: 10pt;
 }
 
-.arae-facebook .fb_iframe_widget {
-    display: block;
-    margin-top: 20px;
+#productDetail h1, #productDetail h3 {
+    margin: 10px 0;
 }
+
+#productDetail h1 {
+    padding-left: 24px;
+}
+
+.arae-facebook .fb_iframe_widget {
+        display: block;
+        margin-top: 20px;
+    }
 
 table.cart {
     width: 70%;
@@ -1144,9 +1160,10 @@ table.cart {
         padding: 8px;
         line-height: 1.628571429;
         text-align: center;
+        vertical-align: middle;
     }
 
-        #cart .dataTable th:after{
+        #cart .dataTable th:after {
             opacity: 1;
         }
 
@@ -1155,7 +1172,7 @@ table.cart {
             padding-right: 20px;
         }
 
-        #cart .dataTable td {
+    #cart .dataTable td {
         padding: 8px;
         line-height: 1.628571429;
         padding-right: 30px;
@@ -1167,9 +1184,9 @@ table.cart {
         text-align: right;
     }
 
-#cart .dataTable .code-input{
-    width: 100px;
-}
+    #cart .dataTable .code-input {
+        width: 100px;
+    }
 
     #cart .dataTable .quantity-input {
         width: 80px;

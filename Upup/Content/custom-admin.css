@@ -240,3 +240,20 @@ label.tree_label:after {
 .create-variant .btn.upload {
     margin-top: 0;
 }
+
+.manage-setting .col-md-6 {
+    padding: 0;
+    width: 48%;
+}
+
+    .manage-setting .col-md-6:first-child {
+        margin-left: 15px;
+    }
+
+.manage-setting section.content{
+    padding-right: 0;
+}
+
+.manage-setting .content-header > h1{
+    line-height: 26pt;
+}

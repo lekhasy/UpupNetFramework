@@ -30,6 +30,8 @@ namespace Upup.Areas.Admin.ViewModels
         public decimal Price { get; set; }
         [Display(Name = "Số lượng tồn kho")]
         public decimal OnHand { get; set; }
+        [Display(Name = "Hướng dẫn sử dụng")]
+        public string LinkGuide { get; set; }
         [Display(Name = "Từ khóa trang")]
         public string MetaKeyword { get; set; }
         [Display(Name = "Mô tả trang")]

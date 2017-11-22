@@ -1,4 +1,5 @@
-﻿@model Upup.Models.PostCategory
+﻿@using System.Web.Configuration
+@model Upup.Models.PostCategory
 @{
     ViewBag.Title = "User manual guide";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,13 +11,11 @@
             @{Html.RenderPartial("_MenuPostPartial");}
         </div>
         <div class="col-md-9">
-            <div class="poster">
-                <img src="~/Images/banners/poster1.jpg" />
+            <div class="poster" style="background:url('/Images/Settings/@WebConfigurationManager.AppSettings["GuideBannerUrl"]') no-repeat; background-size: 100%;">
                 <div class="slogan">
                     <div>
                         <div>
-                            <h2>WAKE UP EARLY DON'T MISS THE WEEKEND</h2>
-                            <h3>Never bully the weak never fear the strong. It's probably broken!!</h3>
+                            <h2>@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["GuideSlogan"]))</h2>
                         </div>
                     </div>
                 </div>
