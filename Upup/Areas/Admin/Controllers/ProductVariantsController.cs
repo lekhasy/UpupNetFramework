@@ -62,8 +62,6 @@ namespace Upup.Areas.Admin.Controllers
                         VariantCode = code,
                         Price = Convert.ToDecimal(price),
                         OnHand = Convert.ToDecimal(onHand),
-                        Cad2dUrl = url2d,
-                        Cad3dUrl = url3d,
                         BrandName = brandName,
                         Origin = origin,
                         ProductVariantUnit = unit,
@@ -79,8 +77,6 @@ namespace Upup.Areas.Admin.Controllers
                     productVariant.VariantCode = code;
                     productVariant.Price = Convert.ToDecimal(price);
                     productVariant.OnHand = Convert.ToDecimal(onHand);
-                    productVariant.Cad2dUrl = url2d;
-                    productVariant.Cad3dUrl = url3d;
                     productVariant.BrandName = brandName;
                     productVariant.Origin = origin;
                     productVariant.ProductVariantUnit = unit;
