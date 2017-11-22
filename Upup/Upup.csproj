@@ -1747,11 +1747,8 @@
     <Content Include="Views\Product\Cart.cshtml" />
     <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Product\CartHistory.cshtml" />
-=======
     <Content Include="Views\Po\Index.cshtml" />
->>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
