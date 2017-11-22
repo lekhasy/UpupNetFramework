@@ -233,6 +233,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthCheckController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\PoController.cs" />
     <Compile Include="Controllers\UpupAPIControllerBase.cs" />
     <Compile Include="Controllers\UserManualController.cs" />
     <Compile Include="Controllers\EventController.cs" />
@@ -271,6 +272,10 @@
     <Compile Include="Migrations\201711191636561_Add_Identity_Field.cs" />
     <Compile Include="Migrations\201711191636561_Add_Identity_Field.Designer.cs">
       <DependentUpon>201711191636561_Add_Identity_Field.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711221506514_Add_LinkGuid_To_Product.cs" />
+    <Compile Include="Migrations\201711221506514_Add_LinkGuid_To_Product.Designer.cs">
+      <DependentUpon>201711221506514_Add_LinkGuid_To_Product.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
@@ -1662,7 +1667,6 @@
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zu\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\viewer.js.map" />
     <Content Include="Areas\Admin\Views\Settings\ManageSettings.cshtml" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
@@ -1743,7 +1747,11 @@
     <Content Include="Views\Product\Cart.cshtml" />
     <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Product\CartHistory.cshtml" />
+=======
+    <Content Include="Views\Po\Index.cshtml" />
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1787,6 +1795,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711191636561_Add_Identity_Field.resx">
       <DependentUpon>201711191636561_Add_Identity_Field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711221506514_Add_LinkGuid_To_Product.resx">
+      <DependentUpon>201711221506514_Add_LinkGuid_To_Product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

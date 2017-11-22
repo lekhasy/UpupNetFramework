@@ -8,7 +8,6 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace Upup.Controllers
 {
-    [Authorize(Roles = "Customer")]
     public class UpupControllerBase : Controller
     {
         private ApplicationDbContext _db;

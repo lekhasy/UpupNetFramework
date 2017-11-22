@@ -16,6 +16,7 @@ namespace Upup.Models
         public string Summary_en { get; set; }
         public string ImageUrl { get; set; }
         public string PdfUrl { get; set; }
+        public string LinkGuide { get; set; }
 
         public string MetaKeyword { get; set; }
         public string MetaDescription { get; set; }

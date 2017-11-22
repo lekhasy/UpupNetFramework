@@ -11,4 +11,13 @@ namespace Upup.Models
         public virtual ProductVariant Product { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }
     }
+
+    public enum PoDetailState
+    {
+        New,
+        Processing,
+        Shipping,
+        Completed
+    }
+
 }

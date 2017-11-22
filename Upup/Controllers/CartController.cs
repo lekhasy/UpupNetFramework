@@ -24,7 +24,7 @@ namespace Upup.Controllers
 
     }
 
-    public class CartApiController : UpupAPIControllerBase
+    public class CartApiController : UpupApiControllerBase
     {
         public DataTableResponse<TableDataRow<ProductCartItemModel>> GetAllProductInCart()
         {
@@ -73,14 +73,14 @@ namespace Upup.Controllers
 
             var customer = Db.Customers.Find(userId);
 
-            var variant = Db.ProductVariants.Find(model.productVariantId);
+            var variant = Db.ProductVariants.FirstOrDefault(pv => pv.VariantCode == model.productVariantCode);
             if (variant == null) return new AjaxSimpleResultModel
             {
                 Message = "Sản phẩm không tồn tại",
                 ResultValue = false
             };
 
-            var exists = customer.ProductCarts.FirstOrDefault(c => c.ProductVariant.Id == model.productVariantId);
+            var exists = customer.ProductCarts.FirstOrDefault(c => c.ProductVariant.VariantCode == model.productVariantCode);
 
             if (exists == null)
             {
@@ -130,7 +130,7 @@ namespace Upup.Controllers
 
         public class AddCartModel
         {
-            public long productVariantId { get; set; }
+            public string productVariantCode { get; set; }
             public long quantity { get; set; }
         }
 
