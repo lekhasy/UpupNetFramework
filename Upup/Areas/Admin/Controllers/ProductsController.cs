@@ -165,6 +165,8 @@ namespace Upup.Areas.Admin.Controllers
                     Summary = model.Summary,
                     Summary_en = model.Summary_en,
                     LinkGuide = model.LinkGuide,
+                    Cad2dUrl = model.Cad2dUrl,
+                    Cad3dUrl = model.Cad3dUrl,
                     //Price = model.Price,
                     //OnHand = model.OnHand,
                     Category = category,
@@ -198,6 +200,8 @@ namespace Upup.Areas.Admin.Controllers
                     product.Summary = model.Summary;
                     product.Summary_en = model.Summary_en;
                     product.LinkGuide = model.LinkGuide;
+                    product.Cad2dUrl = model.Cad2dUrl;
+                    product.Cad3dUrl = model.Cad3dUrl;
                     //product.Price = model.Price;
                     //product.OnHand = model.OnHand;
                     product.Category = category;
