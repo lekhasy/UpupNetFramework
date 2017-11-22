@@ -135,6 +135,16 @@
                                 })
                                          </div>*@
                             <div class="form-group">
+                                @Html.LabelFor(n => n.LinkGuide)
+                                @Html.TextBoxFor(n => n.LinkGuide, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập link hướng dẫn sử dụng",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền link hướng dẫn sử dụng"
+                           })
+                            </div>
+                            <div class="form-group">
                                 @Html.LabelFor(n => n.MetaDescription)
                                 @Html.TextBoxFor(n => n.MetaDescription, new
                            {

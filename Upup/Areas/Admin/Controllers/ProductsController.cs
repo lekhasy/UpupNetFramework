@@ -164,6 +164,7 @@ namespace Upup.Areas.Admin.Controllers
                     PdfUrl = model.PdfUrl,
                     Summary = model.Summary,
                     Summary_en = model.Summary_en,
+                    LinkGuide = model.LinkGuide,
                     //Price = model.Price,
                     //OnHand = model.OnHand,
                     Category = category,
@@ -196,6 +197,7 @@ namespace Upup.Areas.Admin.Controllers
                     product.PdfUrl = model.PdfUrl;
                     product.Summary = model.Summary;
                     product.Summary_en = model.Summary_en;
+                    product.LinkGuide = model.LinkGuide;
                     //product.Price = model.Price;
                     //product.OnHand = model.OnHand;
                     product.Category = category;
