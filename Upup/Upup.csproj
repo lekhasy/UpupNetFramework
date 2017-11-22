@@ -308,6 +308,7 @@
     <Compile Include="Models\PurchaseOrderDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PoItemModel.cs" />
     <Compile Include="ViewModels\PostViewModel.cs" />
     <Compile Include="ViewModels\PostCategoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCartViewModel.cs" />
