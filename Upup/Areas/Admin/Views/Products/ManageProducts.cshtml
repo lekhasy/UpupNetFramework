@@ -145,6 +145,18 @@
                            })
                             </div>
                             <div class="form-group">
+                                <label>Tài liệu 2D:</label>
+                                <div><a href="~/Images/2dFiles/@Model.Cad2dUrl">@Model.Cad2dUrl</a></div>
+                                <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".2d-file">Tải lên</button>
+                                <input type="hidden" name="Cad2dUrl" />
+                            </div>
+                            <div class="form-group">
+                                <label>Tài liệu 3D:</label>
+                                <div><a href="~/Images/3dFiles/@Model.Cad3dUrl">@Model.Cad3dUrl</a></div>
+                                <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".3d-file">Tải lên</button>
+                                <input type="hidden" name="Cad3dUrl" />
+                            </div>
+                            <div class="form-group">
                                 @Html.LabelFor(n => n.MetaDescription)
                                 @Html.TextBoxFor(n => n.MetaDescription, new
                            {
@@ -310,16 +322,6 @@
                         <div class="row">
                             <label>Tồn kho:</label>
                             <input class="form-control" type="number" name="OnHand" placeholder="Nhập số lượng tồn kho" required data-errormessage-value-missing="Vui lòng nhập lượng tồn kho" />
-                        </div>
-                        <div class="row">
-                            <label>Tài liệu 2D:</label>
-                            <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".2d-file">Tải lên</button>
-                            <input type="hidden" name="Cad2dUrl" />
-                        </div>
-                        <div class="row">
-                            <label>Tài liệu 3D:</label>
-                            <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".3d-file">Tải lên</button>
-                            <input type="hidden" name="Cad3dUrl" />
                         </div>
                         <div class="row">
                             <label>Thương hiệu:</label>
@@ -525,7 +527,7 @@
 
                         // Add the button to the file preview element.
                         file.previewElement.appendChild(removeButton);
-                        $(".create-variant input[name='Cad2dUrl']").val(arguments[1].Message);
+                        $("input[name='Cad2dUrl']").val(arguments[1].Message);
                     });
                 }
             };
@@ -562,7 +564,7 @@
 
                         // Add the button to the file preview element.
                         file.previewElement.appendChild(removeButton);
-                        $(".create-variant input[name='Cad3dUrl']").val(arguments[1].Message);
+                        $("input[name='Cad3dUrl']").val(arguments[1].Message);
                     });
                 }
             };
