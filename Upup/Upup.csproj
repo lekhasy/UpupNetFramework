@@ -1754,6 +1754,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Product\CartHistory.cshtml" />
     <Content Include="Views\Po\Index.cshtml" />
+    <Content Include="Views\Po\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

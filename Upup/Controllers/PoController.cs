@@ -78,14 +78,16 @@ namespace Upup.Controllers
             return RedirectToAction("Index");
         }
 
-        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.HttpGet]
         public ActionResult Detail(long id)
         {
             var userId = User.Identity.GetUserId();
             
             var user = Db.Customers.Find(userId);
 
-            return View(user);
+            var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
+
+            return View(po);
         }
 
         private PurchaseOrder CreatePO(string code, string name, bool isTemp)
