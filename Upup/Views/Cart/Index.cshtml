@@ -121,6 +121,9 @@
     <script type="text/javascript">
         $(function () {
             $('.prevent-if-name-empty').submit(function (e) {
+
+                $('#poname').val($('.clone_po_name').val());
+
                 if (($('#poname').val() || '').trim() == '') {
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_DANGER,
@@ -141,9 +144,13 @@
                     return;
                 }
             });
+
+
             $('#poname').on('input', function (e) {
                 $('.clone_po_name').val($('#poname').val());
             });
+            $('.clone_po_name').val('');
+
             var $table = $("#example1").DataTable({
                 "language": {
                     "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
