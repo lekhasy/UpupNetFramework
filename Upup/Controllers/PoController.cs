@@ -58,6 +58,35 @@ namespace Upup.Controllers
             return RedirectToAction("Index");
         }
 
+        [System.Web.Mvc.HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var user = Db.Customers.Find(userId);
+
+            var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
+
+            if (po == null || po.State >= (int)PoState.Paid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            user.PurchaseOrders.Remove(po);
+            Db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult Detail(long id)
+        {
+            var userId = User.Identity.GetUserId();
+            
+            var user = Db.Customers.Find(userId);
+
+            return View(user);
+        }
 
         private PurchaseOrder CreatePO(string code, string name, bool isTemp)
         {
@@ -88,6 +117,8 @@ namespace Upup.Controllers
             Db.SaveChanges();
             return po;
         }
+
+        
 
         public IEnumerable<PoItemModel> GetAllPo()
         {

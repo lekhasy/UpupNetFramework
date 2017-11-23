@@ -16,5 +16,6 @@ namespace Upup.ViewModels
         public string CompleteProgress { get; internal set; }
         public bool Ordered { get; internal set; }
         public bool Paid { get; internal set; }
+        public bool Removable => Paid ? false : true;
     }
 }
