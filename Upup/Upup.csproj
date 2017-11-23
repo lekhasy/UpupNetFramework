@@ -1310,6 +1310,7 @@
     <Content Include="Scripts\jquery.sparkline.min.js" />
     <Content Include="Scripts\js-cookie\js.cookie-2.1.4.min.js" />
     <Content Include="Scripts\js-cookie\js.cookie.js" />
+    <Content Include="Scripts\loadingoverlay.min.js" />
     <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\bootstrap.js" />

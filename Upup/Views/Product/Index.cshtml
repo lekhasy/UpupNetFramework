@@ -88,6 +88,7 @@
         $(function () {
             var lastestpv = null;
             $('#btn_check').click(function () {
+                $.LoadingOverlay("show");
                 $.getJSON("/api/ProductApi/GetProductVariant", { code: $("#variant_code").val(), quantity: $("#variant_quantity").val() }, function (response) {
                     if (response.ResultValue) {
                         var pv = response.Data;
@@ -101,10 +102,12 @@
                             $('#ship_date').val(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
                         else
                             $('#ship_date').val('Chưa xác định');
+                        
                     }
                     else {
 
                     }
+                    $.LoadingOverlay("hide");
                 });
             });
             $('#btn_add_cart').click(function () {
