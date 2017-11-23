@@ -6,6 +6,7 @@ using Upup.Models;
 using Upup.Utils;
 using System.IO;
 using System;
+using Upup.ViewModels;
 
 namespace Upup.Controllers
 {
@@ -45,40 +46,64 @@ namespace Upup.Controllers
 
             foreach (var admin in allAdmins)
             {
-                UserManager.SendEmailAsync(admin.Id, $"có khách hàng {admin.FullName} cần báo giá", $"Họ tên: {user.FullName}, Điện thoại: {user.PhoneNumber}, Email:{user.Email}").Wait();
+                UserManager.SendEmailAsync(admin.Id, $"có khách hàng {admin.FullName} cần báo giá", $"Họ tên: {user.FullName}, Điện thoại: {user.PhoneNumber}, Email:{user.Email}. Với chi tiết như sau </br>" + CreateEmailQuoteBody()).Wait();
             }
 
-            UserManager.SendEmailAsync(user.Id, "Ghi nhận báo giá từ Upup", "Yêu cầu báo giá của bạn đả được chúng tôi ghi nhận, chúng tôi sẽ liên hệ bạn ngay khi có thể.").Wait();
+            UserManager.SendEmailAsync(user.Id, "Ghi nhận báo giá từ Upup", CreateEmailQuoteBody()).Wait();
             return RedirectToAction("Index");
         }
 
-        private string CreateEmailQuoteBody(string userName, string code, string title, string message)
+        private string CreateEmailQuoteBody()
         {
             string body = string.Empty;
             var userId = User.Identity.GetUserId();
             var user = Db.Customers.Find(userId);
             var carts = user.ProductCarts.ToList();
-            if (carts != null)
+            int sequence = 0;
+            var cartItems = new List<ProductCartItemModel>();
+
+            foreach (var c in carts)
             {
-                var html = string.Empty;
+                cartItems.Add(new ProductCartItemModel
+                {
+                    Id = c.Id,
+                    Sequence = ++sequence,
+                    DeliveryDate = c.CalculateShipDate(),
+                    Quantity = c.Quantity,
+                    BrandName = c.ProductVariant.BrandName,
+                    ProductCode = c.ProductVariant.Product.Code,
+                    ProductName = c.ProductVariant.Product.Name,
+                    ProductPrice = c.ProductVariant.Price,
+                    ProductVariantCode = c.ProductVariant.VariantCode,
+                    ProductVariantName = c.ProductVariant.VariantName,
+                    TotalPrice = c.CalculateTotalAmount(),
+                    UnitName = c.ProductVariant.ProductVariantUnit.Name
+                });
+            }
+
+            var html = string.Empty;
+            decimal totalPrice = 0;
+            if (cartItems != null)
+            {
                 var countProduct = 0;
-                foreach (var product in carts)
+                foreach (var product in cartItems)
                 {
                     countProduct++;
                     html += "<tr>";
                     html += "<td rowspan = '3' style='width:5%;text-align:center;'> " + countProduct + " </td>";
-                    html += "<td style ='width:38%'> TÊN SẢN PHẨM</td>";
-                    html += "<td colspan = '2' style = 'width:57%; text-align:right'> Nhãn hiệu </td>";
+                    html += "<td style ='width:38%'>" + product.ProductName + "</td>";
+                    html += "<td colspan = '2' style = 'width:57%; text-align:right'>" + product.BrandName + "</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "<td style = 'width:38%' > Mã sản phẩm</td>";
-                    html += "<td colspan = '2' style = 'width:57%; text-align:center' > Thời gian giao hàng </td>";
+                    html += "<td style = 'width:38%' >" + product.ProductCode + "</td>";
+                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DeliveryDate + "</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "<td style = 'width:30%; text-align:center' > Đơn giá(vnd) </td>";
-                    html += "<td style = 'width:20%; text-align:center' > Số lượng </td>";
-                    html += "<td style = 'width:45%; text-align:right' > Tổng tiền(vnd) </td>";
+                    html += "<td style = 'width:30%; text-align:center' > " + product.ProductPrice + " </td>";
+                    html += "<td style = 'width:20%; text-align:center' > " + product.Quantity + "";
+                    html += "<td style = 'width:45%; text-align:right' > " + product.TotalPrice + " </td>";
                     html += "</tr > ";
+                    totalPrice += product.TotalPrice;
                 }
             }
             using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplates/QuotesTemplate.html")))
@@ -88,23 +113,23 @@ namespace Upup.Controllers
             body = body.Replace("[QuoteCode]", "123456");
             body = body.Replace("[QuoteDate]", DateTime.Now.ToShortDateString());
             body = body.Replace("[Barcode]", "0987654321");
-            body = body.Replace("[PORef]", "123456");
-            body = body.Replace("[CustomerCode]", DateTime.Now.ToShortDateString());
-            body = body.Replace("[CustomerName]", "0987654321");
-            body = body.Replace("[CompanyPhone]", "123456");
-            body = body.Replace("[TaxNo]", DateTime.Now.ToShortDateString());
-            body = body.Replace("[CompanyAddress]", "0987654321");
-            body = body.Replace("[ContactName]", "123456");
-            body = body.Replace("[Email]", DateTime.Now.ToShortDateString());
-            body = body.Replace("[Phone]", "0987654321");
-            body = body.Replace("[Address]", "0987654321");
-            body = body.Replace("[PayBeforeShip]", "0987654321");
-            body = body.Replace("[PayAfterShip]", "0987654321");
-            body = body.Replace("[Amount]", "0987654321");
-            body = body.Replace("[VAT]", "0987654321");
-            body = body.Replace("[DeliveryFee]", "0987654321");
-            body = body.Replace("[TotalAmount]", "0987654321");
-            body = body.Replace("[HtmlItemInGrid]", "0987654321");
+            body = body.Replace("[PORef]", "00000000");
+            body = body.Replace("[CustomerCode]", user.Code);
+            body = body.Replace("[CustomerName]", user.FullName);
+            body = body.Replace("[CompanyPhone]", user.PhoneNumber);
+            body = body.Replace("[TaxNo]", user.OrgName);
+            body = body.Replace("[CompanyAddress]", user.Address2);
+            body = body.Replace("[ContactName]", user.OrgName);
+            body = body.Replace("[Email]", user.Email);
+            body = body.Replace("[Phone]", user.PhoneNumber);
+            body = body.Replace("[Address]", user.Address1);
+            body = body.Replace("[PayBeforeShip]", "X");
+            body = body.Replace("[PayAfterShip]", string.Empty);
+            body = body.Replace("[Amount]", totalPrice.ToString("N0"));
+            body = body.Replace("[VAT]", "10%");
+            body = body.Replace("[DeliveryFee]", "10000");
+            body = body.Replace("[TotalAmount]", (totalPrice - (totalPrice*10/100) - 10000).ToString("N0"));
+            body = body.Replace("[HtmlItemInGrid]", html);
             return body;
         }
 

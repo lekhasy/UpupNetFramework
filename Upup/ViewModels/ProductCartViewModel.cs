@@ -14,6 +14,7 @@ namespace Upup.ViewModels
         public int Quantity { get; set; }
         public string UnitName { get; set; }
         public string ProductName { get; set; }
+        public string BrandName { get; set; }
         public string ProductVariantName { get; set; }
         public decimal ProductPrice { get; set; }
         public decimal TotalPrice { get; set; }
