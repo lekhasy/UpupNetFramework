@@ -1,4 +1,4 @@
-﻿@*@model Upup.Models.Customer*@ 
+﻿@model  IEnumerable<Upup.ViewModels.PoItemModel>
 @{
     ViewBag.Title = "CartHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,18 +21,28 @@
                 <th>Vận chuyển</th>
                 <th>Hoàn thành</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>tên</td>
-                <td>mã</td>
-                <td>Đã đặt</td>
-                <td>Đã thanh toán</td>
-                <td>Đã vận chuyển</td>
-                <td>Đã hoàn thành</td>
-                <td>THao tác</td>
-            </tr>
+
         </thead>
-        <tbody></tbody>
+        <tbody>
+            @{
+                var i = 1;
+                foreach (var po in Model)
+                {
+                    <tr>
+                        <td>@po.Sequence</td>
+                        <td>@po.Name</td>
+                        <td>@po.Code</td>
+                        <td>@po.Ordered</td>
+                        <td>@po.Paid</td>
+                        <td>@po.ShipingProgress</td>
+                        <td>@po.CompleteProgress</td>
+                        <td>8</td>
+                    </tr>
+                    i++;
+                }
+            }
+            
+        </tbody>
     </table>
 </div>
 
@@ -40,6 +50,101 @@
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            var $table = $("#example1").DataTable({
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                    "search": "Tìm kiếm: ",
+                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
+                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
+                    "infoEmpty": "Dữ liệu không tồn tại",
+                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "last": "Trang cuối",
+                        "previous": "Trang trước",
+                        "next": "Trang sau"
+                    }
+                },
+                autoWidth: false,
+                ordering: false,
+                serverSide: true,
+                ajaxSource: "/Po/GetAllPo",
+                processing: true,
+                searching: false,
+                paging: false,
+                info: false,
+                columns: [
+                    { data: "DT_RowData.Sequence" },
+                    //{ data: "DT_RowData.Name"},
+                    //{ data: "DT_RowData.Code"},
+                    //{ data: "DT_RowData.Ordered" },
+                    //{ data: "DT_RowData.Paid" },
+                    //{ data: "Dt_RowData.ShipingProgress"},
+                    //{ data: "IsCompleted" },
+                    //{
+                    //    targets: 0,
+                    //    data: "DT_RowData.State",
+                    //    searchable: false,
+                    //    orderable: false,
+                    //    className: 'dt-body-center',
+                    //    render: function (data, type, full, meta) {
+                    //        if (data == 1) { // is temp po
+                    //            return '<a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-lg delete"></i> &nbsp;Xóa</a>';
+                    //        }
+                    //        else {
+                    //            return '<a href="javascript:void(0)" class="btn btn-primary btn-xs"><i class="fa fa-eye fa-lg view-detail"></i> &nbsp;Chi tiết</a>';
+                    //        }
+                    //    }
+                    //}
+                ],
+                "select": {
+                    "style": 'os',
+                    "selector": 'td:not(:last-child)' // no row selection on last column
+                },
+                'order': [[1, 'asc']],
+                "drawCallback": function (settings) {
+                    //$(".act-del").click(function () {
+                    //    var id = $(this).attr('data-id');
+                    //    BootstrapDialog.confirm({
+                    //        title: 'Tin nhắn',
+                    //        message: 'Bạn thật sự muốn xóa danh mục này ?',
+                    //        //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                    //        closable: true, // <-- Default value is false
+                    //        draggable: true, // <-- Default value is false
+                    //        btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                    //        btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                    //        //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                    //        callback: function (result) {
+                    //            // result will be true if button was click, while it will be false if users close the dialog directly.
+                    //            if (result) {
+                    //                $.post('/PostCategories/RemoveCategories', { 'id': parseInt(id, 10) },
+                    //                    function (data) {
+                    //                        if (data.ResultValue) {
+                    //                            BootstrapDialog.show({
+                    //                                type: BootstrapDialog.TYPE_SUCCESS,
+                    //                                title: 'Thành công',
+                    //                                message: data.Message
+                    //                            });
+                    //                        } else {
+                    //                            BootstrapDialog.show({
+                    //                                type: BootstrapDialog.TYPE_DANGER,
+                    //                                title: 'Thất bại',
+                    //                                message: data.Message
+                    //                            });
+                    //                        }
+                    //                        $table.ajax.reload();
+                    //                        setTimeout(function () {
+                    //                            BootstrapDialog.closeAll();
+                    //                        }, 5000);
+                    //                    }
+                    //                );
+                    //            }
+                    //        }
+                    //    });
+                    //});
+                }
+            });
+
             // Handle click on "Select all" control
             $('#example-select-all').on('click', function () {
                 // Get all rows with search applied

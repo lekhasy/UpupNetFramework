@@ -19,11 +19,9 @@ namespace Upup.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
+            var allPO = GetAllPo();
 
-            var user = Db.Customers.Find(userId);
-
-            return View(user);
+            return View(allPO);
         }
 
         [System.Web.Mvc.HttpPost]
@@ -80,7 +78,7 @@ namespace Upup.Controllers
                     Quantity = c.Quantity,
                     ShipDate = c.CalculateShipDate(),
                     State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered
-                })
+                }).ToList()
             };
 
             user.PurchaseOrders.Add(po);
@@ -90,12 +88,8 @@ namespace Upup.Controllers
             Db.SaveChanges();
             return po;
         }
-    }
 
-
-    public class PoApiController : UpupApiControllerBase
-    {
-        public DataTableResponse<TableDataRow<PoItemModel>> GetAllPo()
+        public IEnumerable<PoItemModel> GetAllPo()
         {
             var userId = User.Identity.GetUserId();
 
@@ -104,12 +98,11 @@ namespace Upup.Controllers
             var allpo = user.PurchaseOrders.ToList();
 
             int sequence = 0;
-            List<TableDataRow<PoItemModel>> poItems = new List<TableDataRow<PoItemModel>>();
+            List<PoItemModel> poItems = new List<PoItemModel>();
             foreach (var po in allpo)
             {
-                poItems.Add(new TableDataRow<PoItemModel>
-                {
-                    DT_RowData = new PoItemModel
+                poItems.Add(
+                    new PoItemModel
                     {
                         Code = po.Code,
                         Id = po.Id,
@@ -121,30 +114,11 @@ namespace Upup.Controllers
                         Ordered = po.State >= (int)PoState.Ordered,
                         Paid = po.State >= (int)PoState.Paid
                     }
-                });
+                );
             }
 
-            return new DataTableResponse<TableDataRow<PoItemModel>>
-            {
-                data = poItems,
-                recordsTotal = poItems.Count(),
-                recordsFiltered = poItems.Count()
-            };
+            return poItems;
         }
-
-        public class PoItemModel
-        {
-            public string Code { get; internal set; }
-            public long Id { get; internal set; }
-            public string Name { get; internal set; }
-            public int State { get; internal set; }
-            public int Sequence { get; internal set; }
-            public string ShipingProgress { get; internal set; }
-            public string CompleteProgress { get; internal set; }
-            public bool Ordered { get; internal set; }
-            public bool Paid { get; internal set; }
-        }
-
     }
 
 }
