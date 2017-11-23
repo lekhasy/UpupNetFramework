@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
 using Upup.Models;
 using Upup.Utils;
 using Upup.ViewModels;
@@ -11,8 +12,10 @@ using System.Data.Entity;
 
 namespace Upup.Controllers
 {
+    [System.Web.Mvc.Authorize(Roles ="Customer")]
     public class CartController : UpupControllerBase
     {
+        [System.Web.Mvc.Authorize(Roles = "Customer")]
         public System.Web.Mvc.ActionResult Index()
         {
             var userId = User.Identity.GetUserId();

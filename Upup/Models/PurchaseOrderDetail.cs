@@ -14,10 +14,12 @@ namespace Upup.Models
 
     public enum PoDetailState
     {
-        New,
-        Processing,
-        Shipping,
-        Completed
+        Temp = 1,
+        Ordered = 2,
+        Paid = 3,
+        Shipping = 4,
+        Completed = 5,
+        Canceled = 6
     }
 
 }

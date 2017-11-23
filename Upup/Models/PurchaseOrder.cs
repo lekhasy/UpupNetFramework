@@ -12,15 +12,34 @@ namespace Upup.Models
         public string Name { get; set; }
         public int State { get; set; }
 
+        public int CalculateCompleteShipping()
+        {
+            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Completed || p.State == (int)PoDetailState.Canceled).Count();
+        }
+
+        public int CalculateShipping()
+        {
+            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Shipping).Count();
+        }
+
+        public int CalculateTotalDetail()
+        {
+            return PurchaseOrderDetails.Count();
+        }
+
+
+
         public IEnumerable<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public virtual ApplicationUser Customer { get; set; }
     }
 
     public enum PoState
     {
-        Temp,
-        Processing,
-        Completed
+        Temp = 1,
+        Ordered = 2,
+        Paid = 3,
+        Completed = 4,
+        Canceled = 5
     }
 
 }

@@ -277,6 +277,10 @@
     <Compile Include="Migrations\201711221506514_Add_LinkGuid_To_Product.Designer.cs">
       <DependentUpon>201711221506514_Add_LinkGuid_To_Product.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711221611132_Move_Cad_To_Prod.cs" />
+    <Compile Include="Migrations\201711221611132_Move_Cad_To_Prod.Designer.cs">
+      <DependentUpon>201711221611132_Move_Cad_To_Prod.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -304,6 +308,7 @@
     <Compile Include="Models\PurchaseOrderDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PoItemModel.cs" />
     <Compile Include="ViewModels\PostViewModel.cs" />
     <Compile Include="ViewModels\PostCategoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCartViewModel.cs" />
@@ -1795,6 +1800,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711221506514_Add_LinkGuid_To_Product.resx">
       <DependentUpon>201711221506514_Add_LinkGuid_To_Product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711221611132_Move_Cad_To_Prod.resx">
+      <DependentUpon>201711221611132_Move_Cad_To_Prod.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
