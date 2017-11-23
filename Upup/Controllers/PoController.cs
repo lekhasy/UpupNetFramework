@@ -19,7 +19,11 @@ namespace Upup.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+
+            var user = Db.Customers.Find(userId);
+
+            return View(user);
         }
 
         [System.Web.Mvc.HttpPost]

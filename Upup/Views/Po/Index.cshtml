@@ -1,4 +1,4 @@
-﻿
+﻿@*@model Upup.Models.Customer*@ 
 @{
     ViewBag.Title = "CartHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +12,7 @@
                 <th rowspan="2">Stt</th>
                 <th rowspan="2">Tên PO</th>
                 <th rowspan="2">Mã PO</th>
-                <th colspan="5">Trạng thái</th>
+                <th colspan="4">Trạng thái</th>
                 <th rowspan="2">Thao tác</th>
             </tr>
             <tr>
@@ -20,6 +20,16 @@
                 <th>Thanh toán</th>
                 <th>Vận chuyển</th>
                 <th>Hoàn thành</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>tên</td>
+                <td>mã</td>
+                <td>Đã đặt</td>
+                <td>Đã thanh toán</td>
+                <td>Đã vận chuyển</td>
+                <td>Đã hoàn thành</td>
+                <td>THao tác</td>
             </tr>
         </thead>
         <tbody></tbody>
@@ -45,38 +55,37 @@
                         "next": "Trang sau"
                     }
                 },
-                "autoWidth": false,
-                "ordering": false,
-                "serverSide": true,
-                "ajaxSource": "/Po/GetAllPo",
-                "processing": true,
-                "searching": false,
-                "paging": false,
-                "info": false,
-                "columns": [
-                    
+                autoWidth: false,
+                ordering: false,
+                serverSide: true,
+                ajaxSource: "/Po/GetAllPo",
+                processing: true,
+                searching: false,
+                paging: false,
+                info: false,
+                columns: [
                     { data: "DT_RowData.Sequence" },
-                    { data: "DT_RowData.Name"},
-                    { data: "DT_RowData.Code"},
-                    { data: "DT_RowData.Ordered" },
-                    { data: "DT_RowData.Paid" },
-                    { data: "Dt_RowData.ShipingProgress"},
-                    { data: "IsCompleted" },
-                    {
-                        targets: 0,
-                        data: "DT_RowData.State",
-                        searchable: false,
-                        orderable: false,
-                        className: 'dt-body-center',
-                        render: function (data, type, full, meta) {
-                            if (data == 1) { // is temp po
-                                return '<a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-lg delete"></i> &nbsp;Xóa</a>';
-                            }
-                            else {
-                                return '<a href="javascript:void(0)" class="btn btn-primary btn-xs"><i class="fa fa-eye fa-lg view-detail"></i> &nbsp;Chi tiết</a>';
-                            }
-                        }
-                    }
+                    //{ data: "DT_RowData.Name"},
+                    //{ data: "DT_RowData.Code"},
+                    //{ data: "DT_RowData.Ordered" },
+                    //{ data: "DT_RowData.Paid" },
+                    //{ data: "Dt_RowData.ShipingProgress"},
+                    //{ data: "IsCompleted" },
+                    //{
+                    //    targets: 0,
+                    //    data: "DT_RowData.State",
+                    //    searchable: false,
+                    //    orderable: false,
+                    //    className: 'dt-body-center',
+                    //    render: function (data, type, full, meta) {
+                    //        if (data == 1) { // is temp po
+                    //            return '<a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-lg delete"></i> &nbsp;Xóa</a>';
+                    //        }
+                    //        else {
+                    //            return '<a href="javascript:void(0)" class="btn btn-primary btn-xs"><i class="fa fa-eye fa-lg view-detail"></i> &nbsp;Chi tiết</a>';
+                    //        }
+                    //    }
+                    //}
                 ],
                 "select": {
                     "style": 'os',
