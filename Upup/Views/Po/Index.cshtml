@@ -84,9 +84,9 @@
             $('.act-del').click(function (event) {
                 var that = $(this);
                 BootstrapDialog.confirm({
-                    title: 'Cảnh cáo',
+                    title: 'Thông báo',
                     message: 'Bạn thật sự muốn xóa PO này ?',
-                    type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                    type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
                     closable: true, // <-- Default value is false
                     draggable: true, // <-- Default value is false
                     btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',

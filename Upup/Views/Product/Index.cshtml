@@ -102,15 +102,22 @@
                             $('#ship_date').val(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
                         else
                             $('#ship_date').val('Chưa xác định');
-                        
                     }
                     else {
-
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_WARNING,
+                            title: 'Thông báo',
+                            message: 'Mã sản phẩm không tồn tại'
+                        });
+                        setTimeout(function () {
+                            BootstrapDialog.closeAll();
+                        }, 3000);
                     }
                     $.LoadingOverlay("hide");
                 });
             });
             $('#btn_add_cart').click(function () {
+                $.LoadingOverlay("show");
                 $.post("/api/CartApi/Add", { productVariantCode: lastestpv.VariantCode, quantity: parseInt($("#quantity").text()) }, function (response) {
                     if (response.ResultValue) {
                         BootstrapDialog.show({
@@ -126,6 +133,10 @@
                             message: response.Message
                         });
                     }
+                    setTimeout(function () {
+                        BootstrapDialog.closeAll();
+                    }, 3000);
+                    $.LoadingOverlay("hide");
                 });
             });
         });

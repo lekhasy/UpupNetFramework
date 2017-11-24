@@ -1130,6 +1130,11 @@ table.cart {
             width: 25%;
         }
 
+.modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+}
+
 #cart h2 {
     font-size: 12pt;
     font-weight: bold;
@@ -1194,4 +1199,8 @@ table.cart {
 
 #cart .area-button {
     margin: 10px 0;
+}
+
+#cart .area-button form {
+    display: inline-block;
 }
