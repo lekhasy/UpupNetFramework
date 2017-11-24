@@ -1,4 +1,4 @@
-﻿
+﻿@model  IEnumerable<Upup.ViewModels.PoItemModel>
 @{
     ViewBag.Title = "CartHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +12,7 @@
                 <th rowspan="2">Stt</th>
                 <th rowspan="2">Tên PO</th>
                 <th rowspan="2">Mã PO</th>
-                <th colspan="5">Trạng thái</th>
+                <th colspan="4">Trạng thái</th>
                 <th rowspan="2">Thao tác</th>
             </tr>
             <tr>
@@ -21,8 +21,58 @@
                 <th>Vận chuyển</th>
                 <th>Hoàn thành</th>
             </tr>
+
         </thead>
-        <tbody></tbody>
+        <tbody>
+            @{
+                var i = 1;
+                foreach (var po in Model)
+                {
+                    <tr>
+                        <td>@po.Sequence</td>
+                        <td>@po.Name</td>
+                        <td>@po.Code</td>
+                        <td>
+                            @{
+                                if (po.Ordered)
+                                {
+                                    <input checked="checked" type="checkbox" disabled>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" disabled>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                if (po.Paid)
+                                {
+                                    <input checked="checked" type="checkbox" disabled>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" disabled>
+                                }
+                            }
+                        </td>
+                        <td>@po.ShipingProgress</td>
+                        <td>@po.CompleteProgress</td>
+                        <td>
+                            <a href="/Po/Detail/@po.Id" class="btn btn-primary btn-xs"><i class="fa fa-eye fa-lg view-detail"></i> &nbsp;Chi tiết</a>'
+                            @if (po.Removable)
+                            {
+                                <form method="post" action="/Po/Delete/@po.Id" style="display: inline-block" >
+                                    <button class="act-del btn btn-danger btn-xs" type="button">Xóa</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                                    i++;
+                                }
+            }
+
+        </tbody>
     </table>
 </div>
 
@@ -30,6 +80,26 @@
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(function () {
+
+            $('.act-del').click(function (event) {
+                var that = $(this);
+                BootstrapDialog.confirm({
+                    title: 'Cảnh cáo',
+                    message: 'Bạn thật sự muốn xóa PO này ?',
+                    type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                    closable: true, // <-- Default value is false
+                    draggable: true, // <-- Default value is false
+                    btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                    btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                    //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                    callback: function (result) {
+                        if (result) {
+                            that.parent().submit();
+                        }
+                    }
+                });
+            });
+
             var $table = $("#example1").DataTable({
                 "language": {
                     "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
@@ -45,38 +115,37 @@
                         "next": "Trang sau"
                     }
                 },
-                "autoWidth": false,
-                "ordering": false,
-                "serverSide": true,
-                "ajaxSource": "/Po/GetAllPo",
-                "processing": true,
-                "searching": false,
-                "paging": false,
-                "info": false,
-                "columns": [
-                    
+                autoWidth: false,
+                ordering: false,
+                serverSide: true,
+                ajaxSource: "/Po/GetAllPo",
+                processing: true,
+                searching: false,
+                paging: false,
+                info: false,
+                columns: [
                     { data: "DT_RowData.Sequence" },
-                    { data: "DT_RowData.Name"},
-                    { data: "DT_RowData.Code"},
-                    { data: "DT_RowData.Ordered" },
-                    { data: "DT_RowData.Paid" },
-                    { data: "Dt_RowData.ShipingProgress"},
-                    { data: "IsCompleted" },
-                    {
-                        targets: 0,
-                        data: "DT_RowData.State",
-                        searchable: false,
-                        orderable: false,
-                        className: 'dt-body-center',
-                        render: function (data, type, full, meta) {
-                            if (data == 1) { // is temp po
-                                return '<a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-lg delete"></i> &nbsp;Xóa</a>';
-                            }
-                            else {
-                                return '<a href="javascript:void(0)" class="btn btn-primary btn-xs"><i class="fa fa-eye fa-lg view-detail"></i> &nbsp;Chi tiết</a>';
-                            }
-                        }
-                    }
+                    //{ data: "DT_RowData.Name"},
+                    //{ data: "DT_RowData.Code"},
+                    //{ data: "DT_RowData.Ordered" },
+                    //{ data: "DT_RowData.Paid" },
+                    //{ data: "Dt_RowData.ShipingProgress"},
+                    //{ data: "IsCompleted" },
+                    //{
+                    //    targets: 0,
+                    //    data: "DT_RowData.State",
+                    //    searchable: false,
+                    //    orderable: false,
+                    //    className: 'dt-body-center',
+                    //    render: function (data, type, full, meta) {
+                    //        if (data == 1) { // is temp po
+                    //            return '<a href="javascript:void(0)" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-lg delete"></i> &nbsp;Xóa</a>';
+                    //        }
+                    //        else {
+                    //            return '<a href="javascript:void(0)" class="btn btn-primary btn-xs"><i class="fa fa-eye fa-lg view-detail"></i> &nbsp;Chi tiết</a>';
+                    //        }
+                    //    }
+                    //}
                 ],
                 "select": {
                     "style": 'os',

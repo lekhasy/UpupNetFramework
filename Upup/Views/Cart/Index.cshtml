@@ -9,12 +9,12 @@
 <div id="cart">
 
 
-    <h2>Tạo PO đơn hàng</h2>
+    <h2>Giỏ hàng</h2>
     <table class="cart">
         <tbody>
             <tr>
                 <td><label>Tên PO</label></td>
-                <td class="large"><input type="text" class="form-control" /></td>
+                <td class="large"><input type="text" id="poname" class="form-control" /></td>
                 <td><label>Mã khách hàng</label></td>
                 <td class="small"><div id="customerCode">@Model.Code</div></td>
             </tr>
@@ -71,17 +71,17 @@
         <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
     </div>
     <div class="area-button text-center">
-        <form action="/Po/RequestPrice" method="post">
+        <form action="/Po/RequestPrice" method="post" class="prevent-if-name-empty">
             <input type="hidden" name="name" class="clone_po_name">
             <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
             <input type="submit" class="btn btn-primary" value="Báo giá">
         </form>
-        <form action="/Po/SavePO" method="post">
+        <form action="/Po/SavePO" method="post" class="prevent-if-name-empty">
             <input type="hidden" name="name" class="clone_po_name">
             <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
             <input type="submit" class="btn btn-primary" value="Lưu PO">
         </form>
-        <form action="/Po/Order" method="post">
+        <form action="/Po/Order" method="post" class="prevent-if-name-empty">
             <input type="hidden" name="name" class="clone_po_name">
             <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
             <input type="submit" class="btn btn-primary" value="Đặt hàng">
@@ -104,7 +104,7 @@
                             </div>
                             <div class="row">
                                 <label>Số lượng:</label>
-                                <input class="form-control" id="variant-quantity" min="1" type="number" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng nhập mã biến thể" />
+                                <input class="form-control" id="variant-quantity" min="1" value="1" type="number" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng nhập mã biến thể" />
                             </div>
                         </div>
                         <div class="text-right"><input id="addProductVariantToCart" type="submit" class="btn btn-primary" value="Chấp nhận" /></div>
@@ -120,6 +120,37 @@
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('.prevent-if-name-empty').submit(function (e) {
+
+                $('#poname').val($('.clone_po_name').val());
+
+                if (($('#poname').val() || '').trim() == '') {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Không thể hoàn thành tác vụ',
+                        message: 'Vui lòng điền tên PO'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+
+                if ($('.data-marker').length == 0) {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Không thể hoàn thành tác vụ',
+                        message: 'Vui lòng thêm sản phẩm vào giỏ hàng'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+            });
+
+
+            $('#poname').on('input', function (e) {
+                $('.clone_po_name').val($('#poname').val());
+            });
+            $('.clone_po_name').val('');
+
             var $table = $("#example1").DataTable({
                 "language": {
                     "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
@@ -149,7 +180,7 @@
                         targets: 0,
                         className: 'dt-body-center',
                         render: function (data, type, full, meta) {
-                            return '<input type="checkbox" class="tblcbx"/>';
+                            return '<input type="checkbox" class="tblcbx data-marker"/>';
                         }
                     },
                     { data: "DT_RowData.Sequence" },

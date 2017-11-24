@@ -29,7 +29,7 @@ namespace Upup.Models
 
 
 
-        public IEnumerable<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public virtual ApplicationUser Customer { get; set; }
     }
 

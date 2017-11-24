@@ -16,7 +16,9 @@ namespace Upup.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+            var allPO = GetAllPo();
+
+            return View(allPO);
         }
 
         [System.Web.Mvc.HttpPost]
@@ -131,6 +133,38 @@ namespace Upup.Controllers
             body = body.Replace("[TotalAmount]", (totalPrice - (totalPrice*10/100) - 10000).ToString("N0"));
             body = body.Replace("[HtmlItemInGrid]", html);
             return body;
+		}
+		
+        [System.Web.Mvc.HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var user = Db.Customers.Find(userId);
+
+            var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
+
+            if (po == null || po.State >= (int)PoState.Paid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            user.PurchaseOrders.Remove(po);
+            Db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [System.Web.Mvc.HttpGet]
+        public ActionResult Detail(long id)
+        {
+            var userId = User.Identity.GetUserId();
+            
+            var user = Db.Customers.Find(userId);
+
+            var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
+
+            return View(po);
         }
 
         private PurchaseOrder CreatePO(string code, string name, bool isTemp)
@@ -152,7 +186,7 @@ namespace Upup.Controllers
                     Quantity = c.Quantity,
                     ShipDate = c.CalculateShipDate(),
                     State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered
-                })
+                }).ToList()
             };
 
             user.PurchaseOrders.Add(po);
@@ -162,12 +196,10 @@ namespace Upup.Controllers
             Db.SaveChanges();
             return po;
         }
-    }
 
+        
 
-    public class PoApiController : UpupApiControllerBase
-    {
-        public DataTableResponse<TableDataRow<PoItemModel>> GetAllPo()
+        public IEnumerable<PoItemModel> GetAllPo()
         {
             var userId = User.Identity.GetUserId();
 
@@ -176,12 +208,11 @@ namespace Upup.Controllers
             var allpo = user.PurchaseOrders.ToList();
 
             int sequence = 0;
-            List<TableDataRow<PoItemModel>> poItems = new List<TableDataRow<PoItemModel>>();
+            List<PoItemModel> poItems = new List<PoItemModel>();
             foreach (var po in allpo)
             {
-                poItems.Add(new TableDataRow<PoItemModel>
-                {
-                    DT_RowData = new PoItemModel
+                poItems.Add(
+                    new PoItemModel
                     {
                         Code = po.Code,
                         Id = po.Id,
@@ -193,30 +224,11 @@ namespace Upup.Controllers
                         Ordered = po.State >= (int)PoState.Ordered,
                         Paid = po.State >= (int)PoState.Paid
                     }
-                });
+                );
             }
 
-            return new DataTableResponse<TableDataRow<PoItemModel>>
-            {
-                data = poItems,
-                recordsTotal = poItems.Count(),
-                recordsFiltered = poItems.Count()
-            };
+            return poItems;
         }
-
-        public class PoItemModel
-        {
-            public string Code { get; internal set; }
-            public long Id { get; internal set; }
-            public string Name { get; internal set; }
-            public int State { get; internal set; }
-            public int Sequence { get; internal set; }
-            public string ShipingProgress { get; internal set; }
-            public string CompleteProgress { get; internal set; }
-            public bool Ordered { get; internal set; }
-            public bool Paid { get; internal set; }
-        }
-
     }
 
 }
