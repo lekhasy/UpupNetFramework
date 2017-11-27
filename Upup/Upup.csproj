@@ -1288,6 +1288,7 @@
     <Content Include="Images\icons\support-icon.png" />
     <Content Include="Images\icons\tech-icon.png" />
     <Content Include="Images\icons\tool-icon.png" />
+    <Content Include="Images\icons\widget-link.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\products\0120.jpg" />
     <Content Include="Images\products\0121.jpg" />
