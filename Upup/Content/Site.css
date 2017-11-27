@@ -1169,12 +1169,12 @@ table.cart {
     width: 600px;
     margin: 30px auto;
 }
-
-#cart h2 {
-    font-size: 12pt;
-    font-weight: bold;
-    color: #333;
-}
+    
+    #cart h2 {
+        font-size: 12pt;
+        font-weight: bold;
+        color: #333;
+    }
 
 #cart .dataTable {
     width: 100%;
@@ -1238,4 +1238,9 @@ table.cart {
 
 #cart .area-button form {
     display: inline-block;
+}
+
+.total-amount {
+    color: red;
+    font-weight: bold;
 }

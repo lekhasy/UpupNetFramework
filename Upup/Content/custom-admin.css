@@ -237,7 +237,11 @@ label.tree_label:after {
         padding-top: 150px;
     }
 
-.create-variant .btn.upload {
+.modal-dialog.modal-lg {
+    width: 900px;
+}
+
+    .create-variant .btn.upload {
     margin-top: 0;
 }
 

@@ -1293,6 +1293,7 @@
     <Content Include="Images\products\0120.jpg" />
     <Content Include="Images\products\0121.jpg" />
     <Content Include="Images\products\0122.jpg" />
+    <Content Include="Scripts\accounting.min.js" />
     <Content Include="Scripts\admin-custom.js" />
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\base.js" />

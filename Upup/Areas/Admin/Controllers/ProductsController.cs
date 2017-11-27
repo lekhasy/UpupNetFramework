@@ -232,7 +232,6 @@ namespace Upup.Areas.Admin.Controllers
         }
 
         [HttpGet]
-
         public ActionResult LoadAllProducts(JQueryDataTableParamModel param)
         {
             var allProducts = Db.Products.ToList();
@@ -265,6 +264,55 @@ namespace Upup.Areas.Admin.Controllers
                 param.sEcho,
                 iTotalRecords = allProducts.Count(),
                 iTotalDisplayRecords = allProducts.Count(),
+                aaData = result
+            },
+            JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult LoadAllProductVariants(int id, JQueryDataTableParamModel param)
+        {
+            var product = Db.Products.SingleOrDefault(v => v.Id == id);
+            var allVariants = product.ProductVariants.ToList();
+            List<ProductVariant> afterFound = new List<ProductVariant>();
+            if (!string.IsNullOrEmpty(param.sSearch))
+            {
+                afterFound = allVariants
+                         .Where(c => c.VariantCode.Contains(param.sSearch)
+                                     ||
+                          c.VariantName.Contains(param.sSearch)
+                          ||
+                          c.BrandName.Contains(param.sSearch)
+                          ||
+                          c.Origin.Contains(param.sSearch)).ToList();
+            }
+            var filteredProducts = allVariants.Skip(param.iDisplayStart)
+                        .Take(param.iDisplayLength);
+
+            var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
+            Func<ProductVariant, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
+                                                                sortColumnIndex == 1 ? n.VariantCode :
+                                                                sortColumnIndex == 2 ? n.VariantName :
+                                                                sortColumnIndex == 3 ? n.Price.ToString() :
+                                                                sortColumnIndex == 4 ? n.OnHand.ToString() :
+                                                                sortColumnIndex == 5 ? n.BrandName :
+                                                                sortColumnIndex == 6 ? n.Origin 
+                                                                : n.VariantName);
+
+            var sortDirection = Request["sSortDir_0"]; // asc or desc
+            filteredProducts = sortDirection == "asc" ? filteredProducts.OrderBy(orderingFunction) : filteredProducts.OrderByDescending(orderingFunction);
+
+            var result = filteredProducts.Select(ProductVariant => new[]
+            {
+                ProductVariant.Id.ToString(CultureInfo.InvariantCulture), ProductVariant.VariantName, ProductVariant.VariantCode,
+                ProductVariant.Price.ToString("N0", new CultureInfo("vi-VN")), ProductVariant.OnHand.ToString("N0"), ProductVariant.BrandName, ProductVariant.Origin
+            }).ToList();
+
+            return Json(new
+            {
+                param.sEcho,
+                iTotalRecords = allVariants.Count(),
+                iTotalDisplayRecords = allVariants.Count(),
                 aaData = result
             },
             JsonRequestBehavior.AllowGet);

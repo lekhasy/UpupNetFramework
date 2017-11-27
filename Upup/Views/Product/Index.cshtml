@@ -32,35 +32,34 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8"><input type="text" id="variant_code" class="form-control" /></div>
-                    <div class="col-md-4"><input type="number" id="variant_quantity" min="1" value="1" class="form-control" /></div>
+                    <div class="col-md-4"><input type="number" id="variant_quantity" min="1" value="1" class="form-control text-right" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right"><button type="button" id="btn_check" class="btn btn-success">Kiểm tra</button></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Mã sản phẩm</span><span class="lang-en">Product code</span></label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="code" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control text-right" disabled="disabled" id="code" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Đơn giá</span><span class="lang-en">Price</span></label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="price" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control text-right" disabled="disabled" id="price" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Số lượng</span><span class="lang-en">Quanitty</span></label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="quantity" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control text-right" disabled="disabled" id="quantity" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Tổng tiền</span><span class="lang-en">Total amount</span> </label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="total_amount" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control text-right total-amount" disabled="disabled" id="total_amount" /></div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label><span class="lang-vi">Ngày giao hàng</span><span class="lang-en">Ship date</span></label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" disabled="disabled" id="ship_date" /></div>
+                    <div class="col-md-7"><input type="text" class="form-control text-right" disabled="disabled" id="ship_date" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 text-center"><button id="btn_order" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Đặt hàng nhanh</span><span class="lang-en">Order now</span></button></div>
-                    <div class="col-md-6 text-center"><button id="btn_add_cart" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Cho vào đơn hàng</span><span class="lang-en">Add to cart</span></button></div>
-                    <div class="text-center"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
+                    <div class="col-md-6 text-left"><button id="btn_add_cart" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Cho vào đơn hàng</span><span class="lang-en">Add to cart</span></button></div>
+                    <div class="col-md-6 text-right"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
                 </div>
             </div>
             <div class="order-suggest form-group">
@@ -95,13 +94,14 @@
                         lastestpv = pv;
                         $('.active-by-check-product').removeProp("disabled");
                         $('#code').val(response.Code);
-                        $('#price').val(pv.Price);
+                        $('#price').val(accounting.formatMoney(pv.Price));
                         $('#quantity').val(response.Quantity);
-                        $('#total_amount').val(response.Quantity * pv.Price);
-                        if (response.ShipDate)
-                            $('#ship_date').val(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
-                        else
-                            $('#ship_date').val('Chưa xác định');
+                        $('#total_amount').val(accounting.formatMoney(response.Quantity * pv.Price));
+                        $('#ship_date').val(response.ShipDateNumber + ' ngày');
+                        //if (response.ShipDate)
+                        //    $('#ship_date').val(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
+                        //else
+                        //    $('#ship_date').val('Chưa xác định');
                     }
                     else {
                         BootstrapDialog.show({

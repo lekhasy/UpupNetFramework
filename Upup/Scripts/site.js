@@ -1,4 +1,4 @@
-'use strict'
+﻿'use strict'
 $(document).ready(function () {
     var $allCategoryLevel1 = $("dl.category-list-caption dd");
     $allCategoryLevel1.hover(function () {
@@ -32,3 +32,18 @@ $(document).ready(function () {
         $(this).next().removeClass('in').addClass('collapse');
     });
 });
+
+accounting.settings = {
+    currency: {
+        symbol: "VNĐ",   // default currency symbol is '$'
+        format: "%v%s", // controls output: %s = symbol, %v = value/number (can be object: see below)
+        decimal: ",",  // decimal point separator
+        thousand: ".",  // thousands separator
+        precision: 0   // decimal places
+    },
+    number: {
+        precision: 0,  // default precision on numbers is 0
+        thousand: ",",
+        decimal: "."
+    }
+}

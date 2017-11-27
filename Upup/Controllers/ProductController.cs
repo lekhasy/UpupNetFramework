@@ -41,16 +41,17 @@ namespace Upup.Controllers
             if (variant != null)
             {
                 var shipDate = variant.FindBestMatchShipDateByQuantity(quantity);
-                DateTime? shipdate = null;
+                int? shipdate = null;
                 Db.Entry(variant).State = EntityState.Detached;
-                if (shipDate != null) shipdate = DateTime.Now.AddDays(shipDate.TargetDateNumber);
+                if (shipDate != null)
+                    shipdate = shipDate.TargetDateNumber;
                 return new GetProductVariantModel
                 {
                     ResultValue = true,
                     Data = variant,
                     Code = code,
                     Quantity = quantity,
-                    ShipDate = shipdate
+                    ShipDateNumber = Convert.ToInt32(shipdate)
                 };
             }
             else
@@ -66,7 +67,7 @@ namespace Upup.Controllers
         {
             public long Quantity { get; set; }
             public string Code { get; set; }
-            public DateTime? ShipDate { get; set; }
+            public int ShipDateNumber { get; set; }
         }
     }
 }
