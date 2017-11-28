@@ -43,15 +43,14 @@ namespace Upup.Controllers
             var user = Db.Customers.Find(userId);
 
             var CustomerRole = Db.Roles.First(r => r.Name == "Admin");
-            var allAdmins = Db.Users.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id)).ToList();
+            //var allAdmins = Db.Users.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id)).ToList();
+            //foreach (var admin in allAdmins)
+            //{
+            //    UserManager.SendEmailAsync(admin.Id, $"có khách hàng {admin.FullName} cần báo giá", $"Họ tên: {user.FullName}, Điện thoại: {user.PhoneNumber}, Email:{user.Email}. Với chi tiết như sau </br>" + CreateEmailQuoteBody()).Wait();
+            //}
+
+            UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody()).Wait();
             CreatePO(code, name, true);
-
-            foreach (var admin in allAdmins)
-            {
-                UserManager.SendEmailAsync(admin.Id, $"có khách hàng {admin.FullName} cần báo giá", $"Họ tên: {user.FullName}, Điện thoại: {user.PhoneNumber}, Email:{user.Email}. Với chi tiết như sau </br>" + CreateEmailQuoteBody()).Wait();
-            }
-
-            UserManager.SendEmailAsync(user.Id, "Ghi nhận báo giá từ Upup", CreateEmailQuoteBody()).Wait();
             return RedirectToAction("Index");
         }
 
@@ -101,9 +100,9 @@ namespace Upup.Controllers
                     html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DeliveryDate + "</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "<td style = 'width:30%; text-align:center' > " + product.ProductPrice + " </td>";
+                    html += "<td style = 'width:30%; text-align:center' > " + product.ProductPrice.ToString("N0") + " </td>";
                     html += "<td style = 'width:20%; text-align:center' > " + product.Quantity + "";
-                    html += "<td style = 'width:45%; text-align:right' > " + product.TotalPrice + " </td>";
+                    html += "<td style = 'width:45%; text-align:right' > " + product.TotalPrice.ToString("N0") + " </td>";
                     html += "</tr > ";
                     totalPrice += product.TotalPrice;
                 }
@@ -129,8 +128,8 @@ namespace Upup.Controllers
             body = body.Replace("[PayAfterShip]", string.Empty);
             body = body.Replace("[Amount]", totalPrice.ToString("N0"));
             body = body.Replace("[VAT]", "10%");
-            body = body.Replace("[DeliveryFee]", "10000");
-            body = body.Replace("[TotalAmount]", (totalPrice - (totalPrice*10/100) - 10000).ToString("N0"));
+            body = body.Replace("[DeliveryFee]", "10,000");
+            body = body.Replace("[TotalAmount]", (totalPrice + (totalPrice*10/100) + 10000).ToString("N0"));
             body = body.Replace("[HtmlItemInGrid]", html);
             return body;
 		}

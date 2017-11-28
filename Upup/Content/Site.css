@@ -1244,3 +1244,9 @@ table.cart {
     color: red;
     font-weight: bold;
 }
+
+#addVariantModel label {
+    display: block;
+    line-height: 16pt;
+    margin-top: 12px;
+}
