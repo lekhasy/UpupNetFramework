@@ -130,7 +130,6 @@
 @section scripts{
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
     <script>
-
         $(function () {
             var lastestpv = null;
             $('#btn_check').click(function () {
@@ -240,7 +239,8 @@
             });
             $('#btn_add_po').click(function () {
                 $('#addToPOModal').modal().show();
-            });            
+                $table.ajax.reload();
+            });
         });
     </script>
 }

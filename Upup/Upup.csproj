@@ -285,6 +285,18 @@
     <Compile Include="Migrations\201711291532560_Add_Temp_Po_Name.Designer.cs">
       <DependentUpon>201711291532560_Add_Temp_Po_Name.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711291643182_Consolidate_Quantity.cs" />
+    <Compile Include="Migrations\201711291643182_Consolidate_Quantity.Designer.cs">
+      <DependentUpon>201711291643182_Consolidate_Quantity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711291645124_Consolidate_Quantity_For_PODetail.cs" />
+    <Compile Include="Migrations\201711291645124_Consolidate_Quantity_For_PODetail.Designer.cs">
+      <DependentUpon>201711291645124_Consolidate_Quantity_For_PODetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711291759297_Add_PO_CreatedDate.cs" />
+    <Compile Include="Migrations\201711291759297_Add_PO_CreatedDate.Designer.cs">
+      <DependentUpon>201711291759297_Add_PO_CreatedDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -1815,6 +1827,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711291532560_Add_Temp_Po_Name.resx">
       <DependentUpon>201711291532560_Add_Temp_Po_Name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711291643182_Consolidate_Quantity.resx">
+      <DependentUpon>201711291643182_Consolidate_Quantity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711291645124_Consolidate_Quantity_For_PODetail.resx">
+      <DependentUpon>201711291645124_Consolidate_Quantity_For_PODetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711291759297_Add_PO_CreatedDate.resx">
+      <DependentUpon>201711291759297_Add_PO_CreatedDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

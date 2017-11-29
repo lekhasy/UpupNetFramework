@@ -111,6 +111,13 @@
     <script src="~/Scripts/helpers/httpHelper.js" asp-append-version="true"></script>
     <!-- End of liblary scripts -->
     <script>
+        $(document).ready(function (e) {
+            if (!!window.performance && window.performance.navigation.type == 2) {
+                window.location.reload();
+            }
+        });
+    </script>
+    <script>
         $('#TextBoxId').keypress(function (e) {
             if (e.keyCode == 13)
                 $('#searchButton').click();

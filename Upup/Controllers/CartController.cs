@@ -26,7 +26,8 @@ namespace Upup.Controllers
         }
 
         [System.Web.Mvc.Authorize(Roles = "Customer")]
-        public ActionResult AddToOldPo(int chosenOldPoId, int productVariantCode, int productVariantQuantity)
+        [System.Web.Mvc.HttpPost]
+        public ActionResult AddToOldPo(int chosenOldPoId, string productVariantCode, long productVariantQuantity)
         {
             var userId = User.Identity.GetUserId();
 
@@ -38,14 +39,48 @@ namespace Upup.Controllers
                 return RedirectToAction("Index");
             }
 
-            // save this cart to temp PO
+            if (oldPo.State >= (int)PoState.Paid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            // save this cart to temp PO and delete all item in cart
+            // if the current cart is empty, createPo will return null
             var now = DateTime.Now;
-            new CommonPoLogic(Db).CreatePO(DateTime.Now.ToString("yyMMddhhmmss"), $"TempPO_{DateTime.Now.ToString("yyMMddhhmmss")}", true, User.Identity.GetUserId());
-            Db.SaveChanges();
+            var newTempPOName = string.IsNullOrEmpty(user.TempPoName) ? $"Temp_{DateTime.Now.ToString("yyMMddhhmmss")}" : user.TempPoName;
+            new CommonPoLogic(Db).CreatePO($"{DateTime.Now.ToString("yyMMddhhmmss")}", newTempPOName, true, User.Identity.GetUserId());
+
+            // move old po to cart
+            user.TempPoName = oldPo.Name;
+            var cartLogic = new CommonCartLogic(Db);
+            var addToCartSuccess = false;
+            foreach (var item in oldPo.PurchaseOrderDetails)
+            {
+                if (cartLogic.AddToCart(user, item.Product.VariantCode, (int)item.Quantity).ResultValue)
+                {
+                    addToCartSuccess = true;
+                }
+                else
+                {
+                    addToCartSuccess = false;
+                    break;
+                }
+            }
+
+            if (addToCartSuccess)
+                addToCartSuccess = cartLogic.AddToCart(user, productVariantCode, productVariantQuantity).ResultValue ? true : false;
+
+
+            // remove old PO
+            Db.PurchaseOrders.Remove(oldPo);
+
+            if (addToCartSuccess)
+                Db.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }
-
+    
     public class CartApiController : UpupApiControllerBase
     {
         public DataTableResponse<TableDataRow<ProductCartItemModel>> GetAllProductInCart()
@@ -95,7 +130,7 @@ namespace Upup.Controllers
 
             var customer = Db.Customers.Find(userId);
 
-            var addToCartResult = new CommonCartLogic(Db).AddToCart(customer, model.productVariantCode, (int)model.quantity);
+            var addToCartResult = new CommonCartLogic(Db).AddToCart(customer, model.productVariantCode, model.quantity);
 
             if (addToCartResult.ResultValue)
                 Db.SaveChanges();
@@ -149,7 +184,7 @@ namespace Upup.Controllers
             _db = Db;
         }
 
-        public AjaxSimpleResultModel AddToCart(Customer customer, string variantCode, int quantity)
+        public AjaxSimpleResultModel AddToCart(Customer customer, string variantCode, long quantity)
         {
             var variant = _db.ProductVariants.FirstOrDefault(pv => pv.VariantCode == variantCode);
             if (variant == null) return new AjaxSimpleResultModel

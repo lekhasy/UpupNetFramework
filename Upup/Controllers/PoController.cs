@@ -232,7 +232,7 @@ namespace Upup.Controllers
                         CompleteProgress = $"{po.CalculateCompleteShipping()}/{po.CalculateTotalDetail()}",
                         Ordered = po.State >= (int)PoState.Ordered,
                         Paid = po.State >= (int)PoState.Paid,
-                        CreatedDate = DateTime.Now
+                        CreatedDate = po.CreatedDate
                     }
                 );
             }
@@ -264,11 +264,17 @@ namespace Upup.Controllers
 
             var carts = customer.ProductCarts.ToList();
 
+            if (!carts.Any())
+            {
+                return null;
+            }
+
             PurchaseOrder po = new PurchaseOrder
             {
                 Code = code,
                 Name = name,
                 State = isTemp ? (int)PoState.Temp : (int)PoState.Ordered,
+                CreatedDate = DateTime.Now,
                 PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
                 {
                     Product = c.ProductVariant,
@@ -279,11 +285,11 @@ namespace Upup.Controllers
             };
 
             customer.PurchaseOrders.Add(po);
-
             customer.ProductCarts.Clear();
+            _db.ProductCarts.RemoveRange(carts);
+            customer.TempPoName = null;
             return po;
         }
-
 
     }
 
