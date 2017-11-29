@@ -45,12 +45,12 @@
                             <div class="form-group">
                                 @Html.LabelFor(n => n.Code)
                                 @Html.TextBoxFor(n => n.Code, new
-                                        {
-                                            @class = "form-control",
-                                            @placeholder = "Nhập mã Sản phẩm",
-                                            @required = "required",
-                                            @data_errormessage_value_missing = "Vui lòng điền mã Sản phẩm"
-                                        })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mã Sản phẩm",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền mã Sản phẩm"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.Name)
@@ -250,7 +250,7 @@
         }
     </ul>
 }
-    
+
 <div class="modal fade bs-example-modal-sm show-variants" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -843,28 +843,33 @@
                     });
                 }
             });
-
+        });
+    </script>
+    @if (Model.Variants.Count > 0)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
             var $table2 = $("#example2").DataTable({
-                "language": {
-                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                        "language": {
+                            "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
                     "search": "Tìm kiếm: ",
                     "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
                     "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
                     "infoEmpty": "Dữ liệu không tồn tại",
                     "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
                     "paginate": {
-                        "first": "Trang đầu",
+                                "first": "Trang đầu",
                         "last": "Trang cuối",
                         "previous": "Trang trước",
                         "next": "Trang sau"
                     }
-                },
+                        },
                 "serverSide": true,
                 "ajaxSource": "/Products/LoadAllProductVariants/" + @Model.Id,
                 "processing": true,
                 "columns": [
                     {
-                        "name": "Id",
+                    "name": "Id",
                         "class": "data-id"
                     },
                     { "name": "VariantName" },
@@ -875,7 +880,8 @@
                     { "name": "Origin" }
                 ]
             });
-        });
-    </script>
-}
+            });
+        </script>
+    }
 
+}
