@@ -1298,6 +1298,7 @@
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\base.js" />
     <Content Include="Scripts\bootstrap-dialog.js" />
+    <Content Include="Scripts\bootstrap-dropdown.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\civem-0.0.7.min.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
