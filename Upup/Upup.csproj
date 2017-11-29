@@ -281,6 +281,10 @@
     <Compile Include="Migrations\201711221611132_Move_Cad_To_Prod.Designer.cs">
       <DependentUpon>201711221611132_Move_Cad_To_Prod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711291532560_Add_Temp_Po_Name.cs" />
+    <Compile Include="Migrations\201711291532560_Add_Temp_Po_Name.Designer.cs">
+      <DependentUpon>201711291532560_Add_Temp_Po_Name.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -1808,6 +1812,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711221611132_Move_Cad_To_Prod.resx">
       <DependentUpon>201711221611132_Move_Cad_To_Prod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711291532560_Add_Temp_Po_Name.resx">
+      <DependentUpon>201711291532560_Add_Temp_Po_Name.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
