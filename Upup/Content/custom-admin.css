@@ -261,3 +261,8 @@ label.tree_label:after {
 .manage-setting .content-header > h1{
     line-height: 26pt;
 }
+
+.modal-body.edit .dataTables_filter label {
+    float: none;
+    width: auto;
+}
