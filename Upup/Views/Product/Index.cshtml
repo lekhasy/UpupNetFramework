@@ -21,8 +21,7 @@
                 <h1 class="pull-left uppercase">@Model.Name</h1>
                 <h3 class="pull-right"><a target="_blank" href="@Model.LinkGuide">HƯỚNG DẪN SỬ DỤNG</a></h3>
             </div>
-            <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@Model.PdfUrl" style="width:100%;height:1242px;">
-            </iframe>
+            <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@Model.PdfUrl" style="width:100%;height:1242px;"></iframe>
         </div>
         <div class="col-md-4">
             <div class="order-suggest form-group">
@@ -58,7 +57,16 @@
                     <div class="col-md-7"><input type="text" class="form-control text-right" disabled="disabled" id="ship_date" /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 text-left"><button id="btn_add_cart" class="btn btn-primary active-by-check-product" disabled><span class="lang-vi">Cho vào đơn hàng</span><span class="lang-en">Add to cart</span></button></div>
+                    <div class="col-md-6 text-left">
+                        <button id="btn_add_cart_dropdown" class="btn btn-primary active-by-check-product dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+                            <span class="lang-vi">Cho vào đơn hàng</span>
+                            <span class="lang-en">Add to cart</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="btn_add_cart_dropdown">
+                            <li><a href="javascript:void(0)" id="btn_add_cart">Đơn hàng hiện tại</a></li>
+                            <li><a href="javascript:void(0)" id="btn_add_po">Đơn hàng cũ</a></li>
+                        </ul>
+                    </div>
                     <div class="col-md-6 text-right"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
                 </div>
             </div>
@@ -81,7 +89,38 @@
     <div class="fb-comments" data-href="http://localhost/product/index/1" data-numposts="10"></div>
 </div>
 
+<div id="addToPOModal" class="modal fade bs-example-modal-sm modal-sm create-variant" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Chọn một đơn hàng cũ</h4>
+            </div>
+            <div class="modal-body edit">
+                <div class="panel-body">
+                    <form action="/Cart/AddToOldPo" method="post">
+                        <div class="form-group">
+                            <table id="choosePO" class="table table-bordered table-striped display">
+                                <thead>
+                                    <tr>
+                                        <th>Mã PO</th>
+                                        <th>Tên PO</th>
+                                        <th>Ngày tạo</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </form>
+                    <div class="text-right"><input type="submit" class="btn btn-danger" data-dismiss="modal" value="Hủy" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts{
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
     <script>
 
         $(function () {
@@ -138,6 +177,60 @@
                     }, 3000);
                     $.LoadingOverlay("hide");
                 });
+            });
+            var $table = $('#choosePO').DataTable({
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                    "search": "Tìm kiếm: ",
+                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
+                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
+                    "infoEmpty": "Dữ liệu không tồn tại",
+                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "last": "Trang cuối",
+                        "previous": "Trang trước",
+                        "next": "Trang sau"
+                    }
+                },
+                "autoWidth": false,
+                "ordering": false,
+                "serverSide": true,
+                "ajaxSource": "/api/PoApi/GetAllUnPaidPo",
+                "processing": true,
+                "searching": false,
+                "paging": false,
+                "info": false,
+                "columns": [
+                    { data: "DT_RowData.Code" },
+                    { data: "DT_RowData.Name" },
+                    {
+                        data: "DT_RowData.CreatedDate",
+                        render: function (data) {
+                            return new Date(Date.parse(data)).toLocaleDateString('vi');
+                        }
+                    },
+                    {
+                        data: "DT_RowData.DeliveryDate",
+                        'render': function (data, type, full, meta) {
+                            return '<input class="btn btn-primary btn-xs" type="submit" value="chọn"/>'
+                        }
+                    }
+                ],
+                "select": {
+                    "style": 'os',
+                    "selector": 'td:not(:last-child)' // no row selection on last column
+                },
+                "drawCallback": function (settings) {
+                    $(".tblcbx").click(function (cb) {
+                        $(this).closest('tr').data().Checked = cb.originalEvent.toElement.checked;
+                    });
+
+                }
+            });
+            $('#btn_add_po').click(function () {
+                $('#addToPOModal').modal().show();
+
             });
         });
     </script>

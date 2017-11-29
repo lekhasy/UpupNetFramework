@@ -231,4 +231,49 @@ namespace Upup.Controllers
         }
     }
 
+    public class PoApiController : UpupApiControllerBase
+    {
+        [System.Web.Http.HttpGet]
+        public DataTableResponse<TableDataRow<PoItemModel>> GetAllUnPaidPo()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var user = Db.Customers.Find(userId);
+
+            var allpo = user.PurchaseOrders.Where(p => p.State < (int)PoState.Paid).ToList();
+
+            int sequence = 0;
+            List<PoItemModel> poItems = new List<PoItemModel>();
+            foreach (var po in allpo)
+            {
+                poItems.Add(
+                    new PoItemModel
+                    {
+                        Code = po.Code,
+                        Id = po.Id,
+                        Name = po.Name,
+                        State = po.State,
+                        Sequence = ++sequence,
+                        ShipingProgress = $"{po.CalculateShipping()}/{po.CalculateTotalDetail()}",
+                        CompleteProgress = $"{po.CalculateCompleteShipping()}/{po.CalculateTotalDetail()}",
+                        Ordered = po.State >= (int)PoState.Ordered,
+                        Paid = po.State >= (int)PoState.Paid,
+                        CreatedDate = DateTime.Now
+                    }
+                );
+            }
+
+
+
+            var tablePoItem = poItems.Select(poi => new TableDataRow<PoItemModel> {
+                 DT_RowData = poi 
+            });
+
+            return new DataTableResponse<TableDataRow<PoItemModel>>
+            {
+                data = tablePoItem
+            };
+        }
+    }
+
 }
