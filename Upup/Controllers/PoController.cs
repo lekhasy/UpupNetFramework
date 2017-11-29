@@ -150,8 +150,9 @@ namespace Upup.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
             user.PurchaseOrders.Remove(po);
+            Db.PurchaseOrders.Remove(po);
             Db.SaveChanges();
 
             return RedirectToAction("Index");
