@@ -254,49 +254,9 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
-    <Compile Include="Migrations\201711120835488_InitialCreate.cs" />
-    <Compile Include="Migrations\201711120835488_InitialCreate.Designer.cs">
-      <DependentUpon>201711120835488_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711161349481_add_sumary_field.cs" />
-    <Compile Include="Migrations\201711161349481_add_sumary_field.Designer.cs">
-      <DependentUpon>201711161349481_add_sumary_field.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711190904156_replace_productId_by_nav_prop.cs" />
-    <Compile Include="Migrations\201711190904156_replace_productId_by_nav_prop.Designer.cs">
-      <DependentUpon>201711190904156_replace_productId_by_nav_prop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.cs" />
-    <Compile Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.Designer.cs">
-      <DependentUpon>201711191354244_Edit_Purchase_Order_And_PO_Detail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711191636561_Add_Identity_Field.cs" />
-    <Compile Include="Migrations\201711191636561_Add_Identity_Field.Designer.cs">
-      <DependentUpon>201711191636561_Add_Identity_Field.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711221506514_Add_LinkGuid_To_Product.cs" />
-    <Compile Include="Migrations\201711221506514_Add_LinkGuid_To_Product.Designer.cs">
-      <DependentUpon>201711221506514_Add_LinkGuid_To_Product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711221611132_Move_Cad_To_Prod.cs" />
-    <Compile Include="Migrations\201711221611132_Move_Cad_To_Prod.Designer.cs">
-      <DependentUpon>201711221611132_Move_Cad_To_Prod.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711291532560_Add_Temp_Po_Name.cs" />
-    <Compile Include="Migrations\201711291532560_Add_Temp_Po_Name.Designer.cs">
-      <DependentUpon>201711291532560_Add_Temp_Po_Name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711291643182_Consolidate_Quantity.cs" />
-    <Compile Include="Migrations\201711291643182_Consolidate_Quantity.Designer.cs">
-      <DependentUpon>201711291643182_Consolidate_Quantity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711291645124_Consolidate_Quantity_For_PODetail.cs" />
-    <Compile Include="Migrations\201711291645124_Consolidate_Quantity_For_PODetail.Designer.cs">
-      <DependentUpon>201711291645124_Consolidate_Quantity_For_PODetail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711291759297_Add_PO_CreatedDate.cs" />
-    <Compile Include="Migrations\201711291759297_Add_PO_CreatedDate.Designer.cs">
-      <DependentUpon>201711291759297_Add_PO_CreatedDate.cs</DependentUpon>
+    <Compile Include="Migrations\201712011534235_InitDb.cs" />
+    <Compile Include="Migrations\201712011534235_InitDb.Designer.cs">
+      <DependentUpon>201712011534235_InitDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
@@ -1810,38 +1770,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711120835488_InitialCreate.resx">
-      <DependentUpon>201711120835488_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711161349481_add_sumary_field.resx">
-      <DependentUpon>201711161349481_add_sumary_field.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711190904156_replace_productId_by_nav_prop.resx">
-      <DependentUpon>201711190904156_replace_productId_by_nav_prop.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711191354244_Edit_Purchase_Order_And_PO_Detail.resx">
-      <DependentUpon>201711191354244_Edit_Purchase_Order_And_PO_Detail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711191636561_Add_Identity_Field.resx">
-      <DependentUpon>201711191636561_Add_Identity_Field.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711221506514_Add_LinkGuid_To_Product.resx">
-      <DependentUpon>201711221506514_Add_LinkGuid_To_Product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711221611132_Move_Cad_To_Prod.resx">
-      <DependentUpon>201711221611132_Move_Cad_To_Prod.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711291532560_Add_Temp_Po_Name.resx">
-      <DependentUpon>201711291532560_Add_Temp_Po_Name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711291643182_Consolidate_Quantity.resx">
-      <DependentUpon>201711291643182_Consolidate_Quantity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711291645124_Consolidate_Quantity_For_PODetail.resx">
-      <DependentUpon>201711291645124_Consolidate_Quantity_For_PODetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711291759297_Add_PO_CreatedDate.resx">
-      <DependentUpon>201711291759297_Add_PO_CreatedDate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712011534235_InitDb.resx">
+      <DependentUpon>201712011534235_InitDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

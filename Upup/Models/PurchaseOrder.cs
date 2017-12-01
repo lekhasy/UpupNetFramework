@@ -31,7 +31,7 @@ namespace Upup.Models
 
 
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
-        public virtual ApplicationUser Customer { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 
     public enum PoState

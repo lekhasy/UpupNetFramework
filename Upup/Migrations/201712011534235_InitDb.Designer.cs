@@ -7,13 +7,13 @@ namespace Upup.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Consolidate_Quantity : IMigrationMetadata
+    public sealed partial class InitDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Consolidate_Quantity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711291643182_Consolidate_Quantity"; }
+            get { return "201712011534235_InitDb"; }
         }
         
         string IMigrationMetadata.Source
