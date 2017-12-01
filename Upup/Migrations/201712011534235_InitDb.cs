@@ -3,7 +3,7 @@ namespace Upup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class InitDb : DbMigration
     {
         public override void Up()
         {
@@ -49,6 +49,9 @@ namespace Upup.Migrations
                         Summary_en = c.String(),
                         ImageUrl = c.String(),
                         PdfUrl = c.String(),
+                        LinkGuide = c.String(),
+                        Cad2dUrl = c.String(),
+                        Cad3dUrl = c.String(),
                         MetaKeyword = c.String(),
                         MetaDescription = c.String(),
                         MetaKeyword_en = c.String(),
@@ -64,47 +67,42 @@ namespace Upup.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        ProductId = c.Long(nullable: false),
                         VariantName = c.String(),
                         VariantCode = c.String(),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OnHand = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Cad2dUrl = c.String(),
-                        Cad3dUrl = c.String(),
                         BrandName = c.String(),
                         Origin = c.String(),
+                        Product_Id = c.Long(),
                         ProductVariantUnit_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Products", t => t.Product_Id)
                 .ForeignKey("dbo.ProductVariantUnits", t => t.ProductVariantUnit_Id)
-                .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
-                .Index(t => t.ProductId)
+                .Index(t => t.Product_Id)
                 .Index(t => t.ProductVariantUnit_Id);
             
             CreateTable(
-                "dbo.ProductVariantUnits",
+                "dbo.ProductCarts",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(),
+                        Quantity = c.Long(nullable: false),
+                        Customer_Id = c.String(maxLength: 128),
+                        ProductVariant_Id = c.Long(),
                     })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.ShipDateSettings",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        QuantityOrderMax = c.Int(nullable: false),
-                        TargetDateNumber = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Customer_Id)
+                .ForeignKey("dbo.ProductVariants", t => t.ProductVariant_Id)
+                .Index(t => t.Customer_Id)
+                .Index(t => t.ProductVariant_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        AutoIncrementCode = c.Int(nullable: false, identity: true),
                         FullName = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -117,6 +115,7 @@ namespace Upup.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
+                        TempPoName = c.String(),
                         OrgName = c.String(),
                         DepartmentName = c.String(),
                         Address1 = c.String(),
@@ -169,15 +168,29 @@ namespace Upup.Migrations
                         Code = c.String(),
                         Name = c.String(),
                         State = c.Int(nullable: false),
-                        ReceiveDate = c.DateTime(),
+                        CreatedDate = c.DateTime(nullable: false),
                         Customer_Id = c.String(maxLength: 128),
-                        Customer_Id1 = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.Customer_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.Customer_Id1)
-                .Index(t => t.Customer_Id)
-                .Index(t => t.Customer_Id1);
+                .Index(t => t.Customer_Id);
+            
+            CreateTable(
+                "dbo.PurchaseOrderDetails",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Quantity = c.Long(nullable: false),
+                        ShipDate = c.DateTime(),
+                        State = c.Int(nullable: false),
+                        Product_Id = c.Long(),
+                        PurchaseOrder_Id = c.Long(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ProductVariants", t => t.Product_Id)
+                .ForeignKey("dbo.PurchaseOrders", t => t.PurchaseOrder_Id)
+                .Index(t => t.Product_Id)
+                .Index(t => t.PurchaseOrder_Id);
             
             CreateTable(
                 "dbo.AspNetUserRoles",
@@ -187,16 +200,36 @@ namespace Upup.Migrations
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.ProductVariantUnits",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.ShipDateSettings",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        QuantityOrderMax = c.Int(nullable: false),
+                        TargetDateNumber = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.PostCategories",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
+                        RootCategoryIdentifier = c.Int(),
                         Name = c.String(),
                         Name_en = c.String(),
                         Description = c.String(),
@@ -220,6 +253,8 @@ namespace Upup.Migrations
                         Title_en = c.String(),
                         Content = c.String(),
                         Content_en = c.String(),
+                        Sumary = c.String(),
+                        Sumary_en = c.String(),
                         MetaKeyword = c.String(),
                         MetaDescription = c.String(),
                         MetaKeyword_en = c.String(),
@@ -231,21 +266,6 @@ namespace Upup.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.PostCategories", t => t.Category_Id)
                 .Index(t => t.Category_Id);
-            
-            CreateTable(
-                "dbo.PurchaseOrderDetails",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Quantity = c.Double(nullable: false),
-                        Product_Id = c.Long(),
-                        PurchaseOrder_Id = c.Long(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.ProductVariants", t => t.Product_Id)
-                .ForeignKey("dbo.PurchaseOrders", t => t.PurchaseOrder_Id)
-                .Index(t => t.Product_Id)
-                .Index(t => t.PurchaseOrder_Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -274,52 +294,55 @@ namespace Upup.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.PurchaseOrderDetails", "PurchaseOrder_Id", "dbo.PurchaseOrders");
-            DropForeignKey("dbo.PurchaseOrderDetails", "Product_Id", "dbo.ProductVariants");
-            DropForeignKey("dbo.Posts", "Category_Id", "dbo.PostCategories");
-            DropForeignKey("dbo.PostCategories", "ParentCategory_Id", "dbo.PostCategories");
-            DropForeignKey("dbo.PurchaseOrders", "Customer_Id1", "dbo.AspNetUsers");
-            DropForeignKey("dbo.PurchaseOrders", "Customer_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.ProductVariants", "ProductId", "dbo.Products");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Posts", "Category_Id", "dbo.PostCategories");
+            DropForeignKey("dbo.PostCategories", "ParentCategory_Id", "dbo.PostCategories");
             DropForeignKey("dbo.ShipDateSettingProductVariants", "ProductVariant_Id", "dbo.ProductVariants");
             DropForeignKey("dbo.ShipDateSettingProductVariants", "ShipDateSetting_Id", "dbo.ShipDateSettings");
             DropForeignKey("dbo.ProductVariants", "ProductVariantUnit_Id", "dbo.ProductVariantUnits");
+            DropForeignKey("dbo.ProductCarts", "ProductVariant_Id", "dbo.ProductVariants");
+            DropForeignKey("dbo.PurchaseOrderDetails", "PurchaseOrder_Id", "dbo.PurchaseOrders");
+            DropForeignKey("dbo.PurchaseOrderDetails", "Product_Id", "dbo.ProductVariants");
+            DropForeignKey("dbo.PurchaseOrders", "Customer_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ProductCarts", "Customer_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ProductVariants", "Product_Id", "dbo.Products");
             DropForeignKey("dbo.Products", "Category_Id", "dbo.Categories");
             DropForeignKey("dbo.Categories", "ParentCategory_Id", "dbo.Categories");
             DropIndex("dbo.ShipDateSettingProductVariants", new[] { "ProductVariant_Id" });
             DropIndex("dbo.ShipDateSettingProductVariants", new[] { "ShipDateSetting_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.PurchaseOrderDetails", new[] { "PurchaseOrder_Id" });
-            DropIndex("dbo.PurchaseOrderDetails", new[] { "Product_Id" });
             DropIndex("dbo.Posts", new[] { "Category_Id" });
             DropIndex("dbo.PostCategories", new[] { "ParentCategory_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.PurchaseOrders", new[] { "Customer_Id1" });
+            DropIndex("dbo.PurchaseOrderDetails", new[] { "PurchaseOrder_Id" });
+            DropIndex("dbo.PurchaseOrderDetails", new[] { "Product_Id" });
             DropIndex("dbo.PurchaseOrders", new[] { "Customer_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.ProductCarts", new[] { "ProductVariant_Id" });
+            DropIndex("dbo.ProductCarts", new[] { "Customer_Id" });
             DropIndex("dbo.ProductVariants", new[] { "ProductVariantUnit_Id" });
-            DropIndex("dbo.ProductVariants", new[] { "ProductId" });
+            DropIndex("dbo.ProductVariants", new[] { "Product_Id" });
             DropIndex("dbo.Products", new[] { "Category_Id" });
             DropIndex("dbo.Categories", new[] { "ParentCategory_Id" });
             DropTable("dbo.ShipDateSettingProductVariants");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.PurchaseOrderDetails");
             DropTable("dbo.Posts");
             DropTable("dbo.PostCategories");
+            DropTable("dbo.ShipDateSettings");
+            DropTable("dbo.ProductVariantUnits");
             DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.PurchaseOrderDetails");
             DropTable("dbo.PurchaseOrders");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.ShipDateSettings");
-            DropTable("dbo.ProductVariantUnits");
+            DropTable("dbo.ProductCarts");
             DropTable("dbo.ProductVariants");
             DropTable("dbo.Products");
             DropTable("dbo.Categories");
