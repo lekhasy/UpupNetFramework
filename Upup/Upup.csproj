@@ -214,6 +214,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductVariantUnitsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PurchaseOrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShipDateSettingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
@@ -1676,6 +1677,11 @@
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\locale\zu\viewer.properties" />
     <Content Include="bower_components\pdfjs-1.9.426-dist\web\viewer.js.map" />
     <Content Include="Areas\Admin\Views\Settings\ManageSettings.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrders\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrders\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
