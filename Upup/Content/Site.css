@@ -1120,6 +1120,7 @@ form[name="registration"] .col-lg-6 {
 
 #productDetail .order-suggest .col-md-6 .btn {
     font-size: 10pt;
+    margin-bottom: 0;
 }
 
 #productDetail h1, #productDetail h3 {
@@ -1176,7 +1177,7 @@ table.cart {
         color: #333;
     }
 
-#cart .dataTable {
+#cart .dataTable, #addToPOModal .dataTable {
     width: 100%;
     overflow: hidden;
     background: #FFF;
@@ -1185,15 +1186,15 @@ table.cart {
     border: 1px solid #167F92;
 }
 
-    #cart .dataTable tr {
+    #cart .dataTable tr, #addToPOModal .dataTable tr {
         border: 1px solid #D9E4E6;
     }
 
-        #cart .dataTable tr:nth-child(odd) {
+        #cart .dataTable tr:nth-child(odd), #addToPOModal .dataTable tr:nth-child(odd) {
             background-color: #EAF3F3;
         }
 
-    #cart .dataTable th {
+    #cart .dataTable th, #addToPOModal .dataTable th {
         border: 1px solid #FFF;
         background-color: #167F92;
         color: #FFF;
@@ -1203,16 +1204,16 @@ table.cart {
         vertical-align: middle;
     }
 
-        #cart .dataTable th:after {
+        #cart .dataTable th:after, #addToPOModal .dataTable th:after {
             opacity: 1;
         }
 
-        #cart .dataTable th.check-all {
+        #cart .dataTable th.check-all, #addToPOModal .dataTable th.check-all {
             padding-left: 24px;
             padding-right: 20px;
         }
 
-    #cart .dataTable td {
+    #cart .dataTable td, #addToPOModal .dataTable td {
         padding: 8px;
         line-height: 1.628571429;
         padding-right: 30px;

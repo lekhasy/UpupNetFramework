@@ -14,6 +14,11 @@ namespace Upup.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult ManagePO()
+        {
+            return View();
+        }
+
         // GET: Admin/PurchaseOrders
         public ActionResult Index()
         {

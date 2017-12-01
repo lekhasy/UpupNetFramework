@@ -146,10 +146,11 @@ namespace Upup.Controllers
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
-            if (po == null || po.State >= (int)PoState.Paid)
+            if (po == null || (po.State != (int)PoState.Temp && po.State != (int)PoState.Completed))
             {
                 return RedirectToAction("Index");
             }
+
             Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
             user.PurchaseOrders.Remove(po);
             Db.PurchaseOrders.Remove(po);

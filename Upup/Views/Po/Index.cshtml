@@ -63,7 +63,7 @@
                             @if (po.Removable)
                             {
                                 <form method="post" action="/Po/Delete/@po.Id" style="display: inline-block" >
-                                    <button class="act-del btn btn-danger btn-xs @((po.State == 1 || po.State == 5) ? "disabled" : string.Empty)" type="button">Xóa</button>
+                                    <button class="act-del btn btn-danger btn-xs @((po.State == 1 || po.State == 5) ? string.Empty :  "disabled")" type="button">Xóa</button>
                                 </form>
                             }
                         </td>

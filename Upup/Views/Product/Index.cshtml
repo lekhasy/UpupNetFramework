@@ -94,7 +94,7 @@
     <div class="fb-comments" data-href="http://localhost/product/index/1" data-numposts="10"></div>
 </div>
 
-<div id="addToPOModal" class="modal fade bs-example-modal-sm modal-sm create-variant" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div id="addToPOModal" class="modal fade bs-example-modal-sm modal-sm bootstrap-dialog type-primary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -114,6 +114,7 @@
                                         <th>Mã PO</th>
                                         <th>Tên PO</th>
                                         <th>Ngày tạo</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -220,7 +221,7 @@
                     {
                         data: "DT_RowData.DeliveryDate",
                         'render': function (data, type, full, meta) {
-                            return '<input class="btn btn-primary btn-xs act-switch-old-po" type="submit" value="chọn"/>'
+                            return '<input class="btn btn-primary btn-xs act-switch-old-po" type="submit" value="Chọn"/>'
                         }
                     }
                 ],

@@ -1658,6 +1658,7 @@
     <Content Include="Areas\Admin\Views\PurchaseOrders\Details.cshtml" />
     <Content Include="Areas\Admin\Views\PurchaseOrders\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\PurchaseOrders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrders\ManagePO.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
