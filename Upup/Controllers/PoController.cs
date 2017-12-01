@@ -24,14 +24,16 @@ namespace Upup.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult SavePO(string code, string name)
         {
-            CreatePO(code, name, true);
+            new  CommonPoLogic(Db).CreatePO(code, name, true,  User.Identity.GetUserId());
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         [System.Web.Mvc.HttpPost]
         public ActionResult Order(string code, string name)
         {
-            CreatePO(code, name, false);
+            new CommonPoLogic(Db).CreatePO(code, name, false, User.Identity.GetUserId());
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -42,7 +44,7 @@ namespace Upup.Controllers
 
             var user = Db.Customers.Find(userId);
 
-            var CustomerRole = Db.Roles.First(r => r.Name == "Admin");
+            //var CustomerRole = Db.Roles.First(r => r.Name == "Admin");
             //var allAdmins = Db.Users.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id)).ToList();
             //foreach (var admin in allAdmins)
             //{
@@ -50,7 +52,8 @@ namespace Upup.Controllers
             //}
 
             UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody()).Wait();
-            CreatePO(code, name, true);
+            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId());
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -147,8 +150,9 @@ namespace Upup.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
             user.PurchaseOrders.Remove(po);
+            Db.PurchaseOrders.Remove(po);
             Db.SaveChanges();
 
             return RedirectToAction("Index");
@@ -166,36 +170,7 @@ namespace Upup.Controllers
             return View(po);
         }
 
-        private PurchaseOrder CreatePO(string code, string name, bool isTemp)
-        {
-            var userId = User.Identity.GetUserId();
-
-            var user = Db.Customers.Find(userId);
-
-            var carts = user.ProductCarts.ToList();
-
-            PurchaseOrder po = new PurchaseOrder
-            {
-                Code = code,
-                Name = name,
-                State = isTemp ? (int)PoState.Temp : (int)PoState.Ordered,
-                PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
-                {
-                    Product = c.ProductVariant,
-                    Quantity = c.Quantity,
-                    ShipDate = c.CalculateShipDate(),
-                    State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered
-                }).ToList()
-            };
-
-            user.PurchaseOrders.Add(po);
-
-            user.ProductCarts.Clear();
-
-            Db.SaveChanges();
-            return po;
-        }
-
+        
         
 
         public IEnumerable<PoItemModel> GetAllPo()
@@ -228,6 +203,94 @@ namespace Upup.Controllers
 
             return poItems;
         }
+    }
+
+    public class PoApiController : UpupApiControllerBase
+    {
+        [System.Web.Http.HttpGet]
+        public DataTableResponse<TableDataRow<PoItemModel>> GetAllUnPaidPo()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var user = Db.Customers.Find(userId);
+
+            var allpo = user.PurchaseOrders.Where(p => p.State < (int)PoState.Paid).ToList();
+
+            int sequence = 0;
+            List<PoItemModel> poItems = new List<PoItemModel>();
+            foreach (var po in allpo)
+            {
+                poItems.Add(
+                    new PoItemModel
+                    {
+                        Code = po.Code,
+                        Id = po.Id,
+                        Name = po.Name,
+                        State = po.State,
+                        Sequence = ++sequence,
+                        ShipingProgress = $"{po.CalculateShipping()}/{po.CalculateTotalDetail()}",
+                        CompleteProgress = $"{po.CalculateCompleteShipping()}/{po.CalculateTotalDetail()}",
+                        Ordered = po.State >= (int)PoState.Ordered,
+                        Paid = po.State >= (int)PoState.Paid,
+                        CreatedDate = po.CreatedDate
+                    }
+                );
+            }
+
+
+
+            var tablePoItem = poItems.Select(poi => new TableDataRow<PoItemModel> {
+                 DT_RowData = poi 
+            });
+
+            return new DataTableResponse<TableDataRow<PoItemModel>>
+            {
+                data = tablePoItem
+            };
+        }
+    }
+
+    public class CommonPoLogic
+    {
+        ApplicationDbContext _db;
+        public CommonPoLogic(ApplicationDbContext Db)
+        {
+            _db = Db;
+        }
+
+        public PurchaseOrder CreatePO(string code, string name, bool isTemp, string customerId)
+        {
+            var customer = _db.Customers.Find(customerId);
+
+            var carts = customer.ProductCarts.ToList();
+
+            if (!carts.Any())
+            {
+                return null;
+            }
+
+            PurchaseOrder po = new PurchaseOrder
+            {
+                Code = code,
+                Name = name,
+                State = isTemp ? (int)PoState.Temp : (int)PoState.Ordered,
+                CreatedDate = DateTime.Now,
+                PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
+                {
+                    Product = c.ProductVariant,
+                    Quantity = c.Quantity,
+                    ShipDate = c.CalculateShipDate(),
+                    State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered
+                }).ToList()
+            };
+
+            customer.PurchaseOrders.Add(po);
+            customer.ProductCarts.Clear();
+            _db.ProductCarts.RemoveRange(carts);
+            customer.TempPoName = null;
+            return po;
+        }
+
     }
 
 }

@@ -8,6 +8,7 @@ namespace Upup.Models
 {
     public class Customer : ApplicationUser
     {
+        public string TempPoName { get; set; }
         [NotMapped]
         public string Code => "KH" + AutoIncrementCode.ToString();
         public string OrgName { get; set; }

@@ -11,6 +11,7 @@ namespace Upup.Models
         public string Code { get; set; }
         public string Name { get; set; }
         public int State { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public int CalculateCompleteShipping()
         {

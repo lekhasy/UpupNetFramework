@@ -9,7 +9,7 @@ namespace Upup.Models
     public class ProductCart
     {
         public long Id { get; set; }
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         public virtual Customer Customer { get; set; }
         public virtual ProductVariant ProductVariant { get; set; }
