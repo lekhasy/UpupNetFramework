@@ -3,41 +3,286 @@
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var now = DateTime.Now;
 }
 
 
 
-<div>
-    <h2>Chi tiết PO</h2>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Code)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Code)
-        </dd>
+<div id="cart">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <h2>Giỏ hàng</h2>
+    <table class="cart">
+        <tbody>
+            <tr>
+                <td><label>Tên PO</label></td>
+                <td class="large">
+                    <input type="text" id="poname" class="form-control" value="@Model.Name" />
+                </td>
+                <td><label>Mã khách hàng</label></td>
+                <td class="small"><div id="customerCode">@Model.Code</div></td>
+            </tr>
+            <tr>
+                <td><label>Tên khách hàng</label></td>
+                <td class="large"><div id="customerName">@Model.Customer.FullName</div></td>
+                <td><label>Mã PO</label></td>
+                <td class="small"><div id="PoCode">@now.ToString("yyMMddhhmmss")</div></td>
+            </tr>
+            <tr>
+                <td><label>Địa chỉ</label></td>
+                <td class="large"><div id="customerAddress">@Model.Customer.Address1</div></td>
+                <td colspan="2" rowspan="4"><label>Barcode</label></td>
+            </tr>
+            <tr>
+                <td><label>Số điện thoại</label></td>
+                <td class="large"><div id="customerPhone">@Model.Customer.PhoneNumber</div></td>
+            </tr>
+            <tr>
+                <td><label>Email</label></td>
+                <td class="large"><div id="customerEmail">@Model.Customer.Email</div></td>
+            </tr>
+            <tr>
+                <td><label>Website</label></td>
+                <td class="large"><div id="customerWebsite">@Model.Customer.Webiste</div></td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Thông tin sản phẩm</h2>
+    <div class="area-button">
+        <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
+        <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
+    </div>
+    <table id="example1" class="table table-bordered table-striped display">
+        <thead>
+            <tr>
+                <th class="check-all"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+                <th>Stt</th>
+                <th>Mã sản phẩm</th>
+                <th>Mã biến thể</th>
+                <th>Số lượng</th>
+                <th>Đơn vị</th>
+                <th>Tên sản phẩm</th>
+                <th>Tên biến thể</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+                <th>Ngày giao</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="area-button row">
+        <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
+        <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
+    </div>
+    <div class="area-button text-center">
+        <form action="/Po/Order" method="post" class="prevent-if-name-empty">
+            <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
+            <input type="submit" class="btn btn-primary" value="Đặt hàng">
+        </form>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
+    <div id="addVariantModel" class="modal fade bs-example-modal-sm modal-sm bootstrap-dialog type-primary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 id="myLargeModalLabel" class="modal-title">Thêm sản phẩm vào giỏ hàng</h4>
+                </div>
+                <div class="modal-body edit">
+                    <div class="form-group">
+                        <div>
+                            <label>Mã biến thể:</label>
+                            <input class="form-control" id="variant-code" type="text" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng nhập mã biến thể" />
+                        </div>
+                        <div>
+                            <label>Số lượng:</label>
+                            <input class="form-control" id="variant-quantity" min="1" value="1" type="number" placeholder="Nhập mã biến thể" required data-errormessage-value-missing="Vui lòng nhập mã biến thể" />
+                        </div>
+                    </div>
+                    <div class="text-right"><input id="addProductVariantToCart" type="submit" class="btn btn-primary" value="Chấp nhận" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
-    @Html.ActionLink("Quay lại danh sách PO", "Index", null, new { @class = "btn btn-primary" })
-</p>
+
+@section scripts{
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.prevent-if-name-empty').submit(function (e) {
+
+                if (($('#poname').val() || '').trim() == '') {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Không thể hoàn thành tác vụ',
+                        message: 'Vui lòng điền tên PO'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+
+                if ($('.data-marker').length == 0) {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: 'Không thể hoàn thành tác vụ',
+                        message: 'Vui lòng thêm sản phẩm vào giỏ hàng'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+            });
+
+
+            $('#poname').on('input', function (e) {
+                $('.clone_po_name').val($('#poname').val());
+            });
+
+            var $table = $("#example1").DataTable({
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
+                    "search": "Tìm kiếm: ",
+                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
+                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
+                    "infoEmpty": "Dữ liệu không tồn tại",
+                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "last": "Trang cuối",
+                        "previous": "Trang trước",
+                        "next": "Trang sau"
+                    }
+                },
+                "autoWidth": false,
+                "ordering": false,
+                "serverSide": true,
+                "ajaxSource": "/api/CartApi/GetAllProductInCart",
+                "processing": true,
+                "searching": false,
+                "paging": false,
+                "info": false,
+                "columns": [
+                    {
+                        data: "DT_RowData.Checked",
+                        targets: 0,
+                        className: 'dt-body-center',
+                        render: function (data, type, full, meta) {
+                            return '<input type="checkbox" class="tblcbx data-marker"/>';
+                        }
+                    },
+                    { data: "DT_RowData.Sequence" },
+                    { data: "DT_RowData.ProductCode" },
+                    { data: "DT_RowData.ProductVariantCode" },
+                    { data: "DT_RowData.Quantity" },
+                    { data: "DT_RowData.UnitName" },
+                    { data: "DT_RowData.ProductName" },
+                    { data: "DT_RowData.ProductVariantName" },
+                    { data: "DT_RowData.ProductPrice" },
+                    { data: "DT_RowData.TotalPrice" },
+                    {
+                        data: "DT_RowData.DeliveryDate",
+                        'render': function (data, type, full, meta) {
+                            if (data) {
+                                return new Date(Date.parse(data)).toLocaleDateString('vi');
+                            }
+                            else {
+                                return "Chưa xác định"
+                            }
+                        }
+                    }
+                ],
+                "select": {
+                    "style": 'os',
+                    "selector": 'td:not(:last-child)' // no row selection on last column
+                },
+                "drawCallback": function (settings) {
+                    $(".tblcbx").click(function (cb) {
+                        $(this).closest('tr').data().Checked = cb.originalEvent.toElement.checked;
+                    });
+
+                }
+            });
+
+            // Handle click on "Select all" control
+            $('#example-select-all').on('click', function () {
+                // Get all rows with search applied
+                var rows = $table.rows({ 'search': 'applied' }).nodes();
+                // Check/uncheck checkboxes for all rows in the table
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            $(".act-del").click(function () {
+                BootstrapDialog.confirm({
+                    title: 'Tin nhắn',
+                    message: 'Bạn thật sự muốn xóa những phiếu này ?',
+                    //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                    closable: true, // <-- Default value is false
+                    draggable: true, // <-- Default value is false
+                    btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                    btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                    //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                    callback: function (result) {
+                        // result will be true if button was click, while it will be false if users close the dialog directly.
+                        if (result) {
+                            var allIds = [];
+                            $("#example1").children('tbody').children('tr').each((function (index, tr) {
+                                if ($(tr).data().Checked) {
+                                    allIds.push($(tr).data().Id);
+                                }
+                            }));
+                            $.post('/api/CartApi/RemoveItems', { ids: allIds },
+                                function (data) {
+                                    if (data.ResultValue) {
+                                        BootstrapDialog.show({
+                                            type: BootstrapDialog.TYPE_SUCCESS,
+                                            title: 'Thành công',
+                                            message: data.Message
+                                        });
+                                    } else {
+                                        BootstrapDialog.show({
+                                            type: BootstrapDialog.TYPE_DANGER,
+                                            title: 'Thất bại',
+                                            message: data.Message
+                                        });
+                                    }
+                                    $table.ajax.reload();
+                                    setTimeout(function () {
+                                        BootstrapDialog.closeAll();
+                                    }, 3000);
+                                }
+                            );
+                        }
+                    }
+                });
+            });
+
+            $('.act-add').click(function () {
+                $('#addVariantModel').modal().show();
+            });
+
+            $('#addProductVariantToCart').click(function () {
+                $.post("/api/CartApi/Add", { productVariantCode: $('#variant-code').val(), quantity: parseInt($("#variant-quantity").val()) }, function (response) {
+                    if (response.ResultValue) {
+                        $('#variant-code').val('');
+                        $("#variant-quantity").val(1);
+                        $table.ajax.reload();
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_SUCCESS,
+                            title: 'Thành công',
+                            message: response.Message
+                        });
+                    }
+                    else {
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_DANGER,
+                            title: 'Thất bại',
+                            message: response.Message
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

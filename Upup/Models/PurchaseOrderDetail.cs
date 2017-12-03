@@ -4,10 +4,17 @@ namespace Upup.Models
 {
     public class PurchaseOrderDetail
     {
+        public PurchaseOrderDetail()
+        {
+
+        }
         public long Id { get; set; }
         public long Quantity { get; set; }
         public DateTime? ShipDate { get; set; }
+        public decimal Price { get; set; }
+        public decimal TotalAmount { get; set; }
         public int State { get; set; }
+        public decimal GetCalculatedTotalAmount() => PurchaseOrder.IsTemp ? Product.Price * Quantity : TotalAmount;
         public virtual ProductVariant Product { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }
     }

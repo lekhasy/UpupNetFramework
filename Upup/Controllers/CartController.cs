@@ -34,12 +34,7 @@ namespace Upup.Controllers
             var user = Db.Customers.Find(userId);
 
             var oldPo = user.PurchaseOrders.FirstOrDefault(p => p.Id == chosenOldPoId);
-            if (oldPo == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            if (oldPo.State >= (int)PoState.Paid)
+            if (oldPo == null || !oldPo.IsTemp)
             {
                 return RedirectToAction("Index");
             }
