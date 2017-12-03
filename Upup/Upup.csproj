@@ -224,6 +224,7 @@
     <Compile Include="Areas\Admin\ViewModels\PostModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\CustomerModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\PurchaseOrderDetailModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\SettingModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ShipDateSettingModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\ProductVariantUnitModel.cs" />
@@ -1262,6 +1263,7 @@
     <Content Include="Images\banners\poster1.jpg" />
     <Content Include="Images\icons\calendar-icon.png" />
     <Content Include="Images\icons\pdf-icon.png" />
+    <Content Include="Images\icons\sign-delete-icon.png" />
     <Content Include="Images\icons\support-icon.png" />
     <Content Include="Images\icons\tech-icon.png" />
     <Content Include="Images\icons\tool-icon.png" />

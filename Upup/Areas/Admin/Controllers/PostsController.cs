@@ -166,10 +166,9 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult LoadAllPosts(JQueryDataTableParamModel param)
         {
             var allPosts = db.Posts.ToList();
-            List<Post> afterFound = new List<Post>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = db.Posts.ToList()
+                allPosts = db.Posts.ToList()
                          .Where(c => c.Title.Contains(param.sSearch)
                                      ||
                           c.Title_en.Contains(param.sSearch)).ToList();

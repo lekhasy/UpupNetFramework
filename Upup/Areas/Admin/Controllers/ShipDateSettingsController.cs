@@ -91,10 +91,9 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult LoadAllShipDateSettings(JQueryDataTableParamModel param)
         {
             var allShipDateSettings = Db.ShipDateSettings.ToList();
-            List<ShipDateSetting> afterFound = new List<ShipDateSetting>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = Db.ShipDateSettings.ToList()
+                allShipDateSettings = Db.ShipDateSettings.ToList()
                          .Where(c => c.QuantityOrderMax.ToString(CultureInfo.InvariantCulture).Contains(param.sSearch)).ToList();
             }
             var filteredShipDateSettings = allShipDateSettings.Skip(param.iDisplayStart)

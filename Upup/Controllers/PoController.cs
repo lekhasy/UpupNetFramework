@@ -7,6 +7,7 @@ using Upup.Utils;
 using System.IO;
 using System;
 using Upup.ViewModels;
+using System.Data.Entity;
 
 namespace Upup.Controllers
 {
@@ -151,9 +152,11 @@ namespace Upup.Controllers
                 return RedirectToAction("Index");
             }
 
-            Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
-            user.PurchaseOrders.Remove(po);
-            Db.PurchaseOrders.Remove(po);
+            //Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
+            //user.PurchaseOrders.Remove(po);
+            po.IsDeleted = true;
+            Db.Entry(po).State = EntityState.Modified;
+            //Db.PurchaseOrders.Remove(po);
             Db.SaveChanges();
 
             return RedirectToAction("Index");
@@ -275,6 +278,8 @@ namespace Upup.Controllers
                 Code = code,
                 Name = name,
                 State = isTemp ? (int)PoState.Temp : (int)PoState.Ordered,
+                IsDeleted = false,
+                TotalAmount = carts.Sum(c => (c.ProductVariant.Price * c.Quantity)),
                 CreatedDate = DateTime.Now,
                 PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
                 {

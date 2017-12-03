@@ -47,3 +47,15 @@ accounting.settings = {
         decimal: "."
     }
 }
+
+var poState = {
+    1: { Name: "Đơn hàng tạm" },
+    2: { Name: "Đã đặt hàng" },
+    3: { Name: "Đã thanh toán" },
+    4: { Name: "Đã hoàn thành" },
+    5: { Name: "Đã hủy bỏ" },
+};
+
+function GetPoStateByCode(code) {
+    return poState[code].Name;
+}

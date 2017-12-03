@@ -399,6 +399,18 @@ $(document).ready(function () {
     });
 });
 
+var poState = {
+    1: { Name: "Đơn hàng tạm" },
+    2: { Name: "Đã đặt hàng" },
+    3: { Name: "Đã thanh toán" },
+    4: { Name: "Đã hoàn thành" },
+    5: { Name: "Đã hủy bỏ" },
+};
+
+function GetPoStateByCode(code) {
+    return poState[code].Name;
+}
+
 //AddAntiForgeryToken = function (data) {
 //    data.__RequestVerificationToken = $('#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]').val();
 //    return data;

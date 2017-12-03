@@ -235,10 +235,9 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult LoadAllProducts(JQueryDataTableParamModel param)
         {
             var allProducts = Db.Products.ToList();
-            List<Product> afterFound = new List<Product>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = Db.Products.ToList()
+                allProducts = Db.Products.ToList()
                          .Where(c => c.Name.Contains(param.sSearch)
                                      ||
                           c.Name_en.Contains(param.sSearch)).ToList();
@@ -274,10 +273,9 @@ namespace Upup.Areas.Admin.Controllers
         {
             var product = Db.Products.SingleOrDefault(v => v.Id == id);
             var allVariants = product.ProductVariants.ToList();
-            List<ProductVariant> afterFound = new List<ProductVariant>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = allVariants
+                allVariants = allVariants
                          .Where(c => c.VariantCode.Contains(param.sSearch)
                                      ||
                           c.VariantName.Contains(param.sSearch)
@@ -322,7 +320,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult RemoveProducts(int id)
         {
             var result = new AjaxSimpleResultModel();
-            var Product = Db.Products.ToList().SingleOrDefault(c => c.Id == id);
+            var Product = Db.Products.SingleOrDefault(c => c.Id == id);
             if (Product != null)
             {
                 try

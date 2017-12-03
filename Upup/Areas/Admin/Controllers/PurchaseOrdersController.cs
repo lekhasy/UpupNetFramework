@@ -2,21 +2,126 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Upup.Areas.Admin.ViewModels;
 using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    public class PurchaseOrdersController : Controller
+    public class PurchaseOrdersController : AdminControllerBase
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         public ActionResult ManagePO()
         {
+            
+            
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult LoadAllPO(JQueryDataTableParamModel param)
+        {
+            var listPO = new List<PurchaseOrderDetailModel>();
+            var purchaseOrders = Db.PurchaseOrders.ToList();
+            var users = Db.Users.ToList();
+            var products = Db.Products.ToList();
+            foreach (var po in purchaseOrders)
+            {
+                var user = users.FirstOrDefault(u => u.Id == po.Customer.Id);
+                var pods = po.PurchaseOrderDetails;
+                listPO.Add(new PurchaseOrderDetailModel
+                {
+                    Id = po.Id,
+                    Code = po.Code,
+                    CreatedDate = po.CreatedDate,
+                    Name = po.Name,
+                    IsDeleted = po.IsDeleted,
+                    State = po.State,
+                    CustomerName = user.FullName,
+                    TotalAmount = po.TotalAmount
+                });
+            }
+            if (!string.IsNullOrEmpty(param.sSearch))
+            {
+                listPO = listPO
+                         .Where(c => c.Code.Contains(param.sSearch)
+                                     ||
+                                     c.CreatedDate.ToShortDateString().Contains(param.sSearch)
+                          ||
+                          c.Name.Contains(param.sSearch)
+                          ||
+                          c.CustomerName.Contains(param.sSearch)).ToList();
+            }
+            var filteredProducts = listPO.Skip(param.iDisplayStart)
+                        .Take(param.iDisplayLength);
+
+            var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
+            Func<PurchaseOrderDetailModel, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
+                                                                sortColumnIndex == 1 ? n.Code :
+                                                                sortColumnIndex == 2 ? n.Name :
+                                                                sortColumnIndex == 3 ? n.CustomerName : n.TotalAmount.ToString("N0"));
+
+            var sortDirection = Request["sSortDir_0"]; // asc or desc
+            filteredProducts = sortDirection == "asc" ? filteredProducts.OrderBy(orderingFunction) : filteredProducts.OrderByDescending(orderingFunction);
+
+            var result = filteredProducts.Select(Po => new[]
+            {
+                Po.Id.ToString(CultureInfo.InvariantCulture), Po.Code, Po.CreatedDate.ToShortDateString(), Po.Name,
+                Po.State.ToString(), Po.CustomerName, Po.TotalAmount.ToString("N0"),
+                Po.IsDeleted.ToString(CultureInfo.InvariantCulture), Po.Id.ToString(CultureInfo.InvariantCulture)
+            }).ToList();
+
+            return Json(new
+            {
+                param.sEcho,
+                iTotalRecords = listPO.Count(),
+                iTotalDisplayRecords = listPO.Count(),
+                aaData = result
+            },
+            JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult RemovePO(int id)
+        {
+            var result = new AjaxSimpleResultModel();
+            var po = Db.PurchaseOrders.SingleOrDefault(c => c.Id == id);
+            if (po != null)
+            {
+                try
+                {
+                    if (po.State == 1)
+                    {
+                        DeleteConfirmed(id);
+                    }
+                    else {
+                        po.IsDeleted = true;
+                        db.Entry(po).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    
+                    result.ResultValue = true;
+                    result.Message = "đơn hàng bạn chọn đã được xóa thành công !";
+                }
+                catch (Exception)
+                {
+                    result.ResultValue = false;
+                    result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";
+                    return Json(result);
+                }
+            }
+            else
+            {
+                result.ResultValue = false;
+                result.Message = "đơn hàng bạn chọn đã bị xóa hoặc không tồn tại";
+            }
+            return Json(result);
         }
 
         // GET: Admin/PurchaseOrders

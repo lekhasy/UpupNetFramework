@@ -89,10 +89,9 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult LoadAllProductVariantUnits(JQueryDataTableParamModel param)
         {
             var allProductVariantUnits = Db.ProductVariantUnits.ToList();
-            List<ProductVariantUnit> afterFound = new List<ProductVariantUnit>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = Db.ProductVariantUnits.ToList()
+                allProductVariantUnits = Db.ProductVariantUnits.ToList()
                          .Where(c => c.Name.Contains(param.sSearch)).ToList();
             }
             var filteredProductVariantUnits = allProductVariantUnits.Skip(param.iDisplayStart)

@@ -159,7 +159,7 @@ namespace Upup.Areas.Admin.Controllers
             List<Category> afterFound = new List<Category>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = Db.Categories.ToList()
+                allCategories = Db.Categories.ToList()
                          .Where(c => c.Name.Contains(param.sSearch)
                                      ||
                           c.Name_en.Contains(param.sSearch)

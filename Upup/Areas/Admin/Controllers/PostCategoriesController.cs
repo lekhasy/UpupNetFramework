@@ -158,10 +158,9 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult LoadAllCategories(JQueryDataTableParamModel param)
         {
             var allCategories = db.PostCategories.Where(c => c.RootCategoryIdentifier == null).ToList();
-            List<PostCategory> afterFound = new List<PostCategory>();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                afterFound = db.PostCategories.ToList()
+                allCategories = db.PostCategories.ToList()
                          .Where(c => c.Name.Contains(param.sSearch)
                                      ||
                           c.Name_en.Contains(param.sSearch)
