@@ -1,4 +1,5 @@
 ﻿using System;
+using Upup.Models;
 
 namespace Upup.Areas.Admin.ViewModels
 {
@@ -9,7 +10,7 @@ namespace Upup.Areas.Admin.ViewModels
         public string Name { get; set; }
         public int State { get; set; }
         public bool IsDeleted { get; set; }
-        public string CustomerName { get; set; }
+        public Customer Customer { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime CreatedDate { get; set; }
     }

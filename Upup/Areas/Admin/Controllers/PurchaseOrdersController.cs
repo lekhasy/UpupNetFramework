@@ -18,9 +18,10 @@ namespace Upup.Areas.Admin.Controllers
 
         public ActionResult ManagePO()
         {
-            
-            
-            return View();
+            var po = new PurchaseOrderDetailModel();
+
+
+            return View(po);
         }
 
         [HttpGet]
@@ -32,7 +33,6 @@ namespace Upup.Areas.Admin.Controllers
             var products = Db.Products.ToList();
             foreach (var po in purchaseOrders)
             {
-                var user = users.FirstOrDefault(u => u.Id == po.Customer.Id);
                 var pods = po.PurchaseOrderDetails;
                 listPO.Add(new PurchaseOrderDetailModel
                 {
@@ -42,7 +42,7 @@ namespace Upup.Areas.Admin.Controllers
                     Name = po.Name,
                     IsDeleted = po.IsDeleted,
                     State = po.State,
-                    CustomerName = user.FullName,
+                    Customer = po.Customer,
                     TotalAmount = po.TotalAmount
                 });
             }
@@ -55,7 +55,7 @@ namespace Upup.Areas.Admin.Controllers
                           ||
                           c.Name.Contains(param.sSearch)
                           ||
-                          c.CustomerName.Contains(param.sSearch)).ToList();
+                          c.Customer.FullName.Contains(param.sSearch)).ToList();
             }
             var filteredProducts = listPO.Skip(param.iDisplayStart)
                         .Take(param.iDisplayLength);
@@ -64,7 +64,7 @@ namespace Upup.Areas.Admin.Controllers
             Func<PurchaseOrderDetailModel, string> orderingFunction = (n => sortColumnIndex == 0 ? n.Id.ToString(CultureInfo.InvariantCulture) :
                                                                 sortColumnIndex == 1 ? n.Code :
                                                                 sortColumnIndex == 2 ? n.Name :
-                                                                sortColumnIndex == 3 ? n.CustomerName : n.TotalAmount.ToString("N0"));
+                                                                sortColumnIndex == 3 ? n.Customer.FullName : n.TotalAmount.ToString("N0"));
 
             var sortDirection = Request["sSortDir_0"]; // asc or desc
             filteredProducts = sortDirection == "asc" ? filteredProducts.OrderBy(orderingFunction) : filteredProducts.OrderByDescending(orderingFunction);
@@ -72,7 +72,7 @@ namespace Upup.Areas.Admin.Controllers
             var result = filteredProducts.Select(Po => new[]
             {
                 Po.Id.ToString(CultureInfo.InvariantCulture), Po.Code, Po.CreatedDate.ToShortDateString(), Po.Name,
-                Po.State.ToString(), Po.CustomerName, Po.TotalAmount.ToString("N0"),
+                Po.State.ToString(), Po.Customer.FullName, Po.TotalAmount.ToString("N0"),
                 Po.IsDeleted.ToString(CultureInfo.InvariantCulture), Po.Id.ToString(CultureInfo.InvariantCulture)
             }).ToList();
 
