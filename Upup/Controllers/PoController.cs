@@ -25,7 +25,7 @@ namespace Upup.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult SavePO(string code, string name)
         {
-            new  CommonPoLogic(Db).CreatePO(code, name, true,  User.Identity.GetUserId());
+            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId());
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -133,11 +133,11 @@ namespace Upup.Controllers
             body = body.Replace("[Amount]", totalPrice.ToString("N0"));
             body = body.Replace("[VAT]", "10%");
             body = body.Replace("[DeliveryFee]", "10,000");
-            body = body.Replace("[TotalAmount]", (totalPrice + (totalPrice*10/100) + 10000).ToString("N0"));
+            body = body.Replace("[TotalAmount]", (totalPrice + (totalPrice * 10 / 100) + 10000).ToString("N0"));
             body = body.Replace("[HtmlItemInGrid]", html);
             return body;
-		}
-		
+        }
+
         [System.Web.Mvc.HttpPost]
         public ActionResult Delete(long id)
         {
@@ -166,16 +166,13 @@ namespace Upup.Controllers
         public ActionResult Detail(long id)
         {
             var userId = User.Identity.GetUserId();
-            
+
             var user = Db.Customers.Find(userId);
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
             return View(po);
         }
-
-        
-        
 
         public IEnumerable<PoItemModel> GetAllPo()
         {
@@ -215,7 +212,7 @@ namespace Upup.Controllers
         public DataTableResponse<TableDataRow<PoItemModel>> GetAllUnOrderedPo()
         {
             var userId = User.Identity.GetUserId();
-            
+
             var user = Db.Customers.Find(userId);
 
             var allpo = user.PurchaseOrders.Where(p => p.IsTemp).ToList();
@@ -243,8 +240,9 @@ namespace Upup.Controllers
 
 
 
-            var tablePoItem = poItems.Select(poi => new TableDataRow<PoItemModel> {
-                 DT_RowData = poi 
+            var tablePoItem = poItems.Select(poi => new TableDataRow<PoItemModel>
+            {
+                DT_RowData = poi
             });
 
             return new DataTableResponse<TableDataRow<PoItemModel>>
@@ -280,6 +278,11 @@ namespace Upup.Controllers
                 State = isTemp ? (int)PoState.Temp : (int)PoState.Ordered,
                 IsDeleted = false,
                 CreatedDate = DateTime.Now,
+                CustomerAddress = customer.Address1,
+                CustomerEmail = customer.Email,
+                CustomerName = customer.FullName,
+                CustomerPhone = customer.PhoneNumber,
+                CustomerWebsite = customer.Webiste,
                 PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
                 {
                     Product = c.ProductVariant,
@@ -300,4 +303,5 @@ namespace Upup.Controllers
 
     }
 
+   
 }

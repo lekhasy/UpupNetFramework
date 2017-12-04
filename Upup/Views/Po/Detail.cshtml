@@ -18,7 +18,14 @@
             <tr>
                 <td><label>Tên PO</label></td>
                 <td class="large">
-                    <input type="text" id="poname" class="form-control" value="@Model.Name" />
+                    @if (Model.IsTemp)
+                    {
+                        <input type="text" id="poname" class="form-control" value="@Model.Name" />
+                    }
+                    else
+                    {
+                        <div>@Model.Name</div>
+                    }
                 </td>
                 <td><label>Mã khách hàng</label></td>
                 <td class="small"><div id="customerCode">@Model.Code</div></td>
@@ -27,7 +34,7 @@
                 <td><label>Tên khách hàng</label></td>
                 <td class="large"><div id="customerName">@Model.Customer.FullName</div></td>
                 <td><label>Mã PO</label></td>
-                <td class="small"><div id="PoCode">@now.ToString("yyMMddhhmmss")</div></td>
+                <td class="small"><div id="PoCode">@Model.Code</div></td>
             </tr>
             <tr>
                 <td><label>Địa chỉ</label></td>
