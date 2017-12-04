@@ -100,12 +100,13 @@ namespace Upup.Areas.Admin.Controllers
                     {
                         DeleteConfirmed(id);
                     }
-                    else {
+                    else
+                    {
                         po.IsDeleted = true;
                         db.Entry(po).State = EntityState.Modified;
                         db.SaveChanges();
                     }
-                    
+
                     result.ResultValue = true;
                     result.Message = "đơn hàng bạn chọn đã được xóa thành công !";
                 }
@@ -175,12 +176,26 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PurchaseOrder purchaseOrder = db.PurchaseOrders.Find(id);
-            if (purchaseOrder == null)
+            PurchaseOrder po = db.PurchaseOrders.Find(id);
+            if (po == null)
             {
                 return HttpNotFound();
             }
-            return View(purchaseOrder);
+            var users = Db.Users.ToList();
+            var products = Db.Products.ToList();
+            var pods = po.PurchaseOrderDetails;
+            var poModel = new PurchaseOrderDetailModel
+            {
+                Id = po.Id,
+                Code = po.Code,
+                CreatedDate = po.CreatedDate,
+                Name = po.Name,
+                IsDeleted = po.IsDeleted,
+                State = po.State,
+                Customer = po.Customer,
+                TotalAmount = po.TotalAmount
+            };
+            return View(poModel);
         }
 
         // POST: Admin/PurchaseOrders/Edit/5

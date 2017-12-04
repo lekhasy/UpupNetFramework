@@ -18,7 +18,7 @@
 </section>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-7">
         <section class="content">
             <div class="box box-primary">
                 <div class="box-body">
@@ -27,11 +27,26 @@
             </div>
         </section>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
         <section class="content">
             <div class="box box-primary">
                 <div class="box-body">
-                    <b>Tên khách hàng</b> @Model.Customer.FullName
+                    <div class="row">
+                        <div class="col-md-5"><b>Tên khách hàng:</b></div>
+                        <div class="col-md-7">@Model.Customer.FullName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"><b>Số điện thoại:</b></div>
+                        <div class="col-md-7">@Model.Customer.PhoneNumber</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"><b>Email:</b></div>
+                        <div class="col-md-7">@Model.Customer.Email</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5"><b>Địa chỉ:</b></div>
+                        <div class="col-md-7">@Model.Customer.Address1</div>
+                    </div>
                 </div>
             </div>
         </section>
