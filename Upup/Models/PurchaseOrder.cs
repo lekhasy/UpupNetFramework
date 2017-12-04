@@ -11,9 +11,11 @@ namespace Upup.Models
         public string Code { get; set; }
         public string Name { get; set; }
         public int State { get; set; }
-        public decimal TotalAmount { get; set; }
+        public decimal TotalAmount => PurchaseOrderDetails.Sum(s => s.GetCalculatedTotalAmount());
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
+
+        public bool IsTemp => State == (int)PoState.Temp;
 
         public int CalculateCompleteShipping()
         {

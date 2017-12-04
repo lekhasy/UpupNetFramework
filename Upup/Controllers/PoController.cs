@@ -147,7 +147,7 @@ namespace Upup.Controllers
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
-            if (po == null || (po.State != (int)PoState.Temp && po.State != (int)PoState.Completed))
+            if (po == null || (!po.IsTemp && po.State != (int)PoState.Completed))
             {
                 return RedirectToAction("Index");
             }
@@ -212,13 +212,13 @@ namespace Upup.Controllers
     public class PoApiController : UpupApiControllerBase
     {
         [System.Web.Http.HttpGet]
-        public DataTableResponse<TableDataRow<PoItemModel>> GetAllUnPaidPo()
+        public DataTableResponse<TableDataRow<PoItemModel>> GetAllUnOrderedPo()
         {
             var userId = User.Identity.GetUserId();
-
+            
             var user = Db.Customers.Find(userId);
 
-            var allpo = user.PurchaseOrders.Where(p => p.State < (int)PoState.Paid).ToList();
+            var allpo = user.PurchaseOrders.Where(p => p.IsTemp).ToList();
 
             int sequence = 0;
             List<PoItemModel> poItems = new List<PoItemModel>();
@@ -234,7 +234,7 @@ namespace Upup.Controllers
                         Sequence = ++sequence,
                         ShipingProgress = $"{po.CalculateShipping()}/{po.CalculateTotalDetail()}",
                         CompleteProgress = $"{po.CalculateCompleteShipping()}/{po.CalculateTotalDetail()}",
-                        Ordered = po.State >= (int)PoState.Ordered,
+                        Ordered = false,
                         Paid = po.State >= (int)PoState.Paid,
                         CreatedDate = po.CreatedDate
                     }
@@ -279,14 +279,15 @@ namespace Upup.Controllers
                 Name = name,
                 State = isTemp ? (int)PoState.Temp : (int)PoState.Ordered,
                 IsDeleted = false,
-                TotalAmount = carts.Sum(c => (c.ProductVariant.Price * c.Quantity)),
                 CreatedDate = DateTime.Now,
                 PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
                 {
                     Product = c.ProductVariant,
                     Quantity = c.Quantity,
                     ShipDate = c.CalculateShipDate(),
-                    State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered
+                    State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered,
+                    Price = c.ProductVariant.Price,
+                    TotalAmount = c.ProductVariant.Price * c.Quantity
                 }).ToList()
             };
 

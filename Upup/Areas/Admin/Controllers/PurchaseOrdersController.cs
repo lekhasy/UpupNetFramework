@@ -96,7 +96,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 try
                 {
-                    if (po.State == 1)
+                    if (po.IsTemp)
                     {
                         DeleteConfirmed(id);
                     }

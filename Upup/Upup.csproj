@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201712011534235_InitDb.Designer.cs">
       <DependentUpon>201712011534235_InitDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712031723225_Add_Total_Amount_And_Price.cs" />
+    <Compile Include="Migrations\201712031723225_Add_Total_Amount_And_Price.Designer.cs">
+      <DependentUpon>201712031723225_Add_Total_Amount_And_Price.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -1775,6 +1779,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712011534235_InitDb.resx">
       <DependentUpon>201712011534235_InitDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712031723225_Add_Total_Amount_And_Price.resx">
+      <DependentUpon>201712031723225_Add_Total_Amount_And_Price.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
