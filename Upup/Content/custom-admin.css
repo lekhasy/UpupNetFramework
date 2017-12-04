@@ -34,22 +34,22 @@
         width: 130px;
     }
 
-    .site-map .btn-primary{
+    .site-map .btn-primary {
         margin-left: 5px;
     }
-    /* ————————————————————–
+/* ————————————————————–
   Tree core styles
 */
-    .tree {
-        margin: 1em;
-        padding-left: 10px;
-    }
+.tree {
+    margin: 1em;
+    padding-left: 10px;
+}
 
     .tree .glyphicon {
         margin-left: 5px;
         vertical-align: middle;
-    } 
-    
+    }
+
     .tree, .tree ul {
         list-style: none;
     }
@@ -57,36 +57,36 @@
         .tree ul {
             padding-left: 25px;
         }
-        
+
         .tree input {
             position: absolute;
             clip: rect(0, 0, 0, 0);
         }
 
-        .tree input ~ ul {
-            display: none;
-        }
+            .tree input ~ ul {
+                display: none;
+            }
 
-        .tree input:checked ~ ul {
-            display: block;
-        }
+            .tree input:checked ~ ul {
+                display: block;
+            }
 
-    /* ————————————————————–
+        /* ————————————————————–
   Tree rows
 */
-    .tree li {
-        line-height: 1.2;
-        position: relative;
-        padding: 0 0 1em 1em;
-    }
+        .tree li {
+            line-height: 1.2;
+            position: relative;
+            padding: 0 0 1em 1em;
+        }
 
-    .tree ul li {
-        padding: 1em 0 0 1em;
-    }
+        .tree ul li {
+            padding: 1em 0 0 1em;
+        }
 
-    .tree > li:last-child {
-        padding-bottom: 0;
-    }
+        .tree > li:last-child {
+            padding-bottom: 0;
+        }
 
 /* ————————————————————–
   Tree labels
@@ -206,13 +206,13 @@ label.tree_label:after {
     text-align: center;
 }
 
-    .dropzone .btn-danger{
+    .dropzone .btn-danger {
         margin-top: 10px;
-    } 
-    
-    .modal-body.edit label, .modal-body.edit input[type="text"] {
-        float: left;
     }
+
+.modal-body.edit label, .modal-body.edit input[type="text"] {
+    float: left;
+}
 
 .modal-body.edit label {
     width: 30%;
@@ -221,10 +221,9 @@ label.tree_label:after {
 }
 
 .modal-body.edit select {
-
 }
 
-.modal-body.edit input[type="text"], .modal-body.edit  input[type="number"], .modal-body.edit select {
+.modal-body.edit input[type="text"], .modal-body.edit input[type="number"], .modal-body.edit select {
     width: 69%;
 }
 
@@ -233,15 +232,15 @@ label.tree_label:after {
 }
 
 .modal-dialog.modal-sm {
-        width: 300px;
-        padding-top: 150px;
-    }
+    width: 300px;
+    padding-top: 150px;
+}
 
 .modal-dialog.modal-lg {
     width: 900px;
 }
 
-    .create-variant .btn.upload {
+.create-variant .btn.upload {
     margin-top: 0;
 }
 
@@ -254,15 +253,31 @@ label.tree_label:after {
         margin-left: 15px;
     }
 
-.manage-setting section.content{
+.manage-setting section.content {
     padding-right: 0;
 }
 
-.manage-setting .content-header > h1{
+.manage-setting .content-header > h1 {
     line-height: 26pt;
 }
 
 .modal-body.edit .dataTables_filter label {
     float: none;
     width: auto;
+}
+
+.code-color {
+    color: #ec1d24;
+}
+
+.state-color {
+    color: green;
+}
+
+.manage-po-content .col-md-7, .manage-po-content .col-md-7 .content {
+    padding-right: 0;
+}
+
+.manage-po-content .col-md-5 .content{
+    padding-left: 0;
 }

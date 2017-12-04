@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Upup.Models;
 
 namespace Upup.Areas.Admin.ViewModels
@@ -13,5 +14,6 @@ namespace Upup.Areas.Admin.ViewModels
         public Customer Customer { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime CreatedDate { get; set; }
+        public List<PurchaseOrderDetail> Products { get; set; }
     }
 }

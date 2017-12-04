@@ -6,49 +6,83 @@
 @using Upup.Helpers
 @model Upup.Areas.Admin.ViewModels.PurchaseOrderDetailModel
 
-<section class="content-header">
-    <h1>
-        Quản lý đơn hàng @Model.Code
-        <small>Preview</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li>@Html.ActionSiteMap("ProductsConsole", "Products", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
-        <li class="active">Quản lý đơn hàng</li>
-    </ol>
-</section>
+<div class="manage-po-content">
+    <section class="content-header">
+        <h1>
+            Quản lý đơn hàng <span class="code-color">#@Model.Code</span>
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>@Html.ActionSiteMap("ProductsConsole", "Products", null, "Tổng quan", new { @class = "fa fa-dashboard" })</li>
+            <li class="active">Quản lý đơn hàng</li>
+        </ol>
+    </section>
 
-<div class="row">
-    <div class="col-md-7">
-        <section class="content">
-            <div class="box box-primary">
-                <div class="box-body">
-
+    <div class="row">
+        <div class="col-md-7">
+            <div class="content">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <label>Đơn hàng chi tiết</label>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <div class="state-color">Đã đặt hàng</div>
+                            </div>
+                        </div>
+                        <div class="po-admin-item">
+                            @foreach (var product in Model.Products)
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="~/Images/products/@product.Product.Product.ImageUrl" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        @product.Product.VariantName
+                                    </div>
+                                    <div class="col-md-2">
+                                        @product.Product.Price.ToString("N0")
+                                    </div>
+                                    <div class="col-md-2">
+                                        x @product.Quantity
+                                    </div>
+                                    <div class="col-md-2">
+                                        @(product.Product.Price * product.Quantity) VNĐ
+                                    </div>
+                                    <div class="col-md-2">
+                                        @product.State
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </div>
-    <div class="col-md-5">
-        <section class="content">
-            <div class="box box-primary">
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-5"><b>Tên khách hàng:</b></div>
-                        <div class="col-md-7">@Model.Customer.FullName</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5"><b>Số điện thoại:</b></div>
-                        <div class="col-md-7">@Model.Customer.PhoneNumber</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5"><b>Email:</b></div>
-                        <div class="col-md-7">@Model.Customer.Email</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5"><b>Địa chỉ:</b></div>
-                        <div class="col-md-7">@Model.Customer.Address1</div>
+        </div>
+        <div class="col-md-5">
+            <div class="content">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-5"><b>Tên khách hàng:</b></div>
+                            <div class="col-md-7">@Model.Customer.FullName</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"><b>Số điện thoại:</b></div>
+                            <div class="col-md-7">@Model.Customer.PhoneNumber</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"><b>Email:</b></div>
+                            <div class="col-md-7">@Model.Customer.Email</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"><b>Địa chỉ:</b></div>
+                            <div class="col-md-7">@Model.Customer.Address1</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </div>

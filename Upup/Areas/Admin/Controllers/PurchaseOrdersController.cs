@@ -183,7 +183,7 @@ namespace Upup.Areas.Admin.Controllers
             }
             var users = Db.Users.ToList();
             var products = Db.Products.ToList();
-            var pods = po.PurchaseOrderDetails;
+            var pods = po.PurchaseOrderDetails.ToList();
             var poModel = new PurchaseOrderDetailModel
             {
                 Id = po.Id,
@@ -193,7 +193,8 @@ namespace Upup.Areas.Admin.Controllers
                 IsDeleted = po.IsDeleted,
                 State = po.State,
                 Customer = po.Customer,
-                TotalAmount = po.TotalAmount
+                TotalAmount = po.TotalAmount,
+                Products = pods
             };
             return View(poModel);
         }
