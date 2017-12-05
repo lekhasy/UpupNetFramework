@@ -403,8 +403,9 @@ var poState = {
     1: { Name: "Đơn hàng tạm" },
     2: { Name: "Đã đặt hàng" },
     3: { Name: "Đã thanh toán" },
-    4: { Name: "Đã hoàn thành" },
-    5: { Name: "Đã hủy bỏ" },
+    4: { Name: "Đã vận chuyển" },
+    5: { Name: "Đã hoàn thành" },
+    6: { Name: "Đã hủy bỏ" },
 };
 
 function GetPoStateByCode(code) {

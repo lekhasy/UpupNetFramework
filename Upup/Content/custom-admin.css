@@ -274,10 +274,22 @@ label.tree_label:after {
     color: green;
 }
 
-.manage-po-content .col-md-7, .manage-po-content .col-md-7 .content {
+.manage-po-content .col-md-8, .manage-po-content .col-md-8 .content {
     padding-right: 0;
 }
 
-.manage-po-content .col-md-5 .content{
+.manage-po-content .col-md-4 .content{
     padding-left: 0;
+}
+
+.po-admin-item {
+    padding: 20px;
+    margin-top: 10px;
+    border-bottom: 1px dashed #ababab;
+    background-color: #f7f7f7;
+    line-height: 45pt;
+}
+
+.po-admin-item:last-child{
+    border-bottom: none;
 }

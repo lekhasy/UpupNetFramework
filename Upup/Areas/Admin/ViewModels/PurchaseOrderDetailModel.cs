@@ -14,6 +14,7 @@ namespace Upup.Areas.Admin.ViewModels
         public Customer Customer { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int PaymentCode { get; set; }
         public List<PurchaseOrderDetail> Products { get; set; }
     }
 }

@@ -255,6 +255,7 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Migrations\201712011534235_InitDb.cs" />
     <Compile Include="Migrations\201712011534235_InitDb.Designer.cs">
       <DependentUpon>201712011534235_InitDb.cs</DependentUpon>

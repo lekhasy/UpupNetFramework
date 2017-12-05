@@ -194,7 +194,8 @@ namespace Upup.Areas.Admin.Controllers
                 State = po.State,
                 Customer = po.Customer,
                 TotalAmount = po.TotalAmount,
-                Products = pods
+                Products = pods,
+                PaymentCode = po.PaymentMethod
             };
             return View(poModel);
         }
