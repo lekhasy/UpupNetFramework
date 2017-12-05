@@ -33,38 +33,47 @@
                                 <div class="state-color">@(Model.State == 4 ? prefixShipping + " " + StringHelper.GetPoStateByCode(Model.State) : StringHelper.GetPoStateByCode(Model.State))</div>
                             </div>
                         </div>
-                        <div class="po-admin-item">
+                        <div class="po-admin-items">
                             @foreach (var product in Model.Products)
                             {
-                                if (product.State == 4)
-                                {
-                                    countShipping++;
-                                }
-                                if(countShipping == Model.Products.Count)
-                                {
-                                    prefixShipping = "Đã";
-                                }
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img width="100" src="http://upup.com.vn/Images/products/@product.Product.Product.ImageUrl" />
-                                    </div>
-                                    <div class="col-md-2 text-center">
-                                        @product.Product.VariantName
-                                    </div>
-                                    <div class="col-md-2">
-                                        @product.Product.Price.ToString("N0")
-                                    </div>
-                                    <div class="col-md-1">
-                                        x @product.Quantity
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Convert.ToDecimal(product.Product.Price * product.Quantity).ToString("N0") VNĐ
-                                    </div>
-                                    <div class="col-md-2">
-                                        @StringHelper.GetPoStateByCode(product.State)
+                                <div class="po-admin-item">
+                                    @if (product.State == 4)
+                                    {
+                                        countShipping++;
+                                    }
+                                    @if (countShipping == Model.Products.Count)
+                                    {
+                                        prefixShipping = "Đã";
+                                    }
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img width="100" src="http://upup.com.vn/Images/products/@product.Product.Product.ImageUrl" />
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            @product.Product.VariantName
+                                        </div>
+                                        <div class="col-md-2">
+                                            @product.Product.Price.ToString("N0")
+                                        </div>
+                                        <div class="col-md-1">
+                                            x @product.Quantity
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Convert.ToDecimal(product.Product.Price * product.Quantity).ToString("N0") VNĐ
+                                        </div>
+                                        <div class="col-md-2">
+                                            @StringHelper.GetPoStateByCode(product.State)
+                                        </div>
                                     </div>
                                 </div>
                             }
+                        </div>
+                        <div id="changeStatus" class="row">
+                            <div class="col-md-2 col-md-offset-1 text-center"><button id="state2" class="state-btn btn btn-warning">Đặt hàng</button></div>
+                            <div class="col-md-2 text-center"><button id="state3" class="state-btn btn btn-info">Thanh toán</button></div>
+                            <div class="col-md-2 text-center"><button id="state4" class="state-btn btn btn-primary">Vận chuyển</button></div>
+                            <div class="col-md-2 text-center"><button id="state5" class="state-btn btn btn-success">Hoàn thành</button></div>
+                            <div class="col-md-2 text-center"><button id="state6" class="state-btn btn btn-danger">Hủy đơn hàng</button></div>
                         </div>
                     </div>
                 </div>
@@ -74,21 +83,26 @@
             <div class="content">
                 <div class="box box-primary">
                     <div class="box-body">
+                        <h3>Thông tin giao nhận</h3>
                         <div class="row">
-                            <div class="col-md-5"><b>Tên khách hàng:</b></div>
-                            <div class="col-md-7">@Model.Customer.FullName</div>
+                            <div class="col-md-5"><b class="purple-color">Cá nhân/Tổ chức:</b></div>
+                            <div class="col-md-7">@Model.ReceiverName</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5"><b>Số điện thoại:</b></div>
-                            <div class="col-md-7">@Model.Customer.PhoneNumber</div>
+                            <div class="col-md-5"><b class="purple-color">Số điện thoại:</b></div>
+                            <div class="col-md-7">@Model.ReceiverPhone</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5"><b>Email:</b></div>
-                            <div class="col-md-7">@Model.Customer.Email</div>
+                            <div class="col-md-5"><b class="purple-color">Email:</b></div>
+                            <div class="col-md-7">@Model.ReceiverEmail</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5"><b>Địa chỉ:</b></div>
-                            <div class="col-md-7">@Model.Customer.Address1</div>
+                            <div class="col-md-5"><b class="purple-color">Địa chỉ:</b></div>
+                            <div class="col-md-7">@Model.ReceiverAddress</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"><b class="purple-color">Website:</b></div>
+                            <div class="col-md-7">@Model.ReceiverWebsite</div>
                         </div>
                     </div>
                 </div>
@@ -96,16 +110,37 @@
                     <div class="box-body">
                         <h3>Thông tin đơn hàng</h3>
                         <div class="row">
-                            <div class="col-md-5"><b>Thời gian đặt:</b></div>
+                            <div class="col-md-5"><b class="purple-color">Thời gian đặt:</b></div>
                             <div class="col-md-7">@Model.CreatedDate</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5"><b>Tổng số tiền:</b></div>
+                            <div class="col-md-5"><b class="purple-color">Tổng số tiền:</b></div>
                             <div class="col-md-7">@Model.TotalAmount.ToString("N0") VNĐ</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5"><b>HT thanh toán:</b></div>
+                            <div class="col-md-5"><b class="purple-color">HT thanh toán:</b></div>
                             <div class="col-md-7">@StringHelper.GetPoPaymentMethodByCode(Model.PaymentCode)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <h3>Thông tin khách hàng</h3>
+                        <div class="row">
+                            <div class="col-md-5"><b class="purple-color">Tên khách hàng:</b></div>
+                            <div class="col-md-7">@Model.Customer.FullName</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"><b class="purple-color">Số điện thoại:</b></div>
+                            <div class="col-md-7">@Model.Customer.PhoneNumber</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"><b class="purple-color">Email:</b></div>
+                            <div class="col-md-7">@Model.Customer.Email</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"><b class="purple-color">Địa chỉ:</b></div>
+                            <div class="col-md-7">@Model.Customer.Address1</div>
                         </div>
                     </div>
                 </div>
@@ -113,3 +148,44 @@
         </div>
     </div>
 </div>
+
+@section AddScriptToBody{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#state' + @Model.State).css('box-shadow', 'red 1px 1px 6px, red -1px -1px 6px, pink 2px 2px 12px, pink -2px -2px 12px').css('border', '1px solid white');
+            $('#changeStatus .btn').each(function () {
+                var $btn = $(this);
+                if (parseInt($btn.attr('id').split('state')[1], 10) <= @Model.State){
+                    $btn.attr('disabled', 'disabled');
+                }
+                $btn.click(function () {
+                    var btnState = $btn.attr('id').split('state')[1];
+                    if (confirm('Bạn thực sự muốn chuyển đổi trạng thái đơn hàng này?')) {
+                        $.LoadingOverlay("show");
+                        $.post('/PurchaseOrders/ChangePoState', { 'code': @Model.Code, 'state': parseInt(btnState, 10) },
+                            function (data) {
+                                if (data.ResultValue) {
+                                    BootstrapDialog.show({
+                                        type: BootstrapDialog.TYPE_SUCCESS,
+                                        title: 'Thành công',
+                                        message: data.Message
+                                    });
+                                } else {
+                                    BootstrapDialog.show({
+                                        type: BootstrapDialog.TYPE_DANGER,
+                                        title: 'Thất bại',
+                                        message: data.Message
+                                    });
+                                }
+                                setTimeout(function () {
+                                    window.location.href = '@(Url.Action("Edit","PurchaseOrders", new { id = Model.Id }))'
+                                }, 4000);
+                                $.LoadingOverlay("hide");
+                            }
+                        );
+                    }
+                });
+            });
+        });
+    </script>
+}
