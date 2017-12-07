@@ -305,3 +305,7 @@ label.tree_label:after {
     .po-admin-item:last-child {
         border-bottom: none;
     }
+
+.box-body .code-color{
+    font-size: 16pt;
+}

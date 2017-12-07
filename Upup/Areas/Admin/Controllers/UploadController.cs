@@ -72,5 +72,34 @@ namespace Upup.Areas.Admin.Controllers
             });
             return View(images);
         }
+
+        public ActionResult UploadImage(HttpPostedFileBase upload, string CKEditorFuncNum, string CKEditor, string langCode)
+        {
+            var path = string.Empty;
+            //Save file content goes here
+            if (upload != null && upload.ContentLength > 0)
+            {
+                var newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N") + "." + upload.FileName.Split('.')[1];
+                var originalDirectory = new DirectoryInfo(string.Format("{0}Images", Server.MapPath(@"\")));
+
+                var pathString = Path.Combine(originalDirectory.ToString(), "UploadedImages");
+
+                var isExists = Directory.Exists(pathString);
+
+                if (!isExists)
+                    Directory.CreateDirectory(pathString);
+
+                path = string.Format("{0}\\{1}", pathString, newFileName);
+                upload.SaveAs(path);
+                var message = "Hình ảnh đã được tải lên thành công";
+
+                var url = string.Format("{0}/{1}", "/Images/UploadedImages/", newFileName); 
+
+                // since it is an ajax request it requires this string
+                string output = @"<html><body><script>window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum + ", \"" + url + "\", \"" + message + "\");</script></body></html>";
+                return Content(output);
+            }
+            return Json(new { Message = "Error in saving file" });
+        }
     }
 }
