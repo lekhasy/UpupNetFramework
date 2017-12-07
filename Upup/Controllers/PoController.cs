@@ -250,6 +250,50 @@ namespace Upup.Controllers
                 data = tablePoItem
             };
         }
+
+        [System.Web.Http.HttpGet]
+        public DataTableResponse<TableDataRow<PoDetailItemModel>> GetPoDetails(long id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var user = Db.Customers.Find(userId);
+
+            var PO = user.PurchaseOrders.FirstOrDefault(po => po.Id == id);
+
+            if(PO == null)
+                return new DataTableResponse<TableDataRow<PoDetailItemModel>> { error = "Không tìm thấy PO" };
+
+            int sequence = 0;
+            List<TableDataRow<PoDetailItemModel>> PoItems = new List<TableDataRow<PoDetailItemModel>>();
+
+            foreach (var c in PO.PurchaseOrderDetails)
+            {
+                PoItems.Add(new TableDataRow<PoDetailItemModel>
+                {
+                    DT_RowData = new PoDetailItemModel
+                    {
+                        Id = c.Id,
+                        Sequence = ++sequence,
+                        DeliveryDate = c.ShipDate,
+                        Quantity = c.Quantity,
+                        ProductCode = c.Product.Product.Code,
+                        ProductName = c.Product.Product.Name,
+                        ProductPrice = c.GetCalculatedPrice(),
+                        ProductVariantCode = c.Product.VariantCode,
+                        ProductVariantName = c.Product.VariantName,
+                        TotalPrice = c.GetCalculatedTotalAmount(),
+                        UnitName = c.Product.ProductVariantUnit.Name
+                    }
+                });
+            }
+
+            return new DataTableResponse<TableDataRow<PoDetailItemModel>>
+            {
+                data = PoItems,
+                recordsTotal = PoItems.Count(),
+                recordsFiltered = PoItems.Count()
+            };
+        }
     }
 
     public class CommonPoLogic
@@ -280,7 +324,6 @@ namespace Upup.Controllers
                 CreatedDate = DateTime.Now,
                 CustomerAddress = customer.Address1,
                 CustomerEmail = customer.Email,
-                CustomerName = customer.FullName,
                 CustomerPhone = customer.PhoneNumber,
                 CustomerWebsite = customer.Webiste,
                 PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
@@ -300,8 +343,5 @@ namespace Upup.Controllers
             customer.TempPoName = null;
             return po;
         }
-
     }
-
-   
 }

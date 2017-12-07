@@ -15,6 +15,7 @@ namespace Upup.Models
         public decimal TotalAmount { get; set; }
         public int State { get; set; }
         public decimal GetCalculatedTotalAmount() => PurchaseOrder.IsTemp ? Product.Price * Quantity : TotalAmount;
+        public decimal GetCalculatedPrice() => PurchaseOrder.IsTemp ? Product.Price : Price;
         public virtual ProductVariant Product { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }
     }
@@ -26,7 +27,6 @@ namespace Upup.Models
         Paid = 3,
         Shipping = 4,
         Completed = 5,
-        Canceled = 6
     }
 
 }

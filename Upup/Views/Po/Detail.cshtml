@@ -12,7 +12,7 @@
 <div id="cart">
 
 
-    <h2>Giỏ hàng</h2>
+    <h2>Chi tiết đơn hàng</h2>
     <table class="cart">
         <tbody>
             <tr>
@@ -56,14 +56,17 @@
         </tbody>
     </table>
     <h2>Thông tin sản phẩm</h2>
-    <div class="area-button">
-        <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
-        <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
-    </div>
+    @if (Model.IsTemp)
+    {
+        <div class="area-button">
+            <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
+            <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
+        </div>
+    }
     <table id="example1" class="table table-bordered table-striped display">
         <thead>
             <tr>
-                <th class="check-all"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+                <th class="check-all tblcbx"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
                 <th>Stt</th>
                 <th>Mã sản phẩm</th>
                 <th>Mã biến thể</th>
@@ -78,14 +81,18 @@
         </thead>
         <tbody></tbody>
     </table>
-    <div class="area-button row">
-        <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
-        <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
-    </div>
+    @if (Model.IsTemp)
+    {
+        <div class="area-button row">
+            <a href="javascript:void(0)" class="btn btn-danger act-del">Xóa</a>
+            <a href="javascript:void(0)" class="btn btn-success act-add">Thêm</a>
+        </div>
+    }
     <div class="area-button text-center">
-        <form action="/Po/Order" method="post" class="prevent-if-name-empty">
-            <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
-            <input type="submit" class="btn btn-primary" value="Đặt hàng">
+        <form action="/Po/Order" method="get" class="prevent-if-name-empty">
+            <input type="hidden" name="code" value="@Model.Code" />
+            <input type="hidden" name="name" value="@Model.Name" />
+            <input type="submit" id="btn_Order" class="btn btn-primary" value="Đặt hàng">
         </form>
     </div>
 
@@ -165,7 +172,7 @@
                 "autoWidth": false,
                 "ordering": false,
                 "serverSide": true,
-                "ajaxSource": "/api/CartApi/GetAllProductInCart",
+                "ajaxSource": "/api/PoApi/GetPoDetails/@Model.Id",
                 "processing": true,
                 "searching": false,
                 "paging": false,
@@ -211,6 +218,14 @@
 
                 }
             });
+
+            var isTemp = @Model.IsTemp.ToString().ToLower();
+
+            if (!isTemp)
+            {
+                $table.column(0).visible(false);
+                $('#btn_Order').hide();
+            }
 
             // Handle click on "Select all" control
             $('#example-select-all').on('click', function () {
