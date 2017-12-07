@@ -282,7 +282,8 @@ namespace Upup.Controllers
                         ProductVariantCode = c.Product.VariantCode,
                         ProductVariantName = c.Product.VariantName,
                         TotalPrice = c.GetCalculatedTotalAmount(),
-                        UnitName = c.Product.ProductVariantUnit.Name
+                        UnitName = c.Product.ProductVariantUnit.Name,
+                        StateString = c.GetStateString()
                     }
                 });
             }

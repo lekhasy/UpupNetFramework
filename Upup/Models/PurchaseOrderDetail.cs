@@ -16,6 +16,14 @@ namespace Upup.Models
         public int State { get; set; }
         public decimal GetCalculatedTotalAmount() => PurchaseOrder.IsTemp ? Product.Price * Quantity : TotalAmount;
         public decimal GetCalculatedPrice() => PurchaseOrder.IsTemp ? Product.Price : Price;
+        public string GetStateString() {
+            if (State == (int)PoDetailState.Temp) return "Chưa đặt hàng";
+            if (State == (int)PoDetailState.Ordered) return "Đợi thanh toán";
+            if (State == (int)PoDetailState.Paid) return "Đang xử lý";
+            if (State == (int)PoDetailState.Shipping) return "Đang chuyển hàng";
+            if (State == (int)PoDetailState.Completed) return "Hoàn thành";
+            return null;
+        }
         public virtual ProductVariant Product { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }
     }
@@ -27,6 +35,7 @@ namespace Upup.Models
         Paid = 3,
         Shipping = 4,
         Completed = 5,
+        Canceled = 6,
     }
 
 }
