@@ -19,7 +19,6 @@ namespace Upup.Models
         public bool IsTemp => State == (int)PoState.Temp;
 
         #region customer info
-        public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
         public string CustomerPhone { get; set; }
         public string CustomerEmail { get; set; }
@@ -34,7 +33,6 @@ namespace Upup.Models
                 {
                     CustomerAddress = Customer.Address1,
                     CustomerEmail = Customer.Email,
-                    CustomerName = Customer.FullName,
                     CustomerPhone = Customer.PhoneNumber,
                     CustomerWebsite = Customer.Webiste
                 };
@@ -46,7 +44,6 @@ namespace Upup.Models
                     CustomerAddress = CustomerAddress,
                     CustomerEmail = CustomerEmail,
                     CustomerWebsite = CustomerWebsite,
-                    CustomerName = CustomerName,
                     CustomerPhone = CustomerPhone
                 };
             }
@@ -75,7 +72,6 @@ namespace Upup.Models
 
     public class PoCustomerInfoModel
     {
-        public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
         public string CustomerPhone { get; set; }
         public string CustomerEmail { get; set; }
