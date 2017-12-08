@@ -16,7 +16,21 @@ namespace Upup.Models
         public int State { get; set; }
         public decimal GetCalculatedTotalAmount() => PurchaseOrder.IsTemp ? Product.Price * Quantity : TotalAmount;
         public decimal GetCalculatedPrice() => PurchaseOrder.IsTemp ? Product.Price : Price;
-        public string GetStateString() {
+        public DateTime? GetCalculatedShipDate()
+        {
+            if (PurchaseOrder.IsTemp)
+            {
+                var shipdate = Product.FindBestMatchShipDateByQuantity(Quantity);
+                if (shipdate == null) return null;
+                return DateTime.Now.AddDays(shipdate.TargetDateNumber);
+            }
+            else
+            {
+                return ShipDate;
+            }
+        }
+        public string GetStateString()
+        {
             if (State == (int)PoDetailState.Temp) return "Chưa đặt hàng";
             if (State == (int)PoDetailState.Ordered) return "Đợi thanh toán";
             if (State == (int)PoDetailState.Paid) return "Đang xử lý";
