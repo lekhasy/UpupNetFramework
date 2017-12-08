@@ -274,10 +274,38 @@ label.tree_label:after {
     color: green;
 }
 
-.manage-po-content .col-md-7, .manage-po-content .col-md-7 .content {
+.purple-color {
+    color: #7F01A2;
+}
+
+.manage-po-content .col-md-8, .manage-po-content .col-md-8 .content {
     padding-right: 0;
 }
 
-.manage-po-content .col-md-5 .content{
+.manage-po-content .col-md-4 .content {
     padding-left: 0;
+}
+
+.manage-po-content .box-body {
+    line-height: 20pt;
+}
+
+.po-admin-items {
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.po-admin-item {
+    padding: 20px;
+    border-bottom: 1px dashed #ababab;
+    background-color: #f7f7f7;
+    line-height: 45pt;
+}
+
+    .po-admin-item:last-child {
+        border-bottom: none;
+    }
+
+.box-body .code-color{
+    font-size: 16pt;
 }

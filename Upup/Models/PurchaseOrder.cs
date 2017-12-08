@@ -83,8 +83,9 @@ namespace Upup.Models
         Temp = 1,
         Ordered = 2,
         Paid = 3,
-        Completed = 4,
-        Canceled = 5
+        Shipped = 4,
+        Completed = 5,
+        Canceled = 6
     }
 
     public enum PaymentMethods

@@ -179,11 +179,13 @@
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
             CKEDITOR.replace('Content', {
-                extraPlugins: 'divarea'
+                extraPlugins: 'divarea',
+                filebrowserImageUploadUrl: '/Admin/Upload/UploadImage'
             });
 
             CKEDITOR.replace('Content_en', {
-                extraPlugins: 'divarea'
+                extraPlugins: 'divarea',
+                filebrowserImageUploadUrl: '/Admin/Upload/UploadImage'
             });
 
             $("button[type='submit']").click(function() {
