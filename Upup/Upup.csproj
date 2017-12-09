@@ -257,6 +257,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ConvertHelper.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
@@ -3558,6 +3559,8 @@
     <Content Include="Content\jquery-jvectormap-2.0.2.css" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\_all-skins.min.css" />
+    <Content Include="EmailTemplates\PurchaseOrderTemplate.html" />
+    <Content Include="EmailTemplates\PurchaseOrderTemplate_en.html" />
     <Content Include="EmailTemplates\QuotesTemplate_en.html" />
     <Content Include="EmailTemplates\QuotesTemplate.html" />
     <Content Include="favicon.ico" />

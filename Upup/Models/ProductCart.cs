@@ -21,6 +21,13 @@ namespace Upup.Models
             return DateTime.Now.AddDays(shipdate.TargetDateNumber);
         }
 
+        public int DateShipping()
+        {
+            var shipdate = ProductVariant.FindBestMatchShipDateByQuantity(Quantity);
+            if (shipdate == null) return 0;
+            return shipdate.TargetDateNumber;
+        }
+
         public decimal CalculateTotalAmount()
         {
             return Quantity * ProductVariant.Price;
