@@ -2509,7 +2509,6 @@
     <Content Include="ckeditor\plugins\preview\lang\zh.js" />
     <Content Include="ckeditor\plugins\preview\plugin.js" />
     <Content Include="ckeditor\plugins\preview\preview.html" />
-<<<<<<< HEAD
     <Content Include="ckeditor\plugins\print\icons\hidpi\print.png" />
     <Content Include="ckeditor\plugins\print\icons\print.png" />
     <Content Include="ckeditor\plugins\print\lang\af.js" />
@@ -2656,12 +2655,6 @@
     <Content Include="ckeditor\plugins\save\lang\zh-cn.js" />
     <Content Include="ckeditor\plugins\save\lang\zh.js" />
     <Content Include="ckeditor\plugins\save\plugin.js" />
-    <Content Include="ckeditor\plugins\scayt\dialogs\dialog.css" />
-    <Content Include="ckeditor\plugins\scayt\dialogs\options.js" />
-    <Content Include="ckeditor\plugins\scayt\dialogs\toolbar.css" />
-    <Content Include="ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="ckeditor\plugins\scayt\README.md" />
-    <Content Include="ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
     <Content Include="ckeditor\plugins\selectall\icons\hidpi\selectall.png" />
     <Content Include="ckeditor\plugins\selectall\icons\selectall.png" />
     <Content Include="ckeditor\plugins\selectall\lang\af.js" />
@@ -2743,6 +2736,8 @@
     <Content Include="ckeditor\plugins\scayt\dialogs\dialog.css" />
     <Content Include="ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="ckeditor\plugins\scayt\README.md" />
     <Content Include="ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
     <Content Include="ckeditor\plugins\showblocks\images\block_address.png" />
     <Content Include="ckeditor\plugins\showblocks\images\block_blockquote.png" />
