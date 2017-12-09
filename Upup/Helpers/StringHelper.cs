@@ -55,6 +55,11 @@
                         stateString = "Thanh toán tiền mặt khi nhận hàng";
                         break;
                     }
+                default:
+                    {
+                        stateString = "Chưa xác định";
+                        break;
+                    }
             }
             return stateString;
         }

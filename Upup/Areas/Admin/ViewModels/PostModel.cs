@@ -10,6 +10,8 @@ namespace Upup.Areas.Admin.ViewModels
     public class PostModel
     {
         public long Id { get; set; }
+        [Display(Name = "Bài viết hướng dẫn")]
+        public bool IsUserGuide { get; set; }
         [Display(Name = "Tiêu đề")]
         public string Title { get; set; }
         [Display(Name = "Tiêu đề tiếng anh")]

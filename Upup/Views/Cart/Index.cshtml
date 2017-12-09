@@ -27,13 +27,11 @@
             <tr>
                 <td><label>Địa chỉ</label></td>
                 <td class="large"><div id="customerAddress">@Model.Address1</div></td>
-                <td><label>Phương thức thanh toán</label></td>
-                <td class="small"><div id="PoCode">@now.ToString("yyMMddhhmmss")</div></td>
+                <td colspan="2" rowspan="4"><label>Barcode</label></td>
             </tr>
             <tr>
                 <td><label>Số điện thoại</label></td>
                 <td class="large"><div id="customerPhone">@Model.PhoneNumber</div></td>
-                <td colspan="2" rowspan="3"><label>Barcode</label></td>
             </tr>
             <tr>
                 <td><label>Email</label></td>

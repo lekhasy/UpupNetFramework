@@ -16,7 +16,8 @@ namespace Upup.Controllers
             var vm = new HomeViewModel
             {
                 Categories = Db.Categories.Where(c => c.ParentCategory == null).ToList(),
-                CategoryShowInCarousel = Db.Categories.Where(c => c.ParentCategory != null && c.ChildCategories.Count > 0).ToList()
+                CategoryShowInCarousel = Db.Categories.Where(c => c.ParentCategory != null && c.ChildCategories.Count > 0).ToList(),
+                UserGuides = Db.Posts.Where(p => p.IsUserGuide).ToList()
             };
             return View(vm);
         }
