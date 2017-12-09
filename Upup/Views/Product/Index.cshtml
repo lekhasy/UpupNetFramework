@@ -63,7 +63,7 @@
                         <ul class="nav nav-pills">
                             <li class="dropdown" id="menu1">
                                 <button id="btn_add_cart_dropdown" class="dropdown-toggle btn btn-primary active-by-check-product" data-toggle="dropdown" href="#menu1" disabled>
-                                    <span class="lang-vi">Cho vào đơn hàng</span>
+                                    <span class="lang-vi">Thêm vào đơn hàng</span>
                                     <span class="lang-en">Add to cart</span>
                                     <b class="caret"></b>
                                 </button>
@@ -74,7 +74,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-6 text-right"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
+                    <div class="col-md-6 text-right"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">Đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
                 </div>
             </div>
             <div class="order-suggest form-group">
@@ -135,6 +135,7 @@
     <script>
         $(function () {
             var lastestpv = null;
+            $.fn.dataTable.ext.errMode = 'none';
             $('#btn_check').click(function () {
                 $.LoadingOverlay("show");
                 $.getJSON("/api/ProductApi/GetProductVariant", { code: $("#variant_code").val(), quantity: $("#variant_quantity").val() }, function (response) {
