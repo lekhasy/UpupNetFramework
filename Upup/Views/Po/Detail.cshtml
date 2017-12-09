@@ -66,7 +66,7 @@
     <table id="example1" class="table table-bordered table-striped display">
         <thead>
             <tr>
-                <th class="check-all tblcbx"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+                <th class="check-all tblcbx"><input type="hidden" name="select_all" value="1" id="example-select-all"></th>
                 <th>Stt</th>
                 <th>Mã sản phẩm</th>
                 <th>Mã biến thể</th>
@@ -256,7 +256,7 @@
                                     allIds.push($(tr).data().Id);
                                 }
                             }));
-                            $.post('/api/CartApi/RemoveItems', { ids: allIds },
+                            $.post('/api/PoApi/RemoveFromPo', { ids: allIds, PoId: @Model.Id },
                                 function (data) {
                                     if (data.ResultValue) {
                                         BootstrapDialog.show({
@@ -287,7 +287,7 @@
             });
 
             $('#addProductVariantToCart').click(function () {
-                $.post("/api/CartApi/Add", { productVariantCode: $('#variant-code').val(), quantity: parseInt($("#variant-quantity").val()) }, function (response) {
+                $.post("/api/PoApi/AddToPo", { productVariantCode: $('#variant-code').val(), quantity: parseInt($("#variant-quantity").val()), PoId: @Model.Id }, function (response) {
                     if (response.ResultValue) {
                         $('#variant-code').val('');
                         $("#variant-quantity").val(1);

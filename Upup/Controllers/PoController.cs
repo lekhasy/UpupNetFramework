@@ -8,6 +8,7 @@ using System.IO;
 using System;
 using Upup.ViewModels;
 using System.Data.Entity;
+using System.Web.Http;
 
 namespace Upup.Controllers
 {
@@ -260,7 +261,7 @@ namespace Upup.Controllers
 
             var PO = user.PurchaseOrders.FirstOrDefault(po => po.Id == id);
 
-            if(PO == null)
+            if (PO == null)
                 return new DataTableResponse<TableDataRow<PoDetailItemModel>> { error = "Không tìm thấy PO" };
 
             int sequence = 0;
@@ -294,6 +295,77 @@ namespace Upup.Controllers
                 recordsTotal = PoItems.Count(),
                 recordsFiltered = PoItems.Count()
             };
+        }
+
+        [System.Web.Http.HttpPost]
+        public AjaxSimpleResultModel RemoveFromPO([FromBody]RemovePoDetailModel model)
+        {
+            if (model.ids == null)
+            {
+                return new AjaxSimpleResultModel { ResultValue = false, Message = "Hãy chọn ít nhất một phiếu" };
+            }
+
+            var userId = User.Identity.GetUserId();
+
+            var customer = Db.Customers.Find(userId);
+
+            var removingPo = customer.PurchaseOrders.Where(p => p.Id == model.PoId).FirstOrDefault();
+
+            if (removingPo == null || removingPo.IsDeleted)
+            {
+                return new AjaxSimpleResultModel { ResultValue = false, Message = "PO không tồn tại" };
+            }
+
+            if (!removingPo.IsTemp)
+            {
+                return new AjaxSimpleResultModel { ResultValue = false, Message = "Chỉ có thể xóa PO tạm" };
+            }
+
+            var removingPoDetails = removingPo.PurchaseOrderDetails.Where(p => model.ids.Contains(p.Id));
+
+            if (removingPoDetails.Count() == removingPo.PurchaseOrderDetails.Count)
+            {
+                return new AjaxSimpleResultModel { ResultValue = false, Message = "Một PO cần ít nhất một phiếu, hãy thêm một phiếu khác trước khi xóa các phiếu này." };
+            }
+
+            Db.PurchaseOrderDetail.RemoveRange(removingPoDetails);
+
+            Db.SaveChanges();
+
+            return new AjaxSimpleResultModel
+            {
+                ResultValue = true,
+                Message = "Xóa thành công"
+            };
+        }
+
+        [System.Web.Http.HttpPost]
+        public AjaxSimpleResultModel AddToPo([FromBody]AddPoDetailModel model)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var customer = Db.Customers.Find(userId);
+
+            var addToCartResult = new CommonPoLogic(Db).AddToPo(customer, model.productVariantCode, model.quantity, model.PoId);
+            
+            if (addToCartResult.ResultValue)
+                Db.SaveChanges();
+
+            return addToCartResult;
+
+        }
+
+        public class AddPoDetailModel
+        {
+            public long PoId { get; set; }
+            public string productVariantCode { get; set; }
+            public long quantity { get; set; }
+        }
+
+        public class RemovePoDetailModel
+        {
+            public long PoId { get; set; }
+            public long[] ids { get; set; }
         }
     }
 
@@ -343,6 +415,51 @@ namespace Upup.Controllers
             _db.ProductCarts.RemoveRange(carts);
             customer.TempPoName = null;
             return po;
+        }
+
+        public AjaxSimpleResultModel AddToPo(Customer customer, string variantCode, long quantity, long PoId)
+        {
+            var Po = customer.PurchaseOrders.FirstOrDefault(p => p.Id == PoId);
+
+            if (Po == null || Po.IsDeleted)
+            {
+                return new AjaxSimpleResultModel { ResultValue = false, Message = "PO không tồn tại" };
+            }
+
+            if (!Po.IsTemp)
+            {
+                return new AjaxSimpleResultModel { ResultValue = false, Message = "Chỉ có thể thêm phiếu vào PO tạm" };
+            }
+
+            var variant = _db.ProductVariants.FirstOrDefault(pv => pv.VariantCode == variantCode);
+            if (variant == null) return new AjaxSimpleResultModel
+            {
+                Message = "Sản phẩm không tồn tại",
+                ResultValue = false
+            };
+
+            var exists = Po.PurchaseOrderDetails.FirstOrDefault(c => c.Product.VariantCode == variantCode);
+
+            if (exists == null)
+            {
+                Po.PurchaseOrderDetails.Add(new PurchaseOrderDetail
+                {
+                    Price = variant.Price,
+                    Product = variant,
+                    Quantity = quantity,
+                    State = (int)PoDetailState.Temp
+                });
+            }
+            else
+            {
+                exists.Quantity += quantity;
+            }
+
+            return new AjaxSimpleResultModel
+            {
+                ResultValue = true,
+                Message = "Thêm sản phẩm vào giỏ hàng thành công"
+            };
         }
     }
 }
