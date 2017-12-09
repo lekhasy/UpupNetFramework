@@ -43,10 +43,9 @@ namespace Upup.Areas.Admin.Controllers
             try
             {
                 var productVariant = Db.ProductVariants.Find(id);
+                var variantByCode = Db.ProductVariants.SingleOrDefault(p => p.VariantCode == code);
                 if (productVariant == null)
                 {
-                    var variantByCode = Db.ProductVariants.SingleOrDefault(p => p.VariantCode == code);
-
                     if (variantByCode != null)
                     {
                         return Json(new AjaxSimpleResultModel
@@ -73,6 +72,14 @@ namespace Upup.Areas.Admin.Controllers
                 }
                 else
                 {
+                    if (productVariant.VariantCode != code && variantByCode != null)
+                    {
+                        return Json(new AjaxSimpleResultModel
+                        {
+                            ResultValue = false,
+                            Message = "Mã biến thể này đã tồn tại, vui lòng chọn mã khác"
+                        });
+                    }
                     productVariant.VariantName = name;
                     productVariant.VariantCode = code;
                     productVariant.Price = Convert.ToDecimal(price);
@@ -100,7 +107,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult GetProductVariantById(int id)
         {
             var result = Db.ProductVariants.Find(id);
-            var model = Mapper.Map<ProductVariant,ProductVariantModel>(result);
+            var model = Mapper.Map<ProductVariant, ProductVariantModel>(result);
             model.ShipDateSelected = string.Join(",", result.ShipdateSettings.Select(ship => ship.Id));
             return Json(model);
         }
