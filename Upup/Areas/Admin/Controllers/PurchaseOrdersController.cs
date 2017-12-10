@@ -159,6 +159,37 @@ namespace Upup.Areas.Admin.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public ActionResult ChangePoDetailState(int id, int state)
+        {
+            var result = new AjaxSimpleResultModel();
+            var pod = db.PurchaseOrderDetail.SingleOrDefault(c => c.Id == id);
+            if (pod != null)
+            {
+                try
+                {
+                    pod.State = state;
+                    db.Entry(pod).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    result.ResultValue = true;
+                    result.Message = "Sản phẩm bạn chọn đã chuyển trạng thái thành công";
+                }
+                catch (Exception ex)
+                {
+                    result.ResultValue = false;
+                    result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";
+                    return Json(result);
+                }
+            }
+            else
+            {
+                result.ResultValue = false;
+                result.Message = "Sản phẩm bạn chọn đã bị xóa hoặc không tồn tại";
+            }
+            return Json(result);
+        }
+
         // GET: Admin/PurchaseOrders
         public ActionResult Index()
         {

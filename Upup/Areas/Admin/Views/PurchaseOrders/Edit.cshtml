@@ -6,6 +6,7 @@
 }
 
 @using Upup.Helpers
+@using Upup.Models
 @model Upup.Areas.Admin.ViewModels.PurchaseOrderDetailModel
 
 <div class="manage-po-content">
@@ -62,12 +63,29 @@
                                             @Convert.ToDecimal(product.Product.Price * product.Quantity).ToString("N0") VNĐ
                                         </div>
                                         <div class="col-md-2">
-                                            @StringHelper.GetPoStateByCode(product.State)
+                                            @if (Model.State == (int)PoState.Shipped)
+                                            {
+                                                <select class="product-ship-state" data-id="@product.Id">
+                                                    <option value="0" @((int)product.State == 0 ? "selected" : string.Empty)>Xuất kho</option>
+                                                    <option value="1" @((int)product.State == 1 ? "selected" : string.Empty)>Vận chuyển</option>
+                                                    <option value="2" @((int)product.State == 2 ? "selected" : string.Empty)>Hoàn thành</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                @: @StringHelper.GetPoStateByCode(product.State)
+                                            }
                                         </div>
                                     </div>
                                 </div>
                             }
                         </div>
+                        @if (Model.State == (int)PoState.Shipped)
+                        {
+                            <div class="note-ship">
+                                <small>Lưu ý: - Đơn hàng chỉ chuyển trạng thái hoàn thành được khi tất cả các sản phẩm trong đơn hàng đã vận chuyển thành công.</small>
+                            </div>
+                        }
                         <div id="changeStatus" class="row">
                             <div class="col-md-2 col-md-offset-1 text-center"><button id="state2" class="state-btn btn btn-warning">Đặt hàng</button></div>
                             <div class="col-md-2 text-center"><button id="state3" class="state-btn btn btn-info">Thanh toán</button></div>
@@ -199,6 +217,55 @@
                     });
                 });
             });
+            var isPoFinishShipping = true;
+            $(".product-ship-state").each(function () {
+                var $this = $(this);
+                if ($this.val() != @Convert.ToInt32(PoDetailState.Completed)){
+                    isPoFinishShipping = false;
+                }
+                $this.change(function () {
+                    BootstrapDialog.confirm({
+                        title: 'Tin nhắn',
+                        message: 'Bạn thực sự muốn chuyển đổi trạng thái vận chuyển của sản phẩm này?',
+                        //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                        closable: true, // <-- Default value is false
+                        draggable: true, // <-- Default value is false
+                        btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                        btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                        //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                        callback: function (result) {
+                            // result will be true if button was click, while it will be false if users close the dialog directly.
+                            if (result) {
+                                $.LoadingOverlay("show");
+                                $.post('/PurchaseOrders/ChangePoDetailState', { 'id': parseInt($this.attr('data-id'), 10), 'state': $this.val() },
+                                    function (data) {
+                                        if (data.ResultValue) {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_SUCCESS,
+                                                title: 'Thành công',
+                                                message: data.Message
+                                            });
+                                        } else {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_DANGER,
+                                                title: 'Thất bại',
+                                                message: data.Message
+                                            });
+                                        }
+                                        setTimeout(function () {
+                                            window.location.href = '@(Url.Action("Edit","PurchaseOrders", new { id = Model.Id }))'
+                                        }, 2000);
+                                        $.LoadingOverlay("hide");
+                                    }
+                                );
+                            }
+                        }
+                    });
+                });
+            });
+            if (!isPoFinishShipping) {
+                $("#state5").attr('disabled', 'disabled');
+            }
         });
     </script>
 }

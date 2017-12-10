@@ -319,3 +319,9 @@ label.tree_label:after {
 .checkbox-list input[type="checkbox"]{
     margin-left: 15px;
 }
+
+.note-ship {
+    margin-bottom: 10px;
+    font-style: italic;
+    color: red;
+}
