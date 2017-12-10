@@ -261,21 +261,9 @@
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="Migrations\201712011534235_InitDb.cs" />
-    <Compile Include="Migrations\201712011534235_InitDb.Designer.cs">
-      <DependentUpon>201712011534235_InitDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712031723225_Add_Total_Amount_And_Price.cs" />
-    <Compile Include="Migrations\201712031723225_Add_Total_Amount_And_Price.Designer.cs">
-      <DependentUpon>201712031723225_Add_Total_Amount_And_Price.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712041607026_Add_PO_Cus_Info_Payment_Method.cs" />
-    <Compile Include="Migrations\201712041607026_Add_PO_Cus_Info_Payment_Method.Designer.cs">
-      <DependentUpon>201712041607026_Add_PO_Cus_Info_Payment_Method.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712071752422_Remove_Customer_Name.cs" />
-    <Compile Include="Migrations\201712071752422_Remove_Customer_Name.Designer.cs">
-      <DependentUpon>201712071752422_Remove_Customer_Name.cs</DependentUpon>
+    <Compile Include="Migrations\201712101445002_InitDb.cs" />
+    <Compile Include="Migrations\201712101445002_InitDb.Designer.cs">
+      <DependentUpon>201712101445002_InitDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
@@ -4077,17 +4065,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712011534235_InitDb.resx">
-      <DependentUpon>201712011534235_InitDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712031723225_Add_Total_Amount_And_Price.resx">
-      <DependentUpon>201712031723225_Add_Total_Amount_And_Price.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712041607026_Add_PO_Cus_Info_Payment_Method.resx">
-      <DependentUpon>201712041607026_Add_PO_Cus_Info_Payment_Method.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712071752422_Remove_Customer_Name.resx">
-      <DependentUpon>201712071752422_Remove_Customer_Name.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712101445002_InitDb.resx">
+      <DependentUpon>201712101445002_InitDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

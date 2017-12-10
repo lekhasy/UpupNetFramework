@@ -13,7 +13,7 @@ namespace Upup.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201712011534235_InitDb"; }
+            get { return "201712101445002_InitDb"; }
         }
         
         string IMigrationMetadata.Source
