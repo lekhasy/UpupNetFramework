@@ -128,15 +128,16 @@ namespace Upup.Models
         public static IEnumerable<SelectOptions> GetSelectionList(bool containNotselected)
         {
             var names = Enum.GetNames(typeof(PaymentMethods));
-            var options = new List<SelectOptions>(names.Length);
+            var options = new List<SelectOptions>(names.Length + 1);
+
+            if (containNotselected)
+                options.Add(new SelectOptions(-1, "Chọn phương thức"));
+
             foreach (var name in names)
             {
                 Enum.TryParse(name, out PaymentMethods val);
                 options.Add(GetSelectOptions(val));
             }
-
-            if(containNotselected)
-                options.Add(new SelectOptions(-1, "Chọn phương thức"));
 
             return options;
         }
