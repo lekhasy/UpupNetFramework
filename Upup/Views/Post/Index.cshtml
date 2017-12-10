@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.MetaDescription = Model.Post.MetaDescription;
+    ViewBag.MetaKeywords = Model.Post.MetaKeyword;
 }
 
 <div id="postDetail" class="subject-category">

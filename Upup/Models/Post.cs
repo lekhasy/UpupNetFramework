@@ -8,6 +8,7 @@ namespace Upup.Models
     public class Post
     {
         public long Id { get; set; }
+        public bool IsUserGuide { get; set; }
         public string Title { get; set; }
         public string Title_en { get; set; }
 

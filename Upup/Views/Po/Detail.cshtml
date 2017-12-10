@@ -7,8 +7,7 @@
     var now = DateTime.Now;
 }
 
-
-
+@using Upup.Helpers
 
 <div id="cart">
 
@@ -67,7 +66,7 @@
             <tr>
                 <td><label>Số điện thoại</label></td>
                 <td class="large"><div id="customerPhone">@Model.GetCustomerModel().CustomerPhone</div></td>
-                <td colspan="2" rowspan="3"><label>Barcode</label></td>
+                <td colspan="2" rowspan="3" class="text-center caro-bg"><img width="120" height="120" src="@(StringHelper.CreateQrCode(Model.Code))" /></td>
             </tr>
             <tr>
                 <td><label>Email</label></td>

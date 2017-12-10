@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.MetaDescription = Model.CurrentCategory.MetaDescription;
+    ViewBag.MetaKeywords = Model.CurrentCategory.MetaKeyword;
     var categoryPath = new List<Upup.Models.PostCategory>();
     var currCategory = Model.CurrentCategory;
     for (int i = 0; i < 10; i++) // do not user while true to avoid infinity loop if code have a bug

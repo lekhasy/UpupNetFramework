@@ -35,7 +35,7 @@ namespace Upup.Areas.Admin.Controllers
             categories.Insert(0, new SelectListItem
             {
                 Text = "Chọn danh mục bài viết",
-                Value = string.Empty,
+                Value = "0",
                 Selected = true
             });
             var Post = new PostModel { PostCategories = categories };
@@ -97,6 +97,7 @@ namespace Upup.Areas.Admin.Controllers
                     CreatedDate = DateTime.Now,
                     LastModifiedDate = DateTime.Now,
                     Category = category,
+                    IsUserGuide = model.IsUserGuide,
                     MetaDescription = model.MetaDescription,
                     MetaKeyword = keywords,
                     MetaDescription_en = model.MetaDescription_en,
@@ -125,6 +126,7 @@ namespace Upup.Areas.Admin.Controllers
                     post.Content = model.Content;
                     post.Content_en = model.Content_en;
                     post.Category = category;
+                    post.IsUserGuide = model.IsUserGuide;
                     post.MetaDescription = model.MetaDescription;
                     post.MetaKeyword = keywords;
                     post.MetaDescription_en = model.MetaDescription_en;
@@ -154,7 +156,7 @@ namespace Upup.Areas.Admin.Controllers
             categories.Insert(0, new SelectListItem
             {
                 Text = "Chọn danh mục bài viết",
-                Value = string.Empty,
+                Value = "0",
                 Selected = true
             });
             model.PostCategories = categories;
