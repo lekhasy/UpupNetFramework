@@ -31,9 +31,9 @@ namespace Upup.Models
         }
         public string GetStateString()
         {
-            if (State == (int)PoDetailState.Temp) return "Chưa đặt hàng";
-            if (State == (int)PoDetailState.Ordered) return "Đợi thanh toán";
-            if (State == (int)PoDetailState.Paid) return "Đang xử lý";
+            if (PurchaseOrder.IsTemp) return "Chưa đặt hàng";
+            if (PurchaseOrder.State == (int)PoState.Ordered) return "Đợi thanh toán";
+            if (PurchaseOrder.State == (int)PoState.Paid) return "Đang xử lý";
             if (State == (int)PoDetailState.Shipping) return "Đang chuyển hàng";
             if (State == (int)PoDetailState.Completed) return "Hoàn thành";
             return null;
@@ -44,12 +44,8 @@ namespace Upup.Models
 
     public enum PoDetailState
     {
-        Temp = 1,
-        Ordered = 2,
-        Paid = 3,
-        Shipping = 4,
-        Completed = 5,
-        Canceled = 6,
+        InStore = 0,
+        Shipping = 1,
+        Completed = 2
     }
-
 }
