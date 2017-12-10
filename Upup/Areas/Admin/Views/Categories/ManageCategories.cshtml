@@ -154,6 +154,9 @@
                         <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
                             <i class="glyphicon glyphicon-edit"></i>
                         </a>
+                        <a class="delete-variant" data-id="@subPage.Id" href="javascript:void(0);">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
                         @RenderMenuItem(subPage)
                     </li>
                 }
@@ -174,6 +177,9 @@
                     <label for="@("c" + subPage.Id)" class="tree_label">@subPage.Name</label>
                     <a href="@Url.Action("ManageCategories", "Categories", new { id = subPage.Id  })">
                         <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="delete-variant" data-id="@subPage.Id" href="javascript:void(0);">
+                        <i class="glyphicon glyphicon-trash"></i>
                     </a>
                     @RenderMenuItem(subPage)
                 </li>
@@ -227,11 +233,11 @@
 @section AddScriptToBody{
     <script src="@Url.Content("~/Scripts/dropzone.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             Dropzone.options.dropzoneForm = {
                 maxFiles: 1,
-                init: function() {
-                    this.on("success", function(file) {
+                init: function () {
+                    this.on("success", function (file) {
 
                         // Create the remove button
                         var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
@@ -241,7 +247,7 @@
                         var filePath = arguments[1].FilePath;
 
                         // Listen to the click event
-                        removeButton.addEventListener("click", function(e) {
+                        removeButton.addEventListener("click", function (e) {
                             // Make sure the button click doesn't submit the form:
                             e.preventDefault();
                             e.stopPropagation();
@@ -273,6 +279,47 @@
 
             CKEDITOR.replace('Description_en', {
                 extraPlugins: 'divarea'
+            });
+
+            $('.delete-variant').click(function () {
+                var id = parseInt($(this).attr('data-id'), 10);
+                if(id>0){
+                    BootstrapDialog.confirm({
+                        title: 'Tin nhắn',
+                        message: 'Bạn thật sự muốn xóa danh mục này ?',
+                        //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                        closable: true, // <-- Default value is false
+                        draggable: true, // <-- Default value is false
+                        btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                        btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                        //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                        callback: function(result) {
+                            // result will be true if button was click, while it will be false if users close the dialog directly.
+                            if (result) {
+                                $.post('/Categories/RemoveCategories', { 'id': parseInt(id, 10) },
+                                    function(data) {
+                                        if (data.ResultValue) {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_SUCCESS,
+                                                title: 'Thành công',
+                                                message: data.Message
+                                            });
+                                        } else {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_DANGER,
+                                                title: 'Thất bại',
+                                                message: data.Message
+                                            });
+                                        }
+                                        setTimeout(function() {
+                                            location.href = '@Url.Action("ManageCategories", "Categories")';
+                                        }, 3000);
+                                    }
+                                );
+                            }
+                        }
+                    });
+                }
             });
 
             $("button[type='submit']").click(function() {
