@@ -71,6 +71,7 @@ namespace Upup.Migrations
                         VariantCode = c.String(),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OnHand = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Reserved = c.Decimal(nullable: false, precision: 18, scale: 2),
                         BrandName = c.String(),
                         Origin = c.String(),
                         Product_Id = c.Long(),
@@ -168,7 +169,13 @@ namespace Upup.Migrations
                         Code = c.String(),
                         Name = c.String(),
                         State = c.Int(nullable: false),
+                        PaymentMethod = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
                         CreatedDate = c.DateTime(nullable: false),
+                        CustomerAddress = c.String(),
+                        CustomerPhone = c.String(),
+                        CustomerEmail = c.String(),
+                        CustomerWebsite = c.String(),
                         Customer_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
@@ -182,6 +189,8 @@ namespace Upup.Migrations
                         Id = c.Long(nullable: false, identity: true),
                         Quantity = c.Long(nullable: false),
                         ShipDate = c.DateTime(),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TotalAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         State = c.Int(nullable: false),
                         Product_Id = c.Long(),
                         PurchaseOrder_Id = c.Long(),
@@ -249,6 +258,7 @@ namespace Upup.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
+                        IsUserGuide = c.Boolean(nullable: false),
                         Title = c.String(),
                         Title_en = c.String(),
                         Content = c.String(),
