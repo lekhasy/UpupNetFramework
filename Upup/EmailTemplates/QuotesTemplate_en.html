@@ -7,7 +7,7 @@
         <div style="clear: both;"></div>
     </div>
     <div>
-        <div style="float: left;width: 32%;margin-left: 5%;font-size: 10.5pt;">
+        <div style="float: left;width: 38%;margin-left: 5%;font-size: 10.5pt;">
             <h2 style="margin: 0 0 10px;">UP&UP CO ., LTD</h2>
             <div>
                 Address: 44/24/4A Tang Nhon Phu Phuoc Long B, Dist 9, HCM
@@ -24,15 +24,15 @@
                 <tbody>
                     <tr>
                         <td style="width:42%;">Quotation No.</td>
-                        <td style="width:58%;"></td>
+                        <td style="width:58%;">[QuoteCode]</td>
                     </tr>
                     <tr>
                         <td style="width:42%;">Date</td>
-                        <td style="width:58%;"></td>
+                        <td style="width:58%;">[QuoteDate]</td>
                     </tr>
                     <tr>
                         <td style="width:42%;height:50px;">Barcode</td>
-                        <td style="width:58%;height:50px;"></td>
+                        <td style="width:58%;height:50px;"><img width="80" height="80" src="[Barcode]" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -45,55 +45,42 @@
             <tbody>
                 <tr>
                     <td style="width:22%;">Customer PO Ref.</td>
-                    <td style="width:38%"></td>
+                    <td style="width:38%">[PORef]</td>
                     <td style="width:18%">CustomerCode</td>
-                    <td style="width:22%"></td>
+                    <td style="width:22%">[CustomerCode]</td>
                 </tr>
                 <tr>
                     <td style="width:22%;">Company Name</td>
-                    <td colspan="3" style="width:78%"></td>
+                    <td colspan="3" style="width:78%">[CustomerName]</td>
                 </tr>
                 <tr>
                     <td style="width:22%;">Phone</td>
-                    <td style="width:38%"></td>
+                    <td style="width:38%">[CompanyPhone]</td>
                     <td style="width:18%">Tax Code</td>
-                    <td style="width:22%"></td>
+                    <td style="width:22%">[TaxNo]</td>
                 </tr>
                 <tr>
                     <td style="width:22%;">Address</td>
-                    <td colspan="3" style="width:78%"></td>
+                    <td colspan="3" style="width:78%">[CompanyAddress]</td>
                 </tr>
                 <tr>
                     <td style="width:22%;">Contact Name</td>
-                    <td colspan="3" style="width:78%"></td>
+                    <td colspan="3" style="width:78%">[ContactName]</td>
                 </tr>
                 <tr>
                     <td style="width:22%;">Emai</td>
-                    <td style="width:38%"></td>
+                    <td style="width:38%">[Email]</td>
                     <td style="width:18%">Phone</td>
-                    <td style="width:22%"></td>
+                    <td style="width:22%">[Phone]</td>
                 </tr>
                 <tr>
                     <td style="width:22%;">Shipping Address</td>
-                    <td colspan="3" style="width:78%"></td>
+                    <td colspan="3" style="width:78%">[Address]</td>
                 </tr>
             </tbody>
         </table>
-        <h4 style="padding-left:34px; margin-bottom:2px;">II. PAYMENT METHOD</h4>
-        <table style="margin-left:34px; width: 50%;" border="1" cellpadding="3" cellspacing="0">
-            <tbody>
-                <tr>
-                    <td style="width:78%;">Pre-payment</td>
-                    <td style="width:22%"></td>
-                </tr>
-                <tr>
-                    <td style="width:78%;">Delivery Upon Payment</td>
-                    <td style="width:22%"></td>
-                </tr>
-            </tbody>
-        </table>
-        <h4 style="padding-left:34px; margin-bottom:2px;">I. PRODUCT LIST</h4>
-        <table border="1" cellpadding="3" cellspacing="0">
+        <h4 style="padding-left:34px; margin-bottom:2px;">II. PRODUCT LIST</h4>
+        <table border="1" cellpadding="3" cellspacing="0" style="width:100%;">
             <tbody>
                 <tr>
                     <td rowspan="3" style="width:5%;text-align:center;">No.</td>
@@ -109,50 +96,23 @@
                     <td style="width:20%; text-align:center">Quantity</td>
                     <td style="width:45%; text-align:right">Amount (vnd)</td>
                 </tr>
-                <tr>
-                    <td rowspan="3" style="width:5%;text-align:center;">1</td>
-                    <td style="width:38%">&nbsp;</td>
-                    <td colspan="2" style="width:57%; text-align:right">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="width:38%">&nbsp;</td>
-                    <td colspan="2" style="width:57%; text-align:center">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="width:30%; text-align:center">&nbsp;</td>
-                    <td style="width:20%; text-align:center">&nbsp;</td>
-                    <td style="width:45%; text-align:right">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td rowspan="3" style="width:5%;text-align:center;">2</td>
-                    <td style="width:38%">&nbsp;</td>
-                    <td colspan="2" style="width:57%; text-align:right">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="width:38%">&nbsp;</td>
-                    <td colspan="2" style="width:57%; text-align:center">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="width:30%; text-align:center">&nbsp;</td>
-                    <td style="width:20%; text-align:center">&nbsp;</td>
-                    <td style="width:45%; text-align:right">&nbsp;</td>
-                </tr>
+                [HtmlItemInGrid]
             </tbody>
         </table>
         <div>
-            <table style="width: 42%; border-top:none; margin-right: 1px; float: right;" border="1" cellpadding="3" cellspacing="0">
+            <table style="width: 46%; border-top:none; margin-right: 1px; float: right;" border="1" cellpadding="3" cellspacing="0">
                 <tbody>
                     <tr>
                         <td style="width:58%;">Item Total</td>
-                        <td style="width:42%; text-align: right;">1,000,000</td>
+                        <td style="width:42%; text-align: right;">[Amount]</td>
                     </tr>
                     <tr>
                         <td style="width:58%;">VAT</td>
-                        <td style="width:42%; text-align: right;">100,000</td>
+                        <td style="width:42%; text-align: right;">[VAT]</td>
                     </tr>
                     <tr>
                         <td style="width:58%;">Ship Fee</td>
-                        <td style="width:42%; text-align: right;">30,000</td>
+                        <td style="width:42%; text-align: right;">[DeliveryFee]</td>
                     </tr>
                     <tr>
                         <td style="width:58%;">&nbsp;</td>
@@ -160,7 +120,7 @@
                     </tr>
                     <tr>
                         <td style="width:58%;">Total</td>
-                        <td style="width:42%; text-align: right;">1,100,000</td>
+                        <td style="width:42%; text-align: right;">[TotalAmount]</td>
                     </tr>
                 </tbody>
             </table>

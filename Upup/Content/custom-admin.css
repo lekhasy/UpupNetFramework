@@ -309,3 +309,13 @@ label.tree_label:after {
 .box-body .code-color{
     font-size: 16pt;
 }
+
+.checkbox-list label{
+    display: inline-block;
+    vertical-align: middle;
+    color: firebrick;
+}
+
+.checkbox-list input[type="checkbox"]{
+    margin-left: 15px;
+}

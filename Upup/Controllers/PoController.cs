@@ -9,6 +9,7 @@ using System;
 using Upup.ViewModels;
 using System.Data.Entity;
 using System.Web.Http;
+using Upup.Helpers;
 
 namespace Upup.Controllers
 {
@@ -74,7 +75,8 @@ namespace Upup.Controllers
                 {
                     Id = c.Id,
                     Sequence = ++sequence,
-                    DeliveryDate = c.CalculateShipDate(),
+                    //DeliveryDate = c.CalculateShipDate(),
+                    DateShipping = c.DateShipping(),
                     Quantity = c.Quantity,
                     BrandName = c.ProductVariant.BrandName,
                     ProductCode = c.ProductVariant.Product.Code,
@@ -102,7 +104,7 @@ namespace Upup.Controllers
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:38%' >" + product.ProductCode + "</td>";
-                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DeliveryDate + "</td>";
+                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DateShipping + "</td>";
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:30%; text-align:center' > " + product.ProductPrice.ToString("N0") + " </td>";
@@ -116,10 +118,12 @@ namespace Upup.Controllers
             {
                 body = reader.ReadToEnd();
             }
-            body = body.Replace("[QuoteCode]", "123456");
-            body = body.Replace("[QuoteDate]", DateTime.Now.ToShortDateString());
-            body = body.Replace("[Barcode]", "0987654321");
-            body = body.Replace("[PORef]", "00000000");
+            var poCode = DateTime.Now.ToString("yyMMddhhmmss");
+            var newGuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            body = body.Replace("[QuoteCode]", newGuid.Substring(newGuid.Length - 10));
+            body = body.Replace("[QuoteDate]", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            body = body.Replace("[Barcode]", StringHelper.CreateQrCode(poCode));
+            body = body.Replace("[PORef]", poCode);
             body = body.Replace("[CustomerCode]", user.Code);
             body = body.Replace("[CustomerName]", user.FullName);
             body = body.Replace("[CompanyPhone]", user.PhoneNumber);
@@ -131,6 +135,88 @@ namespace Upup.Controllers
             body = body.Replace("[Address]", user.Address1);
             body = body.Replace("[PayBeforeShip]", "X");
             body = body.Replace("[PayAfterShip]", string.Empty);
+            body = body.Replace("[Amount]", totalPrice.ToString("N0"));
+            body = body.Replace("[VAT]", "10%");
+            body = body.Replace("[DeliveryFee]", "10,000");
+            body = body.Replace("[TotalAmount]", (totalPrice + (totalPrice * 10 / 100) + 10000).ToString("N0"));
+            body = body.Replace("[HtmlItemInGrid]", html);
+            return body;
+        }
+
+        private string CreateEmailPoBody(int poId)
+        {
+            string body = string.Empty;
+            var userId = User.Identity.GetUserId();
+            var user = Db.Customers.Find(userId);
+            var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == poId);
+            var pos = po.PurchaseOrderDetails;
+            var cartItems = new List<PurchaseOrderDetail>();
+
+            foreach (var c in pos)
+            {
+                cartItems.Add(new PurchaseOrderDetail
+                {
+                    Id = c.Id,
+                    Price = c.Price,
+                    Quantity = c.Quantity,
+                    TotalAmount = c.TotalAmount,
+                    ShipDate = c.ShipDate,
+                    State = c.State,
+                    Product = c.Product,
+                    PurchaseOrder = c.PurchaseOrder
+                });
+            }
+
+            var html = string.Empty;
+            decimal totalPrice = 0;
+            if (cartItems != null)
+            {
+                var countProduct = 0;
+                foreach (var poDetail in cartItems)
+                {
+                    countProduct++;
+                    html += "<tr>";
+                    html += "<td rowspan = '3' style='width:5%;text-align:center;'> " + countProduct + " </td>";
+                    html += "<td style ='width:38%'>" + poDetail.Product.VariantName + "</td>";
+                    html += "<td colspan = '2' style = 'width:57%; text-align:right'>" + poDetail.Product.BrandName + "</td>";
+                    html += "</tr>";
+                    html += "<tr>";
+                    html += "<td style = 'width:38%' >" + poDetail.Product.VariantCode + "</td>";
+                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + poDetail.Product.ShipdateSettings + " ngày</td>";
+                    html += "</tr>";
+                    html += "<tr>";
+                    html += "<td style = 'width:30%; text-align:center' > " + poDetail.Price.ToString("N0") + " </td>";
+                    html += "<td style = 'width:20%; text-align:center' > " + poDetail.Quantity + "";
+                    html += "<td style = 'width:45%; text-align:right' > " + poDetail.TotalAmount.ToString("N0") + " </td>";
+                    html += "</tr > ";
+                    totalPrice += poDetail.TotalAmount;
+                }
+            }
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplates/PurchaseOrderTemplate.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("[OrderStatus]", StringHelper.GetPoPaymentMethodByCode(po.State));
+            body = body.Replace("[QuoteDate]", po.CreatedDate.ToString("dd/MM/yyyy HH:mm"));
+            body = body.Replace("[Barcode]", StringHelper.CreateQrCode(DateTime.Now.ToString("yyMMddhhmmss")));
+            body = body.Replace("[PORef]", DateTime.Now.ToString("yyMMddhhmmss"));
+            body = body.Replace("[CustomerCode]", user.Code);
+            body = body.Replace("[CustomerName]", user.FullName);
+            body = body.Replace("[CompanyPhone]", user.PhoneNumber);
+            body = body.Replace("[TaxNo]", user.OrgName);
+            body = body.Replace("[CompanyAddress]", user.Address2);
+            body = body.Replace("[ContactName]", user.OrgName);
+            body = body.Replace("[Email]", user.Email);
+            body = body.Replace("[Phone]", user.PhoneNumber);
+            body = body.Replace("[Address]", user.Address1);
+            if (po.PaymentMethod == 2)
+            {
+                body = body.Replace("[PayBeforeShip]", "X");
+            }
+            else if (po.PaymentMethod == 1)
+            {
+                body = body.Replace("[PayAfterShip]", string.Empty);
+            }
             body = body.Replace("[Amount]", totalPrice.ToString("N0"));
             body = body.Replace("[VAT]", "10%");
             body = body.Replace("[DeliveryFee]", "10,000");
@@ -161,6 +247,45 @@ namespace Upup.Controllers
             Db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult MakeOrderFromTemp(long id, string code, string name, int paymentMethodId)
+        {
+            if (paymentMethodId != (int)PaymentMethods.COD && paymentMethodId != (int)PaymentMethods.BankTransfer)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var userId = User.Identity.GetUserId();
+
+            var customer = Db.Customers.Find(userId);
+
+            var po = customer.PurchaseOrders.FirstOrDefault(p => p.Id == id);
+
+            if (po == null || po.IsDeleted || !po.IsTemp)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            foreach (var podetail in po.PurchaseOrderDetails)
+            {
+                podetail.Price = podetail.GetCalculatedPrice();
+                podetail.ShipDate = podetail.GetCalculatedShipDate();
+                podetail.TotalAmount = podetail.GetCalculatedTotalAmount();
+            }
+
+            po.State = (int)PoState.Ordered;
+            po.Code = code;
+            po.Name = name;
+            po.PaymentMethod = paymentMethodId;
+            po.CustomerAddress = customer.Address1;
+            po.CustomerEmail = customer.Email;
+            po.CustomerPhone = customer.PhoneNumber;
+            po.CustomerWebsite = customer.Webiste;
+
+            Db.SaveChanges();
+
+            return RedirectToAction(nameof(Detail), new { id = po.Id });
         }
 
         [System.Web.Mvc.HttpGet]
@@ -404,7 +529,6 @@ namespace Upup.Controllers
                     Product = c.ProductVariant,
                     Quantity = c.Quantity,
                     ShipDate = c.CalculateShipDate(),
-                    State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered,
                     Price = c.ProductVariant.Price,
                     TotalAmount = c.ProductVariant.Price * c.Quantity
                 }).ToList()
@@ -446,8 +570,7 @@ namespace Upup.Controllers
                 {
                     Price = variant.Price,
                     Product = variant,
-                    Quantity = quantity,
-                    State = (int)PoDetailState.Temp
+                    Quantity = quantity
                 });
             }
             else

@@ -48,15 +48,19 @@ namespace Upup.Models
                 };
             }
         }
+        public string GetPaymentMethodString()
+        {
+            return ((PaymentMethods)PaymentMethod).GetName();
+        }
 
         public int CalculateCompleteShipping()
         {
-            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Completed || p.State == (int)PoDetailState.Canceled).Count();
+            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Completed).Count();
         }
 
         public int CalculateShipping()
         {
-            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Shipping).Count();
+            return PurchaseOrderDetails.Where(p => p.State >= (int)PoDetailState.Shipping).Count();
         }
 
         public int CalculateTotalDetail()
@@ -94,4 +98,49 @@ namespace Upup.Models
         BankTransfer = 2
     }
 
+    public static class PaymentMethodExtension
+    {
+        public static string GetName(this PaymentMethods method)
+        {
+            if (method == PaymentMethods.COD)
+            {
+                return "Thanh toán khi nhận hàng";
+            }
+            else
+            {
+                return "Chuyển khoản qua ngân hàng";
+            }
+        }
+
+        private static SelectOptions GetSelectOptions(this PaymentMethods method)
+        {
+            var display = string.Empty;
+            switch (method)
+            {
+                case PaymentMethods.COD: display = "Thanh toán khi nhận hàng"; break;
+                case PaymentMethods.BankTransfer: display = "Chuyển khoản qua ngân hàng"; break;
+                default:
+                    throw new NotImplementedException($"{method} is not implemented");
+            }
+
+            return new SelectOptions((int)method, display);
+        }
+
+        public static IEnumerable<SelectOptions> GetSelectionList(bool containNotselected)
+        {
+            var names = Enum.GetNames(typeof(PaymentMethods));
+            var options = new List<SelectOptions>(names.Length + 1);
+
+            if (containNotselected)
+                options.Add(new SelectOptions(-1, "Chọn phương thức"));
+
+            foreach (var name in names)
+            {
+                Enum.TryParse(name, out PaymentMethods val);
+                options.Add(GetSelectOptions(val));
+            }
+
+            return options;
+        }
+    }
 }

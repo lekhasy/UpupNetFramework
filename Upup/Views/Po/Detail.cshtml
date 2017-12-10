@@ -1,4 +1,5 @@
-﻿@model Upup.Models.PurchaseOrder
+﻿@using Upup.Models
+@model PurchaseOrder
 
 @{
     ViewBag.Title = "Detail";
@@ -6,8 +7,7 @@
     var now = DateTime.Now;
 }
 
-
-
+@using Upup.Helpers
 
 <div id="cart">
 
@@ -28,7 +28,7 @@
                     }
                 </td>
                 <td><label>Mã khách hàng</label></td>
-                <td class="small"><div id="customerCode">@Model.Code</div></td>
+                <td class="small"><div id="customerCode">@Model.Customer.Code</div></td>
             </tr>
             <tr>
                 <td><label>Tên khách hàng</label></td>
@@ -38,20 +38,43 @@
             </tr>
             <tr>
                 <td><label>Địa chỉ</label></td>
-                <td class="large"><div id="customerAddress">@Model.Customer.Address1</div></td>
-                <td colspan="2" rowspan="4"><label>Barcode</label></td>
+                <td class="large"><div id="customerAddress">@Model.GetCustomerModel().CustomerAddress</div></td>
+                <td><label>Phương thức thanh toán</label></td>
+                @if (Model.IsTemp)
+                {
+                    <td class="small">
+                        <select id="pay_method" class="form-control">
+                            @foreach (var item in PaymentMethodExtension.GetSelectionList(false))
+                            {
+                                if (item.Value == Model.PaymentMethod)
+                                {
+                                    <option selected="selected" value="@item.Value">@item.Display</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Display</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                }
+                else
+                {
+                    <td class="small"><div id="PoCode">@Model.GetPaymentMethodString()</div></td>
+                }
             </tr>
             <tr>
                 <td><label>Số điện thoại</label></td>
-                <td class="large"><div id="customerPhone">@Model.Customer.PhoneNumber</div></td>
+                <td class="large"><div id="customerPhone">@Model.GetCustomerModel().CustomerPhone</div></td>
+                <td colspan="2" rowspan="3" class="text-center caro-bg"><img width="120" height="120" src="@(StringHelper.CreateQrCode(Model.Code))" /></td>
             </tr>
             <tr>
                 <td><label>Email</label></td>
-                <td class="large"><div id="customerEmail">@Model.Customer.Email</div></td>
+                <td class="large"><div id="customerEmail">@Model.GetCustomerModel().CustomerEmail</div></td>
             </tr>
             <tr>
                 <td><label>Website</label></td>
-                <td class="large"><div id="customerWebsite">@Model.Customer.Webiste</div></td>
+                <td class="large"><div id="customerWebsite">@Model.GetCustomerModel().CustomerWebsite</div></td>
             </tr>
         </tbody>
     </table>
@@ -66,7 +89,7 @@
     <table id="example1" class="table table-bordered table-striped display">
         <thead>
             <tr>
-                <th class="check-all tblcbx"><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+                <th class="check-all tblcbx"><input type="hidden" name="select_all" value="1" id="example-select-all"></th>
                 <th>Stt</th>
                 <th>Mã sản phẩm</th>
                 <th>Mã biến thể</th>
@@ -90,9 +113,11 @@
         </div>
     }
     <div class="area-button text-center">
-        <form action="/Po/Order" method="get" class="prevent-if-name-empty">
+        <form action="/Po/MakeOrderFromTemp" method="post" class="prevent-if-name-empty">
+            <input type="hidden" name="id" value="@Model.Id" />
             <input type="hidden" name="code" value="@Model.Code" />
-            <input type="hidden" name="name" value="@Model.Name" />
+            <input type="hidden" class="clone_po_name" name="name" value="@Model.Name" />
+            <input type="hidden" class="clone_pay_method" name="paymentMethodId" value="@Model.PaymentMethod" />
             <input type="submit" id="btn_Order" class="btn btn-primary" value="Đặt hàng">
         </form>
     </div>
@@ -137,7 +162,7 @@
                     });
                     e.preventDefault();
                     return;
-                }
+                }                
 
                 if ($('.data-marker').length == 0) {
                     BootstrapDialog.show({
@@ -153,6 +178,10 @@
 
             $('#poname').on('input', function (e) {
                 $('.clone_po_name').val($('#poname').val());
+            });
+
+            $('#pay_method').change(function (e) {
+                $('.clone_pay_method').val($('#pay_method').val());
             });
 
             var $table = $("#example1").DataTable({

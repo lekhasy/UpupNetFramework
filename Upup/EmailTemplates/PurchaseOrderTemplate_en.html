@@ -3,32 +3,32 @@
         <div style="float: left; width: 30%; margin-left: 5%;">
             <img src="http://www.upup.com.vn/Images/logo.png" width="120" style="margin-left: -10px;" />
         </div>
-        <div style="font-size: 22px; float:left; width: 65%; padding-top:20px; color: #006699; font-weight: bold;">BẢNG BÁO GIÁ</div>
+        <div style="font-size: 22px; float:left; width: 65%; padding-top:20px; color: #006699; font-weight: bold;">Your Order</div>
         <div style="clear: both;"></div>
     </div>
     <div>
         <div style="float: left;width: 38%;margin-left: 5%;font-size: 10.5pt;">
-            <h2 style="margin: 0 0 10px;">CTY TNHH UP&UP</h2>
+            <h2 style="margin: 0 0 10px;">UP&UP CO ., LTD</h2>
             <div>
-                Địa chỉ: 44/24/4A Tăng Nhơn Phú Phước Long B, Quận 9, HCM
+                Address: 44/24/4A Tang Nhon Phu Phuoc Long B, Dist 9, HCM
             </div>
             <div>
-                Điện Thoại: 0975099848
+                Phone: 0975099848
             </div>
             <div>
-                MST: 0314744225
+                Tax Code: 0314744225
             </div>
         </div>
         <div style="float: left;margin-left: 3%; width: 37%;">
             <table border="1" cellpadding="3" cellspacing="0">
                 <tbody>
                     <tr>
-                        <td style="width:42%;">Mã báo giá</td>
-                        <td style="width:58%;">[QuoteCode]</td>
+                        <td style="width:42%;">Date order</td>
+                        <td style="width:58%;">[QuoteDate]</td>
                     </tr>
                     <tr>
-                        <td style="width:42%;">Ngày báo giá</td>
-                        <td style="width:58%;">[QuoteDate]</td>
+                        <td style="width:42%;">Order status</td>
+                        <td style="width:58%;">[OrderStatus]</td>
                     </tr>
                     <tr>
                         <td style="width:42%;height:50px;">Barcode</td>
@@ -40,61 +40,74 @@
         <div style="clear: both;"></div>
     </div>
     <div style="margin-top:20px;">
-        <h4 style="padding-left:34px; margin-bottom:2px;">I. THÔNG TIN KHÁCH HÀNG</h4>
+        <h4 style="padding-left:34px; margin-bottom:2px;">I. CUSTOMER INFOMATIONS</h4>
         <table border="1" cellpadding="3" cellspacing="0">
             <tbody>
                 <tr>
-                    <td style="width:22%;">Số tham chiếu PO</td>
+                    <td style="width:22%;">Customer PO Ref.</td>
                     <td style="width:38%">[PORef]</td>
-                    <td style="width:18%">Mã khách hàng</td>
+                    <td style="width:18%">CustomerCode</td>
                     <td style="width:22%">[CustomerCode]</td>
                 </tr>
                 <tr>
-                    <td style="width:22%;">Khách hàng</td>
+                    <td style="width:22%;">Company Name</td>
                     <td colspan="3" style="width:78%">[CustomerName]</td>
                 </tr>
                 <tr>
-                    <td style="width:22%;">Điện thoại</td>
+                    <td style="width:22%;">Phone</td>
                     <td style="width:38%">[CompanyPhone]</td>
-                    <td style="width:18%">MST</td>
+                    <td style="width:18%">Tax Code</td>
                     <td style="width:22%">[TaxNo]</td>
                 </tr>
                 <tr>
-                    <td style="width:22%;">Trụ sở</td>
+                    <td style="width:22%;">Address</td>
                     <td colspan="3" style="width:78%">[CompanyAddress]</td>
                 </tr>
                 <tr>
-                    <td style="width:22%;">Người liên hệ</td>
+                    <td style="width:22%;">Contact Name</td>
                     <td colspan="3" style="width:78%">[ContactName]</td>
                 </tr>
                 <tr>
-                    <td style="width:22%;">Email</td>
+                    <td style="width:22%;">Emai</td>
                     <td style="width:38%">[Email]</td>
-                    <td style="width:18%">Điện thoại</td>
+                    <td style="width:18%">Phone</td>
                     <td style="width:22%">[Phone]</td>
                 </tr>
                 <tr>
-                    <td style="width:22%;">Địa chỉ liên lạc</td>
+                    <td style="width:22%;">Shipping Address</td>
                     <td colspan="3" style="width:78%">[Address]</td>
                 </tr>
             </tbody>
         </table>
-        <h4 style="padding-left:34px; margin-bottom:2px;">II. THÔNG TIN ĐƠN HÀNG</h4>
+        <h4 style="padding-left:34px; margin-bottom:2px;">II. PAYMENT METHOD</h4>
+        <table style="margin-left:34px; width: 50%;" border="1" cellpadding="3" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td style="width:78%;">Pre-payment</td>
+                    <td style="width:22%">[PayBeforeShip]</td>
+                </tr>
+                <tr>
+                    <td style="width:78%;">Delivery Upon Payment</td>
+                    <td style="width:22%">[PayAfterShip]</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4 style="padding-left:34px; margin-bottom:2px;">III. PRODUCT LIST</h4>
         <table border="1" cellpadding="3" cellspacing="0" style="width:100%;">
             <tbody>
                 <tr>
-                    <td rowspan="3" style="width:5%;text-align:center;">STT</td>
-                    <td style="width:38%">TÊN SẢN PHẨM</td>
-                    <td colspan="2" style="width:57%; text-align:right">Nhãn hiệu</td>
+                    <td rowspan="3" style="width:5%;text-align:center;">No.</td>
+                    <td style="width:38%">Product Name</td>
+                    <td colspan="2" style="width:57%; text-align:right">Brand Name</td>
                 </tr>
                 <tr>
-                    <td style="width:38%">Mã sản phẩm</td>
-                    <td colspan="2" style="width:57%; text-align:center">Thời gian giao hàng</td>
+                    <td style="width:38%">Product Code</td>
+                    <td colspan="2" style="width:57%; text-align:center">Estimated Ship Time</td>
                 </tr>
                 <tr>
-                    <td style="width:30%; text-align:center">Đơn giá(vnd)</td>
-                    <td style="width:20%; text-align:center">Số lượng</td>
-                    <td style="width:45%; text-align:right">Tổng tiền(vnd)</td>
+                    <td style="width:30%; text-align:center">Unit Price (vnd)</td>
+                    <td style="width:20%; text-align:center">Quantity</td>
+                    <td style="width:45%; text-align:right">Amount (vnd)</td>
                 </tr>
                 [HtmlItemInGrid]
             </tbody>
@@ -103,15 +116,15 @@
             <table style="width: 46%; border-top:none; margin-right: 1px; float: right;" border="1" cellpadding="3" cellspacing="0">
                 <tbody>
                     <tr>
-                        <td style="width:58%;">Tổng tiền hàng</td>
+                        <td style="width:58%;">Item Total</td>
                         <td style="width:42%; text-align: right;">[Amount]</td>
                     </tr>
                     <tr>
-                        <td style="width:58%;">Thuế VAT</td>
+                        <td style="width:58%;">VAT</td>
                         <td style="width:42%; text-align: right;">[VAT]</td>
                     </tr>
                     <tr>
-                        <td style="width:58%;">Phí Giao Hàng</td>
+                        <td style="width:58%;">Ship Fee</td>
                         <td style="width:42%; text-align: right;">[DeliveryFee]</td>
                     </tr>
                     <tr>
@@ -119,17 +132,17 @@
                         <td style="width:42%; text-align: right;">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td style="width:58%;">Tổng Tiền Thanh Toán</td>
+                        <td style="width:58%;">Total</td>
                         <td style="width:42%; text-align: right;">[TotalAmount]</td>
                     </tr>
                 </tbody>
             </table>
             <div style="clear: both;"></div>
         </div>
-        <div style="margin-top: 20px;">
-            <div style="font-size: 16px; font-weight: bold; padding-left: 34px; margin-bottom: 5px; font-style: italic;">Ghi Chú:</div>
-            <div style="padding-left: 34px; font-size: 10pt;">1- Hiệu lực báo giá trong vòng 15 ngày</div>
-            <div style="padding-left: 34px; font-size: 10pt;">2- Thời gian giao hàng sẽ được xác nhận khi đã đặt hàng</div>
-        </div>
+        <!--<div style="margin-top: 20px;">
+            <div style="font-size: 16px; font-weight: bold; padding-left: 34px; margin-bottom: 5px; font-style: italic;">Notes:</div>
+            <div style="padding-left: 34px; font-size: 10pt;">1- Quotaion is valid within 15 days.</div>
+            <div style="padding-left: 34px; font-size: 10pt;">2- Delivery time will be confirmed after ordered</div>
+        </div>-->
     </div>
 </div>

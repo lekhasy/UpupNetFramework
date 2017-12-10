@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Upup.Areas.Admin.ViewModels;
+using Upup.Helpers;
 using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
@@ -53,6 +54,8 @@ namespace Upup.Areas.Admin.Controllers
                                      ||
                                      c.CreatedDate.ToShortDateString().Contains(param.sSearch)
                           ||
+                                   StringHelper.GetPoStateByCode(c.State).Contains(param.sSearch)
+                          ||
                           c.Name.Contains(param.sSearch)
                           ||
                           c.Customer.FullName.Contains(param.sSearch)).ToList();
@@ -71,7 +74,7 @@ namespace Upup.Areas.Admin.Controllers
 
             var result = filteredProducts.Select(Po => new[]
             {
-                Po.Id.ToString(CultureInfo.InvariantCulture), Po.Code, Po.CreatedDate.ToShortDateString(), Po.Name,
+                Po.Id.ToString(CultureInfo.InvariantCulture), Po.Code, Po.CreatedDate.ToString("dd/MM/yyyy"), Po.Name,
                 Po.State.ToString(), Po.Customer.FullName, Po.TotalAmount.ToString("N0"),
                 Po.IsDeleted.ToString(CultureInfo.InvariantCulture), Po.Id.ToString(CultureInfo.InvariantCulture)
             }).ToList();
