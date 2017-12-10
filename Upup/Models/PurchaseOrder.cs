@@ -52,14 +52,15 @@ namespace Upup.Models
         {
             return ((PaymentMethods)PaymentMethod).GetName();
         }
+
         public int CalculateCompleteShipping()
         {
-            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Completed || p.State == (int)PoDetailState.Canceled).Count();
+            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Completed).Count();
         }
 
         public int CalculateShipping()
         {
-            return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Shipping).Count();
+            return PurchaseOrderDetails.Where(p => p.State >= (int)PoDetailState.Shipping).Count();
         }
 
         public int CalculateTotalDetail()
@@ -86,9 +87,8 @@ namespace Upup.Models
         Temp = 1,
         Ordered = 2,
         Paid = 3,
-        Shipped = 4,
-        Completed = 5,
-        Canceled = 6
+        Completed = 4,
+        Canceled = 5
     }
 
     public enum PaymentMethods
@@ -128,15 +128,16 @@ namespace Upup.Models
         public static IEnumerable<SelectOptions> GetSelectionList(bool containNotselected)
         {
             var names = Enum.GetNames(typeof(PaymentMethods));
-            var options = new List<SelectOptions>(names.Length);
+            var options = new List<SelectOptions>(names.Length + 1);
+
+            if (containNotselected)
+                options.Add(new SelectOptions(-1, "Chọn phương thức"));
+
             foreach (var name in names)
             {
                 Enum.TryParse(name, out PaymentMethods val);
                 options.Add(GetSelectOptions(val));
             }
-
-            if(containNotselected)
-                options.Add(new SelectOptions(-1, "Chọn phương thức"));
 
             return options;
         }

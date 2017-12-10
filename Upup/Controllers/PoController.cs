@@ -272,7 +272,6 @@ namespace Upup.Controllers
                 podetail.Price = podetail.GetCalculatedPrice();
                 podetail.ShipDate = podetail.GetCalculatedShipDate();
                 podetail.TotalAmount = podetail.GetCalculatedTotalAmount();
-                podetail.State = (int)PoDetailState.Ordered;
             }
 
             po.State = (int)PoState.Ordered;
@@ -530,7 +529,6 @@ namespace Upup.Controllers
                     Product = c.ProductVariant,
                     Quantity = c.Quantity,
                     ShipDate = c.CalculateShipDate(),
-                    State = isTemp ? (int)PoDetailState.Temp : (int)PoDetailState.Ordered,
                     Price = c.ProductVariant.Price,
                     TotalAmount = c.ProductVariant.Price * c.Quantity
                 }).ToList()
@@ -572,8 +570,7 @@ namespace Upup.Controllers
                 {
                     Price = variant.Price,
                     Product = variant,
-                    Quantity = quantity,
-                    State = (int)PoDetailState.Temp
+                    Quantity = quantity
                 });
             }
             else
