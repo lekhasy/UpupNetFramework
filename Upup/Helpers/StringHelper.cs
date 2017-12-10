@@ -38,7 +38,7 @@ namespace Upup.Helpers
                     }
                 default:
                     {
-                        stateString = "Lưu tạm";
+                        stateString = "Đơn hàng tạm";
                         break;
                     }
             }
