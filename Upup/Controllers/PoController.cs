@@ -163,6 +163,46 @@ namespace Upup.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult MakeOrderFromTemp(long id, string code, string name, int paymentMethodId)
+        {
+            if (paymentMethodId != (int)PaymentMethods.COD && paymentMethodId != (int)PaymentMethods.BankTransfer)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var userId = User.Identity.GetUserId();
+
+            var customer = Db.Customers.Find(userId);
+
+            var po = customer.PurchaseOrders.FirstOrDefault(p => p.Id == id);
+
+            if (po == null || po.IsDeleted || !po.IsTemp)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            foreach (var podetail in po.PurchaseOrderDetails)
+            {
+                podetail.Price = podetail.GetCalculatedPrice();
+                podetail.ShipDate = podetail.GetCalculatedShipDate();
+                podetail.TotalAmount = podetail.GetCalculatedTotalAmount();
+                podetail.State = (int)PoDetailState.Ordered;
+            }
+
+            po.State = (int)PoState.Ordered;
+            po.Code = code;
+            po.Name = name;
+            po.PaymentMethod = paymentMethodId;
+            po.CustomerAddress = customer.Address1;
+            po.CustomerEmail = customer.Email;
+            po.CustomerPhone = customer.PhoneNumber;
+            po.CustomerWebsite = customer.Webiste;
+
+            Db.SaveChanges();
+
+            return RedirectToAction(nameof(Detail), new { id = po.Id });
+        }
+
         [System.Web.Mvc.HttpGet]
         public ActionResult Detail(long id)
         {
