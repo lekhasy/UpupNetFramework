@@ -54,33 +54,36 @@ namespace Upup.Controllers
 
             ViewBag.Term = term;
 
+            var topics = posts.Select(p => new SearchItemModels
+            {
+                Id = p.Id,
+                CategoryId = p.Category.Id,
+                CategoryName = p.Category.Name,
+                Content = p.Sumary,
+                Title = p.Title,
+                CategoryName_en = p.Category.Name_en,
+                Title_en = p.Title_en,
+                Content_en = p.Sumary_en
+            }).ToList();
+
+            var prods = products.Select(p => new SearchItemModels
+            {
+                Id = p.Id,
+                Content_en = p.Summary_en,
+                Content = p.Summary,
+                Title_en = p.Name_en,
+                Title = p.Name,
+                Image = p.ImageUrl,
+                CategoryId = p.Category.Id,
+                CategoryName = p.Category.Name,
+                CategoryName_en = p.Category.Name_en
+            }).ToList();
+
             return View(
                 new SearchModels
                 {
-                    SearchTopicResult = posts.Select(p => new SearchItemModels
-                    {
-                        Id = p.Id,
-                        CategoryId = p.Category.Id,
-                        CategoryName = p.Category.Name,
-                        Content = p.Sumary,
-                        Title = p.Title,
-                        CategoryName_en = p.Category.Name_en,
-                        Title_en = p.Title_en,
-                        Content_en = p.Sumary_en
-                    }).ToList(),
-
-                    SearchProductResult = products.Select(p => new SearchItemModels
-                    {
-                        Id = p.Id,
-                        Content_en = p.Summary_en,
-                        Content = p.Summary,
-                        Title_en = p.Name_en,
-                        Title = p.Name,
-                        Image = p.ImageUrl,
-                        CategoryId = p.Category.Id,
-                        CategoryName = p.Category.Name,
-                        CategoryName_en = p.Category.Name_en
-                    }).ToList()
+                    SearchTopicResult = topics,
+                    SearchProductResult = prods
                 });
         }
     }

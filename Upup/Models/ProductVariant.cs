@@ -19,10 +19,27 @@ namespace Upup.Models
         public virtual ProductVariantUnit ProductVariantUnit { get; set; }
         public virtual ICollection<ShipDateSetting> ShipdateSettings { get; set; }
         public virtual ICollection<ProductCart> ProductCarts { get; set; }
+        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
 
         public ShipDateSetting FindBestMatchShipDateByQuantity(long quantity)
         {
-            return ShipdateSettings.Where(s => s.QuantityOrderMax > quantity).OrderBy(s => s.QuantityOrderMax).FirstOrDefault();
+            var RealOnHand = OnHand;
+            // [TODO] need perfomance improvement
+            var allreserved = PurchaseOrderDetails.Where(p => p.PurchaseOrder.State == (int)PoState.Paid);
+            if (allreserved.Any())
+            {
+                RealOnHand = OnHand - allreserved.Sum(r => r.Quantity);
+            }
+            if (RealOnHand >= quantity)
+            {
+                // only need 1 day to ready for shipping
+                return new ShipDateSetting { Id = -1, TargetDateNumber = 1};
+            }
+            else
+            {
+                var missingQuantity = quantity - RealOnHand;
+                return ShipdateSettings.Where(s => s.QuantityOrderMax > missingQuantity).OrderBy(s => s.QuantityOrderMax).FirstOrDefault();
+            }
         }
     }
 }
