@@ -226,7 +226,7 @@ namespace Upup.Areas.Admin.Controllers
                 }
             }
             ViewData["ProductImgUrl"] = "/Images/Product/" + imgUrl;
-            var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(product.ProductVariants.ToList());
+            var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(product.ProductVariants != null ? product.ProductVariants.ToList() : new List<ProductVariant>());
             model.Variants = variants;
             return View(model);
         }

@@ -35,6 +35,7 @@ namespace Upup.ViewModels
         public decimal TotalPrice { get; set; }
         public DateTime? DeliveryDate { get; set; }
         public string StateString { get; set; }
+        public int DateShipping { get; set; }
     }
 
 }

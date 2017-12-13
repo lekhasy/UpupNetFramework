@@ -34,9 +34,16 @@ namespace Upup.Models
             if (PurchaseOrder.IsTemp) return "Chưa đặt hàng";
             if (PurchaseOrder.State == (int)PoState.Ordered) return "Đợi thanh toán";
             if (PurchaseOrder.State == (int)PoState.Paid) return "Đang xử lý";
+            if (State == (int)PoDetailState.InStore) return "Chuẩn bị chuyển hàng";
             if (State == (int)PoDetailState.Shipping) return "Đang chuyển hàng";
             if (State == (int)PoDetailState.Completed) return "Hoàn thành";
             return null;
+        }
+        public int DateShipping()
+        {
+            var shipdate = Product.FindBestMatchShipDateByQuantity(Quantity);
+            if (shipdate == null) return 0;
+            return shipdate.TargetDateNumber;
         }
         public virtual ProductVariant Product { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }

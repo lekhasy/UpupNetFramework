@@ -399,13 +399,14 @@ namespace Upup.Controllers
                     {
                         Id = c.Id,
                         Sequence = ++sequence,
-                        DeliveryDate = c.ShipDate,
+                        //DeliveryDate = c.CalculateShipDate(),
+                        DateShipping = c.DateShipping(),
                         Quantity = c.Quantity,
-                        ProductCode = c.Product.Product.Code,
+                        //ProductCode = c.ProductVariant.Product.Code,
                         ProductName = c.Product.Product.Name,
-                        ProductPrice = c.GetCalculatedPrice(),
+                        ProductPrice = c.Product.Price,
                         ProductVariantCode = c.Product.VariantCode,
-                        ProductVariantName = c.Product.VariantName,
+                        //ProductVariantName = c.ProductVariant.VariantName,
                         TotalPrice = c.GetCalculatedTotalAmount(),
                         UnitName = c.Product.ProductVariantUnit.Name,
                         StateString = c.GetStateString()

@@ -77,13 +77,13 @@
                     <div class="col-md-6 text-right"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">K.tra đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
                 </div>
             </div>
-            <div class="order-suggest form-group">
-                <h2>BẢNG VẼ: @Model.Code</h2>
+            <div id="guideArea" class="order-suggest form-group hidden">
+                <h2 id="guideName"></h2>
                 <br />
                 <div class="area-button">
                     <div class="row">
-                        <div class="col-md-6 text-center"><a target="_blank" href="~/Images/2dFiles/@Model.Cad2dUrl" class="btn btn-success">2D CAD</a></div>
-                        <div class="col-md-6 text-center"><a target="_blank" href="~/Images/3dFiles/@Model.Cad3dUrl" class="btn btn-success">3D CAD</a></div>
+                        <div class="col-md-6 text-center"><a id="guide2d" target="_blank" class="btn btn-success">2D CAD</a></div>
+                        <div class="col-md-6 text-center"><a id="guide3d" target="_blank" class="btn btn-success">3D CAD</a></div>
                     </div>
                 </div>
             </div>
@@ -148,6 +148,14 @@
                         $('#quantity').val(response.Quantity);
                         $('#total_amount').val(accounting.formatMoney(response.Quantity * pv.Price));
                         $('#ship_date').val(response.ShipDateNumber + ' ngày');
+                        $('#guideArea').removeClass('hidden');
+                        $('#guideName').text('BẢNG VẼ: ' + response.Code);
+                        if (response.Cad2dUrl !== undefined){
+                            $('#guide2d').attr('href', '/Images/2dFiles/' + response.Cad2dUrl)
+                        }
+                        if (response.Cad3dUrl !== undefined) {
+                            $('#guide3d').attr('href', '/Images/3dFiles/' + response.Cad3dUrl)
+                        }
                         //if (response.ShipDate)
                         //    $('#ship_date').val(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
                         //else
