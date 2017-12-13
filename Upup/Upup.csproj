@@ -266,6 +266,10 @@
     <Compile Include="Migrations\201712101445002_InitDb.Designer.cs">
       <DependentUpon>201712101445002_InitDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712131605516_Add_Cad_And_Quotation_Code.cs" />
+    <Compile Include="Migrations\201712131605516_Add_Cad_And_Quotation_Code.Designer.cs">
+      <DependentUpon>201712131605516_Add_Cad_And_Quotation_Code.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -4073,6 +4077,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712101445002_InitDb.resx">
       <DependentUpon>201712101445002_InitDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131605516_Add_Cad_And_Quotation_Code.resx">
+      <DependentUpon>201712131605516_Add_Cad_And_Quotation_Code.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

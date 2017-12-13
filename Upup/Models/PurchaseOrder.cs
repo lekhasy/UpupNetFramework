@@ -15,6 +15,7 @@ namespace Upup.Models
         public decimal TotalAmount => PurchaseOrderDetails.Sum(s => s.GetCalculatedTotalAmount());
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string QuotationCode { get; set; }
 
         public bool IsTemp => State == (int)PoState.Temp;
 
