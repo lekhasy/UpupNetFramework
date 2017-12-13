@@ -15,11 +15,15 @@ namespace Upup.Models
         public decimal Reserved { get; set; }
         public string BrandName { get; set; }
         public string Origin { get; set; }
+        public string Cad2dUrl { get; set; }
+        public string Cad3dUrl { get; set; }
+
         public virtual Product Product { get; set; }
         public virtual ProductVariantUnit ProductVariantUnit { get; set; }
         public virtual ICollection<ShipDateSetting> ShipdateSettings { get; set; }
         public virtual ICollection<ProductCart> ProductCarts { get; set; }
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+
 
         public ShipDateSetting FindBestMatchShipDateByQuantity(long quantity)
         {
