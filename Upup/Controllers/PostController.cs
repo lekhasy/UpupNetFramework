@@ -20,24 +20,25 @@ namespace Upup.Controllers
         {
             var post = Db.Posts.Find(id);
             var rootCategory = post.Category;
-            while (rootCategory.RootCategoryIdentifier == null)
+            if (rootCategory != null)
             {
-                rootCategory = rootCategory.ParentCategory;
+                while (rootCategory.RootCategoryIdentifier == null)
+                {
+                    rootCategory = rootCategory.ParentCategory;
+                }
+                if (rootCategory.RootCategoryIdentifier == (int)RootPostCategory.Tech)
+                {
+                    return RedirectToAction(TechController.TechInfoActionName, TechController.ControllerName, new { id = id });
+                }
+                else if (rootCategory.RootCategoryIdentifier == (int)RootPostCategory.UserManual)
+                {
+                    return RedirectToAction(UserManualController.InfoActionName, UserManualController.ControllerName, new { id = id });
+                }
+                else if (rootCategory.RootCategoryIdentifier == (int)RootPostCategory.Event)
+                {
+                    return RedirectToAction(EventController.InfoActionName, EventController.ControllerName, new { id = id });
+                }
             }
-
-            if (rootCategory.RootCategoryIdentifier == (int)RootPostCategory.Tech)
-            {
-                return RedirectToAction(TechController.TechInfoActionName, TechController.ControllerName, new {id = id });
-            }
-            else if(rootCategory.RootCategoryIdentifier == (int)RootPostCategory.UserManual)
-            {
-                return RedirectToAction(UserManualController.InfoActionName, UserManualController.ControllerName, new { id = id });
-            }
-            else if(rootCategory.RootCategoryIdentifier == (int)RootPostCategory.Event)
-            {
-                return RedirectToAction(EventController.InfoActionName, EventController.ControllerName, new { id = id });
-            }
-
             return RedirectToRoute("Default");
 
         }

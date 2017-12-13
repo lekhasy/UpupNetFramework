@@ -325,3 +325,11 @@ label.tree_label:after {
     font-style: italic;
     color: red;
 }
+
+ul.tree ul ul ul label.tree_label {
+    color: green;
+}
+
+    ul.tree ul ul ul label.tree_label:before {
+        background-color: green;
+    }

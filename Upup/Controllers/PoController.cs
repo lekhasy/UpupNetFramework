@@ -54,13 +54,13 @@ namespace Upup.Controllers
             //    UserManager.SendEmailAsync(admin.Id, $"có khách hàng {admin.FullName} cần báo giá", $"Họ tên: {user.FullName}, Điện thoại: {user.PhoneNumber}, Email:{user.Email}. Với chi tiết như sau </br>" + CreateEmailQuoteBody()).Wait();
             //}
 
-            UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody()).Wait();
+            UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody(code,name)).Wait();
             new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId());
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private string CreateEmailQuoteBody()
+        private string CreateEmailQuoteBody(string code, string name)
         {
             string body = string.Empty;
             var userId = User.Identity.GetUserId();
@@ -118,12 +118,11 @@ namespace Upup.Controllers
             {
                 body = reader.ReadToEnd();
             }
-            var poCode = DateTime.Now.ToString("yyMMddhhmmss");
             var newGuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
             body = body.Replace("[QuoteCode]", newGuid.Substring(newGuid.Length - 10));
             body = body.Replace("[QuoteDate]", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
-            body = body.Replace("[Barcode]", StringHelper.CreateQrCode(poCode));
-            body = body.Replace("[PORef]", poCode);
+            body = body.Replace("[Barcode]", StringHelper.CreateQrCode(code));
+            body = body.Replace("[PORef]", name);
             body = body.Replace("[CustomerCode]", user.Code);
             body = body.Replace("[CustomerName]", user.FullName);
             body = body.Replace("[CompanyPhone]", user.PhoneNumber);
@@ -133,11 +132,11 @@ namespace Upup.Controllers
             body = body.Replace("[Email]", user.Email);
             body = body.Replace("[Phone]", user.PhoneNumber);
             body = body.Replace("[Address]", user.Address1);
-            body = body.Replace("[PayBeforeShip]", "X");
-            body = body.Replace("[PayAfterShip]", string.Empty);
+            //body = body.Replace("[PayBeforeShip]", "X");
+            //body = body.Replace("[PayAfterShip]", string.Empty);
             body = body.Replace("[Amount]", totalPrice.ToString("N0"));
             body = body.Replace("[VAT]", "10%");
-            body = body.Replace("[DeliveryFee]", "10,000");
+            body = body.Replace("[DeliveryFee]", string.Empty);
             body = body.Replace("[TotalAmount]", (totalPrice + (totalPrice * 10 / 100) + 10000).ToString("N0"));
             body = body.Replace("[HtmlItemInGrid]", html);
             return body;
@@ -219,7 +218,7 @@ namespace Upup.Controllers
             }
             body = body.Replace("[Amount]", totalPrice.ToString("N0"));
             body = body.Replace("[VAT]", "10%");
-            body = body.Replace("[DeliveryFee]", "10,000");
+            body = body.Replace("[DeliveryFee]", string.Empty);
             body = body.Replace("[TotalAmount]", (totalPrice + (totalPrice * 10 / 100) + 10000).ToString("N0"));
             body = body.Replace("[HtmlItemInGrid]", html);
             return body;

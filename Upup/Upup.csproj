@@ -238,6 +238,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthCheckController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\PoController.cs" />
     <Compile Include="Controllers\UpupAPIControllerBase.cs" />
@@ -3562,6 +3563,10 @@
     <Content Include="Images\banner2.svg" />
     <Content Include="Images\banner3.svg" />
     <Content Include="Images\banner4.svg" />
+    <Content Include="Images\banners\banner-1.jpg" />
+    <Content Include="Images\banners\banner-2.jpg" />
+    <Content Include="Images\banners\banner-3.jpg" />
+    <Content Include="Images\banners\banner-4.jpg" />
     <Content Include="Images\banners\poster1.jpg" />
     <Content Include="Images\icons\calendar-icon.png" />
     <Content Include="Images\icons\pdf-icon.png" />
@@ -4040,6 +4045,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Setting\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

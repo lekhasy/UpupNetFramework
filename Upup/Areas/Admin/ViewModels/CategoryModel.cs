@@ -35,5 +35,6 @@ namespace Upup.Areas.Admin.ViewModels
         public ICollection<CategoryModel> ChildCategories { get; set; }
         public List<CategoryModel> AllCategoriesLevel { get; set; }
         public CategoryModel ParentCategory { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

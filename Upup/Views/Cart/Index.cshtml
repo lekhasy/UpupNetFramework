@@ -64,11 +64,9 @@
                 <th class="check-all"><input type="hidden" name="select_all" value="1" id="example-select-all"></th>
                 <th>Stt</th>
                 <th>Mã sản phẩm</th>
-                <th>Mã biến thể</th>
                 <th>Số lượng</th>
                 <th>Đơn vị</th>
                 <th>Tên sản phẩm</th>
-                <th>Tên biến thể</th>
                 <th>Đơn giá</th>
                 <th>Thành tiền</th>
                 <th>Ngày giao</th>
@@ -208,12 +206,10 @@
                         }
                     },
                     { data: "DT_RowData.Sequence" },
-                    { data: "DT_RowData.ProductCode" },
                     { data: "DT_RowData.ProductVariantCode" },
                     { data: "DT_RowData.Quantity" },
                     { data: "DT_RowData.UnitName" },
                     { data: "DT_RowData.ProductName" },
-                    { data: "DT_RowData.ProductVariantName" },
                     {
                         data: "DT_RowData.ProductPrice",
                         'render': function (data, type, full, meta) {
@@ -237,10 +233,10 @@
                         }
                     },
                     {
-                        data: "DT_RowData.DeliveryDate",
+                        data: "DT_RowData.DateShipping",
                         'render': function (data, type, full, meta) {
                             if (data) {
-                                return new Date(Date.parse(data)).toLocaleDateString('vi');
+                                return data + " ngày";
                             }
                             else {
                                 return "Chưa xác định"

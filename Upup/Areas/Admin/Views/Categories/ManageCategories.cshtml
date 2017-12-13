@@ -36,29 +36,29 @@
                             <div class="form-group">
                                 @Html.LabelFor(n => n.ParentCategory_Id)
                                 @Html.DropDownListFor(n => n.ParentCategory_Id, Model.ParentCategories, new
-                       {
-                           @class = "form-control"
-                       })
+                           {
+                               @class = "form-control"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.Name)
                                 @Html.TextBoxFor(n => n.Name, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập tên danh mục",
-                           @required = "required",
-                           @data_errormessage_value_missing = "Vui lòng điền tên danh mục"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập tên danh mục",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền tên danh mục"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.Name_en)
                                 @Html.TextBoxFor(n => n.Name_en, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập tên danh mục tiếng anh",
-                           @required = "required",
-                           @data_errormessage_value_missing = "Vui lòng điền tên danh mục tiếng anh"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập tên danh mục tiếng anh",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền tên danh mục tiếng anh"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(p => p.ImageUrl)
@@ -73,60 +73,60 @@
                             <div class="form-group">
                                 @Html.LabelFor(n => n.Description)
                                 @Html.TextAreaFor(n => n.Description, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập sơ lược về danh mục",
-                           @rows = "3"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập sơ lược về danh mục",
+                               @rows = "3"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.Description_en)
                                 @Html.TextAreaFor(n => n.Description_en, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập sơ lược tiếng anh về danh mục",
-                           @rows = "3"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập sơ lược tiếng anh về danh mục",
+                               @rows = "3"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.MetaDescription)
                                 @Html.TextBoxFor(n => n.MetaDescription, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập mô tả cho trang",
-                           @required = "required",
-                           @data_errormessage_value_missing = "Vui lòng điền mô tả trang"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền mô tả trang"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.MetaKeyword)
                                 @Html.TextBoxFor(n => n.MetaKeyword, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập từ khỏa cho trang",
-                           @required = "required",
-                           @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khỏa cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền từ khóa trang"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.MetaDescription_en)
                                 @Html.TextBoxFor(n => n.MetaDescription_en, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập mô tả tiếng anh cho trang",
-                           @required = "required",
-                           @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập mô tả tiếng anh cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền mô tả tiếng anh cho trang"
+                           })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(n => n.MetaKeyword_en)
                                 @Html.TextBoxFor(n => n.MetaKeyword_en, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "Nhập từ khỏa tiếng anh cho trang",
-                           @required = "required",
-                           @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
-                       })
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập từ khỏa tiếng anh cho trang",
+                               @required = "required",
+                               @data_errormessage_value_missing = "Vui lòng điền từ khóa tiếng anh cho trang"
+                           })
                             </div>
                         </div><!-- /.box-body -->
 
@@ -168,7 +168,7 @@
 @helper RenderMenuItem(Upup.Areas.Admin.ViewModels.CategoryModel category)
 {
     <ul>
-        @if (category.ChildCategories.Count > 0)
+        @if (category.ChildCategories != null && category.ChildCategories.Count > 0)
         {
             foreach (var subPage in category.ChildCategories)
             {
@@ -182,6 +182,22 @@
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                     @RenderMenuItem(subPage)
+                </li>
+            }
+        }
+        @if (category.Products != null && category.Products.Count > 0)
+        {
+            foreach (var product in category.Products)
+            {
+                <li>
+                    <input type="checkbox" checked="checked" id="@("p" + product.Id)" />
+                    <label for="@("p" + product.Id)" class="tree_label">@product.Name</label>
+                    <a href="@Url.Action("ManageProducts", "Products", new { id = product.Id  })">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="delete-variant" data-id="@product.Id" href="javascript:void(0);">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
                 </li>
             }
         }
