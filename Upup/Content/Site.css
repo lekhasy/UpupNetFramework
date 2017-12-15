@@ -158,6 +158,49 @@ a.btn {
     margin-top: 10px;
 }
 
+    .area-head-category h2 {
+        color: #0169c6;
+        margin-top: 30px;
+        margin-bottom: 25px;
+        padding-left: 25px;
+        padding-right: 20px;
+        font-size: 18pt;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        background-color: #ffffff;
+    }
+
+.category-caption {
+    position: relative;
+    width: 100%;
+    height: 80px;
+}
+
+.area-head-category .category-caption:before {
+    content: "\A";
+    border-style: solid;
+    border-width: 8px 0 8px 10px;
+    border-color: transparent transparent transparent #0169c6;
+    position: absolute;
+    left: 4px;
+    top: 41%;
+    z-index: 2;
+}
+
+.area-head-category .category-caption:after {
+    height: 2px;
+    content: " ";
+    text-shadow: none;
+    background-color: #0169c6;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 0;
+}
+
 .area-contact {
     
 }
@@ -343,15 +386,11 @@ footer {
             left: 290px;
             top: -2px;
             width: 660px;
-            min-height: 560px;
+            min-height: 500px;
             border: 2px solid #0169c6;
             border-radius: 0px 2px 2px 0px;
             box-shadow: rgba(0,0,0,0.1) 3px 3px 3px 0px;
             background-color: #fff;
-        }
-
-        .header .head-category .category-list-box {
-            height: 560px;
         }
 
             .header .head-category .category-list-box .image {
@@ -525,7 +564,7 @@ footer {
         }
 
         .header .head-category dd .category-list-box {
-            height: 587px;
+            height: 500px;
         }
 
 .language-vn .header .head-category dd .category-list-box {
@@ -637,7 +676,7 @@ footer {
         position: relative;
         display: inline-block;
         vertical-align: top;
-        width: 224px;
+        width: 242.4px;
         min-height: 260px;
         border-right: solid 1px #BFBFBF;
         border-bottom: solid 1px #BFBFBF;
