@@ -79,7 +79,7 @@ namespace Upup.Controllers
                     DateShipping = c.DateShipping(),
                     Quantity = c.Quantity,
                     BrandName = c.ProductVariant.BrandName,
-                    ProductCode = c.ProductVariant.Product.Code,
+                    //ProductCode = c.ProductVariant.Product.Code,
                     ProductName = c.ProductVariant.Product.Name,
                     ProductPrice = c.ProductVariant.Price,
                     ProductVariantCode = c.ProductVariant.VariantCode,
@@ -103,7 +103,8 @@ namespace Upup.Controllers
                     html += "<td colspan = '2' style = 'width:57%; text-align:right'>" + product.BrandName + "</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "<td style = 'width:38%' >" + product.ProductCode + "</td>";
+                    // [TODO]: chỉnh lại chỗ này sau khi product code bị xóa
+                    //html += "<td style = 'width:38%' >" + product.ProductCode + "</td>";
                     html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DateShipping + "</td>";
                     html += "</tr>";
                     html += "<tr>";

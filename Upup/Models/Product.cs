@@ -8,7 +8,6 @@ namespace Upup.Models
     public class Product
     {
         public long Id { get; set; }
-        public string Code { get; set; }
 
         public string Name { get; set; }
         public string Name_en { get; set; }
@@ -17,8 +16,6 @@ namespace Upup.Models
         public string ImageUrl { get; set; }
         public string PdfUrl { get; set; }
         public string LinkGuide { get; set; }
-        public string Cad2dUrl { get; set; }
-        public string Cad3dUrl { get; set; }
 
         public string MetaKeyword { get; set; }
         public string MetaDescription { get; set; }

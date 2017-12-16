@@ -270,6 +270,10 @@
     <Compile Include="Migrations\201712131605516_Add_Cad_And_Quotation_Code.Designer.cs">
       <DependentUpon>201712131605516_Add_Cad_And_Quotation_Code.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712160735337_Remove_Fields.cs" />
+    <Compile Include="Migrations\201712160735337_Remove_Fields.Designer.cs">
+      <DependentUpon>201712160735337_Remove_Fields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AjaxSimpleResultModel.cs" />
     <Compile Include="Models\AppConfig.cs" />
@@ -4080,6 +4084,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712131605516_Add_Cad_And_Quotation_Code.resx">
       <DependentUpon>201712131605516_Add_Cad_And_Quotation_Code.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712160735337_Remove_Fields.resx">
+      <DependentUpon>201712160735337_Remove_Fields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

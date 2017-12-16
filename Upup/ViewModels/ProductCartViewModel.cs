@@ -9,7 +9,7 @@ namespace Upup.ViewModels
     {
         public long Id { get; set; }
         public int Sequence { get; set; }
-        public string ProductCode { get; set; }
+        //public string ProductCode { get; set; }
         public string ProductVariantCode { get; set; }
         public long Quantity { get; set; }
         public string UnitName { get; set; }

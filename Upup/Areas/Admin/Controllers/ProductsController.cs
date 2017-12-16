@@ -147,26 +147,26 @@ namespace Upup.Areas.Admin.Controllers
             Product product = null;
             if (model.Id == 0)
             {
-                var productByCode = Db.Products.SingleOrDefault(p => p.Code == model.Code);
+                //var productByCode = Db.Products.SingleOrDefault(p => p.Code == model.Code);
 
-                if (productByCode != null)
-                {
-                    ModelState.AddModelError("ProgressError", "Mã sản phẩm này đã tồn tại, vui lòng chọn mã khác");
-                    model.Variants = new List<ProductVariantModel>();
-                    return View(model);
-                }
+                //if (productByCode != null)
+                //{
+                //    ModelState.AddModelError("ProgressError", "Mã sản phẩm này đã tồn tại, vui lòng chọn mã khác");
+                //    model.Variants = new List<ProductVariantModel>();
+                //    return View(model);
+                //}
 
                 var Product = new Product
                 {
                     Name = model.Name,
                     Name_en = model.Name_en,
-                    Code = model.Code,
+                    //Code = model.Code,
                     PdfUrl = model.PdfUrl,
                     Summary = model.Summary,
                     Summary_en = model.Summary_en,
                     LinkGuide = model.LinkGuide,
-                    Cad2dUrl = model.Cad2dUrl,
-                    Cad3dUrl = model.Cad3dUrl,
+                    //Cad2dUrl = model.Cad2dUrl,
+                    //Cad3dUrl = model.Cad3dUrl,
                     //Price = model.Price,
                     //OnHand = model.OnHand,
                     Category = category,
@@ -195,13 +195,13 @@ namespace Upup.Areas.Admin.Controllers
                     product.Name = model.Name;
                     product.Name_en = model.Name_en;
                     product.ImageUrl = imgUrl;
-                    product.Code = model.Code;
+                    //product.Code = model.Code;
                     product.PdfUrl = model.PdfUrl;
                     product.Summary = model.Summary;
                     product.Summary_en = model.Summary_en;
                     product.LinkGuide = model.LinkGuide;
-                    product.Cad2dUrl = model.Cad2dUrl;
-                    product.Cad3dUrl = model.Cad3dUrl;
+                    //product.Cad2dUrl = model.Cad2dUrl;
+                    //product.Cad3dUrl = model.Cad3dUrl;
                     //product.Price = model.Price;
                     //product.OnHand = model.OnHand;
                     product.Category = category;
