@@ -7,21 +7,37 @@
                 @foreach (var category in Model)
                 {
                     <dd class="root-category">
-                        <a href="/ProductCategory/Index/@category.Id"  class="link category-link" imgUrl="@category.ImageUrl">
+                        <a href="/ProductCategory/Index/@category.Id" class="link category-link" imgUrl="@category.ImageUrl">
                             <span class="lang-vi">@category.Name</span>
                             <span class="lang-en">@category.Name_en</span>
                         </a>
                         <div class="category-list-box">
-                            <p class="subtitle"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></p>
-                            <p class="category-list-caption"><span class="lang-vi">@Html.Raw(category.Description)</span><span class="lang-en">@Html.Raw(category.Description_en)</span></p>
+                            <p class="subtitle">
+                                <span class="lang-vi">@category.Name</span>
+                                <span class="lang-en">@category.Name_en</span>
+                            </p>
+                            <p class="category-list-caption">
+                                <div class="lang-vi">@Html.Raw(category.Description)</div>
+                                <div class="lang-en">@Html.Raw(category.Description_en)</div>
+                            </p>
                             <ul>
                                 @foreach (var childCategories in category.ChildCategories)
                                 {
-                                    <li><a data-img="/Images/Categories/@childCategories.ImageUrl" href="/ProductCategory/Index/@childCategories.Id" data-head-category-code="M0100000000"><span class="lang-vi">@childCategories.Name</span><span class="lang-en">@childCategories.Name_en</span></a></li>
+                                    <li>
+                                        <a data-img="/Images/Categories/@childCategories.ImageUrl" href="/ProductCategory/Index/@childCategories.Id" data-head-category-code="M0100000000">
+                                            <span class="lang-vi">@childCategories.Name</span>
+                                            <span class="lang-en">@childCategories.Name_en</span>
+                                        </a>
+                                    </li>
                                 }
                             </ul>
                             <p class="image category-image"></p>
-                            <div class="category-list-bottom-link"><a href="/ProductCategory/Index/@category.Id">All @category.Name</a></div>
+                            <div class="category-list-bottom-link">
+                                <a href="/ProductCategory/Index/@category.Id">
+                                    <span class="lang-en">All @category.Name</span>
+                                    <span class="lang-vi">All @category.Name_en</span>
+                                </a>
+                            </div>
                         </div>
                     </dd>
                 }

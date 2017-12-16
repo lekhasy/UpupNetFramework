@@ -29,9 +29,19 @@
                 <ul>
                     @foreach (var category in categoryPath)
                     {
-                        <li><a href="/ProductCategory/Index/@category.Id"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></a></li>
+                        <li>
+                            <a href="/ProductCategory/Index/@category.Id">
+                                <span class="lang-vi">@category.Name</span>
+                                <span class="lang-en">@category.Name_en</span>
+                            </a>
+                        </li>
                     }
-                    <li class="active"><a href="/ProductCategory/Index/@Model.CurrentCategory.Id"><span class="lang-vi">@Model.CurrentCategory.Name</span><span class="lang-en">@Model.CurrentCategory.Name_en</span></a></li>
+                    <li class="active">
+                        <a href="/ProductCategory/Index/@Model.CurrentCategory.Id">
+                            <span class="lang-vi">@Model.CurrentCategory.Name</span>
+                            <span class="lang-en">@Model.CurrentCategory.Name_en</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             @if (Model.CurrentCategory.ChildCategories.Any())

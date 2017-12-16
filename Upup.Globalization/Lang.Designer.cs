@@ -124,6 +124,24 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu và mật khẩu xác nhận không khớp.
+        /// </summary>
+        public static string Password_Does_Not_Match {
+            get {
+                return ResourceManager.GetString("Password_Does_Not_Match", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đăng ký.
         /// </summary>
         public static string Register {

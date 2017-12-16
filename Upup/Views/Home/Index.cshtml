@@ -129,27 +129,42 @@
         <div class="col-md-4">
             <div class="area-contact">
                 <div class="content-wrapper">
-                    <h3>Chăm sóc khách hàng</h3>
+                    <h3><span class="lang-vi">Chăm sóc khách hàng</span><span class="lang-en">Contact/Support</span></h3>
                     @if (Model.UserGuides != null && Model.UserGuides.Count() > 0)
                     {
                         <div class="support">
                             <ul>
                                 @foreach (var guide in Model.UserGuides)
                                 {
-                                    <li><a href="@Url.Action("Index","Post", new { id = guide.Id })">@guide.Title</a></li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Post", new { id = guide.Id })">
+                                            <span class="lang-en">
+                                                @guide.Title_en
+                                            </span>
+                                            <span class="lang-vi">
+                                                @guide.Title
+                                            </span>
+                                        </a>
+                                    </li>
                                 }
                             </ul>
                         </div>
                     }
                     <div class="detail">
                         <ul class="contact">
-                            <li><span class="bold">Số điện thoại:</span><br> <strong>@WebConfigurationManager.AppSettings["Phone"]</strong></li>
-                            <li><span class="bold">Số Fax:</span><br> <strong>@WebConfigurationManager.AppSettings["Fax"]</strong></li>
-                            <li><span class="bold">Hộp thư:</span> <strong>@WebConfigurationManager.AppSettings["Email"]</strong></li>
+                            <li><span class="bold lang-vi">Số điện thoại:</span> <span class="bold lang-en">Phone:</span><br> <strong>@WebConfigurationManager.AppSettings["Phone"]</strong></li>
+                            <li><span class="bold lang-vi">Số Fax:</span><span class="bold lang-en">Fax:</span><br> <strong>@WebConfigurationManager.AppSettings["Fax"]</strong></li>
+                            <li><span class="bold lang-vi">Hộp thư:</span><span class="bold lang-en">Email:</span> <strong>@WebConfigurationManager.AppSettings["Email"]</strong></li>
                         </ul>
                         <ul class="hour">
                             <li>
-                                @Html.Raw(HttpUtility.HtmlDecode(@WebConfigurationManager.AppSettings["WorkTime"]))
+                                <span class="lang-vi">
+                                    @Html.Raw(HttpUtility.HtmlDecode(@WebConfigurationManager.AppSettings["WorkTime"]))
+                                </span>
+                                <span class="lang-en">
+                                    @Html.Raw(HttpUtility.HtmlDecode(@WebConfigurationManager.AppSettings["WorkTime_en"]))
+                                </span>
+                                
                             </li>
                         </ul>
                     </div>
