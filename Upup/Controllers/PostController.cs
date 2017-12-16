@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Upup.Models;
+using Upup.ViewModels;
 
 namespace Upup.Controllers
 {
@@ -11,9 +12,14 @@ namespace Upup.Controllers
     public class PostController : UpupControllerBase
     {
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(long id)
         {
-            return View();
+            var post = Db.Posts.Find(id);
+            var relatedPost = Db.Posts.Where(p => p.Id != id && p.IsUserGuide).ToList();
+            return View(new PostDetailViewModel {
+                Post = post,
+                RelatedPosts = relatedPost
+            });
         }
 
         public ActionResult Detail(long id)

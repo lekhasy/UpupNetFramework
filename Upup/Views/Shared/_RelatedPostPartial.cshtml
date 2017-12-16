@@ -8,7 +8,7 @@
                 @foreach (var post in Model)
                 {
                     <dd class="root-category">
-                        <a href="/@ViewBag.ControllerName/Post/@post.Id" class="link category-link">
+                        <a href="/Post/Index/@post.Id" class="link category-link">
                             <span class="lang-vi">@post.Title</span>
                             <span class="lang-en">@post.Title_en</span>
                         </a>
