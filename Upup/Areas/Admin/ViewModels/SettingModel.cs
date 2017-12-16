@@ -55,5 +55,25 @@ namespace Upup.Areas.Admin.ViewModels
         [Display(Name = "Biểu ngữ trang sự kiện")]
         [AllowHtml]
         public string EventSlogan { get; set; }
+        [Display(Name = "Banner 1 trang chủ")]
+        public string MainBannerUrl1 { get; set; }
+        [Display(Name = "Biểu ngữ 1 trang chủ")]
+        [AllowHtml]
+        public string MainSlogan1 { get; set; }
+        [Display(Name = "Banner 2 trang chủ")]
+        public string MainBannerUrl2 { get; set; }
+        [Display(Name = "Biểu ngữ 2 trang chủ")]
+        [AllowHtml]
+        public string MainSlogan2 { get; set; }
+        [Display(Name = "Banner 3 trang chủ")]
+        public string MainBannerUrl3 { get; set; }
+        [Display(Name = "Biểu ngữ 3 trang chủ")]
+        [AllowHtml]
+        public string MainSlogan3 { get; set; }
+        [Display(Name = "Banner 4 trang chủ")]
+        public string MainBannerUrl4 { get; set; }
+        [Display(Name = "Biểu ngữ 4 trang chủ")]
+        [AllowHtml]
+        public string MainSlogan4 { get; set; }
     }
 }

@@ -4048,7 +4048,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Setting\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

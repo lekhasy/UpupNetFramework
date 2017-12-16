@@ -1,4 +1,8 @@
 ﻿@using System.Web.Configuration
+@using System.Configuration;
+@{
+    Configuration webConfigApp = WebConfigurationManager.OpenWebConfiguration("~");
+}
 @model Upup.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
@@ -33,46 +37,34 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="~/Images/banners/banner-1.jpg" alt="ASP.NET" class="img-responsive" />
+                            <img src="~/Images/settings/@webConfigApp.AppSettings.Settings["MainBannerUrl1"].Value" alt="ASP.NET" class="img-responsive" />
                             <div class="carousel-caption" role="option">
                                 <p>
-                                    Learn how to build ASP.NET apps that can run anywhere.
-                                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                                        Learn More
-                                    </a>
+                                    @webConfigApp.AppSettings.Settings["MainSlogan1"].Value
                                 </p>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="~/Images/banners/banner-2.jpg" alt="Visual Studio" class="img-responsive" />
+                            <img src="~/Images/settings/@webConfigApp.AppSettings.Settings["MainBannerUrl2"].Value" alt="Visual Studio" class="img-responsive" />
                             <div class="carousel-caption" role="option">
                                 <p>
-                                    There are powerful features in Visual Studio for building modern web apps.
-                                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                                        Learn More
-                                    </a>
+                                    @webConfigApp.AppSettings.Settings["MainSlogan2"].Value
                                 </p>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="~/Images/banners/banner-3.jpg" alt="Package Management" class="img-responsive" />
+                            <img src="~/Images/settings/@webConfigApp.AppSettings.Settings["MainBannerUrl3"].Value" alt="Package Management" class="img-responsive" />
                             <div class="carousel-caption" role="option">
                                 <p>
-                                    Bring in libraries from NuGet, Bower, and npm, and automate tasks using Grunt or Gulp.
-                                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525029&clcid=0x409">
-                                        Learn More
-                                    </a>
+                                    @webConfigApp.AppSettings.Settings["MainSlogan3"].Value
                                 </p>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="~/Images/banners/banner-4.jpg" alt="Microsoft Azure" class="img-responsive" />
+                            <img src="~/Images/settings/@webConfigApp.AppSettings.Settings["MainBannerUrl4"].Value" alt="Microsoft Azure" class="img-responsive" />
                             <div class="carousel-caption" role="option">
                                 <p>
-                                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                                        Learn More
-                                    </a>
+                                    @webConfigApp.AppSettings.Settings["MainSlogan4"].Value
                                 </p>
                             </div>
                         </div>

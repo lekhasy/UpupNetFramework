@@ -30,6 +30,62 @@
                                 @Html.HiddenFor(p => p.LogoUrl)
                             </div>
                             <div class="form-group">
+                                @Html.LabelFor(n => n.MainSlogan1)
+                                @Html.TextBoxFor(n => n.MainSlogan1, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập số biểu ngữ cho banner chính 1"
+                           })
+                            </div>
+                            <div class="form-group">
+                                <img src="~/Images/Settings/@Model.MainBannerUrl1" class="pull-right" width="60" />
+                                @Html.LabelFor(p => p.MainBannerUrl1)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".main-banner">Upload Image</button>
+                                @Html.HiddenFor(p => p.MainBannerUrl1)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MainSlogan2)
+                                @Html.TextBoxFor(n => n.MainSlogan2, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập số biểu ngữ cho banner chính 2"
+                           })
+                            </div>
+                            <div class="form-group">
+                                <img src="~/Images/Settings/@Model.MainBannerUrl2" class="pull-right" width="60" />
+                                @Html.LabelFor(p => p.MainBannerUrl2)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".main-banner2">Upload Image</button>
+                                @Html.HiddenFor(p => p.MainBannerUrl2)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MainSlogan3)
+                                @Html.TextBoxFor(n => n.MainSlogan3, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập số biểu ngữ cho banner chính 3"
+                           })
+                            </div>
+                            <div class="form-group">
+                                <img src="~/Images/Settings/@Model.MainBannerUrl3" class="pull-right" width="60" />
+                                @Html.LabelFor(p => p.MainBannerUrl3)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".main-banner3">Upload Image</button>
+                                @Html.HiddenFor(p => p.MainBannerUrl3)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(n => n.MainSlogan4)
+                                @Html.TextBoxFor(n => n.MainSlogan4, new
+                           {
+                               @class = "form-control",
+                               @placeholder = "Nhập số biểu ngữ cho banner chính 4"
+                           })
+                            </div>
+                            <div class="form-group">
+                                <img src="~/Images/Settings/@Model.MainBannerUrl4" class="pull-right" width="60" />
+                                @Html.LabelFor(p => p.MainBannerUrl4)
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".main-banner4">Upload Image</button>
+                                @Html.HiddenFor(p => p.MainBannerUrl4)
+                            </div>
+                            <div class="form-group">
                                 @Html.LabelFor(n => n.Phone)
                                 @Html.TextBoxFor(n => n.Phone, new
                            {
@@ -217,6 +273,82 @@
             </div>
             <div class="modal-body">
                 <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Settings"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm main-banner" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Settings"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm5">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm main-banner2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Settings"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm6">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm main-banner3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Settings"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm7">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm main-banner4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                <h4 id="myLargeModalLabel" class="modal-title">Upload Single Image</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("SaveUploadedFile", "Upload", new { id="admin", folderName = "Settings"})" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm8">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                         <input type="submit" value="Upload" />
@@ -430,6 +562,154 @@
                         // Add the button to the file preview element.
                         file.previewElement.appendChild(removeButton);
                         $("#EventBannerUrl").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            Dropzone.options.dropzoneForm5 = {
+                maxFiles: 1,
+                init: function () {
+                    this.on("success", function (file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function (e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#MainBannerUrl1").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            Dropzone.options.dropzoneForm6 = {
+                maxFiles: 1,
+                init: function () {
+                    this.on("success", function (file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function (e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#MainBannerUrl2").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            Dropzone.options.dropzoneForm7 = {
+                maxFiles: 1,
+                init: function () {
+                    this.on("success", function (file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function (e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#MainBannerUrl3").val(arguments[1].Message);
+                    });
+                }
+            };
+
+            Dropzone.options.dropzoneForm8 = {
+                maxFiles: 1,
+                init: function () {
+                    this.on("success", function (file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-danger'>Remove file</button>");
+
+                        // Capture the Dropzone instance as closure.
+                        var _this = this;
+                        var filePath = arguments[1].FilePath;
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function (e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Remove the file preview.
+                            _this.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                            $.ajax({
+                                url: '@Url.Action("DeleteUploadedFile", "Upload", new {id = "admin"})',
+                                type: 'POST',
+                                data: {
+                                    filePath: filePath
+                                }
+                            });
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        $("#MainBannerUrl4").val(arguments[1].Message);
                     });
                 }
             };
