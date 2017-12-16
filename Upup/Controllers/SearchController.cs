@@ -31,11 +31,11 @@ namespace Upup.Controllers
 
                 products = Db.Products.Where(p => productids.Contains(p.Id)).ToList();
 
-                var productContainsCode = products.Where(p => p.Code != null && p.Code.Contains(term));
+                //var productContainsCode = products.Where(p => p.Code != null && p.Code.Contains(term));
 
-                products.RemoveAll(p => p.Code != null && p.Code.Contains(term));
+                //products.RemoveAll(p => p.Code != null && p.Code.Contains(term));
 
-                products = productContainsCode.Concat(products).ToList();
+                //products = productContainsCode.Concat(products).ToList();
 
 
 
