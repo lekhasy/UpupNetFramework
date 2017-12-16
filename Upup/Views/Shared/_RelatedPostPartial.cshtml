@@ -1,0 +1,21 @@
+﻿@using Upup.Models
+@model  List<Post>
+
+<div class="header">
+    <div class="head-category">
+        <div class="category-list">
+            <dl class="category-list-caption">
+                @foreach (var post in Model)
+                {
+                    <dd class="root-category">
+                        <a href="/Post/Index/@post.Id" class="link category-link">
+                            <span class="lang-vi">@post.Title</span>
+                            <span class="lang-en">@post.Title_en</span>
+                        </a>
+                        
+                    </dd>
+                }
+            </dl>
+        </div>
+    </div>
+</div>

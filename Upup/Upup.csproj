@@ -4049,10 +4049,10 @@
     <Content Include="Views\Product\CartHistory.cshtml" />
     <Content Include="Views\Po\Index.cshtml" />
     <Content Include="Views\Po\Detail.cshtml" />
+    <Content Include="Views\Shared\_RelatedPostPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Setting\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

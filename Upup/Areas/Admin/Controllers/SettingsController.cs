@@ -38,6 +38,14 @@ namespace Upup.Areas.Admin.Controllers
                 MetaDescription_en = WebConfigurationManager.AppSettings["MetaDescription_en"],
                 MetaKeyword = WebConfigurationManager.AppSettings["MetaKeyword"],
                 MetaKeyword_en = WebConfigurationManager.AppSettings["MetaKeyword_en"],
+                MainBannerUrl1 = WebConfigurationManager.AppSettings["MainBannerUrl1"],
+                MainSlogan1 = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["MainSlogan1"]),
+                MainBannerUrl2 = WebConfigurationManager.AppSettings["MainBannerUrl2"],
+                MainSlogan2 = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["MainSlogan2"]),
+                MainBannerUrl3 = WebConfigurationManager.AppSettings["MainBannerUrl3"],
+                MainSlogan3 = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["MainSlogan3"]),
+                MainBannerUrl4 = WebConfigurationManager.AppSettings["MainBannerUrl4"],
+                MainSlogan4 = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["MainSlogan4"]),
             });
         }
 
@@ -69,6 +77,14 @@ namespace Upup.Areas.Admin.Controllers
             webConfigApp.AppSettings.Settings["MetaDescription_en"].Value = model.MetaDescription_en;
             webConfigApp.AppSettings.Settings["MetaKeyword"].Value = model.MetaKeyword;
             webConfigApp.AppSettings.Settings["MetaKeyword_en"].Value = model.MetaKeyword_en;
+            webConfigApp.AppSettings.Settings["MainBannerUrl1"].Value = model.MainBannerUrl1;
+            webConfigApp.AppSettings.Settings["MainSlogan1"].Value = HttpUtility.HtmlEncode(model.MainSlogan1);
+            webConfigApp.AppSettings.Settings["MainBannerUrl2"].Value = model.MainBannerUrl2;
+            webConfigApp.AppSettings.Settings["MainSlogan2"].Value = HttpUtility.HtmlEncode(model.MainSlogan2);
+            webConfigApp.AppSettings.Settings["MainBannerUrl3"].Value = model.MainBannerUrl3;
+            webConfigApp.AppSettings.Settings["MainSlogan3"].Value = HttpUtility.HtmlEncode(model.MainSlogan3);
+            webConfigApp.AppSettings.Settings["MainBannerUrl4"].Value = model.MainBannerUrl4;
+            webConfigApp.AppSettings.Settings["MainSlogan4"].Value = HttpUtility.HtmlEncode(model.MainSlogan4);
             //Save the Modified settings of AppSettings.
             webConfigApp.Save();
             ModelState.AddModelError("ProgressSuccess", "Đã lưu thiết lập !");
