@@ -15,5 +15,6 @@ namespace Upup.ViewModels
     {
         public PostCategory RootCategory { get; set; }
         public Post Post { get; set; }
+        public Post RelatedPosts { get; set; }
     }
 }

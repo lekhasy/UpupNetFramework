@@ -2,7 +2,16 @@
 <div id="postDetail" class="subject-category">
     <div class="row">
         <div class="col-md-3">
-            @{Html.RenderPartial("_MenuPostPartial", Model.RootCategory);}
+            @{
+                if (Model.Post.IsUserGuide)
+                {
+                    Html.RenderPartial("_RelatedPostPartial", Model.RelatedPosts);
+                }
+                else
+                {
+                    Html.RenderPartial("_MenuPostPartial", Model.RootCategory);
+                }
+            }
         </div>
         <div class="col-md-9">
             <div class="detail">
