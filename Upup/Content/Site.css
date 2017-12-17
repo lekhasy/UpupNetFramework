@@ -179,7 +179,7 @@ a.btn {
 }
 
 .area-head-category .category-caption:before {
-    content: "\A";
+    content: " ";
     border-style: solid;
     border-width: 8px 0 8px 10px;
     border-color: transparent transparent transparent #0169c6;

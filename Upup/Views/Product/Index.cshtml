@@ -1,9 +1,10 @@
-﻿@model Upup.Models.Product
+﻿@model Upup.ViewModels.ProductIndexViewModel
 @{
+    var product = Model.ProductDetail;
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.MetaDescription = Model.MetaDescription;
-    ViewBag.MetaKeywords = Model.MetaKeyword;
+    ViewBag.MetaDescription = product.MetaDescription;
+    ViewBag.MetaKeywords = product.MetaKeyword;
 }
 
 
@@ -20,10 +21,10 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
-                <h1 class="pull-left uppercase">@Model.Name</h1>
-                <h3 class="pull-right"><a target="_blank" href="@Model.LinkGuide">HƯỚNG DẪN SỬ DỤNG</a></h3>
+                <h1 class="pull-left uppercase">@product.Name</h1>
+                <h3 class="pull-right"><a target="_blank" href="@product.LinkGuide">HƯỚNG DẪN SỬ DỤNG</a></h3>
             </div>
-            <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@Model.PdfUrl" style="width:100%;height:1242px;"></iframe>
+            <iframe src="~/bower_components/pdfjs-1.9.426-dist/web/viewer.html?file=/Images/ProductFiles/@product.PdfUrl" style="width:100%;height:1242px;"></iframe>
         </div>
         <div class="col-md-4">
             <div class="order-suggest form-group">
@@ -60,19 +61,26 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 text-left">
-                        <ul class="nav nav-pills">
-                            <li class="dropdown" id="menu1">
-                                <button id="btn_add_cart_dropdown" class="dropdown-toggle btn btn-primary active-by-check-product" data-toggle="dropdown" href="#menu1" disabled>
-                                    <span class="lang-vi">Thêm vào đơn hàng</span>
-                                    <span class="lang-en">Add to cart</span>
-                                    <b class="caret"></b>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" id="btn_add_cart">Đơn hàng hiện tại</a></li>
-                                    <li><a href="javascript:void(0)" id="btn_add_po">Đơn hàng cũ</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        @if (!Model.IsHadPo)
+                        {
+                            <a href="javascript:void(0)" class="add-to-cart btn btn-primary active-by-check-product" disabled>Thêm vào đơn hàng</a>
+                        }
+                        else
+                        {
+                            <ul class="nav nav-pills">
+                                <li class="dropdown" id="menu1">
+                                    <button id="btn_add_cart_dropdown" class="dropdown-toggle btn btn-primary active-by-check-product" data-toggle="dropdown" href="#menu1" disabled>
+                                        <span class="lang-vi">Thêm vào đơn hàng</span>
+                                        <span class="lang-en">Add to cart</span>
+                                        <b class="caret"></b>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" class="add-to-cart">Đơn hàng hiện tại</a></li>
+                                        <li><a href="javascript:void(0)" id="btn_add_po">Đơn hàng cũ</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
                     </div>
                     <div class="col-md-6 text-right"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">K.tra đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
                 </div>
@@ -106,8 +114,8 @@
             <div class="modal-body edit">
                 <div class="panel-body">
                     <form action="/Cart/AddToOldPo" id="addToOldPoForm" method="post">
-                        <input type="hidden" id="oldPoId" name="chosenOldPoId"/>
-                        <input type="hidden" id="currentPvCode" name="productVariantCode"/>
+                        <input type="hidden" id="oldPoId" name="chosenOldPoId" />
+                        <input type="hidden" id="currentPvCode" name="productVariantCode" />
                         <input type="hidden" id="currentQuantity" name="productVariantQuantity" />
                         <div class="form-group">
                             <table id="choosePO" class="table table-bordered table-striped display">
@@ -139,10 +147,22 @@
             $('#btn_check').click(function () {
                 $.LoadingOverlay("show");
                 $.getJSON("/api/ProductApi/GetProductVariant", { code: $("#variant_code").val(), quantity: $("#variant_quantity").val() }, function (response) {
+                    if (response.Message != null && response.Message.indexOf("Authorization") != -1) {
+                        $.LoadingOverlay("hide");
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_WARNING,
+                            title: 'Thông báo',
+                            message: 'Chức năng này yêu cầu bạn phải đăng nhập'
+                        });
+                        setTimeout(function () {
+                            BootstrapDialog.closeAll();
+                        }, 3000);
+                        return;
+                    }
                     if (response.ResultValue) {
                         var pv = response.Data;
                         lastestpv = pv;
-                        $('.active-by-check-product').removeProp("disabled");
+                        $('.active-by-check-product').removeAttr("disabled");
                         $('#code').val(response.Code);
                         $('#price').val(accounting.formatMoney(pv.Price));
                         $('#quantity').val(response.Quantity);
@@ -150,7 +170,7 @@
                         $('#ship_date').val(response.ShipDateNumber + ' ngày');
                         $('#guideArea').removeClass('hidden');
                         $('#guideName').text('BẢNG VẼ: ' + response.Code);
-                        if (response.Cad2dUrl !== undefined){
+                        if (response.Cad2dUrl !== undefined) {
                             $('#guide2d').attr('href', '/Images/2dFiles/' + response.Cad2dUrl)
                         }
                         if (response.Cad3dUrl !== undefined) {
@@ -174,9 +194,21 @@
                     $.LoadingOverlay("hide");
                 });
             });
-            $('#btn_add_cart').click(function () {
+            $('.add-to-cart').click(function () {
                 $.LoadingOverlay("show");
                 $.post("/api/CartApi/Add", { productVariantCode: lastestpv.VariantCode, quantity: parseInt($("#variant_quantity").val()) }, function (response) {
+                    if (response.Message != null && response.Message.indexOf("Authorization") != -1) {
+                        $.LoadingOverlay("hide");
+                        BootstrapDialog.show({
+                            type: BootstrapDialog.TYPE_WARNING,
+                            title: 'Thông báo',
+                            message: 'Chức năng này yêu cầu bạn phải đăng nhập'
+                        });
+                        setTimeout(function () {
+                            BootstrapDialog.closeAll();
+                        }, 3000);
+                        return;
+                    }
                     if (response.ResultValue) {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,

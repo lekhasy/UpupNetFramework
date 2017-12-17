@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -18,7 +19,19 @@ namespace Upup.Controllers
         public ActionResult Index(long? id)
         {
             var product = Db.Products.Find(id);
-            return View(product);
+            var userId = User.Identity.GetUserId();
+            var isHadPo = false;
+            if(userId != null)
+            {
+                var user = Db.Customers.Find(userId);
+                var allpo = user.PurchaseOrders.Where(p => p.IsTemp).ToList();
+                isHadPo = allpo.Count > 0;
+            }
+            
+            return View(new ProductIndexViewModel {
+                ProductDetail = product,
+                IsHadPo = isHadPo
+            });
         }
 
         public ActionResult Cart()
@@ -32,9 +45,10 @@ namespace Upup.Controllers
         }
     }
 
-    [System.Web.Mvc.AllowAnonymous]
+    [System.Web.Http.AllowAnonymous]
     public class ProductApiController : UpupApiControllerBase
     {
+        [System.Web.Http.AllowAnonymous]
         public GetProductVariantModel GetProductVariant(string code, long quantity)
         {
             var variant = Db.ProductVariants.FirstOrDefault(p => p.VariantCode == code);

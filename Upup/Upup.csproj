@@ -306,6 +306,7 @@
     <Compile Include="ViewModels\PostCategoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCartViewModel.cs" />
     <Compile Include="ViewModels\ProductCategoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductIndexViewModel.cs" />
     <Compile Include="ViewModels\SearchItemModels.cs" />
     <Compile Include="ViewModels\SearchModels.cs" />
   </ItemGroup>
