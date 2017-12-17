@@ -75,63 +75,68 @@ namespace Upup.Areas.Admin.Controllers
                     : model.MetaKeyword_en;
             }
             var parentCategory = Db.Categories.Find(model.ParentCategory_Id);
-            //if (parentCategory == null)
-            //    throw new Exception("Danh mục cha có thể đã bị xóa!");
-            if (model.Id == 0)
+            if (parentCategory.Products.Count > 0)
             {
-                var category = new Category
-                {
-                    Name = model.Name,
-                    Name_en = model.Name_en,
-                    Description = model.Description,
-                    Description_en = model.Description_en,
-                    ParentCategory = parentCategory,
-                    MetaDescription = model.MetaDescription,
-                    MetaKeyword = keywords,
-                    MetaDescription_en = model.MetaDescription_en,
-                    MetaKeyword_en = keywords,
-                    ImageUrl = imgUrl,
-                };
-                try
-                {
-                    Db.Categories.Add(category);
-                    Db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
-                }
-                ModelState.AddModelError("ProgressSuccess", "Đã thêm 1 danh mục mới !");
+                ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đang chứa sản phẩm, vui lòng chọn danh mục khác.");
             }
             else
             {
-                var category = Db.Categories.Find(model.Id);
-                if (category != null)
+                if (model.Id == 0)
                 {
-                    category.Name = model.Name;
-                    category.Name_en = model.Name_en;
-                    category.ImageUrl = imgUrl;
-                    category.Description = model.Description;
-                    category.Description_en = model.Description_en;
-                    category.ParentCategory = parentCategory;
-                    category.MetaDescription = model.MetaDescription;
-                    category.MetaKeyword = keywords;
-                    category.MetaDescription_en = model.MetaDescription_en;
-                    category.MetaKeyword_en = keywords2;
+                    var category = new Category
+                    {
+                        Name = model.Name,
+                        Name_en = model.Name_en,
+                        Description = model.Description,
+                        Description_en = model.Description_en,
+                        ParentCategory = parentCategory,
+                        MetaDescription = model.MetaDescription,
+                        MetaKeyword = keywords,
+                        MetaDescription_en = model.MetaDescription_en,
+                        MetaKeyword_en = keywords,
+                        ImageUrl = imgUrl,
+                    };
                     try
                     {
-                        Db.Entry(category).State = EntityState.Modified;
+                        Db.Categories.Add(category);
                         Db.SaveChanges();
                     }
                     catch (Exception)
                     {
                         ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
                     }
-                    ModelState.AddModelError("ProgressSuccess", "Đã cập nhật nội dung mới cho danh mục !");
+                    ModelState.AddModelError("ProgressSuccess", "Đã thêm 1 danh mục mới !");
                 }
                 else
                 {
-                    ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đã bị xóa hoặc không tồn tại");
+                    var category = Db.Categories.Find(model.Id);
+                    if (category != null)
+                    {
+                        category.Name = model.Name;
+                        category.Name_en = model.Name_en;
+                        category.ImageUrl = imgUrl;
+                        category.Description = model.Description;
+                        category.Description_en = model.Description_en;
+                        category.ParentCategory = parentCategory;
+                        category.MetaDescription = model.MetaDescription;
+                        category.MetaKeyword = keywords;
+                        category.MetaDescription_en = model.MetaDescription_en;
+                        category.MetaKeyword_en = keywords2;
+                        try
+                        {
+                            Db.Entry(category).State = EntityState.Modified;
+                            Db.SaveChanges();
+                        }
+                        catch (Exception)
+                        {
+                            ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
+                        }
+                        ModelState.AddModelError("ProgressSuccess", "Đã cập nhật nội dung mới cho danh mục !");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đã bị xóa hoặc không tồn tại");
+                    }
                 }
             }
             var parentCategories = Db.Categories.ToList().Select(cat => new SelectListItem

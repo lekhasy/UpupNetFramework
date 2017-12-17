@@ -189,13 +189,13 @@
         {
             foreach (var product in category.Products)
             {
-                <li>
+                <li class="product-line">
                     <input type="checkbox" checked="checked" id="@("p" + product.Id)" />
                     <label for="@("p" + product.Id)" class="tree_label">@product.Name</label>
                     <a href="@Url.Action("ManageProducts", "Products", new { id = product.Id  })">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="delete-variant" data-id="@product.Id" href="javascript:void(0);">
+                    <a class="delete-product-variant" data-id="@product.Id" href="javascript:void(0);">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </li>
@@ -313,6 +313,47 @@
                             // result will be true if button was click, while it will be false if users close the dialog directly.
                             if (result) {
                                 $.post('/Categories/RemoveCategories', { 'id': parseInt(id, 10) },
+                                    function(data) {
+                                        if (data.ResultValue) {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_SUCCESS,
+                                                title: 'Thành công',
+                                                message: data.Message
+                                            });
+                                        } else {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_DANGER,
+                                                title: 'Thất bại',
+                                                message: data.Message
+                                            });
+                                        }
+                                        setTimeout(function() {
+                                            location.href = '@Url.Action("ManageCategories", "Categories")';
+                                        }, 3000);
+                                    }
+                                );
+                            }
+                        }
+                    });
+                }
+            });
+
+            $('.delete-product-variant').click(function () {
+                var id = parseInt($(this).attr('data-id'), 10);
+                if(id>0){
+                    BootstrapDialog.confirm({
+                        title: 'Tin nhắn',
+                        message: 'Bạn thật sự muốn xóa sản phẩm này ?',
+                        //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                        closable: true, // <-- Default value is false
+                        draggable: true, // <-- Default value is false
+                        btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                        btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                        //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                        callback: function(result) {
+                            // result will be true if button was click, while it will be false if users close the dialog directly.
+                            if (result) {
+                                $.post('/Products/RemoveProducts', { 'id': parseInt(id, 10) },
                                     function(data) {
                                         if (data.ResultValue) {
                                             BootstrapDialog.show({

@@ -20,7 +20,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult ManageProducts(int? id)
         {
             var variants = new List<ProductVariantModel>();
-            var categories = Db.Categories.ToList()
+            var categories = Db.Categories.ToList().Where(cat => cat.ChildCategories.Count == 0)
                 .Select(cat => new SelectListItem
                 {
                     Text = cat.Name,
@@ -121,7 +121,7 @@ namespace Upup.Areas.Admin.Controllers
                     Text = "SL " + unit.QuantityOrderMax + " (" + unit.TargetDateNumber + " ngày)",
                     Value = unit.Id.ToString(CultureInfo.InvariantCulture)
                 }).ToList();
-            
+
             model.Categories = categories;
             model.ProductVariantUnits = units;
             model.ShipdateSettings = shipDateSettings;
@@ -142,92 +142,97 @@ namespace Upup.Areas.Admin.Controllers
                     : model.MetaKeyword_en;
             }
             var category = Db.Categories.Find(model.Category_Id);
-            //if (parentProduct == null)
-            //    throw new Exception("sản phẩm cha có thể đã bị xóa!");
-            Product product = null;
-            if (model.Id == 0)
+            if (category.ChildCategories.Count > 0)
             {
-                //var productByCode = Db.Products.SingleOrDefault(p => p.Code == model.Code);
-
-                //if (productByCode != null)
-                //{
-                //    ModelState.AddModelError("ProgressError", "Mã sản phẩm này đã tồn tại, vui lòng chọn mã khác");
-                //    model.Variants = new List<ProductVariantModel>();
-                //    return View(model);
-                //}
-
-                var Product = new Product
-                {
-                    Name = model.Name,
-                    Name_en = model.Name_en,
-                    //Code = model.Code,
-                    PdfUrl = model.PdfUrl,
-                    Summary = model.Summary,
-                    Summary_en = model.Summary_en,
-                    LinkGuide = model.LinkGuide,
-                    //Cad2dUrl = model.Cad2dUrl,
-                    //Cad3dUrl = model.Cad3dUrl,
-                    //Price = model.Price,
-                    //OnHand = model.OnHand,
-                    Category = category,
-                    MetaDescription = model.MetaDescription,
-                    MetaKeyword = keywords,
-                    MetaDescription_en = model.MetaDescription_en,
-                    MetaKeyword_en = keywords2,
-                    ImageUrl = imgUrl,
-                };
-                try
-                {
-                    product = Db.Products.Add(Product);
-                    Db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
-                }
-                ModelState.AddModelError("ProgressSuccess", "Đã thêm 1 sản phẩm mới !");
+                ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đang chứa danh mục con, vui lòng chọn danh mục khác.");
             }
             else
             {
-                product = Db.Products.Find(model.Id);
-                if (product != null)
+                Product product = null;
+                if (model.Id == 0)
                 {
-                    product.Name = model.Name;
-                    product.Name_en = model.Name_en;
-                    product.ImageUrl = imgUrl;
-                    //product.Code = model.Code;
-                    product.PdfUrl = model.PdfUrl;
-                    product.Summary = model.Summary;
-                    product.Summary_en = model.Summary_en;
-                    product.LinkGuide = model.LinkGuide;
-                    //product.Cad2dUrl = model.Cad2dUrl;
-                    //product.Cad3dUrl = model.Cad3dUrl;
-                    //product.Price = model.Price;
-                    //product.OnHand = model.OnHand;
-                    product.Category = category;
-                    product.MetaDescription = model.MetaDescription;
-                    product.MetaKeyword = keywords;
-                    product.MetaDescription_en = model.MetaDescription_en;
-                    product.MetaKeyword_en = keywords2;
+                    //var productByCode = Db.Products.SingleOrDefault(p => p.Code == model.Code);
+
+                    //if (productByCode != null)
+                    //{
+                    //    ModelState.AddModelError("ProgressError", "Mã sản phẩm này đã tồn tại, vui lòng chọn mã khác");
+                    //    model.Variants = new List<ProductVariantModel>();
+                    //    return View(model);
+                    //}
+
+                    var Product = new Product
+                    {
+                        Name = model.Name,
+                        Name_en = model.Name_en,
+                        //Code = model.Code,
+                        PdfUrl = model.PdfUrl,
+                        Summary = model.Summary,
+                        Summary_en = model.Summary_en,
+                        LinkGuide = model.LinkGuide,
+                        //Cad2dUrl = model.Cad2dUrl,
+                        //Cad3dUrl = model.Cad3dUrl,
+                        //Price = model.Price,
+                        //OnHand = model.OnHand,
+                        Category = category,
+                        MetaDescription = model.MetaDescription,
+                        MetaKeyword = keywords,
+                        MetaDescription_en = model.MetaDescription_en,
+                        MetaKeyword_en = keywords2,
+                        ImageUrl = imgUrl,
+                    };
                     try
                     {
-                        Db.Entry(product).State = EntityState.Modified;
+                        product = Db.Products.Add(Product);
                         Db.SaveChanges();
                     }
                     catch (Exception)
                     {
                         ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
                     }
-                    ModelState.AddModelError("ProgressSuccess", "Đã cập nhật nội dung mới cho sản phẩm !");
+                    ModelState.AddModelError("ProgressSuccess", "Đã thêm 1 sản phẩm mới !");
                 }
                 else
                 {
-                    ModelState.AddModelError("ProgressError", "sản phẩm bạn chọn đã bị xóa hoặc không tồn tại");
+                    product = Db.Products.Find(model.Id);
+                    if (product != null)
+                    {
+                        product.Name = model.Name;
+                        product.Name_en = model.Name_en;
+                        product.ImageUrl = imgUrl;
+                        //product.Code = model.Code;
+                        product.PdfUrl = model.PdfUrl;
+                        product.Summary = model.Summary;
+                        product.Summary_en = model.Summary_en;
+                        product.LinkGuide = model.LinkGuide;
+                        //product.Cad2dUrl = model.Cad2dUrl;
+                        //product.Cad3dUrl = model.Cad3dUrl;
+                        //product.Price = model.Price;
+                        //product.OnHand = model.OnHand;
+                        product.Category = category;
+                        product.MetaDescription = model.MetaDescription;
+                        product.MetaKeyword = keywords;
+                        product.MetaDescription_en = model.MetaDescription_en;
+                        product.MetaKeyword_en = keywords2;
+                        try
+                        {
+                            Db.Entry(product).State = EntityState.Modified;
+                            Db.SaveChanges();
+                        }
+                        catch (Exception)
+                        {
+                            ModelState.AddModelError("ProgressError", "Đã có lỗi xảy ra trong quá trình thực thi");
+                        }
+                        ModelState.AddModelError("ProgressSuccess", "Đã cập nhật nội dung mới cho sản phẩm !");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("ProgressError", "sản phẩm bạn chọn đã bị xóa hoặc không tồn tại");
+                    }
                 }
+                var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(product.ProductVariants != null ? product.ProductVariants.ToList() : new List<ProductVariant>());
+                model.Variants = variants;
             }
             ViewData["ProductImgUrl"] = "/Images/Product/" + imgUrl;
-            var variants = Mapper.Map<List<ProductVariant>, List<ProductVariantModel>>(product.ProductVariants != null ? product.ProductVariants.ToList() : new List<ProductVariant>());
-            model.Variants = variants;
             return View(model);
         }
 
@@ -294,7 +299,7 @@ namespace Upup.Areas.Admin.Controllers
                                                                 sortColumnIndex == 3 ? n.Price.ToString() :
                                                                 sortColumnIndex == 4 ? n.OnHand.ToString() :
                                                                 sortColumnIndex == 5 ? n.BrandName :
-                                                                sortColumnIndex == 6 ? n.Origin 
+                                                                sortColumnIndex == 6 ? n.Origin
                                                                 : n.VariantName);
 
             var sortDirection = Request["sSortDir_0"]; // asc or desc
