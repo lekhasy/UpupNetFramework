@@ -47,12 +47,12 @@ namespace Upup.Controllers
 
             var user = Db.Customers.Find(userId);
 
-            //var CustomerRole = Db.Roles.First(r => r.Name == "Admin");
-            //var allAdmins = Db.Users.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id)).ToList();
-            //foreach (var admin in allAdmins)
-            //{
-            //    UserManager.SendEmailAsync(admin.Id, $"có khách hàng {admin.FullName} cần báo giá", $"Họ tên: {user.FullName}, Điện thoại: {user.PhoneNumber}, Email:{user.Email}. Với chi tiết như sau </br>" + CreateEmailQuoteBody()).Wait();
-            //}
+            var CustomerRole = Db.Roles.First(r => r.Name == "Admin");
+            var allAdmins = Db.Users.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id)).ToList();
+            foreach (var admin in allAdmins)
+            {
+                UserManager.SendEmailAsync(admin.Id, $"Có khách hàng cần báo giá", $"Họ tên: <b>{user.FullName}</b>, Điện thoại: <b>{user.PhoneNumber}</b>, Email:<b>{user.Email}</b>. Với chi tiết như sau: </br>" + CreateEmailQuoteBody(code, name)).Wait();
+            }
 
             UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody(code,name)).Wait();
             new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId());

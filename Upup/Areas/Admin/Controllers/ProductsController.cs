@@ -196,6 +196,14 @@ namespace Upup.Areas.Admin.Controllers
                     product = Db.Products.Find(model.Id);
                     if (product != null)
                     {
+                        if (!product.ImageUrl.Equals(imgUrl))
+                        {
+                            var fullPath = Server.MapPath(@"\Images\products\" + product.ImageUrl);
+                            if (System.IO.File.Exists(fullPath))
+                            {
+                                System.IO.File.Delete(fullPath);
+                            }
+                        }
                         product.Name = model.Name;
                         product.Name_en = model.Name_en;
                         product.ImageUrl = imgUrl;

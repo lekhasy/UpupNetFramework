@@ -112,6 +112,14 @@ namespace Upup.Areas.Admin.Controllers
                     var category = Db.Categories.Find(model.Id);
                     if (category != null)
                     {
+                        if (!category.ImageUrl.Equals(imgUrl))
+                        {
+                            var fullPath = Server.MapPath(@"\Images\Categories\" + category.ImageUrl);
+                            if (System.IO.File.Exists(fullPath))
+                            {
+                                System.IO.File.Delete(fullPath);
+                            }
+                        }
                         category.Name = model.Name;
                         category.Name_en = model.Name_en;
                         category.ImageUrl = imgUrl;

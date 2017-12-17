@@ -89,7 +89,7 @@ namespace Upup.Models
             base.Seed(context);
         }
 
-        //Create User=admin@abc.com with password=123123123 in the Admin role        
+        //Create User=admin@upup.com.vn with password=123123123 in the Admin role        
         public static void InitializeIdentityForEF(ApplicationDbContext db)
         {
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
@@ -106,9 +106,9 @@ namespace Upup.Models
                 }
             }
             var usermanager = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
-            if(usermanager.FindByEmail("admin@abc.com") == null)
+            if(usermanager.FindByEmail("admin@upup.com.vn") == null)
             {
-                var admin = new ApplicationUser { Email = "admin@abc.com", UserName = "admin@abc.com", EmailConfirmed = true };
+                var admin = new ApplicationUser { Email = "admin@upup.com.vn", UserName = "admin@upup.com.vn", EmailConfirmed = true };
 
                 var user = usermanager.Create(admin, "123123123");
                 usermanager.AddToRole(admin.Id, "Admin");
