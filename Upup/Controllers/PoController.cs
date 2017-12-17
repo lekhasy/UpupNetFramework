@@ -103,9 +103,8 @@ namespace Upup.Controllers
                     html += "<td colspan = '2' style = 'width:57%; text-align:right'>" + product.BrandName + "</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    // [TODO]: chỉnh lại chỗ này sau khi product code bị xóa
-                    //html += "<td style = 'width:38%' >" + product.ProductCode + "</td>";
-                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DateShipping + "</td>";
+                    html += "<td style = 'width:38%' >" + product.ProductVariantCode + "</td>";
+                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DateShipping + " ngày</td>";
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:30%; text-align:center' > " + product.ProductPrice.ToString("N0") + " </td>";
@@ -234,16 +233,22 @@ namespace Upup.Controllers
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
-            if (po == null || (!po.IsTemp && po.State != (int)PoState.Completed))
+            if (po.IsTemp)
             {
+                Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
+                user.PurchaseOrders.Remove(po);
+                Db.PurchaseOrders.Remove(po);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            //Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
-            //user.PurchaseOrders.Remove(po);
+            if (po == null || po.State != (int)PoState.Completed)
+            {
+                return RedirectToAction("Index");
+            }
+            
             po.IsDeleted = true;
             Db.Entry(po).State = EntityState.Modified;
-            //Db.PurchaseOrders.Remove(po);
             Db.SaveChanges();
 
             return RedirectToAction("Index");
