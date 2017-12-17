@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Upup.Models;
 using Microsoft.AspNet.Identity.Owin;
+using System.Web.Routing;
 
 namespace Upup.Controllers
 {
@@ -18,6 +19,24 @@ namespace Upup.Controllers
 
         public UpupControllerBase()
         {
+            
+        }
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            var lang = HttpContext.Request.Cookies["Lang"];
+            var culture = "vi";
+            if (lang != null && !string.IsNullOrEmpty(lang.Value))
+            {
+                if (lang.Value == "en")
+                {
+                    culture = "en";
+                }
+            }
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
         }
 
         public UpupControllerBase(ApplicationDbContext db,

@@ -1,17 +1,20 @@
 ﻿@model Upup.ViewModels.SearchModels
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tìm kiếm";
+    ViewBag.Title_en = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="search-result">
-    <h2>Kết quả tìm kiếm cho từ khóa: @ViewBag.Term</h2>
-    <small>@Model.TotalCount  kết quả được tìm thấy</small>
+    <h2 class="lang-vi">Kết quả tìm kiếm cho từ khóa: @ViewBag.Term</h2>
+    <h2 class="lang-en">Search result for keyword: @ViewBag.Term</h2>
+    <small>@Model.TotalCount result found:</small>
     @if (Model.TotalCount > 0)
     {
         <div class="row">
             <div class="col-md-6">
-                <h3>Sản phẩm được tìm thấy</h3>
+                <h3 class="lang-vi">Sản phẩm được tìm thấy</h3>
+                <h3 class="lang-en">Products found:</h3>
                 <div class="results">
                     @foreach (var prod in Model.SearchProductResult)
                     {
@@ -45,7 +48,7 @@
             </div>
             <div class="col-md-6">
                 <h3 class="lang-vi">Bài viết được tìm thấy</h3>
-                <h3 class="lang-en">Found posts</h3>
+                <h3 class="lang-en">Posts found:</h3>
                 <div class="results">
                     @foreach (var post in Model.SearchTopicResult)
                     {

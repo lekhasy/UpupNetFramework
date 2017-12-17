@@ -21,6 +21,18 @@ namespace Upup.Controllers
 
         public UpupApiControllerBase()
         {
+            var lang = HttpContext.Current.Request.Cookies["Lang"];
+            var culture = "vi";
+            if (lang == null || string.IsNullOrEmpty(lang.Value))
+            {
+                if (lang.Value == "en")
+                {
+                    culture = "en";
+                }
+            }
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
         }
 
         public UpupApiControllerBase(ApplicationDbContext db,

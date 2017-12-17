@@ -118,189 +118,189 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Account" xml:space="preserve">
-    <value>Tài khoản</value>
+    <value>Account</value>
   </data>
   <data name="Confirm_New_Password" xml:space="preserve">
-    <value>Xác nhận mật khẩu mới</value>
+    <value>Confirm new password</value>
   </data>
   <data name="Current_Password" xml:space="preserve">
-    <value>Mật khẩu hiện tại</value>
+    <value>Current password</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Đăng nhập</value>
+    <value>Login</value>
   </data>
   <data name="Login_Remember_Me" xml:space="preserve">
-    <value>Ghi nhớ tài khoản</value>
+    <value>Remember me</value>
   </data>
   <data name="New_Password" xml:space="preserve">
-    <value>Mật khẩu mới</value>
+    <value>New password</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Khác</value>
+    <value>Other</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Mật khẩu</value>
+    <value>Password</value>
   </data>
   <data name="Password_Does_Not_Match" xml:space="preserve">
-    <value>Mật khẩu và mật khẩu xác nhận không khớp</value>
+    <value>The password and confirmation password do not match.</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Đăng ký</value>
+    <value>Register</value>
   </data>
   <data name="Register_Address1" xml:space="preserve">
-    <value>Địa chỉ 1</value>
+    <value>Address 1</value>
   </data>
   <data name="Register_Address2" xml:space="preserve">
-    <value>Địa chỉ 2</value>
+    <value>Address 2</value>
   </data>
   <data name="Register_Address3" xml:space="preserve">
-    <value>Địa chỉ 3</value>
+    <value>Address 3</value>
   </data>
   <data name="Register_Address4" xml:space="preserve">
-    <value>Địa chỉ 4</value>
+    <value>Address 4</value>
   </data>
   <data name="Register_Aerospace_Defense" xml:space="preserve">
-    <value>Hàng không/Quốc phòng</value>
+    <value>Aerospace/Defense</value>
   </data>
   <data name="Register_Automation" xml:space="preserve">
-    <value>Tự động hóa</value>
+    <value>Automation</value>
   </data>
   <data name="Register_Automotive" xml:space="preserve">
-    <value>Ô tô</value>
+    <value>Automotive</value>
   </data>
   <data name="Register_CommerceCompany" xml:space="preserve">
-    <value>Công ty thương mại</value>
+    <value>Commerce company</value>
   </data>
   <data name="Register_Company_Name" xml:space="preserve">
-    <value>Tên công ty hoặc tổ chức</value>
+    <value>Company name</value>
   </data>
   <data name="Register_ComponentManufacturing" xml:space="preserve">
-    <value>Sản xuất linh kiện</value>
+    <value>Component manufacturing</value>
   </data>
   <data name="Register_Department" xml:space="preserve">
-    <value>Bộ phận</value>
+    <value>Department</value>
   </data>
   <data name="Register_EducationOrganization" xml:space="preserve">
-    <value>Tổ chức giáo dục</value>
+    <value>Education organization</value>
   </data>
   <data name="Register_Electronics" xml:space="preserve">
-    <value>Điện tử</value>
+    <value>Electtronic</value>
   </data>
   <data name="Register_Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
   <data name="Register_Email_Confirm" xml:space="preserve">
-    <value>Email(Xác nhận)</value>
+    <value>Email(Confirm)</value>
   </data>
   <data name="Register_Email_Existed" xml:space="preserve">
-    <value>Email đã tồn tại</value>
+    <value>Email existed</value>
   </data>
   <data name="Register_Exhibition_Seminar" xml:space="preserve">
-    <value>Hội chợ/Hội thảo</value>
+    <value>Exhibition/Seminar</value>
   </data>
   <data name="Register_Fax" xml:space="preserve">
     <value>Fax</value>
   </data>
   <data name="Register_Food_Consumable" xml:space="preserve">
-    <value>Thực phẩm/Tiêu dùng</value>
+    <value>Food/Consumable</value>
   </data>
   <data name="Register_GovernmentOrganization" xml:space="preserve">
-    <value>Tổ chức chính phủ</value>
+    <value>Government organization</value>
   </data>
   <data name="Register_Hard_Disk_Drive" xml:space="preserve">
-    <value>Thiết bị ổ cứng</value>
+    <value>Hard disk drive</value>
   </data>
   <data name="Register_Internet" xml:space="preserve">
     <value>Internet</value>
   </data>
   <data name="Register_Know_Us_From" xml:space="preserve">
-    <value>Bạn biết chúng tôi từ đâu</value>
+    <value>Know us from</value>
   </data>
   <data name="Register_Liquid_Crystal_Display" xml:space="preserve">
-    <value>Màn hình tinh thể lỏng</value>
+    <value>Liquid crystal display</value>
   </data>
   <data name="Register_MachineManufacturing" xml:space="preserve">
-    <value>Chế tạo máy</value>
+    <value>Machine manufacturing</value>
   </data>
   <data name="Register_MachiningWorkshop" xml:space="preserve">
-    <value>Xưởng gia công</value>
+    <value>Machining workshop</value>
   </data>
   <data name="Register_Magazine_Trade_Publication" xml:space="preserve">
-    <value>Tạp chí/Quảng cáo</value>
+    <value>Magazine trade publication</value>
   </data>
   <data name="Register_Main_Served_Industry" xml:space="preserve">
-    <value>Ngành nghề phục vụ chính</value>
+    <value>Main served industry</value>
   </data>
   <data name="Register_Medical" xml:space="preserve">
-    <value>Thực phẩm/Tiêu dùng</value>
+    <value>Medical</value>
   </data>
   <data name="Register_Name" xml:space="preserve">
-    <value>Tên</value>
+    <value>Name</value>
   </data>
   <data name="Register_Number_Of_Designer" xml:space="preserve">
-    <value>Số nhân viên thiết kế</value>
+    <value>Number of designer</value>
   </data>
   <data name="Register_Number_Of_Employee" xml:space="preserve">
-    <value>Tổng số nhân viên</value>
+    <value>Number of employee</value>
   </data>
   <data name="Register_Password" xml:space="preserve">
-    <value>Mật khẩu</value>
+    <value>Password</value>
   </data>
   <data name="Register_Password_Confirm" xml:space="preserve">
-    <value>Mật khẩu (Xác nhận)</value>
+    <value>Password confirm</value>
   </data>
   <data name="Register_Phone" xml:space="preserve">
-    <value>Điện thoại</value>
+    <value>Phone</value>
   </data>
   <data name="Register_Postal_Code" xml:space="preserve">
-    <value>Mã bưu điện</value>
+    <value>Postal code</value>
   </data>
   <data name="Register_Publicity" xml:space="preserve">
-    <value>Quảng bá</value>
+    <value>Publicity</value>
   </data>
   <data name="Register_Referrel_Colleagues" xml:space="preserve">
-    <value>Được giới thiệu (đồng nghiệp)</value>
+    <value>Referrel (Colleagues)</value>
   </data>
   <data name="Register_Referrel_Customers_Business_Partners" xml:space="preserve">
-    <value>Được giới thiệu (Khách hàng/Đối tác)</value>
+    <value>Referrel (Customers business partners)</value>
   </data>
   <data name="Register_Section_Login_Info" xml:space="preserve">
-    <value>Thông tin đăng nhập</value>
+    <value>Login info</value>
   </data>
   <data name="Register_Section_Questionnaire" xml:space="preserve">
-    <value>Bảng câu hỏi</value>
+    <value>Questionaire</value>
   </data>
   <data name="Register_Section_User_Info" xml:space="preserve">
-    <value>Thông tin người dùng</value>
+    <value>User info</value>
   </data>
   <data name="Register_Select" xml:space="preserve">
-    <value>-- Hãy chọn --</value>
+    <value>-- Select --</value>
   </data>
   <data name="Register_Semiconductor" xml:space="preserve">
-    <value>Bán dẫn</value>
+    <value>Semiconfuctor</value>
   </data>
   <data name="Register_Success" xml:space="preserve">
-    <value>Đăng ký thành công</value>
+    <value>Success</value>
   </data>
   <data name="Register_Type_of_Business" xml:space="preserve">
-    <value>Ngành nghề kinh doanh</value>
+    <value>Type of business</value>
   </data>
   <data name="Register_UserId" xml:space="preserve">
-    <value>ID đăng nhập</value>
+    <value>ID Login</value>
   </data>
   <data name="Register_UserName_Existed" xml:space="preserve">
-    <value>Id đăng nhập đã tồn tại</value>
+    <value>Usser name exited</value>
   </data>
   <data name="Register_Verify_Email" xml:space="preserve">
-    <value>Chúng tôi đã gửi tới bạn một email chứa liên kết dùng để xác thực email, vui lòng kiểm tra hộp thư để kích hoạt tài khoản của bạn</value>
+    <value>We have sent you an email contain an activation link, please check your email to active your account</value>
   </data>
   <data name="Remember_Me" xml:space="preserve">
-    <value>Ghi nhớ</value>
+    <value>Remember me</value>
   </data>
   <data name="User_Not_Found" xml:space="preserve">
-    <value>Không tìm thấy user</value>
+    <value>User not found</value>
   </data>
   <data name="Wrong_Password" xml:space="preserve">
-    <value>Sai mật khẩu</value>
+    <value>Wrong password</value>
   </data>
 </root>
