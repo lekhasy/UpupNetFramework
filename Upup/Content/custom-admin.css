@@ -333,3 +333,10 @@ ul.tree ul ul li.product-line label.tree_label {
     ul.tree ul ul li.product-line label.tree_label:before {
         background-color: green;
     }
+
+.warning-quantity{
+    position: absolute;
+    left: -45px;
+    color: red;
+    font-weight: bold;
+}

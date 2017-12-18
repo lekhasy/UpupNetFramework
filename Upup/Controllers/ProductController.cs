@@ -72,7 +72,8 @@ namespace Upup.Controllers
             {
                 return new GetProductVariantModel
                 {
-                    ResultValue = false
+                    ResultValue = false,
+                    Message = "Mã sản phẩm không tồn tại"
                 };
             }
         }

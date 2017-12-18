@@ -132,14 +132,45 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult ChangePoState(string code, int state)
         {
             var result = new AjaxSimpleResultModel();
-            var po = db.PurchaseOrders.SingleOrDefault(c => c.Code == code);
+            var po = Db.PurchaseOrders.SingleOrDefault(c => c.Code == code);
             if (po != null)
             {
                 try
                 {
-                    po.State = state;
-                    db.Entry(po).State = EntityState.Modified;
-                    db.SaveChanges();
+                    switch ((PoState)state)
+                    {
+                        case PoState.Paid:
+                            {
+                                foreach (var detail in po.PurchaseOrderDetails)
+                                {
+                                    detail.Product.OnHand -= detail.Quantity;
+                                }
+                                break;
+                            }
+                        case PoState.Canceled:
+                            {
+                                var poState = (PoState)po.State;
+                                if (poState == PoState.Paid || poState == PoState.Shipped)
+                                {
+                                    foreach (var detail in po.PurchaseOrderDetails)
+                                    {
+                                        detail.Product.OnHand += detail.Quantity;
+                                    }
+                                }
+                                Db.PurchaseOrders.Remove(po);
+                                Db.SaveChanges();
+                                result.ResultValue = true;
+                                result.Message = "Đã hủy đơn hàng thành công";
+                                return Json(result);
+                            }
+                    }
+
+                    if (po != null)
+                    {
+                        po.State = state;
+                        Db.Entry(po).State = EntityState.Modified;
+                        Db.SaveChanges();
+                    }
 
                     result.ResultValue = true;
                     result.Message = "Đơn hàng bạn chọn đã chuyển trạng thái thành công";
