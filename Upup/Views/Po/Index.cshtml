@@ -77,6 +77,16 @@
 </div>
 
 @section scripts{
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            BootstrapDialog.show({
+                type: BootstrapDialog.TYPE_SUCCESS,
+                title: 'Thành công',
+                message: '@TempData["Message"]'
+            });
+        </script>
+    }
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(function () {

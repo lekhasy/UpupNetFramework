@@ -10,6 +10,7 @@ using Upup.ViewModels;
 using System.Data.Entity;
 using System.Web.Http;
 using Upup.Helpers;
+using Upup.Globalization;
 
 namespace Upup.Controllers
 {
@@ -25,23 +26,33 @@ namespace Upup.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult SavePO(string code, string name)
+        public ActionResult SavePO(string code, string name, int paymentMethodId)
         {
-            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), null);
+            if (paymentMethodId != (int)PaymentMethods.COD && paymentMethodId != (int)PaymentMethods.BankTransfer)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), null, paymentMethodId);
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult Order(string code, string name)
+        public ActionResult Order(string code, string name, int paymentMethodId)
         {
-            new CommonPoLogic(Db).CreatePO(code, name, false, User.Identity.GetUserId(), null);
+            if (paymentMethodId != (int)PaymentMethods.COD && paymentMethodId != (int)PaymentMethods.BankTransfer)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            new CommonPoLogic(Db).CreatePO(code, name, false, User.Identity.GetUserId(), null, paymentMethodId);
             Db.SaveChanges();
+            TempData["Success"] = true;
+            TempData["Message"] = Lang.Order_Success;
             return RedirectToAction("Index");
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult RequestPrice(string code, string name)
+        public ActionResult RequestPrice(string code, string name, int paymentMethodId)
         {
             var userId = User.Identity.GetUserId();
 
@@ -56,7 +67,7 @@ namespace Upup.Controllers
                 UserManager.SendEmailAsync(admin.Id, $"Có khách hàng cần báo giá", $"Họ tên: <b>{user.FullName}</b>, Điện thoại: <b>{user.PhoneNumber}</b>, Email:<b>{user.Email}</b>. Với chi tiết như sau: </br>" + CreateEmailQuoteBody(code, name, quoteCode)).Wait();
             }
             UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody(code, name, quoteCode)).Wait();
-            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), quoteCode);
+            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), quoteCode, paymentMethodId);
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -513,7 +524,7 @@ namespace Upup.Controllers
             _db = Db;
         }
 
-        public PurchaseOrder CreatePO(string code, string name, bool isTemp, string customerId, string quoteCode)
+        public PurchaseOrder CreatePO(string code, string name, bool isTemp, string customerId, string quoteCode, int paymentMethod)
         {
             var customer = _db.Customers.Find(customerId);
 
@@ -535,6 +546,7 @@ namespace Upup.Controllers
                 CustomerEmail = customer.Email,
                 CustomerPhone = customer.PhoneNumber,
                 CustomerWebsite = customer.Webiste,
+                PaymentMethod = paymentMethod,
                 QuotationCode = quoteCode,
                 PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
                 {

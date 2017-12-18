@@ -115,6 +115,15 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đặt hàng thành công.
+        /// </summary>
+        public static string Order_Success {
+            get {
+                return ResourceManager.GetString("Order_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Khác.
         /// </summary>
         public static string Other {

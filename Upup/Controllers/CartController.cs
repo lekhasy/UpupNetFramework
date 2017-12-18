@@ -43,7 +43,7 @@ namespace Upup.Controllers
             // if the current cart is empty, createPo will return null
             var now = DateTime.Now;
             var newTempPOName = string.IsNullOrEmpty(user.TempPoName) ? $"Temp_{DateTime.Now.ToString("yyMMddhhmmss")}" : user.TempPoName;
-            new CommonPoLogic(Db).CreatePO($"{DateTime.Now.ToString("yyMMddhhmmss")}", newTempPOName, true, User.Identity.GetUserId(), null);
+            new CommonPoLogic(Db).CreatePO($"{DateTime.Now.ToString("yyMMddhhmmss")}", newTempPOName, true, User.Identity.GetUserId(), null, (int)PaymentMethods.COD);
 
             // move old po to cart
             user.TempPoName = oldPo.Name;
