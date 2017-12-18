@@ -27,7 +27,7 @@ namespace Upup.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult SavePO(string code, string name)
         {
-            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId());
+            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), null);
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -35,7 +35,7 @@ namespace Upup.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult Order(string code, string name)
         {
-            new CommonPoLogic(Db).CreatePO(code, name, false, User.Identity.GetUserId());
+            new CommonPoLogic(Db).CreatePO(code, name, false, User.Identity.GetUserId(), null);
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -49,18 +49,19 @@ namespace Upup.Controllers
 
             var CustomerRole = Db.Roles.First(r => r.Name == "Admin");
             var allAdmins = Db.Users.Where(u => u.Roles.Any(r => r.RoleId == CustomerRole.Id)).ToList();
+            var quoteCode = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            quoteCode = quoteCode.Substring(quoteCode.Length - 10);
             foreach (var admin in allAdmins)
             {
-                UserManager.SendEmailAsync(admin.Id, $"Có khách hàng cần báo giá", $"Họ tên: <b>{user.FullName}</b>, Điện thoại: <b>{user.PhoneNumber}</b>, Email:<b>{user.Email}</b>. Với chi tiết như sau: </br>" + CreateEmailQuoteBody(code, name)).Wait();
+                UserManager.SendEmailAsync(admin.Id, $"Có khách hàng cần báo giá", $"Họ tên: <b>{user.FullName}</b>, Điện thoại: <b>{user.PhoneNumber}</b>, Email:<b>{user.Email}</b>. Với chi tiết như sau: </br>" + CreateEmailQuoteBody(code, name, quoteCode)).Wait();
             }
-
-            UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody(code,name)).Wait();
-            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId());
+            UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody(code, name, quoteCode)).Wait();
+            new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), quoteCode);
             Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private string CreateEmailQuoteBody(string code, string name)
+        private string CreateEmailQuoteBody(string code, string name, string quoteCode)
         {
             string body = string.Empty;
             var userId = User.Identity.GetUserId();
@@ -114,12 +115,16 @@ namespace Upup.Controllers
                     totalPrice += product.TotalPrice;
                 }
             }
+            else
+            {
+                throw new InvalidOperationException("Cart is empty");
+            }
             using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplates/QuotesTemplate.html")))
             {
                 body = reader.ReadToEnd();
             }
-            var newGuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            body = body.Replace("[QuoteCode]", newGuid.Substring(newGuid.Length - 10));
+            
+            body = body.Replace("[QuoteCode]", quoteCode);
             body = body.Replace("[QuoteDate]", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
             body = body.Replace("[Barcode]", StringHelper.CreateQrCode(code));
             body = body.Replace("[PORef]", name);
@@ -508,7 +513,7 @@ namespace Upup.Controllers
             _db = Db;
         }
 
-        public PurchaseOrder CreatePO(string code, string name, bool isTemp, string customerId)
+        public PurchaseOrder CreatePO(string code, string name, bool isTemp, string customerId, string quoteCode)
         {
             var customer = _db.Customers.Find(customerId);
 
@@ -530,6 +535,7 @@ namespace Upup.Controllers
                 CustomerEmail = customer.Email,
                 CustomerPhone = customer.PhoneNumber,
                 CustomerWebsite = customer.Webiste,
+                QuotationCode = quoteCode,
                 PurchaseOrderDetails = carts.Select(c => new PurchaseOrderDetail
                 {
                     Product = c.ProductVariant,
