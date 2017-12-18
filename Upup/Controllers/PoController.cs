@@ -303,7 +303,8 @@ namespace Upup.Controllers
             po.CustomerEmail = customer.Email;
             po.CustomerPhone = customer.PhoneNumber;
             po.CustomerWebsite = customer.Webiste;
-
+            TempData["Success"] = true;
+            TempData["Message"] = Lang.Order_Success;
             Db.SaveChanges();
 
             return RedirectToAction(nameof(Detail), new { id = po.Id });
