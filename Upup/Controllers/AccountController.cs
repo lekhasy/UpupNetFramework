@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Upup.Models;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Upup.Globalization;
 
 namespace Upup.Controllers
 {
@@ -56,7 +57,7 @@ namespace Upup.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", Lang.Invalid_Login);
                     return View(model);
             }
         }
@@ -99,7 +100,7 @@ namespace Upup.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid code.");
+                    ModelState.AddModelError("", Lang.Invalid_Code);
                     return View(model);
             }
         }
@@ -153,7 +154,7 @@ namespace Upup.Controllers
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản email tại Upup", "Vui xác thực email của bạn bằng cách click vào link dưới đây: <a href=\"" + callbackUrl + "\">Xác thực</a>");
+                    await UserManager.SendEmailAsync(user.Id, Lang.Confirm_email_title, string.Format(Lang.Confirm_email_body, callbackUrl));
                     return View("DisplayEmail");
                 }
                 AddErrors(result);
@@ -204,7 +205,7 @@ namespace Upup.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "#_Reset Password", "#_Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                await UserManager.SendEmailAsync(user.Id, Lang.Reset_password_title, string.Format(Lang.Reset_password_body, callbackUrl));
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
