@@ -12,7 +12,8 @@ namespace Upup.Models
         public string Name { get; set; }
         public int State { get; set; }
         public int PaymentMethod { get; set; }
-        public decimal TotalAmount => PurchaseOrderDetails.Sum(s => s.GetCalculatedTotalAmount());
+        public decimal TotalMoney => PurchaseOrderDetails.Sum(s => s.GetCalculatedTotalMoney());
+        public decimal TotalAmount => TotalMoney + ((TotalMoney * 10)/100);
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public string QuotationCode { get; set; }

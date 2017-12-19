@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Web.Http;
 using Upup.Helpers;
 using Upup.Globalization;
+using System.Web;
 
 namespace Upup.Controllers
 {
@@ -44,10 +45,13 @@ namespace Upup.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
-            new CommonPoLogic(Db).CreatePO(code, name, false, User.Identity.GetUserId(), null, paymentMethodId);
+            var po = new CommonPoLogic(Db).CreatePO(code, name, false, User.Identity.GetUserId(), null, paymentMethodId);
             Db.SaveChanges();
             TempData["Success"] = true;
             TempData["Message"] = Lang.Order_Success;
+            var userId = User.Identity.GetUserId();
+            var user = Db.Customers.Find(userId);
+            new CommonPoLogic(Db).SendOrderedNotifyEmail(po, UserManager, user, Server);
             return RedirectToAction("Index");
         }
 
@@ -134,7 +138,7 @@ namespace Upup.Controllers
             {
                 body = reader.ReadToEnd();
             }
-            
+
             body = body.Replace("[QuoteCode]", quoteCode);
             body = body.Replace("[QuoteDate]", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
             body = body.Replace("[Barcode]", StringHelper.CreateQrCode(code));
@@ -262,7 +266,7 @@ namespace Upup.Controllers
             {
                 return RedirectToAction("Index");
             }
-            
+
             po.IsDeleted = true;
             Db.Entry(po).State = EntityState.Modified;
             Db.SaveChanges();
@@ -292,7 +296,7 @@ namespace Upup.Controllers
             {
                 podetail.Price = podetail.GetCalculatedPrice();
                 podetail.ShipDate = podetail.GetCalculatedShipDate();
-                podetail.TotalAmount = podetail.GetCalculatedTotalAmount();
+                podetail.TotalAmount = podetail.GetCalculatedTotalMoney();
             }
 
             po.State = (int)PoState.Ordered;
@@ -306,6 +310,8 @@ namespace Upup.Controllers
             TempData["Success"] = true;
             TempData["Message"] = Lang.Order_Success;
             Db.SaveChanges();
+
+
 
             return RedirectToAction(nameof(Detail), new { id = po.Id });
         }
@@ -430,7 +436,7 @@ namespace Upup.Controllers
                         ProductPrice = c.Product.Price,
                         ProductVariantCode = c.Product.VariantCode,
                         //ProductVariantName = c.ProductVariant.VariantName,
-                        TotalPrice = c.GetCalculatedTotalAmount(),
+                        TotalPrice = c.GetCalculatedTotalMoney(),
                         UnitName = c.Product.ProductVariantUnit.Name,
                         StateString = c.GetStateString()
                     }
@@ -495,7 +501,7 @@ namespace Upup.Controllers
             var customer = Db.Customers.Find(userId);
 
             var addToCartResult = new CommonPoLogic(Db).AddToPo(customer, model.productVariantCode, model.quantity, model.PoId);
-            
+
             if (addToCartResult.ResultValue)
                 Db.SaveChanges();
 
@@ -608,6 +614,82 @@ namespace Upup.Controllers
                 ResultValue = true,
                 Message = "Thêm sản phẩm vào giỏ hàng thành công"
             };
+        }
+
+        public void SendOrderedNotifyEmail(PurchaseOrder purchaseOrder, ApplicationUserManager userManager, Customer customer, HttpServerUtilityBase Server)
+        {
+            var AdminRole = _db.Roles.First(r => r.Name == "Admin");
+            var allAdmins = _db.Users.Where(u => u.Roles.Any(r => r.RoleId == AdminRole.Id)).ToList();
+            var mailBody = BuildOrderNotifyEmail(Server, purchaseOrder);
+            foreach (var admin in allAdmins)
+            {
+                userManager.SendEmailAsync(admin.Id, $"Có đơn đặt hàng mới!", $"Họ tên: <b>{customer.FullName}</b>, Điện thoại: <b>{customer.PhoneNumber}</b>, Email:<b>{customer.Email}</b>. Với chi tiết như sau: </br>" + mailBody).Wait();
+            }
+
+            userManager.SendEmailAsync(customer.Id, "Đặt hàng thành công", mailBody).Wait();
+        }
+
+        public string BuildOrderNotifyEmail(HttpServerUtilityBase Server, PurchaseOrder purchaseOrder)
+        {
+            var templatePath = string.Empty;
+            if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "vi")
+            {
+                templatePath = "~/EmailTemplates/QuotesTemplate.html";
+            }
+            else
+            {
+                templatePath = "~/EmailTemplates/QuotesTemplate_en.html";
+            }
+
+            var gridHtml = string.Empty;
+
+            var countProduct = 0;
+            foreach (var podetail in purchaseOrder.PurchaseOrderDetails)
+            {
+                countProduct++;
+                gridHtml += "<tr>";
+                gridHtml += "<td rowspan = '3' style='width:5%;text-align:center;'> " + countProduct + " </td>";
+                gridHtml += "<td style ='width:38%'>" + podetail.Product.VariantName + "</td>";
+                gridHtml += "<td colspan = '2' style = 'width:57%; text-align:right'>" + podetail.Product.BrandName + "</td>";
+                gridHtml += "</tr>";
+                gridHtml += "<tr>";
+                gridHtml += "<td style = 'width:38%' >" + podetail.Product.VariantCode + "</td>";
+                gridHtml += "<td colspan = '2' style = 'width:57%; text-align:center' >" + podetail.DateShipping() + " ngày</td>";
+                gridHtml += "</tr>";
+                gridHtml += "<tr>";
+                gridHtml += "<td style = 'width:30%; text-align:center' > " + podetail.Price.ToString("N0") + " </td>";
+                gridHtml += "<td style = 'width:20%; text-align:center' > " + podetail.Quantity + "";
+                gridHtml += "<td style = 'width:45%; text-align:right' > " + podetail.TotalAmount.ToString("N0") + " </td>";
+                gridHtml += "</tr > ";
+            }
+
+            var body = string.Empty;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath(templatePath)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("[QuoteDate]", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            body = body.Replace("[OrderStatus]", Lang.Ordered);
+            body = body.Replace("[Barcode]", StringHelper.CreateQrCode(purchaseOrder.Code));
+            body = body.Replace("[PORef]", purchaseOrder.Name);
+            body = body.Replace("[CustomerCode]", purchaseOrder.Customer.Code);
+            body = body.Replace("[CustomerName]", purchaseOrder.Customer.FullName);
+            body = body.Replace("[CompanyPhone]", purchaseOrder.Customer.PhoneNumber);
+            body = body.Replace("[TaxNo]", purchaseOrder.Customer.OrgName);
+            body = body.Replace("[CompanyAddress]", purchaseOrder.Customer.Address2);
+            body = body.Replace("[ContactName]", purchaseOrder.Customer.OrgName);
+
+            body = body.Replace("[Email]", purchaseOrder.Customer.Email);
+            body = body.Replace("[Phone]", purchaseOrder.Customer.PhoneNumber);
+            body = body.Replace("[Address]", purchaseOrder.Customer.Address1);
+            body = body.Replace("[Amount]", purchaseOrder.TotalMoney.ToString());
+            body = body.Replace("[VAT]", "10%");
+            body = body.Replace("[DeliveryFee]", string.Empty);
+            body = body.Replace("[TotalAmount]", purchaseOrder.TotalAmount.ToString());
+            body = body.Replace("[HtmlItemInGrid]", gridHtml);
+            return body;
         }
     }
 }
