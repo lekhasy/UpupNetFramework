@@ -135,6 +135,9 @@
   <data name="New_Password" xml:space="preserve">
     <value>Mật khẩu mới</value>
   </data>
+  <data name="Order_Success" xml:space="preserve">
+    <value>Đặt hàng thành công</value>
+  </data>
   <data name="Other" xml:space="preserve">
     <value>Khác</value>
   </data>

@@ -135,6 +135,9 @@
   <data name="New_Password" xml:space="preserve">
     <value>New password</value>
   </data>
+  <data name="Order_Success" xml:space="preserve">
+    <value>Order success</value>
+  </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
   </data>
