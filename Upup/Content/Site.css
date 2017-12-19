@@ -1,5 +1,10 @@
-﻿body {
-    font-family: Tahoma;
+﻿@font-face {
+    font-family: 'MYRIADPRO-REGULAR';
+    src: url('../fonts/MYRIADPRO-REGULAR.OTF');
+}
+
+body {
+    font-family: 'MYRIADPRO-REGULAR';
     font-size: 11pt !important;
 }
 
@@ -35,11 +40,25 @@ a.btn {
     width: 66%;
     background: url(/Images/banners/banner.jpg) no-repeat bottom;
     height: 106px;
-    padding: 25px;
+    padding: 27px;
     padding-left: 34px;
+    position: relative;
 }
 
-.top-header .area-language {
+    .top-header .area-slogan .text-shipping {
+        width: 94px;
+        background: url(/Images/banners/text-shipping.png) no-repeat;
+        height: 106px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -20px;
+        margin-left: 50px;
+        z-index: 1;
+    }
+
+
+    .top-header .area-language {
     margin-left: 8px;
     margin-bottom: 3px;
 }
@@ -111,14 +130,14 @@ a.btn {
 }
 
 #header .top-header h3, #header .top-header h4 {
-    font-size: 17px;
+    font-size: 19px;
     line-height: 21pt;
     text-transform: uppercase;
     color: #ffffff;
 }
 
 #header .top-header h3 {
-    font-size: 18.5px;
+    font-size: 20.5px;
 }
 
 #header .top-header h4 .highlight {
@@ -143,14 +162,15 @@ a.btn {
     .search-wrapper .btn{
         margin-right: 5px;
     }
-    
-    #topMenu {
-        margin-top: 10px;
-    }
+
+#topMenu {
+    margin-top: 2px;
+    background-color: #DFDFDF;
+}
 
     #topMenu .menu-item {
-        width: 24.5%;
-        margin-right: 8px;
+        width: 23.8%;
+        margin: 0 0 0 12px;
         float: left;
     }
 
@@ -271,41 +291,55 @@ a.btn {
 }
 
 .menu-item > a {
-    background: #e2f0ff;
+    padding: 14px 20px;
     display: block;
-    padding: 10px 20px;
-    color: #64aaac;
-    border: 1px solid #86cccf;
     text-align: center;
+    border-top: 5px solid #DFDFDF;
+    font-size: 13pt;
 }
 
-    .menu-item > a:hover {
-        text-decoration: none;
-        color: gray;
-        background: red; /* For browsers that do not support gradients */
-        background: -webkit-radial-gradient(white, #e2f0ff); /* Safari */
-        background: -o-radial-gradient(white, #e2f0ff); /* Opera 11.6 to 12.0 */
-        background: -moz-radial-gradient(white, #e2f0ff); /* Firefox 3.6 to 15 */
-        background: radial-gradient(white, #e2f0ff); /* Standard syntax */
-    }
+.menu-item.active a, .menu-item a:hover {
+    background-color: #ffffff;
+    border-top: 5px solid #6799D0;
+    border-radius: 5px 5px 0 0;
+    border-color: #6799D0;
+}
 
-    .menu-item > a .icon {
+.menu-item a .fa {
+    margin-right: 10px;
+}
+
+.menu-item a .fa, .menu-item a .content {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .menu-item a .fa, .menu-item a .content {
+    color: #666666;
+}
+
+.menu-item.active a .fa, .menu-item a:hover .fa,
+.menu-item.active a .content, .menu-item a:hover .content {
+    color: #1A56B8;
+}
+
+/*.menu-item > a .icon {
         width: 32px;
         height: 32px;
         margin-right: 10px;
-        opacity: 0.8;
-    }
+        /*opacity: 0.8;*/
+    }*/
 
     .menu-item > a span {
         display: inline-block;
         vertical-align: middle;
     }
 
-.menu-item:hover > a .icon {
+/*.menu-item:hover > a .icon {
     opacity: 1;
     text-shadow: 0px 0px 13px #fff;
     animation: moveFromBottom 300ms ease-in-out;
-}
+}*/
 
 .menu-item > a .product-icon {
     background: url('Images/icons/tool-icon.png') no-repeat;
@@ -323,11 +357,11 @@ a.btn {
     background: url('Images/icons/calendar-icon.png') no-repeat;
 }
 
-.menu-item > a:hover .content {
+/*.menu-item > a:hover .content {
     opacity: 1;
     color: #68217A;
     animation: moveFromTop 300ms ease-in-out;
-}
+}*/
 
 /*.menu-item:hover .sub {
         opacity: 1;
@@ -335,14 +369,10 @@ a.btn {
     }*/
 
 footer {
-    line-height: 25pt;
+    line-height: 40pt;
     font-size: 10.5pt;
-    background: #e2f0ff;
-    background: -webkit-linear-gradient(left top, #56B4D9, white); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(bottom right, #56B4D9, white); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(bottom right, #56B4D9, white); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to bottom right, #56B4D9, white); /* Standard syntax */
-    color: #1D4380;
+    background: #007398;
+    color: #ffffff;
     margin-top: 10px;
     text-align: center;
 }
@@ -580,7 +610,7 @@ footer {
                 text-indent: inherit;
                 white-space: normal;
                 overflow: visible;
-                font-size: 13px;
+                font-size: 14px;
                 font-weight: bold;
                 text-decoration: none;
                 color: #333;
@@ -823,8 +853,25 @@ footer {
         font-size: 10.5pt;
     }
 
-        .content-wrapper .detail ul.contact li {
-            margin-bottom: 10px;
+        .content-wrapper .detail .phone-line{
+            background: url('/Images/icons/icon-phone.png') no-repeat;
+        }
+
+        .content-wrapper .detail .fax-line {
+            background: url('/Images/icons/icon-fax.png') no-repeat;
+        }
+
+        .content-wrapper .detail .time-line {
+            background: url('/Images/icons/icon-time.png') no-repeat;
+        }
+
+        .content-wrapper .detail .mail-line {
+            background: url('/Images/icons/icon-mail.png') no-repeat;
+        }
+
+        .content-wrapper .detail ul li {
+            margin-bottom: 20px;
+            padding-left: 44px;
         }
 
             .content-wrapper .detail ul.contact li .bold {
@@ -881,12 +928,12 @@ footer {
         }
 
             #crumbs ul li.active a {
-                background: #64aaac;
+                background: #007398;
             }
 
             #crumbs ul li a {
                 display: block;
-                line-height: 18pt;
+                line-height: 22pt;
                 float: left;
                 height: 32px;
                 background: #86cccf;

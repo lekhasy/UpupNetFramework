@@ -133,12 +133,12 @@
                     }
                     <div class="detail">
                         <ul class="contact">
-                            <li><span class="bold lang-vi">Số điện thoại:</span> <span class="bold lang-en">Phone:</span><br> <strong>@WebConfigurationManager.AppSettings["Phone"]</strong></li>
-                            <li><span class="bold lang-vi">Số Fax:</span><span class="bold lang-en">Fax:</span><br> <strong>@WebConfigurationManager.AppSettings["Fax"]</strong></li>
-                            <li><span class="bold lang-vi">Hộp thư:</span><span class="bold lang-en">Email:</span> <strong>@WebConfigurationManager.AppSettings["Email"]</strong></li>
+                            <li class="phone-line"><span class="bold lang-vi">Số điện thoại:</span> <span class="bold lang-en">Phone:</span><br> <strong>@WebConfigurationManager.AppSettings["Phone"]</strong></li>
+                            <li class="fax-line"><span class="bold lang-vi">Số Fax:</span><span class="bold lang-en">Fax:</span><br> <strong>@WebConfigurationManager.AppSettings["Fax"]</strong></li>
+                            <li class="mail-line"><span class="bold lang-vi">Hộp thư:</span><span class="bold lang-en">Email:</span> <strong>@WebConfigurationManager.AppSettings["Email"]</strong></li>
                         </ul>
                         <ul class="hour">
-                            <li>
+                            <li class="time-line">
                                 <span class="lang-vi">
                                     @Html.Raw(HttpUtility.HtmlDecode(@WebConfigurationManager.AppSettings["WorkTime"]))
                                 </span>

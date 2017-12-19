@@ -25,7 +25,8 @@ namespace Upup
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/base.css",
+                "~/Content/font-awesome.min.css",
+                "~/Content/base.css",
                       "~/Content/site.css"));
         }
     }

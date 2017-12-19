@@ -3568,6 +3568,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\admin-avatar.jpg" />
     <Content Include="Images\backgrounds\bg-treemap.png" />
+    <Content Include="Images\banners\banner.jpg" />
     <Content Include="Images\banner1.svg" />
     <Content Include="Images\banner2.svg" />
     <Content Include="Images\banner3.svg" />
