@@ -60,10 +60,17 @@
                     </a>
                 </div>
                 <div class="area-slogan">
-                    <h3 class="text-center lang-vi">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan"]))</h3>
-                    <h3 class="text-center lang-en">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan_en"]))</h3>
+                    <div class="text-left lang-vi">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan"]))</div>
+                    <div class="text-left lang-en">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan_en"]))</div>
+                    <div class="text-shipping"></div>
                 </div>
                 <div class="area-user">
+                    <div class="area-language text-center">
+                        <input type="radio" value="vi" name="language" checked="checked" id="lanVi" />
+                        <label for="lanVi">Viet</label>
+                        <input type="radio" value="en" name="language" id="lanEn" />
+                        <label for="lanEn">English</label>
+                    </div>
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>
@@ -98,17 +105,17 @@
             </div>
             <div id="topMenu">
                 <div class="row">
-                    <div class="menu-item">
-                        <a href="/"><span class="icon product-icon"></span><span class="content lang-vi">Tất cả sản phẩm</span><span class="content lang-en">All products</span></a>
+                    <div class="menu-item active">
+                        <a href="/"><i class="fa fa-2x fa-tachometer"></i><span class="content lang-vi">Tất cả sản phẩm</span><span class="content lang-en">All products</span></a>
                     </div>
                     <div class="menu-item">
-                        <a href="/Tech/TechGuide"><span class="icon tech-icon"></span><span class="content lang-vi">Công nghệ</span><span class="content lang-en">Technology</span></a>
+                        <a href="/Tech/TechGuide"><i class="fa fa-2x fa-cog"></i><span class="content lang-vi">Công nghệ</span><span class="content lang-en">Technology</span></a>
                     </div>
                     <div class="menu-item">
-                        <a href="/UserManual/ManualGuide"><span class="icon support-icon"></span><span class="content lang-vi">Hướng dẫn sử dụng</span><span class="content lang-en">User manual</span></a>
+                        <a href="/UserManual/ManualGuide"><i class="fa fa-2x fa-star"></i><span class="content lang-vi">Hướng dẫn sử dụng</span><span class="content lang-en">User manual</span></a>
                     </div>
                     <div class="menu-item">
-                        <a href="/Event/EventGuide"><span class="icon event-icon"></span><span class="content lang-vi">Triển lãm sự kiện</span><span class="content lang-en">Events</span></a>
+                        <a href="/Event/EventGuide"><i class="fa fa-2x fa-comment"></i><span class="content lang-vi">Triển lãm sự kiện</span><span class="content lang-en">Events</span></a>
                     </div>
                 </div>
             </div>

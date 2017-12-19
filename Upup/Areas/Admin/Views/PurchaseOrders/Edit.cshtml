@@ -77,6 +77,10 @@
                                             }
                                         </div>
                                     </div>
+                                    @if (product.Product.OnHand <= 0)
+                                    {
+                                        <div class="text-red"><small>Số lượng sản phẩm trong kho hiện tại đang là [<b>@product.Product.OnHand.ToString("N0")</b>], cần <a target="_blank" href="@Url.Action("ManageProducts", "Products", new { id = product.Product.Product.Id })">bổ sung</a> thêm để phục vụ việc giao hàng.</small></div>
+                                    }
                                 </div>
                             }
                         </div>
@@ -91,7 +95,7 @@
                             <div class="col-md-2 text-center"><button id="state3" class="state-btn btn btn-info">Thanh toán</button></div>
                             <div class="col-md-2 text-center"><button id="state4" class="state-btn btn btn-primary">Vận chuyển</button></div>
                             <div class="col-md-2 text-center"><button id="state5" class="state-btn btn btn-success">Hoàn thành</button></div>
-                            <div class="col-md-2 text-center"><button id="state6" class="state-btn btn btn-danger">Hủy đơn hàng</button></div>
+                            <div class="col-md-2 text-center"><button id="state6" class="state-btn btn btn-danger" @(Model.State == (int)PoState.Completed ? "disabled" : string.Empty)>Hủy đơn hàng</button></div>
                         </div>
                     </div>
                 </div>
@@ -173,7 +177,7 @@
             $('#state' + @Model.State).css('box-shadow', 'red 1px 1px 6px, red -1px -1px 6px, pink 2px 2px 12px, pink -2px -2px 12px').css('border', '1px solid white');
             $('#changeStatus .btn').each(function () {
                 var $btn = $(this);
-                if (parseInt($btn.attr('id').split('state')[1], 10) <= @Model.State){
+                if (parseInt($btn.attr('id').split('state')[1], 10) != @Model.State + 1 && parseInt($btn.attr('id').split('state')[1], 10) != @((int)PoState.Canceled)){
                     $btn.attr('disabled', 'disabled');
                 }
                 $btn.click(function () {
@@ -207,8 +211,13 @@
                                             });
                                         }
                                         setTimeout(function () {
-                                            window.location.href = '@(Url.Action("Edit","PurchaseOrders", new { id = Model.Id }))'
-                                        }, 4000);
+                                            if (btnState == @((int)PoState.Canceled)) {
+                                                window.location.href = '@(Url.Action("ManagePO","PurchaseOrders"))';
+                                            }
+                                            else{
+                                                    window.location.href = '@(Url.Action("Edit","PurchaseOrders", new { id = Model.Id }))';
+                                                }
+                                            }, 2000);
                                         $.LoadingOverlay("hide");
                                     }
                                 );

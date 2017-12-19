@@ -245,6 +245,9 @@
                     <a class="delete-variant" data-id="@item.Id" href="javascrip:void(0)" title="Xóa">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
+                    @if (item.OnHand <= 0) {
+                        <span class="warning-quantity">@item.OnHand.ToString("N0")</span>
+                    }
                 </li>
             }
         }
