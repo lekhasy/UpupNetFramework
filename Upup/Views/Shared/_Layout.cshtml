@@ -60,10 +60,16 @@
                     </a>
                 </div>
                 <div class="area-slogan">
-                    <h3 class="text-center lang-vi">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan"]))</h3>
-                    <h3 class="text-center lang-en">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan_en"]))</h3>
+                    <div class="text-left lang-vi">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan"]))</div>
+                    <div class="text-left lang-en">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan_en"]))</div>
                 </div>
                 <div class="area-user">
+                    <div class="area-language text-center">
+                        <input type="radio" value="vi" name="language" checked="checked" id="lanVi" />
+                        <label for="lanVi">Viet</label>
+                        <input type="radio" value="en" name="language" id="lanEn" />
+                        <label for="lanEn">English</label>
+                    </div>
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>

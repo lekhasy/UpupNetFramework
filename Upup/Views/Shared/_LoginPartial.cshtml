@@ -6,7 +6,7 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="text-right">
+    <ul class="text-left">
         <li>
             @Html.ActionLink(Lang.Account, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-primary pull-right bg-base-color-dark" })
         </li>
@@ -16,7 +16,7 @@
 }
 else
 {
-    <ul class="text-right">
+    <ul class="text-left">
         <li>@Html.ActionLink(Lang.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class= "btn btn-primary pull-right bg-base-color-dark" })</li>
         <li>@Html.ActionLink(Lang.Login, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary pull-right bg-base-color-dark" })</li>
     </ul>
