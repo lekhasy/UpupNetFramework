@@ -135,8 +135,11 @@
   <data name="New_Password" xml:space="preserve">
     <value>Mật khẩu mới</value>
   </data>
+  <data name="Ordered" xml:space="preserve">
+    <value>Đã đặt hàng</value>
+  </data>
   <data name="Order_Success" xml:space="preserve">
-    <value>Đặt hàng thành công</value>
+    <value>Đơn hàng đã được đặt thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Khác</value>
@@ -305,5 +308,50 @@
   </data>
   <data name="Wrong_Password" xml:space="preserve">
     <value>Sai mật khẩu</value>
+  </data>
+  <data name="AddPhoneSuccess" xml:space="preserve">
+    <value>Thêm số điện thoại thành công</value>
+  </data>
+  <data name="Add_Cart_Success" xml:space="preserve">
+    <value>Thêm sản phẩm vào giỏ hàng thành công</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>Mật khẩu của bạn đã được đổi</value>
+  </data>
+  <data name="Confirm_email_body" xml:space="preserve">
+    <value>Vui xác thực email của bạn bằng cách click vào link dưới đây: &lt;a href="{0}"&gt;Xác thực&lt;/a&gt;</value>
+  </data>
+  <data name="Confirm_email_title" xml:space="preserve">
+    <value>Xác thực tài khoản email tại Upup</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Có lỗi xảy ra, xin vui lòng thử lại</value>
+  </data>
+  <data name="Invalid_Code" xml:space="preserve">
+    <value>Code không chính xác</value>
+  </data>
+  <data name="Invalid_Login" xml:space="preserve">
+    <value>Tài khoản hoặc mật khẩu không chính xác</value>
+  </data>
+  <data name="Product_not_exists" xml:space="preserve">
+    <value>Sản phẩm không tồn tại</value>
+  </data>
+  <data name="RemovePhoneSuccess" xml:space="preserve">
+    <value>Xóa số điện thoại thành công</value>
+  </data>
+  <data name="Remove_success" xml:space="preserve">
+    <value>Xóa thành công</value>
+  </data>
+  <data name="Reset_password_body" xml:space="preserve">
+    <value>Nhấn vào liên kết dưới đây để đặt lại mật khẩu của bạn: &lt;a href="{0}"&gt;Đặt lại mật khẩu&lt;/a&gt;</value>
+  </data>
+  <data name="Reset_password_title" xml:space="preserve">
+    <value>Đặt lại mật khẩu Upup</value>
+  </data>
+  <data name="SetPasswordSuccess" xml:space="preserve">
+    <value>Mật khẩu đã được đặt thành công</value>
+  </data>
+  <data name="SetTwoFactorSuccess" xml:space="preserve">
+    <value>Cài đặt xác thực hai bước thành công</value>
   </data>
 </root>

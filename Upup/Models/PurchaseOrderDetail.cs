@@ -14,7 +14,7 @@ namespace Upup.Models
         public decimal Price { get; set; }
         public decimal TotalAmount { get; set; }
         public int State { get; set; }
-        public decimal GetCalculatedTotalAmount() => PurchaseOrder.IsTemp ? Product.Price * Quantity : TotalAmount;
+        public decimal GetCalculatedTotalMoney() => PurchaseOrder.IsTemp ? Product.Price * Quantity : TotalAmount;
         public decimal GetCalculatedPrice() => PurchaseOrder.IsTemp ? Product.Price : Price;
         public DateTime? GetCalculatedShipDate()
         {

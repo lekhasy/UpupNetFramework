@@ -158,6 +158,19 @@
                 $('#searchButton').click();
         });
     </script>
+    <script>
+        $("#lanVi").click(function () {
+            Cookies.set($UpupConfigs.Cookie.Culture, 'vi');
+            window.location.reload();
+        });
+
+        $("#lanEn").click(function () {
+            Cookies.set($UpupConfigs.Cookie.Culture, 'en')
+            window.location.reload();
+        });
+
+
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

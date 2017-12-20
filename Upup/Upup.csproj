@@ -3579,6 +3579,7 @@
     <Content Include="Images\banners\banner-4.jpg" />
     <Content Include="Images\banners\text-shipping.png" />
     <Content Include="Images\banners\poster1.jpg" />
+    <Content Include="Images\banners\text-shipping.png" />
     <Content Include="Images\icons\calendar-icon.png" />
     <Content Include="Images\icons\icon-fax.png" />
     <Content Include="Images\icons\icon-mail.png" />
@@ -3594,6 +3595,19 @@
     <Content Include="Images\products\0120.jpg" />
     <Content Include="Images\products\0121.jpg" />
     <Content Include="Images\products\0122.jpg" />
+    <Content Include="Images\Settings\20171119204531562_4b97249fd69745059bcfcba3e4c917ba.jpg" />
+    <Content Include="Images\Settings\20171120125144310_1b5db866f9d24d69bc5f09721cc27286.jpg" />
+    <Content Include="Images\Settings\20171120125206239_4341817e2bfa4207ad36cf127dccde7d.jpg" />
+    <Content Include="Images\Settings\20171120125406066_72620f7fa8fb4c398566da0af6dcb19b.jpg" />
+    <Content Include="Images\Settings\20171120125527794_40093fda07204df69d5e7e0130c713fb.jpg" />
+    <Content Include="Images\Settings\20171120125726616_790d8d159dfb409c88f8368351bb5d95.jpg" />
+    <Content Include="Images\Settings\20171120125857885_0e776bba23f54a238831da85ee5271cc.jpg" />
+    <Content Include="Images\Settings\20171120201628917_a668945836c942eeab8e7ed8a3598a5f.jpg" />
+    <Content Include="Images\Settings\20171120201802062_2cbccb0aeac5451ea84e797bb98bfb89.jpg" />
+    <Content Include="Images\Settings\20171120202135017_8cbf50504fd44b7a8733313b304533e3.jpg" />
+    <Content Include="Images\Settings\20171120202235867_3f30af51d3034bd68a1bed82bc894bb0.jpg" />
+    <Content Include="Images\Settings\20171120202416541_0e5239d043de46dba3d928f71c94358f.jpg" />
+    <Content Include="Images\Settings\20171219211541962_9f2e4efb81734a1da42c617f9a792207.png" />
     <Content Include="Libs\QRCoder.dll" />
     <Content Include="Scripts\accounting.min.js" />
     <Content Include="Scripts\admin-custom.js" />

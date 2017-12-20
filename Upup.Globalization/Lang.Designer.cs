@@ -70,6 +70,51 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm sản phẩm vào giỏ hàng thành công.
+        /// </summary>
+        public static string Add_Cart_Success {
+            get {
+                return ResourceManager.GetString("Add_Cart_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thêm số điện thoại thành công.
+        /// </summary>
+        public static string AddPhoneSuccess {
+            get {
+                return ResourceManager.GetString("AddPhoneSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu của bạn đã được đổi.
+        /// </summary>
+        public static string ChangePasswordSuccess {
+            get {
+                return ResourceManager.GetString("ChangePasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui xác thực email của bạn bằng cách click vào link dưới đây: &lt;a href=&quot;{0}&quot;&gt;Xác thực&lt;/a&gt;.
+        /// </summary>
+        public static string Confirm_email_body {
+            get {
+                return ResourceManager.GetString("Confirm_email_body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xác thực tài khoản email tại Upup.
+        /// </summary>
+        public static string Confirm_email_title {
+            get {
+                return ResourceManager.GetString("Confirm_email_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xác nhận mật khẩu mới.
         /// </summary>
         public static string Confirm_New_Password {
@@ -84,6 +129,33 @@ namespace Upup.Globalization {
         public static string Current_Password {
             get {
                 return ResourceManager.GetString("Current_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có lỗi xảy ra, xin vui lòng thử lại.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code không chính xác.
+        /// </summary>
+        public static string Invalid_Code {
+            get {
+                return ResourceManager.GetString("Invalid_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài khoản hoặc mật khẩu không chính xác.
+        /// </summary>
+        public static string Invalid_Login {
+            get {
+                return ResourceManager.GetString("Invalid_Login", resourceCulture);
             }
         }
         
@@ -115,11 +187,20 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đặt hàng thành công.
+        ///   Looks up a localized string similar to Đơn hàng đã được đặt thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể.
         /// </summary>
         public static string Order_Success {
             get {
                 return ResourceManager.GetString("Order_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã đặt hàng.
+        /// </summary>
+        public static string Ordered {
+            get {
+                return ResourceManager.GetString("Ordered", resourceCulture);
             }
         }
         
@@ -147,6 +228,15 @@ namespace Upup.Globalization {
         public static string Password_Does_Not_Match {
             get {
                 return ResourceManager.GetString("Password_Does_Not_Match", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sản phẩm không tồn tại.
+        /// </summary>
+        public static string Product_not_exists {
+            get {
+                return ResourceManager.GetString("Product_not_exists", resourceCulture);
             }
         }
         
@@ -606,6 +696,60 @@ namespace Upup.Globalization {
         public static string Remember_Me {
             get {
                 return ResourceManager.GetString("Remember_Me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xóa thành công.
+        /// </summary>
+        public static string Remove_success {
+            get {
+                return ResourceManager.GetString("Remove_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xóa số điện thoại thành công.
+        /// </summary>
+        public static string RemovePhoneSuccess {
+            get {
+                return ResourceManager.GetString("RemovePhoneSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhấn vào liên kết dưới đây để đặt lại mật khẩu của bạn: &lt;a href=&quot;{0}&quot;&gt;Đặt lại mật khẩu&lt;/a&gt;.
+        /// </summary>
+        public static string Reset_password_body {
+            get {
+                return ResourceManager.GetString("Reset_password_body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đặt lại mật khẩu Upup.
+        /// </summary>
+        public static string Reset_password_title {
+            get {
+                return ResourceManager.GetString("Reset_password_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu đã được đặt thành công.
+        /// </summary>
+        public static string SetPasswordSuccess {
+            get {
+                return ResourceManager.GetString("SetPasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cài đặt xác thực hai bước thành công.
+        /// </summary>
+        public static string SetTwoFactorSuccess {
+            get {
+                return ResourceManager.GetString("SetTwoFactorSuccess", resourceCulture);
             }
         }
         

@@ -9,6 +9,7 @@ using Upup.Models;
 using Upup.Utils;
 using Upup.ViewModels;
 using System.Data.Entity;
+using Upup.Globalization;
 
 namespace Upup.Controllers
 {
@@ -154,7 +155,7 @@ namespace Upup.Controllers
             return new AjaxSimpleResultModel
             {
                 ResultValue = true,
-                Message = "Xóa thành công"
+                Message = Lang.Remove_success
             };
         }
 
@@ -185,7 +186,7 @@ namespace Upup.Controllers
             var variant = _db.ProductVariants.FirstOrDefault(pv => pv.VariantCode == variantCode);
             if (variant == null) return new AjaxSimpleResultModel
             {
-                Message = "Sản phẩm không tồn tại",
+                Message = Lang.Product_not_exists,
                 ResultValue = false
             };
 
@@ -207,7 +208,7 @@ namespace Upup.Controllers
             return new AjaxSimpleResultModel
             {
                 ResultValue = true,
-                Message = "Thêm sản phẩm vào giỏ hàng thành công"
+                Message = Lang.Add_Cart_Success
             };
         }
     }

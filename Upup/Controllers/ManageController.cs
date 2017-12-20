@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Upup.Models;
 using Upup.ViewModels;
+using Upup.Globalization;
 
 namespace Upup.Controllers
 {
@@ -23,12 +24,12 @@ namespace Upup.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? Lang.ChangePasswordSuccess
+                : message == ManageMessageId.SetPasswordSuccess ? Lang.SetPasswordSuccess
+                : message == ManageMessageId.SetTwoFactorSuccess ? Lang.SetTwoFactorSuccess
+                : message == ManageMessageId.Error ? Lang.Error
+                : message == ManageMessageId.AddPhoneSuccess ? Lang.AddPhoneSuccess
+                : message == ManageMessageId.RemovePhoneSuccess ? Lang.RemovePhoneSuccess
                 : "";
 
             var userId = User.Identity.GetUserId();
