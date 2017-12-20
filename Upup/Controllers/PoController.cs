@@ -203,7 +203,7 @@ namespace Upup.Controllers
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:38%' >" + poDetail.Product.VariantCode + "</td>";
-                    html += $"<td colspan = '2' style = 'width:57%; text-align:center' >{poDetail.Product.ShipdateSettings} {Lang.Day}</td>";
+                    html += $"<td colspan = '2' style = 'width:57%; text-align:center' >{poDetail.DateShipping()} {Lang.Day}</td>";
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:30%; text-align:center' > " + poDetail.Price.ToString("N0") + " </td>";
@@ -657,7 +657,7 @@ namespace Upup.Controllers
                 html += "</tr>";
                 html += "<tr>";
                 html += "<td style = 'width:38%' >" + podetail.Product.VariantCode + "</td>";
-                html += $"<td colspan = '2' style = 'width:57%; text-align:center' >{podetail.Product.ShipdateSettings} {Lang.Day}</td>";
+                html += $"<td colspan = '2' style = 'width:57%; text-align:center' >{podetail.DateShipping()} {Lang.Day}</td>";
                 html += "</tr>";
                 html += "<tr>";
                 html += "<td style = 'width:30%; text-align:center' > " + podetail.Price.ToString("N0") + " </td>";
