@@ -86,19 +86,22 @@
             <input type="hidden" name="name" class="clone_po_name" value="@Model.TempPoName">
             <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
             <input type="hidden" class="clone_pay_method" name="paymentMethodId" />
-            <input type="submit" class="btn btn-primary" value="Báo giá">
+            <input type="submit" class="btn btn-primary lang-vi" value="Báo giá">
+            <input type="submit" class="btn btn-primary lang-en" value="Request quotation">
         </form>
         <form action="/Po/SavePO" method="post" class="prevent-if-name-empty">
             <input type="hidden" name="name" class="clone_po_name" value="@Model.TempPoName">
             <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
             <input type="hidden" class="clone_pay_method" name="paymentMethodId" />
-            <input type="submit" class="btn btn-primary" value="Lưu PO">
+            <input type="submit" class="btn btn-primary lang-vi" value="Lưu PO">
+            <input type="submit" class="btn btn-primary lang-en" value="Save PO">
         </form>
         <form action="/Po/Order" method="post" class="prevent-if-name-empty">
             <input type="hidden" name="name" class="clone_po_name" value="@Model.TempPoName">
             <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
             <input type="hidden" class="clone_pay_method" name="paymentMethodId" />
-            <input type="submit" class="btn btn-primary" value="Đặt hàng">
+            <input type="submit" class="btn btn-primary lang-vi" value="Đặt hàng">
+            <input type="submit" class="btn btn-primary lang-en" value="Order">
         </form>
     </div>
 
