@@ -324,6 +324,9 @@
   <data name="Confirm_email_title" xml:space="preserve">
     <value>Xác thực tài khoản email tại Upup</value>
   </data>
+  <data name="Customer_quote_notify_title" xml:space="preserve">
+    <value>Có khách hàng cần báo giá</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Có lỗi xảy ra, xin vui lòng thử lại</value>
   </data>
@@ -335,6 +338,9 @@
   </data>
   <data name="Product_not_exists" xml:space="preserve">
     <value>Sản phẩm không tồn tại</value>
+  </data>
+  <data name="QuoteFromUpup" xml:space="preserve">
+    <value>Báo giá từ Upup</value>
   </data>
   <data name="RemovePhoneSuccess" xml:space="preserve">
     <value>Xóa số điện thoại thành công</value>
@@ -353,5 +359,68 @@
   </data>
   <data name="SetTwoFactorSuccess" xml:space="preserve">
     <value>Cài đặt xác thực hai bước thành công</value>
+  </data>
+  <data name="With_Following_Content" xml:space="preserve">
+    <value>Với chi tiết như sau</value>
+  </data>
+  <data name="Cart_Is_Empty" xml:space="preserve">
+    <value>Giỏ hàng rỗng</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="Canceled_PO_Success" xml:space="preserve">
+    <value>Đã hủy đơn hàng thành công</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Đã hoàn thành</value>
+  </data>
+  <data name="New_Order_title" xml:space="preserve">
+    <value>Có đơn đặt hàng mới</value>
+  </data>
+  <data name="Only_Able_Remove_Temp_PO" xml:space="preserve">
+    <value>Chỉ có thể xóa PO tạm</value>
+  </data>
+  <data name="Only_Able_To_Add_To_Temp_PO" xml:space="preserve">
+    <value>Chỉ có thể thêm phiếu vào PO tạm</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Đã thanh toán</value>
+  </data>
+  <data name="Pay_Meth_COD" xml:space="preserve">
+    <value>Thanh toán tiền mặt khi nhận hàng</value>
+  </data>
+  <data name="Pay_Meth_Transfer" xml:space="preserve">
+    <value>Chuyển khoản qua ngân hàng</value>
+  </data>
+  <data name="Please_Select_One_Ticket" xml:space="preserve">
+    <value>Hãy chọn ít nhất một phiếu</value>
+  </data>
+  <data name="PO_Need_one_item" xml:space="preserve">
+    <value>Một PO cần ít nhất một phiếu, hãy thêm một phiếu khác trước khi xóa các phiếu này.</value>
+  </data>
+  <data name="PO_Not_Found" xml:space="preserve">
+    <value>Không tìm thấy PO</value>
+  </data>
+  <data name="Remove_PO_Success" xml:space="preserve">
+    <value>Đơn hàng bạn chọn đã được xóa thành công !</value>
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Vận chuyển</value>
+  </data>
+  <data name="TempPO" xml:space="preserve">
+    <value>Đơn hàng tạm</value>
+  </data>
+  <data name="Your_Selected_PO_Changed_State_Success" xml:space="preserve">
+    <value>Đơn hàng bạn chọn đã chuyển trạng thái thành công</value>
+  </data>
+  <data name="Your_Selected_Prod_Changed_State_Success" xml:space="preserve">
+    <value>Sản phẩm bạn chọn đã chuyển trạng thái thành công</value>
+  </data>
+  <data name="Undetermine" xml:space="preserve">
+    <value>Chưa xác định</value>
   </data>
 </root>

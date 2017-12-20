@@ -324,6 +324,9 @@
   <data name="Confirm_email_title" xml:space="preserve">
     <value>Activate your Upup account</value>
   </data>
+  <data name="Customer_quote_notify_title" xml:space="preserve">
+    <value>New customer quotation reuqest</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>An error has occurred.</value>
   </data>
@@ -335,6 +338,9 @@
   </data>
   <data name="Product_not_exists" xml:space="preserve">
     <value>Product doesn't exists</value>
+  </data>
+  <data name="QuoteFromUpup" xml:space="preserve">
+    <value>Quotation from Upup</value>
   </data>
   <data name="RemovePhoneSuccess" xml:space="preserve">
     <value>Your phone number was removed.</value>
@@ -353,5 +359,68 @@
   </data>
   <data name="SetTwoFactorSuccess" xml:space="preserve">
     <value>Your two-factor authentication provider has been set.</value>
+  </data>
+  <data name="With_Following_Content" xml:space="preserve">
+    <value>Request detail</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="Canceled_PO_Success" xml:space="preserve">
+    <value>Canceled PO successfully</value>
+  </data>
+  <data name="Cart_Is_Empty" xml:space="preserve">
+    <value>Cart is empty</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="New_Order_title" xml:space="preserve">
+    <value>New customer order</value>
+  </data>
+  <data name="Only_Able_Remove_Temp_PO" xml:space="preserve">
+    <value>You only able to remove  temp PO</value>
+  </data>
+  <data name="Only_Able_To_Add_To_Temp_PO" xml:space="preserve">
+    <value>Only able to add item to Temp PO</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="Pay_Meth_COD" xml:space="preserve">
+    <value>Pay when receive product</value>
+  </data>
+  <data name="Pay_Meth_Transfer" xml:space="preserve">
+    <value>Bank transfer</value>
+  </data>
+  <data name="Please_Select_One_Ticket" xml:space="preserve">
+    <value>Please select at least one item</value>
+  </data>
+  <data name="PO_Need_one_item" xml:space="preserve">
+    <value>A PO need at least one item to be valid, please add another item to this PO before remove this one</value>
+  </data>
+  <data name="PO_Not_Found" xml:space="preserve">
+    <value>PO not found</value>
+  </data>
+  <data name="Remove_PO_Success" xml:space="preserve">
+    <value>Remove selected PO successfully</value>
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Shipping</value>
+  </data>
+  <data name="TempPO" xml:space="preserve">
+    <value>Temp</value>
+  </data>
+  <data name="Your_Selected_PO_Changed_State_Success" xml:space="preserve">
+    <value>Your selected PO have changed state successfully</value>
+  </data>
+  <data name="Your_Selected_Prod_Changed_State_Success" xml:space="preserve">
+    <value>Your selected products have changed state successfully</value>
+  </data>
+  <data name="Undetermine" xml:space="preserve">
+    <value>Undetermined</value>
   </data>
 </root>

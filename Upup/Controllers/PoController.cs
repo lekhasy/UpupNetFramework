@@ -68,9 +68,9 @@ namespace Upup.Controllers
             quoteCode = quoteCode.Substring(quoteCode.Length - 10);
             foreach (var admin in allAdmins)
             {
-                UserManager.SendEmailAsync(admin.Id, $"Có khách hàng cần báo giá", $"Họ tên: <b>{user.FullName}</b>, Điện thoại: <b>{user.PhoneNumber}</b>, Email:<b>{user.Email}</b>. Với chi tiết như sau: </br>" + CreateEmailQuoteBody(code, name, quoteCode)).Wait();
+                UserManager.SendEmailAsync(admin.Id, Lang.Customer_quote_notify_title, $"{Lang.Register_Name}: <b>{user.FullName}</b>, {Lang.Register_Phone}: <b>{user.PhoneNumber}</b>, {Lang.Register_Email}:<b>{user.Email}</b>. {Lang.With_Following_Content}: </br>" + CreateEmailQuoteBody(code, name, quoteCode)).Wait();
             }
-            UserManager.SendEmailAsync(user.Id, "Báo giá từ Upup", CreateEmailQuoteBody(code, name, quoteCode)).Wait();
+            UserManager.SendEmailAsync(user.Id, Lang.QuoteFromUpup, CreateEmailQuoteBody(code, name, quoteCode)).Wait();
             new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), quoteCode, paymentMethodId);
             Db.SaveChanges();
             return RedirectToAction("Index");
@@ -120,7 +120,7 @@ namespace Upup.Controllers
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:38%' >" + product.ProductVariantCode + "</td>";
-                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + product.DateShipping + " ngày</td>";
+                    html += $"<td colspan = '2' style = 'width:57%; text-align:center' >{ product.DateShipping} {Lang.Day}</td>";
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:30%; text-align:center' > " + product.ProductPrice.ToString("N0") + " </td>";
@@ -132,7 +132,7 @@ namespace Upup.Controllers
             }
             else
             {
-                throw new InvalidOperationException("Cart is empty");
+                throw new InvalidOperationException(Lang.Cart_Is_Empty);
             }
             using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplates/QuotesTemplate.html")))
             {
@@ -201,7 +201,7 @@ namespace Upup.Controllers
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:38%' >" + poDetail.Product.VariantCode + "</td>";
-                    html += "<td colspan = '2' style = 'width:57%; text-align:center' >" + poDetail.Product.ShipdateSettings + " ngày</td>";
+                    html += $"<td colspan = '2' style = 'width:57%; text-align:center' >{poDetail.Product.ShipdateSettings} {Lang.Day}</td>";
                     html += "</tr>";
                     html += "<tr>";
                     html += "<td style = 'width:30%; text-align:center' > " + poDetail.Price.ToString("N0") + " </td>";
@@ -215,7 +215,7 @@ namespace Upup.Controllers
             {
                 body = reader.ReadToEnd();
             }
-            body = body.Replace("[OrderStatus]", StringHelper.GetPoPaymentMethodByCode(po.State));
+            body = body.Replace("[OrderStatus]",  ((PaymentMethods)po.PaymentMethod).GetName());
             body = body.Replace("[QuoteDate]", po.CreatedDate.ToString("dd/MM/yyyy HH:mm"));
             body = body.Replace("[Barcode]", StringHelper.CreateQrCode(DateTime.Now.ToString("yyMMddhhmmss")));
             body = body.Replace("[PORef]", DateTime.Now.ToString("yyMMddhhmmss"));
@@ -415,7 +415,7 @@ namespace Upup.Controllers
             var PO = user.PurchaseOrders.FirstOrDefault(po => po.Id == id);
 
             if (PO == null)
-                return new DataTableResponse<TableDataRow<PoDetailItemModel>> { error = "Không tìm thấy PO" };
+                return new DataTableResponse<TableDataRow<PoDetailItemModel>> { error = Lang.PO_Not_Found };
 
             int sequence = 0;
             List<TableDataRow<PoDetailItemModel>> PoItems = new List<TableDataRow<PoDetailItemModel>>();
@@ -456,7 +456,7 @@ namespace Upup.Controllers
         {
             if (model.ids == null)
             {
-                return new AjaxSimpleResultModel { ResultValue = false, Message = "Hãy chọn ít nhất một phiếu" };
+                return new AjaxSimpleResultModel { ResultValue = false, Message = Lang.Please_Select_One_Ticket };
             }
 
             var userId = User.Identity.GetUserId();
@@ -467,19 +467,19 @@ namespace Upup.Controllers
 
             if (removingPo == null || removingPo.IsDeleted)
             {
-                return new AjaxSimpleResultModel { ResultValue = false, Message = "PO không tồn tại" };
+                return new AjaxSimpleResultModel { ResultValue = false, Message = Lang.PO_Not_Found };
             }
 
             if (!removingPo.IsTemp)
             {
-                return new AjaxSimpleResultModel { ResultValue = false, Message = "Chỉ có thể xóa PO tạm" };
+                return new AjaxSimpleResultModel { ResultValue = false, Message = Lang.Only_Able_Remove_Temp_PO };
             }
 
             var removingPoDetails = removingPo.PurchaseOrderDetails.Where(p => model.ids.Contains(p.Id));
 
             if (removingPoDetails.Count() == removingPo.PurchaseOrderDetails.Count)
             {
-                return new AjaxSimpleResultModel { ResultValue = false, Message = "Một PO cần ít nhất một phiếu, hãy thêm một phiếu khác trước khi xóa các phiếu này." };
+                return new AjaxSimpleResultModel { ResultValue = false, Message = Lang.PO_Need_one_item };
             }
 
             Db.PurchaseOrderDetail.RemoveRange(removingPoDetails);
@@ -489,7 +489,7 @@ namespace Upup.Controllers
             return new AjaxSimpleResultModel
             {
                 ResultValue = true,
-                Message = "Xóa thành công"
+                Message = Lang.Remove_success
             };
         }
 
@@ -578,18 +578,18 @@ namespace Upup.Controllers
 
             if (Po == null || Po.IsDeleted)
             {
-                return new AjaxSimpleResultModel { ResultValue = false, Message = "PO không tồn tại" };
+                return new AjaxSimpleResultModel { ResultValue = false, Message = Lang.PO_Not_Found };
             }
 
             if (!Po.IsTemp)
             {
-                return new AjaxSimpleResultModel { ResultValue = false, Message = "Chỉ có thể thêm phiếu vào PO tạm" };
+                return new AjaxSimpleResultModel { ResultValue = false, Message = Lang.Only_Able_To_Add_To_Temp_PO };
             }
 
             var variant = _db.ProductVariants.FirstOrDefault(pv => pv.VariantCode == variantCode);
             if (variant == null) return new AjaxSimpleResultModel
             {
-                Message = "Sản phẩm không tồn tại",
+                Message = Lang.Product_not_exists,
                 ResultValue = false
             };
 
@@ -612,7 +612,7 @@ namespace Upup.Controllers
             return new AjaxSimpleResultModel
             {
                 ResultValue = true,
-                Message = "Thêm sản phẩm vào giỏ hàng thành công"
+                Message = Lang.Add_Cart_Success
             };
         }
 
@@ -623,10 +623,10 @@ namespace Upup.Controllers
             var mailBody = BuildOrderNotifyEmail(Server, purchaseOrder);
             foreach (var admin in allAdmins)
             {
-                userManager.SendEmailAsync(admin.Id, $"Có đơn đặt hàng mới!", $"Họ tên: <b>{customer.FullName}</b>, Điện thoại: <b>{customer.PhoneNumber}</b>, Email:<b>{customer.Email}</b>. Với chi tiết như sau: </br>" + mailBody).Wait();
+                userManager.SendEmailAsync(admin.Id, Lang.New_Order_title, $"{Lang.Register_Name}: <b>{customer.FullName}</b>, {Lang.Register_Phone}: <b>{customer.PhoneNumber}</b>, {Lang.Register_Email}:<b>{customer.Email}</b>. {Lang.With_Following_Content}: </br>" + mailBody).Wait();
             }
 
-            userManager.SendEmailAsync(customer.Id, "Đặt hàng thành công", mailBody).Wait();
+            userManager.SendEmailAsync(customer.Id, Lang.Order_Success, mailBody).Wait();
         }
 
         public string BuildOrderNotifyEmail(HttpServerUtilityBase Server, PurchaseOrder purchaseOrder)
@@ -654,7 +654,7 @@ namespace Upup.Controllers
                 gridHtml += "</tr>";
                 gridHtml += "<tr>";
                 gridHtml += "<td style = 'width:38%' >" + podetail.Product.VariantCode + "</td>";
-                gridHtml += "<td colspan = '2' style = 'width:57%; text-align:center' >" + podetail.DateShipping() + " ngày</td>";
+                gridHtml += $"<td colspan = '2' style = 'width:57%; text-align:center' >{podetail.DateShipping()} {Lang.Day}</td>";
                 gridHtml += "</tr>";
                 gridHtml += "<tr>";
                 gridHtml += "<td style = 'width:30%; text-align:center' > " + podetail.Price.ToString("N0") + " </td>";
