@@ -3577,8 +3577,13 @@
     <Content Include="Images\banners\banner-2.jpg" />
     <Content Include="Images\banners\banner-3.jpg" />
     <Content Include="Images\banners\banner-4.jpg" />
+    <Content Include="Images\banners\text-shipping.png" />
     <Content Include="Images\banners\poster1.jpg" />
     <Content Include="Images\icons\calendar-icon.png" />
+    <Content Include="Images\icons\icon-fax.png" />
+    <Content Include="Images\icons\icon-mail.png" />
+    <Content Include="Images\icons\icon-phone.png" />
+    <Content Include="Images\icons\icon-time.png" />
     <Content Include="Images\icons\pdf-icon.png" />
     <Content Include="Images\icons\sign-delete-icon.png" />
     <Content Include="Images\icons\support-icon.png" />
@@ -3968,6 +3973,7 @@
     <Content Include="ckeditor\plugins\scayt\CHANGELOG.md" />
     <Content Include="ckeditor\skins\kama\readme.md" />
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="fonts\MYRIADPRO-REGULAR.OTF" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\helpers\lang.js" />
     <Content Include="Scripts\helpers\httpHelper.js" />
