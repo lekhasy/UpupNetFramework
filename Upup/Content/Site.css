@@ -1259,8 +1259,8 @@ form[name="registration"] .col-lg-6 {
     }
 
 table.cart {
-    width: 70%;
-    margin: 20px auto;
+    width: 85%;
+    margin: 20px auto 30px;
     color: #444;
 }
 
@@ -1269,7 +1269,7 @@ table.cart {
         padding: 3px 15px;
         width: 18%;
         vertical-align: middle;
-        height: 30px;
+        height: 40px;
     }
 
         table.cart td label {
@@ -1292,12 +1292,14 @@ table.cart {
     width: 600px;
     margin: 30px auto;
 }
-    
-    #cart h2 {
-        font-size: 12pt;
-        font-weight: bold;
-        color: #333;
-    }
+
+#cart h2 {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #0D56B2;
+    margin-top: 20px;
+    text-transform: capitalize;
+}
 
 #cart .dataTable, #addToPOModal .dataTable {
     width: 100%;

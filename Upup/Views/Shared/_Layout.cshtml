@@ -105,16 +105,16 @@
             </div>
             <div id="topMenu">
                 <div class="row">
-                    <div class="menu-item active">
+                    <div id="products" class="menu-item active">
                         <a href="/"><i class="fa fa-2x fa-tachometer"></i><span class="content lang-vi">Tất cả sản phẩm</span><span class="content lang-en">All products</span></a>
                     </div>
-                    <div class="menu-item">
+                    <div id="technologys" class="menu-item">
                         <a href="/Tech/TechGuide"><i class="fa fa-2x fa-cog"></i><span class="content lang-vi">Công nghệ</span><span class="content lang-en">Technology</span></a>
                     </div>
-                    <div class="menu-item">
+                    <div id="guides" class="menu-item">
                         <a href="/UserManual/ManualGuide"><i class="fa fa-2x fa-star"></i><span class="content lang-vi">Hướng dẫn sử dụng</span><span class="content lang-en">User manual</span></a>
                     </div>
-                    <div class="menu-item">
+                    <div id="events" class="menu-item">
                         <a href="/Event/EventGuide"><i class="fa fa-2x fa-comment"></i><span class="content lang-vi">Triển lãm sự kiện</span><span class="content lang-en">Events</span></a>
                     </div>
                 </div>
@@ -147,6 +147,13 @@
     <!-- End of liblary scripts -->
     <script>
         $(document).ready(function (e) {
+            var $4menu = $('#@ViewBag.RootCategory');
+            if ($4menu.length == 0) {
+                $4menu = $("#products"); 
+            } 
+            $4menu.siblings().removeClass('active');
+            $4menu.addClass('active');
+
             if (!!window.performance && window.performance.navigation.type == 2) {
                 window.location.reload();
             }
