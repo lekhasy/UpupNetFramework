@@ -423,4 +423,7 @@
   <data name="Undetermine" xml:space="preserve">
     <value>Undetermined</value>
   </data>
+  <data name="Password_length_validate_msg" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
+  </data>
 </root>

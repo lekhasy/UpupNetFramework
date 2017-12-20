@@ -423,4 +423,7 @@
   <data name="Undetermine" xml:space="preserve">
     <value>Chưa xác định</value>
   </data>
+  <data name="Password_length_validate_msg" xml:space="preserve">
+    <value>Độ dài của {0} phải tối thiểu {2} ký tự.</value>
+  </data>
 </root>

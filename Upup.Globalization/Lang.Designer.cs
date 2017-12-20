@@ -322,6 +322,15 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Độ dài của {0} phải tối thiểu {2} ký tự..
+        /// </summary>
+        public static string Password_length_validate_msg {
+            get {
+                return ResourceManager.GetString("Password_length_validate_msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thanh toán tiền mặt khi nhận hàng.
         /// </summary>
         public static string Pay_Meth_COD {

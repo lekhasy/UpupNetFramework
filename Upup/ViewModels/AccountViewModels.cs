@@ -7,7 +7,7 @@ namespace Upup.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = nameof(Lang.Register_Email), ResourceType = typeof(Lang))]
         public string Email { get; set; }
     }
 
@@ -34,7 +34,7 @@ namespace Upup.Models
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = nameof(Lang.Remember_Me), ResourceType = typeof(Lang))]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -43,23 +43,23 @@ namespace Upup.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = nameof(Lang.Register_Email), ResourceType = typeof(Lang))]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = nameof(Lang.Register_Email), ResourceType = typeof(Lang))]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password", ResourceType = typeof(Lang))]
+        [Display(Name = nameof(Lang.Password), ResourceType = typeof(Lang))]
         public string Password { get; set; }
 
-        [Display(Name = "Remember_Me", ResourceType = typeof(Lang))]
+        [Display(Name = nameof(Lang.Remember_Me), ResourceType = typeof(Lang))]
         public bool RememberMe { get; set; }
     }
 
@@ -93,18 +93,18 @@ namespace Upup.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = nameof(Lang.Register_Email), ResourceType = typeof(Lang))]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceName = nameof(Lang.Password_length_validate_msg), ErrorMessageResourceType = typeof(Lang), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password", ResourceType = typeof(Lang))]
+        [Display(Name = nameof(Lang.Password), ResourceType = typeof(Lang))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm_New_Password", ResourceType = typeof(Lang))]
-        [Compare("Password", ErrorMessageResourceName = "Password_Does_Not_Match", ErrorMessageResourceType = typeof(Lang))]
+        [Display(Name = nameof(Lang.Confirm_New_Password), ResourceType = typeof(Lang))]
+        [Compare(nameof(Password), ErrorMessageResourceName = nameof(Lang.Password_Does_Not_Match), ErrorMessageResourceType = typeof(Lang))]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -114,7 +114,7 @@ namespace Upup.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = nameof(Lang.Register_Email), ResourceType = typeof(Lang))]
         public string Email { get; set; }
     }
 }

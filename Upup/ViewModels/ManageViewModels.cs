@@ -34,14 +34,14 @@ namespace Upup.ViewModels
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceName = nameof(Lang.Password_length_validate_msg), ErrorMessageResourceType = typeof(Lang), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = nameof(Lang.New_Password), ResourceType = typeof(Lang))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = nameof(Lang.Confirm_New_Password), ResourceType = typeof(Lang))]
+        [Compare(nameof(NewPassword), ErrorMessageResourceName = nameof(Lang.Password_Does_Not_Match), ErrorMessageResourceType = typeof(Lang))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -49,18 +49,18 @@ namespace Upup.ViewModels
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current_Password", ResourceType = typeof(Lang))]
+        [Display(Name = nameof(Lang.Current_Password), ResourceType = typeof(Lang))]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceName = nameof(Lang.Password_length_validate_msg), ErrorMessageResourceType = typeof(Lang), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New_Password", ResourceType = typeof(Lang))]
+        [Display(Name = nameof(Lang.New_Password), ResourceType = typeof(Lang))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm_New_Password", ResourceType = typeof(Lang))]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = nameof(Lang.Confirm_New_Password), ResourceType = typeof(Lang))]
+        [Compare(nameof(NewPassword), ErrorMessageResourceName = nameof(Lang.Password_Does_Not_Match), ErrorMessageResourceType = typeof(Lang))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -68,7 +68,7 @@ namespace Upup.ViewModels
     {
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = nameof(Lang.Register_Phone), ResourceType = typeof(Lang))]
         public string Number { get; set; }
     }
 
@@ -80,7 +80,7 @@ namespace Upup.ViewModels
 
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = nameof(Lang.Register_Phone), ResourceType = typeof(Lang))]
         public string PhoneNumber { get; set; }
     }
 
