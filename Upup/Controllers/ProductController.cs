@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using Upup.Globalization;
 using Upup.Models;
 using Upup.ViewModels;
 
@@ -73,7 +74,7 @@ namespace Upup.Controllers
                 return new GetProductVariantModel
                 {
                     ResultValue = false,
-                    Message = "Mã sản phẩm không tồn tại"
+                    Message = Lang.Product_not_exists
                 };
             }
         }

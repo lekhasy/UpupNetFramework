@@ -88,11 +88,47 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đã hủy.
+        /// </summary>
+        public static string Canceled {
+            get {
+                return ResourceManager.GetString("Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã hủy đơn hàng thành công.
+        /// </summary>
+        public static string Canceled_PO_Success {
+            get {
+                return ResourceManager.GetString("Canceled_PO_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giỏ hàng rỗng.
+        /// </summary>
+        public static string Cart_Is_Empty {
+            get {
+                return ResourceManager.GetString("Cart_Is_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mật khẩu của bạn đã được đổi.
         /// </summary>
         public static string ChangePasswordSuccess {
             get {
                 return ResourceManager.GetString("ChangePasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã hoàn thành.
+        /// </summary>
+        public static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
         
@@ -129,6 +165,24 @@ namespace Upup.Globalization {
         public static string Current_Password {
             get {
                 return ResourceManager.GetString("Current_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có khách hàng cần báo giá.
+        /// </summary>
+        public static string Customer_quote_notify_title {
+            get {
+                return ResourceManager.GetString("Customer_quote_notify_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ngày.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
             }
         }
         
@@ -178,11 +232,38 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Có đơn đặt hàng mới.
+        /// </summary>
+        public static string New_Order_title {
+            get {
+                return ResourceManager.GetString("New_Order_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mật khẩu mới.
         /// </summary>
         public static string New_Password {
             get {
                 return ResourceManager.GetString("New_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉ có thể xóa PO tạm.
+        /// </summary>
+        public static string Only_Able_Remove_Temp_PO {
+            get {
+                return ResourceManager.GetString("Only_Able_Remove_Temp_PO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉ có thể thêm phiếu vào PO tạm.
+        /// </summary>
+        public static string Only_Able_To_Add_To_Temp_PO {
+            get {
+                return ResourceManager.GetString("Only_Able_To_Add_To_Temp_PO", resourceCulture);
             }
         }
         
@@ -214,6 +295,15 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đã thanh toán.
+        /// </summary>
+        public static string Paid {
+            get {
+                return ResourceManager.GetString("Paid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mật khẩu.
         /// </summary>
         public static string Password {
@@ -232,11 +322,65 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thanh toán tiền mặt khi nhận hàng.
+        /// </summary>
+        public static string Pay_Meth_COD {
+            get {
+                return ResourceManager.GetString("Pay_Meth_COD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chuyển khoản qua ngân hàng.
+        /// </summary>
+        public static string Pay_Meth_Transfer {
+            get {
+                return ResourceManager.GetString("Pay_Meth_Transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hãy chọn ít nhất một phiếu.
+        /// </summary>
+        public static string Please_Select_One_Ticket {
+            get {
+                return ResourceManager.GetString("Please_Select_One_Ticket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Một PO cần ít nhất một phiếu, hãy thêm một phiếu khác trước khi xóa các phiếu này..
+        /// </summary>
+        public static string PO_Need_one_item {
+            get {
+                return ResourceManager.GetString("PO_Need_one_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy PO.
+        /// </summary>
+        public static string PO_Not_Found {
+            get {
+                return ResourceManager.GetString("PO_Not_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sản phẩm không tồn tại.
         /// </summary>
         public static string Product_not_exists {
             get {
                 return ResourceManager.GetString("Product_not_exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Báo giá từ Upup.
+        /// </summary>
+        public static string QuoteFromUpup {
+            get {
+                return ResourceManager.GetString("QuoteFromUpup", resourceCulture);
             }
         }
         
@@ -700,6 +844,15 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đơn hàng bạn chọn đã được xóa thành công !.
+        /// </summary>
+        public static string Remove_PO_Success {
+            get {
+                return ResourceManager.GetString("Remove_PO_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xóa thành công.
         /// </summary>
         public static string Remove_success {
@@ -754,6 +907,33 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vận chuyển.
+        /// </summary>
+        public static string Shipping {
+            get {
+                return ResourceManager.GetString("Shipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn hàng tạm.
+        /// </summary>
+        public static string TempPO {
+            get {
+                return ResourceManager.GetString("TempPO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chưa xác định.
+        /// </summary>
+        public static string Undetermine {
+            get {
+                return ResourceManager.GetString("Undetermine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không tìm thấy user.
         /// </summary>
         public static string User_Not_Found {
@@ -763,11 +943,38 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Với chi tiết như sau.
+        /// </summary>
+        public static string With_Following_Content {
+            get {
+                return ResourceManager.GetString("With_Following_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sai mật khẩu.
         /// </summary>
         public static string Wrong_Password {
             get {
                 return ResourceManager.GetString("Wrong_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn hàng bạn chọn đã chuyển trạng thái thành công.
+        /// </summary>
+        public static string Your_Selected_PO_Changed_State_Success {
+            get {
+                return ResourceManager.GetString("Your_Selected_PO_Changed_State_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sản phẩm bạn chọn đã chuyển trạng thái thành công.
+        /// </summary>
+        public static string Your_Selected_Prod_Changed_State_Success {
+            get {
+                return ResourceManager.GetString("Your_Selected_Prod_Changed_State_Success", resourceCulture);
             }
         }
     }

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Upup.Areas.Admin.ViewModels;
+using Upup.Globalization;
 using Upup.Helpers;
 using Upup.Models;
 
@@ -54,7 +55,7 @@ namespace Upup.Areas.Admin.Controllers
                                      ||
                                      c.CreatedDate.ToShortDateString().Contains(param.sSearch)
                           ||
-                                   StringHelper.GetPoStateByCode(c.State).Contains(param.sSearch)
+                                   ((PoState)c.State).GetName().Contains(param.sSearch)
                           ||
                           c.Name.Contains(param.sSearch)
                           ||
@@ -111,19 +112,19 @@ namespace Upup.Areas.Admin.Controllers
                     }
 
                     result.ResultValue = true;
-                    result.Message = "đơn hàng bạn chọn đã được xóa thành công !";
+                    result.Message = Lang.Remove_PO_Success;
                 }
                 catch (Exception)
                 {
                     result.ResultValue = false;
-                    result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";
+                    result.Message = Lang.Error;
                     return Json(result);
                 }
             }
             else
             {
                 result.ResultValue = false;
-                result.Message = "đơn hàng bạn chọn đã bị xóa hoặc không tồn tại";
+                result.Message = Lang.PO_Not_Found;
             }
             return Json(result);
         }
@@ -160,7 +161,7 @@ namespace Upup.Areas.Admin.Controllers
                                 Db.PurchaseOrders.Remove(po);
                                 Db.SaveChanges();
                                 result.ResultValue = true;
-                                result.Message = "Đã hủy đơn hàng thành công";
+                                result.Message = Lang.Canceled_PO_Success;
                                 return Json(result);
                             }
                     }
@@ -173,19 +174,19 @@ namespace Upup.Areas.Admin.Controllers
                     }
 
                     result.ResultValue = true;
-                    result.Message = "Đơn hàng bạn chọn đã chuyển trạng thái thành công";
+                    result.Message = Lang.Your_Selected_PO_Changed_State_Success;
                 }
                 catch (Exception ex)
                 {
                     result.ResultValue = false;
-                    result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";
+                    result.Message = Lang.Error;
                     return Json(result);
                 }
             }
             else
             {
                 result.ResultValue = false;
-                result.Message = "đơn hàng bạn chọn đã bị xóa hoặc không tồn tại";
+                result.Message = Lang.PO_Not_Found;
             }
             return Json(result);
         }
@@ -204,19 +205,19 @@ namespace Upup.Areas.Admin.Controllers
                     db.SaveChanges();
 
                     result.ResultValue = true;
-                    result.Message = "Sản phẩm bạn chọn đã chuyển trạng thái thành công";
+                    result.Message = Lang.Your_Selected_Prod_Changed_State_Success;
                 }
                 catch (Exception ex)
                 {
                     result.ResultValue = false;
-                    result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";
+                    result.Message = Lang.Error;
                     return Json(result);
                 }
             }
             else
             {
                 result.ResultValue = false;
-                result.Message = "Sản phẩm bạn chọn đã bị xóa hoặc không tồn tại";
+                result.Message = Lang.Product_not_exists;
             }
             return Json(result);
         }

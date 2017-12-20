@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Upup.Globalization;
 
 namespace Upup.Models
 {
@@ -55,6 +56,11 @@ namespace Upup.Models
             return ((PaymentMethods)PaymentMethod).GetName();
         }
 
+        public string GetStateString()
+        {
+            return ((PoState)State).GetName();
+        }
+
         public int CalculateCompleteShipping()
         {
             return PurchaseOrderDetails.Where(p => p.State == (int)PoDetailState.Completed).Count();
@@ -106,26 +112,17 @@ namespace Upup.Models
         {
             if (method == PaymentMethods.COD)
             {
-                return "Thanh toán khi nhận hàng";
+                return Lang.Pay_Meth_COD;
             }
             else
             {
-                return "Chuyển khoản qua ngân hàng";
+                return Lang.Pay_Meth_Transfer;
             }
         }
 
         private static SelectOptions GetSelectOptions(this PaymentMethods method)
         {
-            var display = string.Empty;
-            switch (method)
-            {
-                case PaymentMethods.COD: display = "Thanh toán khi nhận hàng"; break;
-                case PaymentMethods.BankTransfer: display = "Chuyển khoản qua ngân hàng"; break;
-                default:
-                    throw new NotImplementedException($"{method} is not implemented");
-            }
-
-            return new SelectOptions((int)method, display);
+            return new SelectOptions((int)method, method.GetName());
         }
 
         public static IEnumerable<SelectOptions> GetSelectionList(bool containNotselected)
@@ -134,7 +131,7 @@ namespace Upup.Models
             var options = new List<SelectOptions>(names.Length + 1);
 
             if (containNotselected)
-                options.Add(new SelectOptions(-1, "Chọn phương thức"));
+                options.Add(new SelectOptions(-1, Lang.Undetermine));
 
             foreach (var name in names)
             {
@@ -143,6 +140,23 @@ namespace Upup.Models
             }
 
             return options;
+        }
+    }
+
+    public static class POStateExtension
+    {
+        public static string GetName(this PoState state)
+        {
+            switch (state)
+            {
+                case PoState.Ordered: return Lang.Ordered;
+                case PoState.Paid: return Lang.Paid;
+                case PoState.Shipped: return Lang.Shipping;
+                case PoState.Completed: return Lang.Completed;
+                case PoState.Canceled: return Lang.Canceled;
+                case PoState.Temp: return Lang.TempPO;
+                default: return string.Empty;
+            }
         }
     }
 }
