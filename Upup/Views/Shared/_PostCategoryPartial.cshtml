@@ -1,62 +1,78 @@
 ﻿@model Upup.ViewModels.PostCategoryViewModel
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var categoryPath = new List<Upup.Models.PostCategory>();
-    var currCategory = Model.CurrentCategory;
-    for (int i = 0; i < 10; i++) // do not user while true to avoid infinity loop if code have a bug
-    {
-        if (currCategory == null) { break; }
-        categoryPath.Insert(0, currCategory);
-        currCategory = currCategory.ParentCategory;
+@using Upup.Models
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        var categoryPath = new List<Upup.Models.PostCategory>();
+        var currCategory = Model.CurrentCategory;
+        var rootCategory = Model.RootCategory;
+
+        if (rootCategory.Id == (int)RootPostCategory.Tech)
+        {
+            ViewBag.RootCategory = "technologys";
+        }
+        else if (rootCategory.Id == (int)RootPostCategory.Event)
+        {
+            ViewBag.RootCategory = "events";
+        }
+        else if (rootCategory.Id == (int)RootPostCategory.UserManual)
+        {
+            ViewBag.RootCategory = "guides";
+        }
+
+        for (int i = 0; i < 10; i++) // do not user while true to avoid infinity loop if code have a bug
+        {
+            if (currCategory == null) { break; }
+            categoryPath.Insert(0, currCategory);
+            currCategory = currCategory.ParentCategory;
+        }
+
+        categoryPath.Remove(Model.CurrentCategory);
+
+        var allPost = Model.CurrentCategory.Posts.ToList();
+
     }
 
-    categoryPath.Remove(Model.CurrentCategory);
-
-    var allPost = Model.CurrentCategory.Posts.ToList();
-
-}
-
-<div id="categoryProductLv1">
-    <div class="row">
-        <div class="area-menu">
-            @{Html.RenderPartial("_MenuPostPartial", Model.RootCategory);}
-        </div>
-        <div class="area-category-list">
-            <div id="crumbs">
-                <ul>
-                    @foreach (var category in categoryPath)
-                    {
-                        <li><a href="/@ViewBag.ControllerName/Category/@category.Id"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></a></li>
-                    }
-                    <li class="active">
-                        <a href="/@ViewBag.ControllerName/Category/@Model.CurrentCategory.Id">
-                            <span class="lang-vi">@Model.CurrentCategory.Name</span>
-                            <span class="lang-en">@Model.CurrentCategory.Name_en</span>
-                        </a>
-                    </li>
-                </ul>
+    <div id="categoryProductLv1">
+        <div class="row">
+            <div class="area-menu">
+                @{Html.RenderPartial("_MenuPostPartial", Model.RootCategory);}
             </div>
-            @if (Model.CurrentCategory.ChildCategories.Any())
-            {
-                <div class="product-category-items">
-                    @foreach (var category in Model.CurrentCategory.ChildCategories)
-                    {
-                        Html.RenderPartial("_PostCategoryItemPartial", category);
-                    }
+            <div class="area-category-list">
+                <div id="crumbs">
+                    <ul>
+                        @foreach (var category in categoryPath)
+                        {
+                            <li><a href="/@ViewBag.ControllerName/Category/@category.Id"><span class="lang-vi">@category.Name</span><span class="lang-en">@category.Name_en</span></a></li>
+                        }
+                        <li class="active">
+                            <a href="/@ViewBag.ControllerName/Category/@Model.CurrentCategory.Id">
+                                <span class="lang-vi">@Model.CurrentCategory.Name</span>
+                                <span class="lang-en">@Model.CurrentCategory.Name_en</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            }
-            else
+                @if (Model.CurrentCategory.ChildCategories.Any())
             {
-                <div class="product-category-items">
-                    @foreach (var post in allPost)
-                    {
-                        Html.RenderPartial("_PostItemPartial", post);
-                    }
-                </div>
-            }
+                    <div class="product-category-items">
+                        @foreach (var category in Model.CurrentCategory.ChildCategories)
+                        {
+                            Html.RenderPartial("_PostCategoryItemPartial", category);
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="product-category-items">
+                        @foreach (var post in allPost)
+                        {
+                            Html.RenderPartial("_PostItemPartial", post);
+                        }
+                    </div>
+                }
 
 
+            </div>
         </div>
     </div>
-</div>
