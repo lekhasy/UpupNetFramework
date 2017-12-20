@@ -426,4 +426,13 @@
   <data name="Password_length_validate_msg" xml:space="preserve">
     <value>The {0} must be at least {2} characters long.</value>
   </data>
+  <data name="Type_In_Prod_Code" xml:space="preserve">
+    <value>Please enter product code</value>
+  </data>
+  <data name="Type_In_prod_variant_code" xml:space="preserve">
+    <value>Please enter product variant code</value>
+  </data>
+  <data name="Type_In_Quantity" xml:space="preserve">
+    <value>Please enter quantity</value>
+  </data>
 </root>

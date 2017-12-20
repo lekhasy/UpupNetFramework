@@ -66,9 +66,9 @@
                 </div>
                 <div class="area-user">
                     <div class="area-language text-center">
-                        <input type="radio" value="vi" name="language" checked="checked" id="lanVi" />
+                        <input type="radio" value="vi" name="language" @(UICulture == "vi"?"checked=checked":"") id="lanVi" />
                         <label for="lanVi">Viet</label>
-                        <input type="radio" value="en" name="language" id="lanEn" />
+                        <input type="radio" value="en" name="language" @(UICulture == "en"?"checked=checked":"") id="lanEn" />
                         <label for="lanEn">English</label>
                     </div>
                     @Html.Partial("_LoginPartial")
@@ -168,7 +168,6 @@
             Cookies.set($UpupConfigs.Cookie.Culture, 'en')
             window.location.reload();
         });
-
 
     </script>
     @RenderSection("scripts", required: false)

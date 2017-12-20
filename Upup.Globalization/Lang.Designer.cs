@@ -934,6 +934,33 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhập vào mã sản phẩm.
+        /// </summary>
+        public static string Type_In_Prod_Code {
+            get {
+                return ResourceManager.GetString("Type_In_Prod_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng nhập vào mã biến thể.
+        /// </summary>
+        public static string Type_In_prod_variant_code {
+            get {
+                return ResourceManager.GetString("Type_In_prod_variant_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng nhập số lượng.
+        /// </summary>
+        public static string Type_In_Quantity {
+            get {
+                return ResourceManager.GetString("Type_In_Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chưa xác định.
         /// </summary>
         public static string Undetermine {
