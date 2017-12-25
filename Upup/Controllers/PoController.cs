@@ -233,9 +233,11 @@ namespace Upup.Controllers
             if (po.PaymentMethod == 2)
             {
                 body = body.Replace("[PayBeforeShip]", "X");
+                body = body.Replace("[PayAfterShip]", string.Empty);
             }
             else if (po.PaymentMethod == 1)
             {
+                body = body.Replace("[PayBeforeShip]", "X");
                 body = body.Replace("[PayAfterShip]", string.Empty);
             }
             body = body.Replace("[Amount]", totalPrice.ToString("N0"));
@@ -687,12 +689,12 @@ namespace Upup.Controllers
             body = body.Replace("[Email]", po.Customer.Email);
             body = body.Replace("[Phone]", po.Customer.PhoneNumber);
             body = body.Replace("[Address]", po.Customer.Address1);
-            if (po.PaymentMethod == 2)
+            if (po.PaymentMethod == 1)
             {
                 body = body.Replace("[PayBeforeShip]", string.Empty);
                 body = body.Replace("[PayAfterShip]", "X");
             }
-            else if (po.PaymentMethod == 1)
+            else if (po.PaymentMethod == 2)
             {
                 body = body.Replace("[PayBeforeShip]", "X");
                 body = body.Replace("[PayAfterShip]", string.Empty);

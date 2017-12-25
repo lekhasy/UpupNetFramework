@@ -1250,7 +1250,9 @@ form[name="registration"] .col-lg-6 {
 }
 
 #productDetail h1 {
-    padding-left: 24px;
+    padding-left: 42px;
+    font-size: 18pt;
+    color: #077391;
 }
 
 .arae-facebook .fb_iframe_widget {
@@ -1378,4 +1380,25 @@ table.cart {
 
 .caro-bg {
     background-color: #F5FAFF;
+}
+
+.remember-me .checkbox {
+    padding-left: 0;
+}
+
+.remember-me input[type=checkbox], .remember-me label {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+.remember-me label{
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+#appbody .table{
+    margin-top: 10px;
 }
