@@ -1,6 +1,7 @@
 ﻿@model Upup.ViewModels.PostDetailViewModel
 @{
-    ViewBag.Title = "TechInfo";
+    ViewBag.Title = Model.Post.Title;
+    ViewBag.Title = Model.Post.Title_en;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.RootCategory = "technologys";
 }

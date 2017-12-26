@@ -459,6 +459,9 @@
   <data name="Do_YouReally_Want_To_Remove_Those_Items" xml:space="preserve">
     <value>Do you really want to remove those items?</value>
   </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>Drawing</value>
+  </data>
   <data name="Enter_Quantity" xml:space="preserve">
     <value>Enter quantity</value>
   </data>
@@ -482,6 +485,9 @@
   </data>
   <data name="Next_Page" xml:space="preserve">
     <value>Next page</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Notify</value>
   </data>
   <data name="Not_Order_Yet" xml:space="preserve">
     <value>Not order yet</value>
@@ -509,6 +515,9 @@
   </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>
+  </data>
+  <data name="This_Function_Require_Login" xml:space="preserve">
+    <value>This function require login</value>
   </data>
   <data name="Wait_For_Paid" xml:space="preserve">
     <value>Wait for payment</value>

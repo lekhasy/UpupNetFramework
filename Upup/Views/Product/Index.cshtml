@@ -1,7 +1,9 @@
-﻿@model Upup.ViewModels.ProductIndexViewModel
+﻿@using Upup.Globalization
+@model Upup.ViewModels.ProductIndexViewModel
 @{
     var product = Model.ProductDetail;
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Chi tiết sản phẩm";
+    ViewBag.Title_en = "Product detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.MetaDescription = product.MetaDescription;
     ViewBag.MetaKeywords = product.MetaKeyword;
@@ -11,7 +13,8 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
-                <h1 class="pull-left uppercase">@product.Name</h1>
+                <h1 class="pull-left uppercase lang-vi">@product.Name</h1>
+                <h1 class="pull-left uppercase lang-en">@product.Name_en</h1>
                 <h3 class="pull-right">
                     <a target="_blank" class="lang-vi" href="@product.LinkGuide">HƯỚNG DẪN SỬ DỤNG</a>
                     <a target="_blank" class="lang-en" href="@product.LinkGuide">USER GUIDE</a>
@@ -31,7 +34,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <button type="button" id="btn_check" class="btn btn-success">Kiểm tra</button>
+                        <button type="button" id="btn_check" class="btn btn-success">
+                            <span class="lang-vi">Kiểm tra</span><span class="lang-en">Check</span>
+                        </button>
                     </div>
                 </div>
                 <div class="row">
@@ -58,7 +63,7 @@
                     <div class="col-md-6 text-left">
                         @if (!Model.IsHadPo)
                         {
-                            <a href="javascript:void(0)" class="add-to-cart btn btn-primary active-by-check-product" disabled>Thêm vào đơn hàng</a>
+                            <a href="javascript:void(0)" class="add-to-cart btn btn-primary active-by-check-product" disabled><span class="lang-vi">Thêm vào đơn hàng</span><span class="lang-en">Add to PO</span></a>
                         }
                         else
                         {
@@ -70,8 +75,16 @@
                                         <b class="caret"></b>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)" class="add-to-cart">Đơn hàng hiện tại</a></li>
-                                        <li><a href="javascript:void(0)" id="btn_add_po">Đơn hàng cũ</a></li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="add-to-cart">
+                                                <span class="lang-vi">Đơn hàng hiện tại</span><span class="lang-en">Current PO</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" id="btn_add_po">
+                                                <span class="lang-vi">Đơn hàng cũ</span><span class="lang-en">Old PO</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -95,7 +108,7 @@
 </div>
 
 <div class="arae-facebook">
-    <div class="fb-share-button" data-href="http://localhost/Product/Index/1" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FProduct%2FIndex%2F1&amp;src=sdkpreparse">Chia sẻ</a></div>
+    <div class="fb-share-button" data-href="http://localhost/Product/Index/1" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FProduct%2FIndex%2F1&amp;src=sdkpreparse"><span class="lang-vi">Chia sẻ</span><span class="lang-en">Share</span></a></div>
     <div class="fb-comments" data-href="http://localhost/product/index/1" data-numposts="10"></div>
 </div>
 
@@ -104,7 +117,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
-                <h4 id="myLargeModalLabel" class="modal-title">Chọn một đơn hàng cũ</h4>
+                <h4 id="myLargeModalLabel" class="modal-title"><span class="lang-vi">Chọn một đơn hàng cũ</span><span class="lang-en">Choose an PO</span></h4>
             </div>
             <div class="modal-body edit">
                 <div class="panel-body">
@@ -116,9 +129,9 @@
                             <table id="choosePO" class="table table-bordered table-striped display">
                                 <thead>
                                     <tr>
-                                        <th>Mã PO</th>
-                                        <th>Tên PO</th>
-                                        <th>Ngày tạo</th>
+                                        <th><span class="lang-vi">Mã PO</span><span class="lang-en">PO code</span></th>
+                                        <th><span class="lang-vi">Tên PO</span><span class="lang-en">PO name</span></th>
+                                        <th><span class="lang-vi">Ngày tạo</span><span class="lang-en">Created date</span></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -126,7 +139,7 @@
                             </table>
                         </div>
                     </form>
-                    <div class="text-right"><input type="submit" class="btn btn-danger" data-dismiss="modal" value="Hủy" /></div>
+                    <div class="text-right"><input type="submit" class="btn btn-danger" data-dismiss="modal" value="@Upup.Globalization.Lang.Cancel" /></div>
                 </div>
             </div>
         </div>
@@ -146,8 +159,8 @@
                         $.LoadingOverlay("hide");
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
-                            title: 'Thông báo',
-                            message: 'Chức năng này yêu cầu bạn phải đăng nhập'
+                            title: '@Lang.Message',
+                            message: '@Lang.This_Function_Require_Login'
                         });
                         setTimeout(function () {
                             BootstrapDialog.closeAll();
@@ -164,7 +177,7 @@
                         $('#total_amount').val(accounting.formatMoney(response.Quantity * pv.Price));
                         $('#ship_date').val(response.ShipDateNumber + ' ngày');
                         $('#guideArea').removeClass('hidden');
-                        $('#guideName').text('BẢNG VẼ: ' + response.Code);
+                        $('#guideName').text('@Lang.Drawing: ' + response.Code);
                         if (response.Cad2dUrl !== undefined) {
                             $('#guide2d').attr('href', '/Images/2dFiles/' + response.Cad2dUrl)
                         }
@@ -179,7 +192,7 @@
                     else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
-                            title: 'Thông báo',
+                            title: '@Lang.Notify',
                             message: response.Message
                         });
                         setTimeout(function () {
@@ -196,8 +209,8 @@
                         $.LoadingOverlay("hide");
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
-                            title: 'Thông báo',
-                            message: 'Chức năng này yêu cầu bạn phải đăng nhập'
+                            title: '@Lang.Notify',
+                            message: '@Lang.This_Function_Require_Login'
                         });
                         setTimeout(function () {
                             BootstrapDialog.closeAll();
@@ -207,14 +220,14 @@
                     if (response.ResultValue) {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,
-                            title: 'Thành công',
+                            title: '@Lang.Success',
                             message: response.Message
                         });
                     }
                     else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_DANGER,
-                            title: 'Thất bại',
+                            title: '@Lang.Fail',
                             message: response.Message
                         });
                     }
@@ -225,20 +238,20 @@
                 });
             });
             var $table = $('#choosePO').DataTable({
-                "language": {
-                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
-                    "search": "Tìm kiếm: ",
-                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
-                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
-                    "infoEmpty": "Dữ liệu không tồn tại",
-                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
-                    "paginate": {
-                        "first": "Trang đầu",
-                        "last": "Trang cuối",
-                        "previous": "Trang trước",
-                        "next": "Trang sau"
-                    }
-                },
+                 "language": {
+                        "lengthMenu": "@Lang.Display_Menu_Datatable",
+                        "search": "@Lang.Search: ",
+                        "zeroRecords": "@Lang.Zero_Record_Datatable",
+                        "info": "@Lang.Display_Page_Total_DataTable",
+                        "infoEmpty": "@Lang.Data_Not_Found_Datatable",
+                        "infoFiltered": "@Lang.Info_Filtered_Datatable",
+                        "paginate": {
+                            "first": "@Lang.First_Page",
+                            "last": "@Lang.Last_Page",
+                            "previous": "@Lang.Prev_Page",
+                            "next": "@Lang.Next_Page"
+                        }
+                 },
                 "autoWidth": false,
                 "ordering": false,
                 "serverSide": true,

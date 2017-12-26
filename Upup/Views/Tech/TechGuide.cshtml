@@ -1,7 +1,8 @@
 ﻿@using System.Web.Configuration
 @model Upup.Models.PostCategory
 @{
-    ViewBag.Title = "TechGuide";
+    ViewBag.Title = "Công nghệ";
+    ViewBag.Title_en = "Tech";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.RootCategory = "technologys";
 }
@@ -16,7 +17,8 @@
                 <div class="slogan">
                     <div>
                         <div>
-                            <h2>@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["TechSlogan"]))</h2>
+                            <h2 class="lang-vi">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["TechSlogan"]))</h2>
+                            <h2 class="lang-en">@Html.Raw(HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["TechSlogan_en"]))</h2>
                         </div>
                     </div>
                 </div>

@@ -259,6 +259,15 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bản vẽ.
+        /// </summary>
+        public static string Drawing {
+            get {
+                return ResourceManager.GetString("Drawing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhập số lượng.
         /// </summary>
         public static string Enter_Quantity {
@@ -399,6 +408,15 @@ namespace Upup.Globalization {
         public static string Not_Order_Yet {
             get {
                 return ResourceManager.GetString("Not_Order_Yet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông báo.
+        /// </summary>
+        public static string Notify {
+            get {
+                return ResourceManager.GetString("Notify", resourceCulture);
             }
         }
         
@@ -1155,6 +1173,15 @@ namespace Upup.Globalization {
         public static string TempPO {
             get {
                 return ResourceManager.GetString("TempPO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chức năng này yêu cầu đăng nhập.
+        /// </summary>
+        public static string This_Function_Require_Login {
+            get {
+                return ResourceManager.GetString("This_Function_Require_Login", resourceCulture);
             }
         }
         

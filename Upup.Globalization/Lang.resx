@@ -459,6 +459,9 @@
   <data name="Do_YouReally_Want_To_Remove_Those_Items" xml:space="preserve">
     <value>Bạn thật sự muốn xóa những phiếu này ?</value>
   </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>Bản vẽ</value>
+  </data>
   <data name="Enter_Quantity" xml:space="preserve">
     <value>Nhập số lượng</value>
   </data>
@@ -482,6 +485,9 @@
   </data>
   <data name="Next_Page" xml:space="preserve">
     <value>Trang cuối</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Thông báo</value>
   </data>
   <data name="Not_Order_Yet" xml:space="preserve">
     <value>Chưa đặt hàng</value>
@@ -509,6 +515,9 @@
   </data>
   <data name="Success" xml:space="preserve">
     <value>Thành công</value>
+  </data>
+  <data name="This_Function_Require_Login" xml:space="preserve">
+    <value>Chức năng này yêu cầu đăng nhập</value>
   </data>
   <data name="Wait_For_Paid" xml:space="preserve">
     <value>Chờ thanh toán</value>
