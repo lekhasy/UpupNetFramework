@@ -435,4 +435,85 @@
   <data name="Type_In_Quantity" xml:space="preserve">
     <value>Please enter quantity</value>
   </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Cant_Finish_Task" xml:space="preserve">
+    <value>Can't finish task</value>
+  </data>
+  <data name="Change_Password" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Data_Not_Found_Datatable" xml:space="preserve">
+    <value>Data doesn't exists</value>
+  </data>
+  <data name="Display_Menu_Datatable" xml:space="preserve">
+    <value>Display _MENU_ records per page</value>
+  </data>
+  <data name="Display_Page_Total_DataTable" xml:space="preserve">
+    <value>Displaying page _PAGE_ in _PAGES_ pages</value>
+  </data>
+  <data name="Do_YouReally_Want_To_Remove_Those_Items" xml:space="preserve">
+    <value>Do you really want to remove those items?</value>
+  </data>
+  <data name="Enter_Quantity" xml:space="preserve">
+    <value>Enter quantity</value>
+  </data>
+  <data name="Enter_variant_code" xml:space="preserve">
+    <value>Enter variant code</value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="First_Page" xml:space="preserve">
+    <value>First page</value>
+  </data>
+  <data name="Info_Filtered_Datatable" xml:space="preserve">
+    <value>( filtered _MAX_ on all data)</value>
+  </data>
+  <data name="Last_Page" xml:space="preserve">
+    <value>Last page</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Next_Page" xml:space="preserve">
+    <value>Next page</value>
+  </data>
+  <data name="Not_Order_Yet" xml:space="preserve">
+    <value>Not order yet</value>
+  </data>
+  <data name="Please_Add_Prod_To_Card" xml:space="preserve">
+    <value>Please add product to cart</value>
+  </data>
+  <data name="Please_Choose_Pay_Method" xml:space="preserve">
+    <value>Please choose payment method</value>
+  </data>
+  <data name="Please_Enter_PO_Name" xml:space="preserve">
+    <value>Please enter PO name</value>
+  </data>
+  <data name="Preparing_For_Shipping" xml:space="preserve">
+    <value>Prepairing for shipping</value>
+  </data>
+  <data name="Prev_Page" xml:space="preserve">
+    <value>Prev page</value>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Wait_For_Paid" xml:space="preserve">
+    <value>Wait for payment</value>
+  </data>
+  <data name="Zero_Record_Datatable" xml:space="preserve">
+    <value>Found 0 result</value>
+  </data>
 </root>

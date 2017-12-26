@@ -1,62 +1,65 @@
-﻿@model Upup.ViewModels.IndexViewModel
+﻿@using Upup.Globalization
+@model Upup.ViewModels.IndexViewModel
 @{
     ViewBag.Title = "Thiết đặt tài khoản";
+    ViewBag.Title_en = "Account setting";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="lang-vi">@ViewBag.Title</h2>
+<h2 class="lang-en">@ViewBag.Title_en</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <hr />
     <div class="dl-horizontal row">
         <div class="form-group">
-            <span>Mật khẩu:</span>
+            <span>@Lang.Password:</span>
             <span>
-                @Html.ActionLink("Đổi mật khẩu", "ChangePassword")
+                @Html.ActionLink(Lang.Change_Password, "ChangePassword")
             </span>
         </div>
         @if (Model.IsCustomer)
         {
             <div>
                 <div class="form-group">
-                    <span>Email: @Model.Customer.Email</span>
+                    <span>@Lang.Register_Email: @Model.Customer.Email</span>
                 </div>
                 <div class="form-group">
-                    <span>Họ Tên: @Model.Customer.FullName</span>
+                    <span>@Lang.Register_Name: @Model.Customer.FullName</span>
                 </div>
                 <div class="form-group">
-                    <span>Công ty/Tổ chức: @Model.Customer.OrgName</span>
+                    <span>@Lang.Register_Company_Name: @Model.Customer.OrgName</span>
                 </div>
                 <div class="form-group">
                     <span>Webiste: @Model.Customer.Webiste</span>
                 </div>
                 <div class="form-group">
-                    <span>Bộ phận: @Model.Customer.DepartmentName</span>
+                    <span>@Lang.Register_Department: @Model.Customer.DepartmentName</span>
                 </div>
                 <div class="form-group">
-                    <span>Địa chỉ 1: @Model.Customer.Address1</span>
+                    <span>@Lang.Register_Address1: @Model.Customer.Address1</span>
                 </div>
                 <div class="form-group">
-                    <span>Địa chỉ 2: @Model.Customer.Address2</span>
+                    <span>@Lang.Register_Address2: @Model.Customer.Address2</span>
                 </div>
                 <div class="form-group">
-                    <span>Địa chỉ 3: @Model.Customer.Address3</span>
+                    <span>@Lang.Register_Address3: @Model.Customer.Address3</span>
                 </div>
                 <div class="form-group">
-                    <span>Địa chỉ 4: @Model.Customer.Address4</span>
+                    <span>@Lang.Register_Address4: @Model.Customer.Address4</span>
                 </div>
                 <div class="form-group">
-                    <span>Mã bưu điện: @Model.Customer.PostalCode</span>
+                    <span>@Lang.Register_Postal_Code: @Model.Customer.PostalCode</span>
                 </div>
                 <div class="form-group">
-                    <span>Điện thoại: @Model.Customer.PhoneNumber</span>
+                    <span>@Lang.Register_Phone: @Model.Customer.PhoneNumber</span>
                 </div>
                 <div class="form-group">
                     <span>Fax: @Model.Customer.Fax</span>
                 </div>
             </div>
             <div>
-                <a href="/Manage/Edit" class="btn btn-primary bg-base-color-dark">Cập nhật</a>
+                <a href="/Manage/Edit" class="btn btn-primary bg-base-color-dark"><span class="lang-en">Update</span> <span class="lang-vi">Cập nhật</span></a>
             </div>
         }
     </div>

@@ -435,4 +435,85 @@
   <data name="Type_In_Quantity" xml:space="preserve">
     <value>Vui lòng nhập số lượng</value>
   </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Chấp nhận</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Cant_Finish_Task" xml:space="preserve">
+    <value>Không thể hoàn thành tác vụ</value>
+  </data>
+  <data name="Change_Password" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="Data_Not_Found_Datatable" xml:space="preserve">
+    <value>Dữ liệu không tồn tại</value>
+  </data>
+  <data name="Display_Menu_Datatable" xml:space="preserve">
+    <value>Hiển thị _MENU_ dòng dữ liệu cho mỗi trang</value>
+  </data>
+  <data name="Display_Page_Total_DataTable" xml:space="preserve">
+    <value>Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang</value>
+  </data>
+  <data name="Do_YouReally_Want_To_Remove_Those_Items" xml:space="preserve">
+    <value>Bạn thật sự muốn xóa những phiếu này ?</value>
+  </data>
+  <data name="Enter_Quantity" xml:space="preserve">
+    <value>Nhập số lượng</value>
+  </data>
+  <data name="Enter_variant_code" xml:space="preserve">
+    <value>Nhập mã biến thể</value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Thất bại</value>
+  </data>
+  <data name="First_Page" xml:space="preserve">
+    <value>Trang đầu</value>
+  </data>
+  <data name="Info_Filtered_Datatable" xml:space="preserve">
+    <value>(đã lọc được _MAX_ trên tổng sô dữ liệu)</value>
+  </data>
+  <data name="Last_Page" xml:space="preserve">
+    <value>Trang cuối</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Tin nhắn</value>
+  </data>
+  <data name="Next_Page" xml:space="preserve">
+    <value>Trang cuối</value>
+  </data>
+  <data name="Not_Order_Yet" xml:space="preserve">
+    <value>Chưa đặt hàng</value>
+  </data>
+  <data name="Please_Add_Prod_To_Card" xml:space="preserve">
+    <value>Vui lòng thêm sản phẩm vào giỏ hàng</value>
+  </data>
+  <data name="Please_Choose_Pay_Method" xml:space="preserve">
+    <value>Vui lòng chọn phương thức thanh toán</value>
+  </data>
+  <data name="Please_Enter_PO_Name" xml:space="preserve">
+    <value>Vui lòng điền tên PO</value>
+  </data>
+  <data name="Preparing_For_Shipping" xml:space="preserve">
+    <value>Chuẩn bị chuyển hàng</value>
+  </data>
+  <data name="Prev_Page" xml:space="preserve">
+    <value>Trang kế</value>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>Đang xử lý</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Thành công</value>
+  </data>
+  <data name="Wait_For_Paid" xml:space="preserve">
+    <value>Chờ thanh toán</value>
+  </data>
+  <data name="Zero_Record_Datatable" xml:space="preserve">
+    <value>Xin lỗi - Không tìm thấy kết quả nào</value>
+  </data>
 </root>

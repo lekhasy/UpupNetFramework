@@ -144,8 +144,8 @@
                 if (($('#poname').val() || '').trim() == '') {
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_DANGER,
-                        title: 'Không thể hoàn thành tác vụ',
-                        message: 'Vui lòng điền tên PO'
+                        title: '@Lang.Cant_Finish_Task',
+                        message: '@Lang.Please_Enter_PO_Name'
                     });
                     e.preventDefault();
                     return;
@@ -157,8 +157,8 @@
                 {
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_DANGER,
-                        title: 'Không thể hoàn thành tác vụ',
-                        message: 'Vui lòng chọn phương thức thanh toán'
+                        title: '@Lang.Cant_Finish_Task',
+                        message: '@Lang.Please_Choose_Pay_Method'
                     });
                     e.preventDefault();
                     return;
@@ -167,8 +167,8 @@
                 if ($('.data-marker').length == 0) {
                     BootstrapDialog.show({
                         type: BootstrapDialog.TYPE_DANGER,
-                        title: 'Không thể hoàn thành tác vụ',
-                        message: 'Vui lòng thêm sản phẩm vào giỏ hàng'
+                        title: '@Lang.Cant_Finish_Task',
+                        message: '@Lang.Please_Add_Prod_To_Card'
                     });
                     e.preventDefault();
                     return;
@@ -186,17 +186,17 @@
 
             var $table = $("#example1").DataTable({
                 "language": {
-                    "lengthMenu": "Hiển thị _MENU_ dòng dữ liệu cho mỗi trang",
-                    "search": "Tìm kiếm: ",
-                    "zeroRecords": "Xin lỗi - Không tìm thấy kết quả nào",
-                    "info": "Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang",
-                    "infoEmpty": "Dữ liệu không tồn tại",
-                    "infoFiltered": "(đã lọc được _MAX_ trên tổng sô dữ liệu)",
+                    "lengthMenu": "@Lang.Display_Menu_Datatable",
+                    "search": "@Lang.Search: ",
+                    "zeroRecords": "@Lang.Zero_Record_Datatable",
+                    "info": "@Lang.Display_Page_Total_DataTable",
+                    "infoEmpty": "@Lang.Data_Not_Found_Datatable",
+                    "infoFiltered": "@Lang.Info_Filtered_Datatable",
                     "paginate": {
-                        "first": "Trang đầu",
-                        "last": "Trang cuối",
-                        "previous": "Trang trước",
-                        "next": "Trang sau"
+                        "first": "@Lang.First_Page",
+                        "last": "@Lang.Last_Page",
+                        "previous": "@Lang.Prev_Page",
+                        "next": "@Lang.Next_Page"
                     }
                 },
                 "autoWidth": false,
@@ -247,7 +247,7 @@
                         data: "DT_RowData.DateShipping",
                         'render': function (data, type, full, meta) {
                             if (data) {
-                                return data + " ngày";
+                                return data + " @Lang.Day";
                             }
                             else {
                                 return "Chưa xác định"
@@ -277,13 +277,13 @@
 
             $(".act-del").click(function () {
                 BootstrapDialog.confirm({
-                    title: 'Tin nhắn',
-                    message: 'Bạn thật sự muốn xóa những phiếu này ?',
+                    title: '@Lang.Message',
+                    message: '@Lang.Do_YouReally_Want_To_Remove_Those_Items',
                     //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
                     closable: true, // <-- Default value is false
                     draggable: true, // <-- Default value is false
-                    btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
-                    btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                    btnCancelLabel: '@Lang.Cancel', // <-- Default value is 'Cancel',
+                    btnOKLabel: '@Lang.Accept!', // <-- Default value is 'OK',
                     //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
                     callback: function (result) {
                         // result will be true if button was click, while it will be false if users close the dialog directly.
@@ -299,13 +299,13 @@
                                     if (data.ResultValue) {
                                         BootstrapDialog.show({
                                             type: BootstrapDialog.TYPE_SUCCESS,
-                                            title: 'Thành công',
+                                            title: '@Lang.Success',
                                             message: data.Message
                                         });
                                     } else {
                                         BootstrapDialog.show({
                                             type: BootstrapDialog.TYPE_DANGER,
-                                            title: 'Thất bại',
+                                            title: '@Lang.Fail',
                                             message: data.Message
                                         });
                                     }
@@ -332,14 +332,14 @@
                         $table.ajax.reload();
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_SUCCESS,
-                            title: 'Thành công',
+                            title: '@Lang.Success',
                             message: response.Message
                         });
                     }
                     else {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_DANGER,
-                            title: 'Thất bại',
+                            title: '@Lang.Fail',
                             message: response.Message
                         });
                     }

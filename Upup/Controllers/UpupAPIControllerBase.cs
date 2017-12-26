@@ -23,7 +23,7 @@ namespace Upup.Controllers
         {
             var lang = HttpContext.Current.Request.Cookies["Lang"];
             var culture = "vi";
-            if (lang == null || string.IsNullOrEmpty(lang.Value))
+            if (lang != null && !string.IsNullOrEmpty(lang.Value))
             {
                 if (lang.Value == "en")
                 {

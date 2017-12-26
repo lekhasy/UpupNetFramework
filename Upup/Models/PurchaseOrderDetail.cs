@@ -1,4 +1,5 @@
 ﻿using System;
+using Upup.Globalization;
 
 namespace Upup.Models
 {
@@ -31,12 +32,12 @@ namespace Upup.Models
         }
         public string GetStateString()
         {
-            if (PurchaseOrder.IsTemp) return "Chưa đặt hàng";
-            if (PurchaseOrder.State == (int)PoState.Ordered) return "Đợi thanh toán";
-            if (PurchaseOrder.State == (int)PoState.Paid) return "Đang xử lý";
-            if (State == (int)PoDetailState.InStore) return "Chuẩn bị chuyển hàng";
-            if (State == (int)PoDetailState.Shipping) return "Đang chuyển hàng";
-            if (State == (int)PoDetailState.Completed) return "Hoàn thành";
+            if (PurchaseOrder.IsTemp) return Lang.Not_Order_Yet;
+            if (PurchaseOrder.State == (int)PoState.Ordered) return Lang.Wait_For_Paid;
+            if (PurchaseOrder.State == (int)PoState.Paid) return Lang.Processing;
+            if (State == (int)PoDetailState.InStore) return Lang.Preparing_For_Shipping;
+            if (State == (int)PoDetailState.Shipping) return Lang.Shipping;
+            if (State == (int)PoDetailState.Completed) return Lang.Completed;
             return null;
         }
         public int DateShipping()
