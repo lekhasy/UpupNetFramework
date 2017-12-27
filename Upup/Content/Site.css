@@ -761,7 +761,11 @@ footer {
         padding: 20px;
     }
 
-        .product-category-items li a, .product-category-item a {
+#categoryProductLv1 .product-category-item {
+    width: 224px;
+}
+
+    .product-category-items li a, .product-category-item a {
             display: block;
             text-decoration: none;
             animation: fadeInFromNone 0.5s ease-out;

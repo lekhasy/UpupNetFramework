@@ -40,7 +40,12 @@ namespace Upup.Web.Helpers
             mail.Body = htmlBody;
             mail.IsBodyHtml = true;
             mail.AlternateViews.Add(alternateView);
-            client.Send(mail);
+            client.SendCompleted += (s, e) =>
+            {
+                client.Dispose();
+                mail.Dispose();
+            };
+            client.SendAsync(mail, null);
         }
     }
 }
