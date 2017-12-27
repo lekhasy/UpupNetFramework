@@ -24,7 +24,12 @@
                     @Html.Raw(Model.Post.Content_en)
                 </div>
             </div>
-            @Html.Partial("_FbCommentSharePartial")
+            <div class="row">
+                <div class="fb-share-button" data-href="http://upup.com.vn/Post/Index/@Model.Post.Id" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fupup.com.vn%2FProduct%2FIndex%2F1&amp;src=sdkpreparse"><span class="lang-vi">Chia sẻ</span><span class="lang-en">Share</span></a></div>
+            </div>
+            <div class="row">
+                <div class="fb-comments" data-href="http://upup.com.vn/Post/Index/@Model.Post.Id" data-numposts="10"></div>
+            </div>
         </div>
     </div>
 </div>

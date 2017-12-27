@@ -4066,7 +4066,6 @@
     <Content Include="Views\Shared\_PostCategoryItemPartial.cshtml" />
     <Content Include="Views\Shared\_PostCategoryPartial.cshtml" />
     <Content Include="Views\Product\Cart.cshtml" />
-    <Content Include="Views\Shared\_FbCommentSharePartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Product\CartHistory.cshtml" />
     <Content Include="Views\Po\Index.cshtml" />
