@@ -371,9 +371,19 @@ namespace Upup.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var user = Db.Customers.Find(userId);
+            var user = Db.Users.Find(userId);
 
-            var allpo = user.PurchaseOrders.Where(p => p.IsTemp).ToList();
+            if (!(user is Customer))
+            {
+                return new DataTableResponse<TableDataRow<PoItemModel>>
+                {
+                    data = new List<TableDataRow<PoItemModel>>()
+                };
+            }
+
+            var customer = user as Customer;
+
+            var allpo = customer.PurchaseOrders.Where(p => p.IsTemp).ToList();
 
             int sequence = 0;
             List<PoItemModel> poItems = new List<PoItemModel>();
