@@ -145,18 +145,6 @@
                            })
                             </div>
                             <div class="form-group">
-                                <label>Tài liệu 2D:</label>
-                                <div><a href="~/Images/2dFiles/@Model.Cad2dUrl">@Model.Cad2dUrl</a></div>
-                                <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".2d-file">Tải lên</button>
-                                <input type="hidden" name="Cad2dUrl" />
-                            </div>
-                            <div class="form-group">
-                                <label>Tài liệu 3D:</label>
-                                <div><a href="~/Images/3dFiles/@Model.Cad3dUrl">@Model.Cad3dUrl</a></div>
-                                <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".3d-file">Tải lên</button>
-                                <input type="hidden" name="Cad3dUrl" />
-                            </div>
-                            <div class="form-group">
                                 @Html.LabelFor(n => n.MetaDescription)
                                 @Html.TextBoxFor(n => n.MetaDescription, new
                            {
@@ -351,6 +339,16 @@
                        {
                            @class = "form-control"
                        })
+                        </div>
+                        <div class="row">
+                            <label>Tài liệu 2D:</label>
+                            <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".2d-file">Tải lên</button>
+                            <input type="hidden" name="Cad2dUrl" />
+                        </div>
+                        <div class="row">
+                            <label>Tài liệu 3D:</label>
+                            <button type="button" class="btn btn-primary upload" data-toggle="modal" data-target=".3d-file">Tải lên</button>
+                            <input type="hidden" name="Cad3dUrl" />
                         </div>
                         <div class="row">
                             <label>Tồn kho:</label>

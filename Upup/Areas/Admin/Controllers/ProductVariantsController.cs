@@ -64,7 +64,9 @@ namespace Upup.Areas.Admin.Controllers
                         BrandName = brandName,
                         Origin = origin,
                         ProductVariantUnit = unit,
-                        ShipdateSettings = settings
+                        ShipdateSettings = settings,
+                        Cad2dUrl = url2d,
+                        Cad3dUrl = url3d
                     });
                     Db.SaveChanges();
                     result.ResultValue = true;
@@ -87,6 +89,8 @@ namespace Upup.Areas.Admin.Controllers
                     productVariant.BrandName = brandName;
                     productVariant.Origin = origin;
                     productVariant.ProductVariantUnit = unit;
+                    productVariant.Cad2dUrl = url2d;
+                    productVariant.Cad3dUrl = url3d;
                     productVariant.ShipdateSettings.Clear();
                     productVariant.ShipdateSettings = settings;
                     Db.Entry(productVariant).State = EntityState.Modified;

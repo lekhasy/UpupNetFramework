@@ -22,14 +22,15 @@ namespace Upup.Controllers
             var product = Db.Products.Find(id);
             var userId = User.Identity.GetUserId();
             var isHadPo = false;
-            if(userId != null)
+            if (userId != null)
             {
                 var user = Db.Customers.Find(userId);
                 var allpo = user.PurchaseOrders.Where(p => p.IsTemp).ToList();
                 isHadPo = allpo.Count > 0;
             }
-            
-            return View(new ProductIndexViewModel {
+
+            return View(new ProductIndexViewModel
+            {
                 ProductDetail = product,
                 IsHadPo = isHadPo
             });
@@ -66,7 +67,9 @@ namespace Upup.Controllers
                     Data = variant,
                     Code = code,
                     Quantity = quantity,
-                    ShipDateNumber = Convert.ToInt32(shipdate)
+                    ShipDateNumber = Convert.ToInt32(shipdate),
+                    Cad2dUrl = variant.Cad2dUrl,
+                    Cad3dUrl = variant.Cad3dUrl
                 };
             }
             else
@@ -84,6 +87,8 @@ namespace Upup.Controllers
             public long Quantity { get; set; }
             public string Code { get; set; }
             public int ShipDateNumber { get; set; }
+            public string Cad2dUrl { get; set; }
+            public string Cad3dUrl { get; set; }
         }
     }
 }

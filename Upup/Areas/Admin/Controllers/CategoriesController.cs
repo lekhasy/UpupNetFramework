@@ -75,7 +75,7 @@ namespace Upup.Areas.Admin.Controllers
                     : model.MetaKeyword_en;
             }
             var parentCategory = Db.Categories.Find(model.ParentCategory_Id);
-            if (parentCategory.Products.Count > 0)
+            if (parentCategory != null && parentCategory.Products.Count > 0)
             {
                 ModelState.AddModelError("ProgressError", "Danh mục bạn chọn đang chứa sản phẩm, vui lòng chọn danh mục khác.");
             }
