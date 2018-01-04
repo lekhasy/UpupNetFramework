@@ -22,17 +22,25 @@ namespace Upup.Controllers
             var product = Db.Products.Find(id);
             var userId = User.Identity.GetUserId();
             var isHadPo = false;
-            if (userId != null)
+            var isCustomer = false;
+            Customer customer = null;
+            if(userId != null)
             {
-                var user = Db.Customers.Find(userId);
-                var allpo = user.PurchaseOrders.Where(p => p.IsTemp).ToList();
-                isHadPo = allpo.Count > 0;
+                var user = Db.Users.Find(userId);
+                if (user is Customer)
+                {
+                    customer = user as Customer;
+                    var allpo = customer.PurchaseOrders.Where(p => p.IsTemp).ToList();
+                    isHadPo = allpo.Count > 0;
+                    isCustomer = true;
+                }
             }
 
             return View(new ProductIndexViewModel
             {
                 ProductDetail = product,
-                IsHadPo = isHadPo
+                IsHadPo = isHadPo,
+                IsCustomer = isCustomer
             });
         }
 

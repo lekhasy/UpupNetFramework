@@ -6,5 +6,6 @@ namespace Upup.ViewModels
     {
         public Product ProductDetail { get; set; }
         public bool IsHadPo { get; set; }
+        public bool IsCustomer { get; internal set; }
     }
 }
