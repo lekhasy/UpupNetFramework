@@ -151,12 +151,10 @@ namespace Upup.Areas.Admin.Controllers
             return Json(result);
         }
 
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Admin/ShipDateSettings
         public ActionResult Index()
         {
-            return View(db.ShipDateSettings.ToList());
+            return View(Db.ShipDateSettings.ToList());
         }
 
         // GET: Admin/ShipDateSettings/Details/5
@@ -166,7 +164,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ShipDateSetting shipDateSetting = db.ShipDateSettings.Find(id);
+            ShipDateSetting shipDateSetting = Db.ShipDateSettings.Find(id);
             if (shipDateSetting == null)
             {
                 return HttpNotFound();
@@ -189,8 +187,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ShipDateSettings.Add(shipDateSetting);
-                db.SaveChanges();
+                Db.ShipDateSettings.Add(shipDateSetting);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -204,7 +202,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ShipDateSetting shipDateSetting = db.ShipDateSettings.Find(id);
+            ShipDateSetting shipDateSetting = Db.ShipDateSettings.Find(id);
             if (shipDateSetting == null)
             {
                 return HttpNotFound();
@@ -221,8 +219,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(shipDateSetting).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(shipDateSetting).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(shipDateSetting);
@@ -235,7 +233,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ShipDateSetting shipDateSetting = db.ShipDateSettings.Find(id);
+            ShipDateSetting shipDateSetting = Db.ShipDateSettings.Find(id);
             if (shipDateSetting == null)
             {
                 return HttpNotFound();
@@ -248,19 +246,10 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ShipDateSetting shipDateSetting = db.ShipDateSettings.Find(id);
-            db.ShipDateSettings.Remove(shipDateSetting);
-            db.SaveChanges();
+            ShipDateSetting shipDateSetting = Db.ShipDateSettings.Find(id);
+            Db.ShipDateSettings.Remove(shipDateSetting);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

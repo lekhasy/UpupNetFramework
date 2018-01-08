@@ -16,12 +16,10 @@ namespace Upup.Areas.Admin.Controllers
 {
     public class PostCategoriesController : AdminControllerBase
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Admin/PostCategories
         public ActionResult Index()
         {
-            return View(db.PostCategories.ToList());
+            return View(Db.PostCategories.ToList());
         }
 
         [HttpGet]
@@ -44,7 +42,7 @@ namespace Upup.Areas.Admin.Controllers
                 AllPostCategoriesLevel = allPostCategories
             };
             if (id == null) return View(postCategory);
-            var result = db.PostCategories.Find(id);
+            var result = Db.PostCategories.Find(id);
             if (result != null)
             {
                 postCategory = Mapper.Map<PostCategory, PostCategoryModel>(result);
@@ -80,7 +78,7 @@ namespace Upup.Areas.Admin.Controllers
                     ? Regex.Replace(model.MetaKeyword_en, ",{2,}", ",").Trim(',')
                     : model.MetaKeyword_en;
             }
-            var parentCategory = db.PostCategories.Find(model.PostParentCategory_Id);
+            var parentCategory = Db.PostCategories.Find(model.PostParentCategory_Id);
             //if (parentCategory == null)
             //    throw new Exception("Danh mục bài viết cha có thể đã bị xóa!");
             if (model.Id == 0)
@@ -99,8 +97,8 @@ namespace Upup.Areas.Admin.Controllers
                 };
                 try
                 {
-                    db.PostCategories.Add(category);
-                    db.SaveChanges();
+                    Db.PostCategories.Add(category);
+                    Db.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -110,7 +108,7 @@ namespace Upup.Areas.Admin.Controllers
             }
             else
             {
-                var category = db.PostCategories.Find(model.Id);
+                var category = Db.PostCategories.Find(model.Id);
                 if (category != null)
                 {
                     category.Name = model.Name;
@@ -124,8 +122,8 @@ namespace Upup.Areas.Admin.Controllers
                     category.MetaKeyword_en = keywords2;
                     try
                     {
-                        db.Entry(category).State = EntityState.Modified;
-                        db.SaveChanges();
+                        Db.Entry(category).State = EntityState.Modified;
+                        Db.SaveChanges();
                     }
                     catch (Exception)
                     {
@@ -138,7 +136,7 @@ namespace Upup.Areas.Admin.Controllers
                     ModelState.AddModelError("ProgressError", "Danh mục bài viết bạn chọn đã bị xóa hoặc không tồn tại");
                 }
             }
-            var parentCategories = db.PostCategories.ToList().Select(cat => new SelectListItem
+            var parentCategories = Db.PostCategories.ToList().Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
@@ -157,10 +155,10 @@ namespace Upup.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult LoadAllCategories(JQueryDataTableParamModel param)
         {
-            var allCategories = db.PostCategories.Where(c => c.RootCategoryIdentifier == null).ToList();
+            var allCategories = Db.PostCategories.Where(c => c.RootCategoryIdentifier == null).ToList();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                allCategories = db.PostCategories.ToList()
+                allCategories = Db.PostCategories.ToList()
                          .Where(c => c.Name.Contains(param.sSearch)
                                      ||
                           c.Name_en.Contains(param.sSearch)
@@ -197,7 +195,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult RemoveCategories(int id)
         {
             var result = new AjaxSimpleResultModel();
-            var category = db.PostCategories.ToList().SingleOrDefault(c => c.Id == id);
+            var category = Db.PostCategories.ToList().SingleOrDefault(c => c.Id == id);
             if (category != null && category.RootCategoryIdentifier == null)
             {
                 try
@@ -228,7 +226,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PostCategory postCategory = db.PostCategories.Find(id);
+            PostCategory postCategory = Db.PostCategories.Find(id);
             if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't view root category");
             if (postCategory == null)
             {
@@ -252,8 +250,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PostCategories.Add(postCategory);
-                db.SaveChanges();
+                Db.PostCategories.Add(postCategory);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -267,7 +265,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PostCategory postCategory = db.PostCategories.Find(id);
+            PostCategory postCategory = Db.PostCategories.Find(id);
             if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't edit root category");
             if (postCategory == null)
             {
@@ -283,12 +281,12 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Name_en,Description,Description_en,MetaKeyword,MetaDescription")] PostCategory postCategory)
         {
-            var post = db.PostCategories.Find(postCategory.Id);
+            var post = Db.PostCategories.Find(postCategory.Id);
             if (post != null && post.RootCategoryIdentifier != null) throw new ArgumentException("Can't edit root category");
             if (ModelState.IsValid)
             {
-                db.Entry(postCategory).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(postCategory).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(postCategory);
@@ -301,7 +299,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PostCategory postCategory = db.PostCategories.Find(id);
+            PostCategory postCategory = Db.PostCategories.Find(id);
             if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't delete root category");
             if (postCategory == null)
             {
@@ -315,20 +313,11 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            PostCategory postCategory = db.PostCategories.Find(id);
+            PostCategory postCategory = Db.PostCategories.Find(id);
             if (postCategory != null && postCategory.RootCategoryIdentifier != null) throw new ArgumentException("Can't delete root category");
-            db.PostCategories.Remove(postCategory);
-            db.SaveChanges();
+            Db.PostCategories.Remove(postCategory);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

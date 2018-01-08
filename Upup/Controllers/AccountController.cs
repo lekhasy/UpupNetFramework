@@ -398,17 +398,14 @@ namespace Upup.Controllers
         [AllowAnonymous]
         public ActionResult CheckEmailAvailable(string email)
         {
-            using (ApplicationDbContext dbContext = new ApplicationDbContext())
+            var match = Db.Users.FirstOrDefault(u => u.Email == email);
+            if (match == null)
             {
-                var match = dbContext.Users.FirstOrDefault(u => u.Email == email);
-                if (match == null)
-                {
-                    return Json(true, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(false, JsonRequestBehavior.AllowGet);
-                }
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
         }
 

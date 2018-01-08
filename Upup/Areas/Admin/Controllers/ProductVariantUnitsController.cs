@@ -146,12 +146,10 @@ namespace Upup.Areas.Admin.Controllers
             return Json(result);
         }
 
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Admin/ProductVariantUnits
         public ActionResult Index()
         {
-            return View(db.ProductVariantUnits.ToList());
+            return View(Db.ProductVariantUnits.ToList());
         }
 
         // GET: Admin/ProductVariantUnits/Details/5
@@ -161,7 +159,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductVariantUnit productVariantUnit = db.ProductVariantUnits.Find(id);
+            ProductVariantUnit productVariantUnit = Db.ProductVariantUnits.Find(id);
             if (productVariantUnit == null)
             {
                 return HttpNotFound();
@@ -184,8 +182,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ProductVariantUnits.Add(productVariantUnit);
-                db.SaveChanges();
+                Db.ProductVariantUnits.Add(productVariantUnit);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -199,7 +197,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductVariantUnit productVariantUnit = db.ProductVariantUnits.Find(id);
+            ProductVariantUnit productVariantUnit = Db.ProductVariantUnits.Find(id);
             if (productVariantUnit == null)
             {
                 return HttpNotFound();
@@ -216,8 +214,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productVariantUnit).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(productVariantUnit).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(productVariantUnit);
@@ -230,7 +228,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductVariantUnit productVariantUnit = db.ProductVariantUnits.Find(id);
+            ProductVariantUnit productVariantUnit = Db.ProductVariantUnits.Find(id);
             if (productVariantUnit == null)
             {
                 return HttpNotFound();
@@ -243,19 +241,10 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ProductVariantUnit productVariantUnit = db.ProductVariantUnits.Find(id);
-            db.ProductVariantUnits.Remove(productVariantUnit);
-            db.SaveChanges();
+            ProductVariantUnit productVariantUnit = Db.ProductVariantUnits.Find(id);
+            Db.ProductVariantUnits.Remove(productVariantUnit);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

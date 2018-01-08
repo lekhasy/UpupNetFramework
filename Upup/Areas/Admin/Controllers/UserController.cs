@@ -79,7 +79,7 @@ namespace Upup.Areas.Admin.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "#_Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 }
-                return Json(new AjaxSimpleResultModel { ResultValue = true, Message = "Tạo người dùng thành công"});
+                return Json(new AjaxSimpleResultModel { ResultValue = true, Message = "Tạo người dùng thành công" });
             }
 
             return Json(new AjaxSimpleResultModel { ResultValue = false, Message = "Tạo người dùng thất bại" });
@@ -87,17 +87,14 @@ namespace Upup.Areas.Admin.Controllers
 
         public ActionResult CheckEmailAvailable(string email)
         {
-            using (ApplicationDbContext dbContext = new ApplicationDbContext())
+            var match = Db.Users.FirstOrDefault(u => u.Email == email);
+            if (match == null)
             {
-                var match = dbContext.Users.FirstOrDefault(u => u.Email == email);
-                if (match == null)
-                {
-                    return Json(true, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(false, JsonRequestBehavior.AllowGet);
-                }
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
         }
 

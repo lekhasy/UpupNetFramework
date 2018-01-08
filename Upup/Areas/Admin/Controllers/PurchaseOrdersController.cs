@@ -16,8 +16,6 @@ namespace Upup.Areas.Admin.Controllers
 {
     public class PurchaseOrdersController : AdminControllerBase
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         public ActionResult ManagePO()
         {
             var po = new PurchaseOrderDetailModel();
@@ -107,8 +105,8 @@ namespace Upup.Areas.Admin.Controllers
                     else
                     {
                         po.IsDeleted = true;
-                        db.Entry(po).State = EntityState.Modified;
-                        db.SaveChanges();
+                        Db.Entry(po).State = EntityState.Modified;
+                        Db.SaveChanges();
                     }
 
                     result.ResultValue = true;
@@ -158,7 +156,7 @@ namespace Upup.Areas.Admin.Controllers
                                         detail.Product.OnHand += detail.Quantity;
                                     }
                                 }
-                                db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
+                                Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
                                 Db.PurchaseOrders.Remove(po);
                                 Db.SaveChanges();
                                 result.ResultValue = true;
@@ -196,14 +194,14 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult ChangePoDetailState(int id, int state)
         {
             var result = new AjaxSimpleResultModel();
-            var pod = db.PurchaseOrderDetail.SingleOrDefault(c => c.Id == id);
+            var pod = Db.PurchaseOrderDetail.SingleOrDefault(c => c.Id == id);
             if (pod != null)
             {
                 try
                 {
                     pod.State = state;
-                    db.Entry(pod).State = EntityState.Modified;
-                    db.SaveChanges();
+                    Db.Entry(pod).State = EntityState.Modified;
+                    Db.SaveChanges();
 
                     result.ResultValue = true;
                     result.Message = Lang.Your_Selected_Prod_Changed_State_Success;
@@ -226,7 +224,7 @@ namespace Upup.Areas.Admin.Controllers
         // GET: Admin/PurchaseOrders
         public ActionResult Index()
         {
-            return View(db.PurchaseOrders.ToList());
+            return View(Db.PurchaseOrders.ToList());
         }
 
         // GET: Admin/PurchaseOrders/Details/5
@@ -236,7 +234,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PurchaseOrder purchaseOrder = db.PurchaseOrders.Find(id);
+            PurchaseOrder purchaseOrder = Db.PurchaseOrders.Find(id);
             if (purchaseOrder == null)
             {
                 return HttpNotFound();
@@ -259,8 +257,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PurchaseOrders.Add(purchaseOrder);
-                db.SaveChanges();
+                Db.PurchaseOrders.Add(purchaseOrder);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -274,7 +272,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PurchaseOrder po = db.PurchaseOrders.Find(id);
+            PurchaseOrder po = Db.PurchaseOrders.Find(id);
             if (po == null)
             {
                 return HttpNotFound();
@@ -307,8 +305,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(purchaseOrder).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(purchaseOrder).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(purchaseOrder);
@@ -321,7 +319,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PurchaseOrder purchaseOrder = db.PurchaseOrders.Find(id);
+            PurchaseOrder purchaseOrder = Db.PurchaseOrders.Find(id);
             if (purchaseOrder == null)
             {
                 return HttpNotFound();
@@ -334,19 +332,10 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            PurchaseOrder purchaseOrder = db.PurchaseOrders.Find(id);
-            db.PurchaseOrders.Remove(purchaseOrder);
-            db.SaveChanges();
+            PurchaseOrder purchaseOrder = Db.PurchaseOrders.Find(id);
+            Db.PurchaseOrders.Remove(purchaseOrder);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

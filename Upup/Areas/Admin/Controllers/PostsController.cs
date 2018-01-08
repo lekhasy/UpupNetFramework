@@ -14,20 +14,18 @@ using Upup.Models;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    public class PostsController : Controller
+    public class PostsController : AdminControllerBase
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Admin/Posts
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(Db.Posts.ToList());
         }
 
         [HttpGet]
         public ActionResult ManagePosts(int? id)
         {
-            var categories = db.PostCategories.ToList().Select(cat => new SelectListItem
+            var categories = Db.PostCategories.ToList().Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
@@ -40,16 +38,16 @@ namespace Upup.Areas.Admin.Controllers
             });
             var Post = new PostModel { PostCategories = categories };
             if (id == null) return View(Post);
-            var result = db.Posts.Find(id);
+            var result = Db.Posts.Find(id);
             if (result != null)
             {
                 Post = Mapper.Map<Post, PostModel>(result);
-                var existpost = db.Posts.Find(Post.Category_id);
+                var existpost = Db.Posts.Find(Post.Category_id);
                 if (existpost == null)
                 {
                     result.Category = null;
-                    db.Entry(result).State = EntityState.Modified;
-                    db.SaveChanges();
+                    Db.Entry(result).State = EntityState.Modified;
+                    Db.SaveChanges();
                 }
                 else
                 {
@@ -81,7 +79,7 @@ namespace Upup.Areas.Admin.Controllers
                     ? Regex.Replace(model.MetaKeyword_en, ",{2,}", ",").Trim(',')
                     : model.MetaKeyword_en;
             }
-            var category = db.PostCategories.Find(model.Category_id);
+            var category = Db.PostCategories.Find(model.Category_id);
             //if (category == null)
             //    throw new Exception("bài viết cha có thể đã bị xóa!");
             if (model.Id == 0)
@@ -105,8 +103,8 @@ namespace Upup.Areas.Admin.Controllers
                 };
                 try
                 {
-                    db.Posts.Add(post);
-                    db.SaveChanges();
+                    Db.Posts.Add(post);
+                    Db.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -116,7 +114,7 @@ namespace Upup.Areas.Admin.Controllers
             }
             else
             {
-                var post = db.Posts.Find(model.Id);
+                var post = Db.Posts.Find(model.Id);
                 if (post != null)
                 {
                     post.Title = model.Title;
@@ -134,8 +132,8 @@ namespace Upup.Areas.Admin.Controllers
                     post.LastModifiedDate = DateTime.Now;
                     try
                     {
-                        db.Entry(post).State = EntityState.Modified;
-                        db.SaveChanges();
+                        Db.Entry(post).State = EntityState.Modified;
+                        Db.SaveChanges();
                     }
                     catch (Exception)
                     {
@@ -148,7 +146,7 @@ namespace Upup.Areas.Admin.Controllers
                     ModelState.AddModelError("ProgressError", "bài viết bạn chọn đã bị xóa hoặc không tồn tại");
                 }
             }
-            var categories = db.PostCategories.ToList().Select(cat => new SelectListItem
+            var categories = Db.PostCategories.ToList().Select(cat => new SelectListItem
             {
                 Text = cat.Name,
                 Value = cat.Id.ToString(CultureInfo.InvariantCulture)
@@ -167,10 +165,10 @@ namespace Upup.Areas.Admin.Controllers
 
         public ActionResult LoadAllPosts(JQueryDataTableParamModel param)
         {
-            var allPosts = db.Posts.ToList();
+            var allPosts = Db.Posts.ToList();
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                allPosts = db.Posts.ToList()
+                allPosts = Db.Posts.ToList()
                          .Where(c => c.Title.Contains(param.sSearch)
                                      ||
                           c.Title_en.Contains(param.sSearch)).ToList();
@@ -204,7 +202,7 @@ namespace Upup.Areas.Admin.Controllers
         public ActionResult RemovePosts(int id)
         {
             var result = new AjaxSimpleResultModel();
-            var post = db.Posts.ToList().SingleOrDefault(c => c.Id == id);
+            var post = Db.Posts.ToList().SingleOrDefault(c => c.Id == id);
             if (post != null)
             {
                 try
@@ -235,7 +233,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = Db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -258,8 +256,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Posts.Add(post);
-                db.SaveChanges();
+                Db.Posts.Add(post);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -273,7 +271,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = Db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -290,8 +288,8 @@ namespace Upup.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(post).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(post);
@@ -304,7 +302,7 @@ namespace Upup.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = Db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -317,19 +315,10 @@ namespace Upup.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
+            Post post = Db.Posts.Find(id);
+            Db.Posts.Remove(post);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
