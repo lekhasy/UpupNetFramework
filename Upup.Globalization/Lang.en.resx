@@ -525,4 +525,7 @@
   <data name="Zero_Record_Datatable" xml:space="preserve">
     <value>Found 0 result</value>
   </data>
+  <data name="Do_YouReally_Want_To_Remove_Product_Outof_Po" xml:space="preserve">
+    <value>Do you really want to remove products out of this purchase order?</value>
+  </data>
 </root>

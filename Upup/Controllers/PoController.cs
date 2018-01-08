@@ -257,7 +257,7 @@ namespace Upup.Controllers
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
-            if (po.IsTemp)
+            if (po.IsTemp || po.State == (int)PoState.Ordered)
             {
                 Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
                 user.PurchaseOrders.Remove(po);

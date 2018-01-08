@@ -250,7 +250,16 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bạn thật sự muốn xóa những phiếu này ?.
+        ///   Looks up a localized string similar to Bạn thật sự muốn loại bỏ sản phẩm ra khỏi đơn hàng này?.
+        /// </summary>
+        public static string Do_YouReally_Want_To_Remove_Product_Outof_Po {
+            get {
+                return ResourceManager.GetString("Do_YouReally_Want_To_Remove_Product_Outof_Po", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn thật sự muốn xóa những đơn hàng này ?.
         /// </summary>
         public static string Do_YouReally_Want_To_Remove_Those_Items {
             get {

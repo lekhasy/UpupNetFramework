@@ -457,7 +457,7 @@
     <value>Đang hiển thị trang _PAGE_ trên tổng số _PAGES_ trang</value>
   </data>
   <data name="Do_YouReally_Want_To_Remove_Those_Items" xml:space="preserve">
-    <value>Bạn thật sự muốn xóa những phiếu này ?</value>
+    <value>Bạn thật sự muốn xóa những đơn hàng này ?</value>
   </data>
   <data name="Drawing" xml:space="preserve">
     <value>Bản vẽ</value>
@@ -524,5 +524,8 @@
   </data>
   <data name="Zero_Record_Datatable" xml:space="preserve">
     <value>Xin lỗi - Không tìm thấy kết quả nào</value>
+  </data>
+  <data name="Do_YouReally_Want_To_Remove_Product_Outof_Po" xml:space="preserve">
+    <value>Bạn thật sự muốn loại bỏ sản phẩm ra khỏi đơn hàng này?</value>
   </data>
 </root>

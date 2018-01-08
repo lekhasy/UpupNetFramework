@@ -340,3 +340,6 @@ ul.tree ul ul li.product-line label.tree_label {
     color: red;
     font-weight: bold;
 }
+.warning-quantity.green {
+    color:green;
+}

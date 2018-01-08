@@ -29,7 +29,7 @@ namespace Upup.Models
         {
             var RealOnHand = OnHand;
             // [TODO] need perfomance improvement
-            var allreserved = PurchaseOrderDetails.Where(p => p.PurchaseOrder.State == (int)PoState.Paid);
+            var allreserved = PurchaseOrderDetails.Where(p => p.PurchaseOrder.State == (int)PoState.Paid).ToList();
             if (allreserved.Any())
             {
                 RealOnHand = OnHand - allreserved.Sum(r => r.Quantity);
