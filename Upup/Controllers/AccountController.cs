@@ -146,16 +146,23 @@ namespace Upup.Controllers
 
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-                var addRoleResult = await UserManager.AddToRoleAsync(user.Id, "Customer");
 
-                if (result.Succeeded && addRoleResult.Succeeded)
+
+                
+                if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, Lang.Confirm_email_title, string.Format(Lang.Confirm_email_body, callbackUrl));
-                    return View("DisplayEmail");
+
+                    var addRoleResult = await UserManager.AddToRoleAsync(user.Id, "Customer");
+                    if (addRoleResult.Succeeded)
+                    {
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, Lang.Confirm_email_title, string.Format(Lang.Confirm_email_body, callbackUrl));
+                        return View("DisplayEmail");
+                    }
+                    AddErrors(addRoleResult);
                 }
                 AddErrors(result);
             }
