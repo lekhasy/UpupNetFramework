@@ -257,7 +257,7 @@ namespace Upup.Controllers
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
-            if (po == null || !po.IsTemp)
+            if (po == null || !po.CustomerRemoveble )
             {
                 return RedirectToAction("Index");
             }

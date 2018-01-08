@@ -21,6 +21,8 @@ namespace Upup.Models
 
         public bool IsTemp => State == (int)PoState.Temp;
 
+        public bool CustomerRemoveble => State == (int)PoState.Temp || State == (int)PoState.Ordered;
+
         #region customer info
         public string CustomerAddress { get; set; }
         public string CustomerPhone { get; set; }
