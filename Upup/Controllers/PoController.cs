@@ -217,7 +217,7 @@ namespace Upup.Controllers
             {
                 body = reader.ReadToEnd();
             }
-            body = body.Replace("[OrderStatus]",  ((PaymentMethods)po.PaymentMethod).GetName());
+            body = body.Replace("[OrderStatus]", ((PaymentMethods)po.PaymentMethod).GetName());
             body = body.Replace("[QuoteDate]", po.CreatedDate.ToString("dd/MM/yyyy HH:mm"));
             body = body.Replace("[Barcode]", StringHelper.CreateQrCode(DateTime.Now.ToString("yyMMddhhmmss")));
             body = body.Replace("[PORef]", DateTime.Now.ToString("yyMMddhhmmss"));
@@ -257,24 +257,14 @@ namespace Upup.Controllers
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
-            if (po.IsTemp || po.State == (int)PoState.Ordered)
-            {
-                Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
-                user.PurchaseOrders.Remove(po);
-                Db.PurchaseOrders.Remove(po);
-                Db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            if (po == null || po.State != (int)PoState.Completed)
+            if (po == null || !po.IsTemp)
             {
                 return RedirectToAction("Index");
             }
 
-            po.IsDeleted = true;
-            Db.Entry(po).State = EntityState.Modified;
+            Db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
+            Db.PurchaseOrders.Remove(po);
             Db.SaveChanges();
-
             return RedirectToAction("Index");
         }
 

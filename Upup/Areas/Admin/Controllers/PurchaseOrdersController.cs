@@ -158,6 +158,7 @@ namespace Upup.Areas.Admin.Controllers
                                         detail.Product.OnHand += detail.Quantity;
                                     }
                                 }
+                                db.PurchaseOrderDetail.RemoveRange(po.PurchaseOrderDetails);
                                 Db.PurchaseOrders.Remove(po);
                                 Db.SaveChanges();
                                 result.ResultValue = true;
