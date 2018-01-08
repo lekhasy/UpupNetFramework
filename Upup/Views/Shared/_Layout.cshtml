@@ -109,10 +109,10 @@
                         <a href="/"><i class="fa fa-2x fa-tachometer"></i><span class="content lang-vi">Tất cả sản phẩm</span><span class="content lang-en">All products</span></a>
                     </div>
                     <div id="technologys" class="menu-item">
-                        <a href="/Tech/TechGuide"><i class="fa fa-2x fa-cog"></i><span class="content lang-vi">Công nghệ</span><span class="content lang-en">Technology</span></a>
+                        <a href="/Tech/TechGuide"><i class="fa fa-2x fa-cog"></i><span class="content lang-vi">Công nghệ chế tạo</span><span class="content lang-en">Manufacture technology</span></a>
                     </div>
                     <div id="guides" class="menu-item">
-                        <a href="/UserManual/ManualGuide"><i class="fa fa-2x fa-star"></i><span class="content lang-vi">Hướng dẫn sử dụng</span><span class="content lang-en">User manual</span></a>
+                        <a href="/UserManual/ManualGuide"><i class="fa fa-2x fa-star"></i><span class="content lang-vi">Tài liệu thiết kế</span><span class="content lang-en">Design document</span></a>
                     </div>
                     <div id="events" class="menu-item">
                         <a href="/Event/EventGuide"><i class="fa fa-2x fa-comment"></i><span class="content lang-vi">Triển lãm sự kiện</span><span class="content lang-en">Events</span></a>
@@ -167,11 +167,13 @@
     </script>
     <script>
         $("#lanVi").click(function () {
+            $.LoadingOverlay("show");
             Cookies.set($UpupConfigs.Cookie.Culture, 'vi');
             window.location.reload();
         });
 
         $("#lanEn").click(function () {
+            $.LoadingOverlay("show");
             Cookies.set($UpupConfigs.Cookie.Culture, 'en')
             window.location.reload();
         });

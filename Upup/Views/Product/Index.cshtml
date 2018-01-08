@@ -93,13 +93,13 @@
                     <div class="col-md-6 text-right @(!Model.IsCustomer?"hidden":"")"><a class="btn btn-danger" href="/Cart"><span class="lang-vi">K.tra đơn hàng</span> <span class="lang-en">Manage Cart</span></a></div>
                 </div>
             </div>
-            <div id="guideArea" class="order-suggest form-group hidden">
-                <h2 id="guideName"></h2>
+            <div id="guideArea" class="order-suggest form-group">
+                <h2>@Lang.Drawing: <span id="guideName"></span></h2>
                 <br />
                 <div class="area-button">
                     <div class="row">
-                        <div class="col-md-6 text-center"><a id="guide2d" target="_blank" class="btn btn-success">2D CAD</a></div>
-                        <div class="col-md-6 text-center"><a id="guide3d" target="_blank" class="btn btn-success">3D CAD</a></div>
+                        <div class="col-md-6 text-center"><a id="guide2d" target="_blank" class="btn btn-success disabled">2D CAD</a></div>
+                        <div class="col-md-6 text-center"><a id="guide3d" target="_blank" class="btn btn-success disabled">3D CAD</a></div>
                     </div>
                 </div>
             </div>
@@ -177,13 +177,16 @@
                         $('#quantity').val(response.Quantity);
                         $('#total_amount').val(accounting.formatMoney(response.Quantity * pv.Price));
                         $('#ship_date').val(response.ShipDateNumber + ' ngày');
-                        $('#guideArea').removeClass('hidden');
-                        $('#guideName').text('@Lang.Drawing: ' + response.Code);
-                        if (response.Cad2dUrl !== undefined) {
-                            $('#guide2d').attr('href', '/Images/2dFiles/' + response.Cad2dUrl)
+                        $('#guideName').text(response.Code);
+                        if (response.Cad2dUrl !== undefined && response.Cad2dUrl !== null) {
+                            $('#guide2d').removeClass('disabled').attr('href', '/Images/2dFiles/' + response.Cad2dUrl)
+                        } else {
+                            $('#guide2d').addClass('disabled')
                         }
-                        if (response.Cad3dUrl !== undefined) {
-                            $('#guide3d').attr('href', '/Images/3dFiles/' + response.Cad3dUrl)
+                        if (response.Cad3dUrl !== undefined && response.Cad3dUrl !== null) {
+                            $('#guide3d').removeClass('disabled').attr('href', '/Images/3dFiles/' + response.Cad3dUrl)
+                        } else {
+                            $('#guide3d').addClass('disabled')
                         }
                         //if (response.ShipDate)
                         //    $('#ship_date').val(new Date(Date.parse(response.ShipDate)).toLocaleDateString('vi'));
