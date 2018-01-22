@@ -23,6 +23,10 @@ a.btn {
     text-decoration: none;
 }
 
+.btn .fa{
+    margin-right: 8px;
+}
+
 .top-header .area-logo, .top-header .area-slogan, .top-header .area-user {
     float: left;
 }

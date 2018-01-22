@@ -92,8 +92,8 @@
                 </div>*@
             <div class="search-wrapper text-center">
                 <div class="row">
-                    <a href="@Url.Action("Index","Cart")" class="btn btn-default pull-right"><span class="lang-vi">Tạo PO đơn hàng</span><span class="lang-en">Create PO</span></a>
-                    <a href="@Url.Action("Index","PO")" class="btn btn-default pull-right"><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage PO</span></a>
+                    <a href="@Url.Action("Index","Cart")" class="btn btn-default pull-right"><i class="fa fa-cart-plus"></i><span class="lang-vi">Giỏ hàng</span><span class="lang-en">Create PO</span></a>
+                    <a href="@Url.Action("Index","PO")" class="btn btn-default pull-right"><i class="fa fa-file-text"></i><span class="lang-vi">Quản lý đơn hàng</span> <span class="lang-en">Manage PO</span></a>
                     <form action="/Search/Index" method="get">
                         <input type="text" name="term" id="searchBox" value="@ViewBag.Term" />
                         <button class="btn btn-default" id="searchButton" type="submit">
