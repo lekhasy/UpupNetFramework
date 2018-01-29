@@ -144,6 +144,48 @@ namespace Upup.Areas.Admin.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public ActionResult CopyProductVariant(int id)
+        {
+            var result = new AjaxSimpleResultModel();
+            var productVariant = Db.ProductVariants.ToList().SingleOrDefault(c => c.Id == id);
+            if (productVariant != null)
+            {
+                try
+                {
+                    productVariant.Product.ProductVariants.Add(new ProductVariant
+                    {
+                        VariantName = productVariant.VariantName + " - Copy",
+                        VariantCode = productVariant.VariantCode + " - Copy",
+                        Price = Convert.ToDecimal(productVariant.Price),
+                        OnHand = Convert.ToDecimal(productVariant.OnHand),
+                        BrandName = productVariant.BrandName,
+                        Origin = productVariant.Origin,
+                        ProductVariantUnit = productVariant.ProductVariantUnit,
+                        ShipdateSettings = productVariant.ShipdateSettings,
+                        Cad2dUrl = productVariant.Cad2dUrl,
+                        Cad3dUrl = productVariant.Cad3dUrl
+                    });
+                    Db.SaveChanges();
+
+                    result.ResultValue = true;
+                    result.Message = "Biến thể bạn chọn đã được nhân bản thành công !";
+                }
+                catch (Exception)
+                {
+                    result.ResultValue = false;
+                    result.Message = "Đã có lỗi xảy ra trong quá trình thực thi";
+                    return Json(result);
+                }
+            }
+            else
+            {
+                result.ResultValue = false;
+                result.Message = "Biến thể bạn chọn đã bị xóa hoặc không tồn tại";
+            }
+            return Json(result);
+        }
+
         // GET: Admin/ProductVariants
         public ActionResult Index()
         {

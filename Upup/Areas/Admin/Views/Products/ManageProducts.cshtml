@@ -233,6 +233,9 @@
                     <a class="delete-variant" data-id="@item.Id" href="javascrip:void(0)" title="Xóa">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
+                    <a class="copy-variant" data-id="@item.Id" href="javascrip:void(0)" title="Nhân bản">
+                        <i class="glyphicon glyphicon-book"></i>
+                    </a>
                     @*@if (item.OnHand <= 0) {*@
                         <span class="warning-quantity @(item.OnHand > 0 ? "green" : string.Empty)">@item.OnHand.ToString("N0")</span>
                     @*}*@
@@ -704,6 +707,47 @@
                             // result will be true if button was click, while it will be false if users close the dialog directly.
                             if (result) {
                                 $.post('/ProductVariants/RemoveProductVariants', { 'id': parseInt(id, 10) },
+                                    function(data) {
+                                        if (data.ResultValue) {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_SUCCESS,
+                                                title: 'Thành công',
+                                                message: data.Message
+                                            });
+                                        } else {
+                                            BootstrapDialog.show({
+                                                type: BootstrapDialog.TYPE_DANGER,
+                                                title: 'Thất bại',
+                                                message: data.Message
+                                            });
+                                        }
+                                        setTimeout(function() {
+                                            location.href = '@Url.Action("ManageProducts", "Products")';
+                                        }, 3000);
+                                    }
+                                );
+                            }
+                        }
+                    });
+                }
+            });
+
+            $('.copy-variant').click(function () {
+                var id = parseInt($(this).attr('data-id'), 10);
+                if(id>0){
+                    BootstrapDialog.confirm({
+                        title: 'Tin nhắn',
+                        message: 'Bạn thật sự muốn nhân bản biến thể này ?',
+                        //type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                        closable: true, // <-- Default value is false
+                        draggable: true, // <-- Default value is false
+                        btnCancelLabel: 'Hủy', // <-- Default value is 'Cancel',
+                        btnOKLabel: 'Chấp nhận!', // <-- Default value is 'OK',
+                        //btnOKClass: 'btn-info', // <-- If you didn't specify it, dialog type will be used,
+                        callback: function(result) {
+                            // result will be true if button was click, while it will be false if users close the dialog directly.
+                            if (result) {
+                                $.post('/ProductVariants/CopyProductVariant', { 'id': parseInt(id, 10) },
                                     function(data) {
                                         if (data.ResultValue) {
                                             BootstrapDialog.show({
