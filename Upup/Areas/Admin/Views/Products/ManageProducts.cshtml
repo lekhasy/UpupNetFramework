@@ -447,7 +447,15 @@
 @section AddScriptToBody{
     <script src="@Url.Content("~/Scripts/dropzone.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
+        $(document).scroll(function () {
+            localStorage['page'] = document.URL;
+            localStorage['scrollTop'] = $(document).scrollTop();
+        });
         $(document).ready(function () {
+            if (localStorage['page'] == document.URL) {
+                $(document).scrollTop(localStorage['scrollTop']);
+            }
+
             var $select = $(".js-example-basic-multiple");
             $select.select2().on("change", function (e) {
                 $('.create-variant input[name="shipsettings"]').val($("#ShipdateSettings").val());
@@ -781,8 +789,10 @@
                         message: 'Vui lòng tạo sản phẩm trước khi tạo biến thể'
                     });
                 } else {
+                    $(".create-variant input[name='Id']").val('');
                     $(".create-variant input[type='text']").val('');
                     $(".create-variant input[type='number']").val(0);
+                    $(".create-variant select").val('');
                     $("#variantModel").modal("show");
                 }
             });

@@ -528,4 +528,7 @@
   <data name="Do_YouReally_Want_To_Remove_Product_Outof_Po" xml:space="preserve">
     <value>Do you really want to remove products out of this purchase order?</value>
   </data>
+  <data name="Please_Add_Least_One_Product_To_Quote" xml:space="preserve">
+    <value>Please add least one product to get quote</value>
+  </data>
 </root>

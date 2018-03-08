@@ -82,13 +82,15 @@
         <a href="javascript:void(0)" class="btn btn-success act-add"><span class="lang-vi">Thêm</span><span class="lang-en">Add</span></a>
     </div>
     <div class="area-button text-center">
-        <form action="/Po/RequestPrice" method="post" class="prevent-if-name-empty">
-            <input type="hidden" name="name" class="clone_po_name" value="@Model.TempPoName">
-            <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
-            <input type="hidden" class="clone_pay_method" name="paymentMethodId" />
-            <input type="submit" class="btn btn-primary lang-vi" value="Báo giá">
-            <input type="submit" class="btn btn-primary lang-en" value="Request quotation">
-        </form>
+        <input type="button" class="btn btn-primary lang-vi request-price" value="Báo giá">
+        <input type="button" class="btn btn-primary lang-en request-price" value="Request quotation">
+        @*<form action="/Po/RequestPrice" method="post" class="prevent-if-name-empty">
+                <input type="hidden" name="name" class="clone_po_name" value="@Model.TempPoName">
+                <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
+                <input type="hidden" class="clone_pay_method" name="paymentMethodId" />
+                <input type="submit" class="btn btn-primary lang-vi" value="Báo giá">
+                <input type="submit" class="btn btn-primary lang-en" value="Request quotation">
+            </form>*@
         <form action="/Po/SavePO" method="post" class="prevent-if-name-empty">
             <input type="hidden" name="name" class="clone_po_name" value="@Model.TempPoName">
             <input type="hidden" name="code" value="@now.ToString("yyMMddhhmmss")" />
@@ -133,6 +135,24 @@
             </div>
         </div>
     </div>
+
+    <div id="showHtmlQuote" class="modal fade bs-example-modal-sm modal-sm bootstrap-dialog type-primary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <button id="printRequestPrice" class="btn btn-info pull-right">In ngay</button>
+                        <h4 id="myLargeModalLabel" class="modal-title"><span class="lang-vi">In bảng báo giá</span><span class="lang-en">Request pdf quote</span></h4>
+                    </div>
+                    <div class="modal-body edit">
+                        <div class="form-group">
+                            <div id="HTMLtoPDF">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 @section scripts{
@@ -183,6 +203,7 @@
             $('#pay_method').change(function (e) {
                 $('.clone_pay_method').val($('#pay_method').val());
             });
+
 
             var $table = $("#example1").DataTable({
                 "language": {
@@ -267,12 +288,71 @@
                 }
             });
 
+            $(".request-price").click(function () {
+                var name = $('#poname').val();
+                if (name == '') {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: '@Lang.Cant_Finish_Task',
+                        message: '@Lang.Please_Enter_PO_Name'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+
+                if ($table.page.info().recordsTotal == 0) {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: '@Lang.Cant_Finish_Task',
+                        message: '@Lang.Please_Add_Least_One_Product_To_Quote'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+
+                $.LoadingOverlay("show");
+                $.post('/Po/RequestPrice',
+                    {
+                        'name': name,
+                        'code': '@Model.Code',
+                        'paymentMethodId': $('#pay_method').val()
+                    },
+                    function(data) {
+                        if (data) {
+                            $.LoadingOverlay("hide");
+                            $("#HTMLtoPDF").html(data);
+                            $('#showHtmlQuote').modal().show();
+                        } else {
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_DANGER,
+                                title: 'Thất bại',
+                                message: data.Message
+                            });
+                        }
+
+                    }
+                );
+            });
+
             // Handle click on "Select all" control
             $('#example-select-all').on('click', function () {
                 // Get all rows with search applied
                 var rows = $table.rows({ 'search': 'applied' }).nodes();
                 // Check/uncheck checkboxes for all rows in the table
                 $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            $('#printRequestPrice').click(function () {
+
+                var newWin = window.open('', 'Print-Window');
+
+                newWin.document.open();
+
+                newWin.document.write('<html><body onload="window.print()">' + $("#HTMLtoPDF").html() + '</body></html>');
+
+                newWin.document.close();
+
+                setTimeout(function () { newWin.close(); }, 10);
             });
 
             $(".act-del").click(function () {

@@ -1410,3 +1410,8 @@ table.cart {
 #appbody .table{
     margin-top: 10px;
 }
+
+#printRequestPrice {
+    margin-top: -7px;
+    margin-right: 10px;
+}

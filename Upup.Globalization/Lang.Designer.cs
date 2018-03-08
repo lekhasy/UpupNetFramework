@@ -529,6 +529,15 @@ namespace Upup.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn cần thêm ít nhất một sản phẩm để nhận báo giá.
+        /// </summary>
+        public static string Please_Add_Least_One_Product_To_Quote {
+            get {
+                return ResourceManager.GetString("Please_Add_Least_One_Product_To_Quote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vui lòng thêm sản phẩm vào giỏ hàng.
         /// </summary>
         public static string Please_Add_Prod_To_Card {

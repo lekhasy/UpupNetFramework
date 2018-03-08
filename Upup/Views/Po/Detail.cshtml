@@ -131,6 +131,13 @@
             <input type="submit" class="btn btn-primary btn_Order lang-en" value="Order">
             <input type="submit" class="btn btn-primary btn_Order lang-vi" value="Đặt hàng">
         </form>
+        <form action="/Po/RequestPrice" method="post" class="@(Model.IsTemp ? "prevent-if-name-empty" : string.Empty)">
+            <input type="hidden" name="name" class="clone_po_name" value="@Model.Name">
+            <input type="hidden" name="code" value="@Model.Code" />
+            <input type="hidden" class="clone_pay_method" name="paymentMethodId" value="@Model.PaymentMethod" />
+            <input type="submit" class="btn btn-primary lang-vi" value="Báo giá">
+            <input type="submit" class="btn btn-primary lang-en" value="Request quotation">
+        </form>
     </div>
 
     <div id="addVariantModel" class="modal fade bs-example-modal-sm modal-sm bootstrap-dialog type-primary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -156,7 +163,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 @section scripts{

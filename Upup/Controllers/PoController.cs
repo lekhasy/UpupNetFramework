@@ -67,17 +67,19 @@ namespace Upup.Controllers
             var quoteCode = Guid.NewGuid().ToString().Replace("-", string.Empty);
             quoteCode = quoteCode.Substring(quoteCode.Length - 10);
             var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+            var createdHtmlBody = CreateEmailQuoteBody(code, name, quoteCode, culture, true);
             foreach (var admin in allAdmins)
             {
-                UserManager.SendEmailAsync(admin.Id, Lang.Customer_quote_notify_title, $"{Lang.Register_Name}: <b>{user.FullName}</b>, {Lang.Register_Phone}: <b>{user.PhoneNumber}</b>, {Lang.Register_Email}:<b>{user.Email}</b>. {Lang.With_Following_Content}: </br>" + CreateEmailQuoteBody(code, name, quoteCode, culture)).Wait();
+                UserManager.SendEmailAsync(admin.Id, Lang.Customer_quote_notify_title, $"{Lang.Register_Name}: <b>{user.FullName}</b>, {Lang.Register_Phone}: <b>{user.PhoneNumber}</b>, {Lang.Register_Email}:<b>{user.Email}</b>. {Lang.With_Following_Content}: </br>" + createdHtmlBody).Wait();
             }
-            UserManager.SendEmailAsync(user.Id, Lang.QuoteFromUpup, CreateEmailQuoteBody(code, name, quoteCode, culture)).Wait();
+            UserManager.SendEmailAsync(user.Id, Lang.QuoteFromUpup, createdHtmlBody).Wait();
             new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), quoteCode, paymentMethodId);
             Db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(CreateEmailQuoteBody(code, name, quoteCode, culture, false));
+            //return RedirectToAction("Index");
         }
 
-        private string CreateEmailQuoteBody(string code, string name, string quoteCode, string culture)
+        private string CreateEmailQuoteBody(string code, string name, string quoteCode, string culture, bool isEmail)
         {
             string body = string.Empty;
             var userId = User.Identity.GetUserId();
@@ -115,18 +117,18 @@ namespace Upup.Controllers
                 {
                     countProduct++;
                     html += "<tr>";
-                    html += "<td rowspan = '3' style='width:5%;text-align:center;'> " + countProduct + " </td>";
-                    html += "<td style ='width:38%'>" + product.ProductName + "</td>";
-                    html += "<td colspan = '2' style = 'width:57%; text-align:right'>" + product.BrandName + "</td>";
+                    html += "<td rowspan = '3' style='width:5%;text-align:center;border:2px solid #222222;padding:5px;'> " + countProduct + " </td>";
+                    html += "<td style ='width:38%;border:2px solid #222222;padding:5px;'>" + product.ProductName + "</td>";
+                    html += "<td colspan = '2' style = 'width:57%; text-align:right;border:2px solid #222222;padding:5px;'>" + product.BrandName + "</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "<td style = 'width:38%' >" + product.ProductVariantCode + "</td>";
-                    html += $"<td colspan = '2' style = 'width:57%; text-align:center' >{ product.DateShipping} {Lang.Day}</td>";
+                    html += "<td style = 'width:38%;border:2px solid #222222;padding:5px;' >" + product.ProductVariantCode + "</td>";
+                    html += $"<td colspan = '2' style = 'width:57%; text-align:center;border:2px solid #222222;padding:5px;' >{ product.DateShipping} {Lang.Day}</td>";
                     html += "</tr>";
                     html += "<tr>";
-                    html += "<td style = 'width:30%; text-align:center' > " + product.ProductPrice.ToString("N0") + " </td>";
-                    html += "<td style = 'width:20%; text-align:center' > " + product.Quantity + "";
-                    html += "<td style = 'width:45%; text-align:right' > " + product.TotalPrice.ToString("N0") + " </td>";
+                    html += "<td style = 'width:30%; text-align:center;border:2px solid #222222;padding:5px;' > " + product.ProductPrice.ToString("N0") + " </td>";
+                    html += "<td style = 'width:20%; text-align:center;border:2px solid #222222;padding:5px;' > " + product.Quantity + "";
+                    html += "<td style = 'width:45%; text-align:right;border:2px solid #222222;padding:5px;' > " + product.TotalPrice.ToString("N0") + " </td>";
                     html += "</tr > ";
                     totalPrice += product.TotalPrice;
                 }
@@ -141,6 +143,7 @@ namespace Upup.Controllers
                 body = reader.ReadToEnd();
             }
 
+            body = body.Replace("[ContainerPercent]", isEmail ? "50%" : "100%");
             body = body.Replace("[QuoteCode]", quoteCode);
             body = body.Replace("[QuoteDate]", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
             body = body.Replace("[Barcode]", StringHelper.CreateQrCode(code));

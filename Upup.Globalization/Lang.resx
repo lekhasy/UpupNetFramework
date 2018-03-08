@@ -528,4 +528,7 @@
   <data name="Do_YouReally_Want_To_Remove_Product_Outof_Po" xml:space="preserve">
     <value>Bạn thật sự muốn loại bỏ sản phẩm ra khỏi đơn hàng này?</value>
   </data>
+  <data name="Please_Add_Least_One_Product_To_Quote" xml:space="preserve">
+    <value>Bạn cần thêm ít nhất một sản phẩm để nhận báo giá</value>
+  </data>
 </root>
