@@ -56,7 +56,7 @@ namespace Upup.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult RequestPrice(string code, string name, int paymentMethodId)
+        public ActionResult RequestPrice(string code, string name, int paymentMethodId, int? poId)
         {
             var userId = User.Identity.GetUserId();
 
@@ -67,46 +67,75 @@ namespace Upup.Controllers
             var quoteCode = Guid.NewGuid().ToString().Replace("-", string.Empty);
             quoteCode = quoteCode.Substring(quoteCode.Length - 10);
             var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
-            var createdHtmlBody = CreateEmailQuoteBody(code, name, quoteCode, culture, true);
-            foreach (var admin in allAdmins)
-            {
-                UserManager.SendEmailAsync(admin.Id, Lang.Customer_quote_notify_title, $"{Lang.Register_Name}: <b>{user.FullName}</b>, {Lang.Register_Phone}: <b>{user.PhoneNumber}</b>, {Lang.Register_Email}:<b>{user.Email}</b>. {Lang.With_Following_Content}: </br>" + createdHtmlBody).Wait();
-            }
+            var createdHtmlBody = CreateEmailQuoteBody(code, name, quoteCode, culture, poId, true);
+            //foreach (var admin in allAdmins)
+            //{
+            //    UserManager.SendEmailAsync(admin.Id, Lang.Customer_quote_notify_title, $"{Lang.Register_Name}: <b>{user.FullName}</b>, {Lang.Register_Phone}: <b>{user.PhoneNumber}</b>, {Lang.Register_Email}:<b>{user.Email}</b>. {Lang.With_Following_Content}: </br>" + createdHtmlBody).Wait();
+            //}
             UserManager.SendEmailAsync(user.Id, Lang.QuoteFromUpup, createdHtmlBody).Wait();
+            var createdHtmlBodyFullFit = CreateEmailQuoteBody(code, name, quoteCode, culture, poId, false);
             new CommonPoLogic(Db).CreatePO(code, name, true, User.Identity.GetUserId(), quoteCode, paymentMethodId);
             Db.SaveChanges();
-            return Json(CreateEmailQuoteBody(code, name, quoteCode, culture, false));
+            return Json(createdHtmlBodyFullFit);
             //return RedirectToAction("Index");
         }
 
-        private string CreateEmailQuoteBody(string code, string name, string quoteCode, string culture, bool isEmail)
+        private string CreateEmailQuoteBody(string code, string name, string quoteCode, string culture, int? poId, bool isEmail)
         {
             string body = string.Empty;
             var userId = User.Identity.GetUserId();
             var user = Db.Customers.Find(userId);
-            var carts = user.ProductCarts.ToList();
             int sequence = 0;
             var cartItems = new List<ProductCartItemModel>();
-
-            foreach (var c in carts)
+            
+            if (poId == null)
             {
-                cartItems.Add(new ProductCartItemModel
+                var carts = user.ProductCarts.ToList();
+                foreach (var c in carts)
                 {
-                    Id = c.Id,
-                    Sequence = ++sequence,
-                    //DeliveryDate = c.CalculateShipDate(),
-                    DateShipping = c.DateShipping(),
-                    Quantity = c.Quantity,
-                    BrandName = c.ProductVariant.BrandName,
-                    //ProductCode = c.ProductVariant.Product.Code,
-                    ProductName = c.ProductVariant.Product.Name,
-                    ProductPrice = c.ProductVariant.Price,
-                    ProductVariantCode = c.ProductVariant.VariantCode,
-                    ProductVariantName = c.ProductVariant.VariantName,
-                    TotalPrice = c.CalculateTotalAmount(),
-                    UnitName = c.ProductVariant.ProductVariantUnit.Name
-                });
+                    cartItems.Add(new ProductCartItemModel
+                    {
+                        Id = c.Id,
+                        Sequence = ++sequence,
+                        //DeliveryDate = c.CalculateShipDate(),
+                        DateShipping = c.DateShipping(),
+                        Quantity = c.Quantity,
+                        BrandName = c.ProductVariant.BrandName,
+                        //ProductCode = c.ProductVariant.Product.Code,
+                        ProductName = c.ProductVariant.Product.Name,
+                        ProductPrice = c.ProductVariant.Price,
+                        ProductVariantCode = c.ProductVariant.VariantCode,
+                        ProductVariantName = c.ProductVariant.VariantName,
+                        TotalPrice = c.CalculateTotalAmount(),
+                        UnitName = c.ProductVariant.ProductVariantUnit.Name
+                    });
+                }
             }
+            else
+            {
+                var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == poId);
+                var pos = po.PurchaseOrderDetails;
+                foreach (var p in pos)
+                {
+                    cartItems.Add(new ProductCartItemModel
+                    {
+                        Id = p.Id,
+                        Sequence = ++sequence,
+                        //DeliveryDate = c.CalculateShipDate(),
+                        DateShipping = p.DateShipping(),
+                        Quantity = p.Quantity,
+                        BrandName = p.Product.BrandName,
+                        //ProductCode = c.ProductVariant.Product.Code,
+                        ProductName = p.Product.VariantName,
+                        ProductPrice = p.Product.Price,
+                        ProductVariantCode = p.Product.VariantCode,
+                        ProductVariantName = p.Product.VariantName,
+                        TotalPrice = p.GetCalculatedTotalMoney(),
+                        UnitName = p.Product.ProductVariantUnit.Name
+                    });
+                }
+            }
+            
 
             var html = string.Empty;
             decimal totalPrice = 0;
@@ -260,7 +289,7 @@ namespace Upup.Controllers
 
             var po = user.PurchaseOrders.FirstOrDefault(p => p.Id == id);
 
-            if (po == null || !po.CustomerRemoveble )
+            if (po == null || !po.CustomerRemoveble)
             {
                 return RedirectToAction("Index");
             }

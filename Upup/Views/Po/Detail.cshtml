@@ -131,13 +131,15 @@
             <input type="submit" class="btn btn-primary btn_Order lang-en" value="Order">
             <input type="submit" class="btn btn-primary btn_Order lang-vi" value="Đặt hàng">
         </form>
-        <form action="/Po/RequestPrice" method="post" class="@(Model.IsTemp ? "prevent-if-name-empty" : string.Empty)">
+        <input type="button" class="btn btn-primary lang-vi request-price" value="Báo giá">
+        <input type="button" class="btn btn-primary lang-en request-price" value="Request quotation">
+        @*<form action="/Po/RequestPrice" method="post" class="@(Model.IsTemp ? "prevent-if-name-empty" : string.Empty)">
             <input type="hidden" name="name" class="clone_po_name" value="@Model.Name">
             <input type="hidden" name="code" value="@Model.Code" />
             <input type="hidden" class="clone_pay_method" name="paymentMethodId" value="@Model.PaymentMethod" />
             <input type="submit" class="btn btn-primary lang-vi" value="Báo giá">
             <input type="submit" class="btn btn-primary lang-en" value="Request quotation">
-        </form>
+        </form>*@
     </div>
 
     <div id="addVariantModel" class="modal fade bs-example-modal-sm modal-sm bootstrap-dialog type-primary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -159,6 +161,24 @@
                         </div>
                     </div>
                     <div class="text-right"><input id="addProductVariantToCart" type="submit" class="btn btn-primary" value="@Lang.Accept" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="showHtmlQuote" class="modal fade bs-example-modal-sm modal-sm bootstrap-dialog type-primary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <button id="printRequestPrice" class="btn btn-info pull-right">In ngay</button>
+                    <h4 id="myLargeModalLabel" class="modal-title"><span class="lang-vi">In bảng báo giá</span><span class="lang-en">Request pdf quote</span></h4>
+                </div>
+                <div class="modal-body edit">
+                    <div class="form-group">
+                        <div id="HTMLtoPDF">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,6 +212,52 @@
                 }
             });
 
+            $(".request-price").click(function () {
+                var name = $('#poname').val();
+                if (name == '') {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: '@Lang.Cant_Finish_Task',
+                        message: '@Lang.Please_Enter_PO_Name'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+
+                if ($table.page.info().recordsTotal == 0) {
+                    BootstrapDialog.show({
+                        type: BootstrapDialog.TYPE_DANGER,
+                        title: '@Lang.Cant_Finish_Task',
+                        message: '@Lang.Please_Add_Least_One_Product_To_Quote'
+                    });
+                    e.preventDefault();
+                    return;
+                }
+
+                $.LoadingOverlay("show");
+                $.post('/Po/RequestPrice',
+                    {
+                        'name': name,
+                        'code': '@Model.Code',
+                        'paymentMethodId': $('.clone_pay_method').val(),
+                        'poId': '@Model.Id'
+                    },
+                    function(data) {
+                        if (data) {
+                            $.LoadingOverlay("hide");
+                            $("#HTMLtoPDF").html(data);
+                            $('#showHtmlQuote').modal().show();
+                        } else {
+                            BootstrapDialog.show({
+                                type: BootstrapDialog.TYPE_DANGER,
+                                title: 'Thất bại',
+                                message: data.Message
+                            });
+                        }
+
+                    }
+                );
+            });
 
             $('#poname').on('input', function (e) {
                 $('.clone_po_name').val($('#poname').val());
