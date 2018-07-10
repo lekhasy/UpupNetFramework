@@ -19,8 +19,8 @@ namespace Upup.Areas.Admin.ViewModels
         public string CompanyName { get; set; }
         [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
-        [Display(Name = "Số fax")]
-        public string Fax { get; set; }
+        [Display(Name = "Số điện thoại 2")]
+        public string Phone2 { get; set; }
         [Display(Name = "Địa chỉ email")]
         public string Email { get; set; }
         [Display(Name = "Thời gian làm việc")]

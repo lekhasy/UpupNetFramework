@@ -9,7 +9,7 @@ using Upup.Areas.Admin.ViewModels;
 
 namespace Upup.Areas.Admin.Controllers
 {
-    public class SettingsController : Controller
+    public class SettingsController : AdminControllerBase
     {
         // GET: Admin/Setting
         public ActionResult ManageSettings()
@@ -25,7 +25,7 @@ namespace Upup.Areas.Admin.Controllers
                 Slogan = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan"]),
                 Slogan_en = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["Slogan_en"]),
                 Email = WebConfigurationManager.AppSettings["Email"],
-                Fax = WebConfigurationManager.AppSettings["Fax"],
+                Phone2 = WebConfigurationManager.AppSettings["Phone2"],
                 Phone = WebConfigurationManager.AppSettings["Phone"],
                 WorkTime = HttpUtility.HtmlDecode(WebConfigurationManager.AppSettings["WorkTime"]),
                 EventBannerUrl = WebConfigurationManager.AppSettings["EventBannerUrl"],
@@ -64,7 +64,7 @@ namespace Upup.Areas.Admin.Controllers
             webConfigApp.AppSettings.Settings["Slogan"].Value = HttpUtility.HtmlEncode(model.Slogan);
             webConfigApp.AppSettings.Settings["Slogan_en"].Value = HttpUtility.HtmlEncode(model.Slogan_en);
             webConfigApp.AppSettings.Settings["Email"].Value = model.Email;
-            webConfigApp.AppSettings.Settings["Fax"].Value = model.Fax;
+            webConfigApp.AppSettings.Settings["Phone2"].Value = model.Phone2;
             webConfigApp.AppSettings.Settings["Phone"].Value = model.Phone;
             webConfigApp.AppSettings.Settings["WorkTime"].Value = HttpUtility.HtmlEncode(model.WorkTime);
             webConfigApp.AppSettings.Settings["EventBannerUrl"].Value = model.EventBannerUrl;
